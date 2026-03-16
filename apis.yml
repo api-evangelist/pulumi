@@ -15,7 +15,7 @@ tags:
 - Infrastructure as Code
 - Multi-Cloud
 created: '2025-01-08'
-modified: '2025-01-08'
+modified: '2026-03-16'
 url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
@@ -29,11 +29,8 @@ apis:
   - type: Documentation
     url: https://www.pulumi.com/automation/
 maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
-- name: Pulumi Corporation
-  email: support@pulumi.com
-  url: https://www.pulumi.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 common:
 - url: https://www.pulumi.com
   type: Website
