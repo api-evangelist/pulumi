@@ -1,54 +1,59 @@
 aid: pulumi
 name: Pulumi
-description: 'Pulumi is a modern infrastructure as code platform that allows you to use  familiar programming languages to build, deploy, and manage cloud infrastructure. The Pulumi Cloud API enables programmatic access to manage organizations,  stacks, deployments, and other Pulumi Cloud resources.
-
-  '
+description: >-
+  Pulumi is a modern infrastructure as code platform that allows you to use familiar
+  programming languages to build, deploy, and manage cloud infrastructure. The Pulumi
+  Cloud API enables programmatic access to manage organizations, stacks, deployments,
+  and other Pulumi Cloud resources.
 type: Index
 position: Consumer
 access: 3rd-Party
 image: https://www.pulumi.com/logos/brand/logo-on-white.png
 tags:
-- API
-- Automation
-- Cloud
-- DevOps
-- Infrastructure as Code
-- Multi-Cloud
+  - API
+  - Automation
+  - Cloud
+  - DevOps
+  - Infrastructure as Code
+  - Multi-Cloud
 created: '2025-01-08'
 modified: '2026-03-16'
-url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: pulumi:pulumi
-  name: Pulumi
-  description: Automation API enables you to build custom cloud interfaces for your technical end users. For example, build self-service developer portals, CLIs, frameworks, ...
-  humanURL: https://www.pulumi.com/automation/
-  tags:
-  - API
-  properties:
-  - type: Documentation
-    url: https://www.pulumi.com/automation/
+  - aid: pulumi:pulumi
+    name: Pulumi
+    description: Automation API enables you to build custom cloud interfaces for
+      your technical end users. For example, build self-service developer 
+      portals, CLIs, frameworks, ...
+    humanURL: https://www.pulumi.com/automation/
+    tags:
+      - API
+    properties:
+      - type: Documentation
+        url: https://www.pulumi.com/automation/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
-- url: https://www.pulumi.com
-  type: Website
-- url: https://www.pulumi.com/docs/
-  type: Documentation
-- url: https://www.pulumi.com/blog/
-  type: Blog
-- url: https://github.com/pulumi
-  type: GitHub Organization
-- url: https://app.pulumi.com/signup
-  type: Sign Up
-- url: https://app.pulumi.com/signin
-  type: Login
-- url: https://www.pulumi.com/pricing/
-  type: Pricing
-- url: https://status.pulumi.com/
-  type: Status
-- url: https://www.pulumi.com/terms/
-  type: Terms of Service
-- url: https://www.pulumi.com/privacy/
-  type: Privacy Policy
+  - url: https://www.pulumi.com
+    type: Website
+  - url: https://www.pulumi.com/docs/
+    type: Documentation
+  - url: https://www.pulumi.com/blog/
+    type: Blog
+  - url: https://github.com/pulumi
+    type: GitHub Organization
+  - url: https://app.pulumi.com/signup
+    type: Sign Up
+  - url: https://app.pulumi.com/signin
+    type: Login
+  - url: https://www.pulumi.com/pricing/
+    type: Pricing
+  - url: https://status.pulumi.com/
+    type: Status
+  - url: https://www.pulumi.com/terms/
+    type: Terms of Service
+  - url: https://www.pulumi.com/privacy/
+    type: Privacy Policy
