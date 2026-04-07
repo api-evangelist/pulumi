@@ -10,7 +10,6 @@ position: Consumer
 access: 3rd-Party
 image: https://www.pulumi.com/logos/brand/logo-on-white.png
 tags:
-  - API
   - Automation
   - Cloud
   - DevOps
@@ -18,18 +17,14 @@ tags:
   - Multi-Cloud
 created: '2025-01-08'
 modified: '2026-03-16'
-url: 
-  https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
   - aid: pulumi:pulumi
     name: Pulumi
-    description: Automation API enables you to build custom cloud interfaces for
-      your technical end users. For example, build self-service developer 
-      portals, CLIs, frameworks, ...
+    description: Automation API enables you to build custom cloud interfaces for your technical end users. For example, build self-service developer portals, CLIs, frameworks, ...
     humanURL: https://www.pulumi.com/automation/
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: https://www.pulumi.com/automation/
