@@ -1,0 +1,13 @@
+{
+  "repo": "pulumi",
+  "feeds": [
+    {
+      "source": "https://www.pulumi.com/blog/",
+      "feed_url": "https://www.pulumi.com/blog/rss.xml",
+      "saved": 10,
+      "title": "Pulumi Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:34:17Z"
+}
