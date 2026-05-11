@@ -67,6 +67,36 @@ apis:
         url: https://www.pulumi.com/automation/
       - type: GitHub
         url: https://github.com/pulumi/pulumi
+integrations:
+  - name: Pulumi
+  - name: AWS
+  - name: Azure
+  - name: Google Cloud
+  - name: 1Password
+  - name: Checkly
+  - name: Chronosphere
+  - name: Civo
+  - name: Cloudflare
+  - name: Dagger
+  - name: Datadog
+  - name: Docker
+  - name: GitHub
+  - name: GitLab
+  - name: NewRelic
+  - name: Nitric
+  - name: Oracle
+  - name: Pinecone
+  - name: Snowflake
+  - name: Snyk
+  - name: Spot
+  - name: Tailscale
+  - name: Twingate
+  - name: Zscaler
+  - name: Pulumi X
+  - name: Pulumi Slack
+  - name: Pulumi LinkedIn
+  - name: Pulumi YouTube
+  - name: Pulumi Github
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
@@ -93,3 +123,5 @@ common:
     type: Privacy Policy
   - url: https://app.pulumi.com/account/tokens
     type: Authentication
+  - type: Integrations
+    url: https://www.pulumi.com/partners/
