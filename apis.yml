@@ -108,19 +108,19 @@ common:
   - url: https://www.pulumi.com/blog/
     type: Blog
   - url: https://github.com/pulumi
-    type: GitHub Organization
+    type: GitHubOrganization
   - url: https://app.pulumi.com/signup
-    type: Sign Up
+    type: SignUp
   - url: https://app.pulumi.com/signin
     type: Login
   - url: https://www.pulumi.com/pricing/
     type: Pricing
   - url: https://status.pulumi.com/
-    type: Status
+    type: StatusPage
   - url: https://www.pulumi.com/terms/
-    type: Terms of Service
+    type: TermsOfService
   - url: https://www.pulumi.com/privacy/
-    type: Privacy Policy
+    type: PrivacyPolicy
   - url: https://app.pulumi.com/account/tokens
     type: Authentication
   - type: Integrations
