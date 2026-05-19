@@ -20,7 +20,7 @@ tags:
   - Deployments
   - Policy
 created: '2025-01-08'
-modified: '2026-04-28'
+modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
@@ -125,3 +125,6 @@ common:
     type: Authentication
   - type: Integrations
     url: https://www.pulumi.com/partners/
+  - name: Agent Skills
+    url: https://github.com/pulumi/agent-skills
+    type: AgentSkill
