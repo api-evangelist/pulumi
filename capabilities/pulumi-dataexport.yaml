@@ -1,0 +1,131 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — DataExport
+  description: 'Pulumi APIs — DataExport. 1 operations. Lead operation: ExportOrgResourceSearchQuery. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - DataExport
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-dataexport
+    baseUri: ''
+    description: Pulumi APIs — DataExport business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-search-resources-export
+      path: /api/orgs/{orgName}/search/resources/export
+      operations:
+      - name: exportorgresourcesearchquery
+        method: GET
+        description: ExportOrgResourceSearchQuery
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: collapse
+          in: query
+          type: boolean
+          description: Collapse results to show one entry per stack instead of per resource
+        - name: cursor
+          in: query
+          type: string
+          description: Cursor for paginated results
+        - name: facet
+          in: query
+          type: array
+          description: Facet filters to apply
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: properties
+          in: query
+          type: boolean
+          description: Include resource properties in search results (may increase response size)
+        - name: query
+          in: query
+          type: string
+          description: Search query string
+        - name: size
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: sort
+          in: query
+          type: array
+          description: Sort order for results
+        - name: top
+          in: query
+          type: integer
+          description: Number of top aggregation buckets to return
+  exposes:
+  - type: rest
+    namespace: pulumi-dataexport-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — DataExport. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/search/resources/export
+      name: api-orgs-orgname-search-resources-export
+      description: REST surface for api-orgs-orgName-search-resources-export.
+      operations:
+      - method: GET
+        name: exportorgresourcesearchquery
+        description: ExportOrgResourceSearchQuery
+        call: pulumi-dataexport.exportorgresourcesearchquery
+        with:
+          orgName: rest.orgName
+          collapse: rest.collapse
+          cursor: rest.cursor
+          facet: rest.facet
+          page: rest.page
+          properties: rest.properties
+          query: rest.query
+          size: rest.size
+          sort: rest.sort
+          top: rest.top
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-dataexport-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — DataExport. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: exportorgresourcesearchquery
+      description: ExportOrgResourceSearchQuery
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-dataexport.exportorgresourcesearchquery
+      with:
+        orgName: tools.orgName
+        collapse: tools.collapse
+        cursor: tools.cursor
+        facet: tools.facet
+        page: tools.page
+        properties: tools.properties
+        query: tools.query
+        size: tools.size
+        sort: tools.sort
+        top: tools.top
+      outputParameters:
+      - type: object
+        mapping: $.

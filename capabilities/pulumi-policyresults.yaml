@@ -1,0 +1,462 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — PolicyResults
+  description: 'Pulumi APIs — PolicyResults. 9 operations. Lead operation: GetPolicyComplianceResults. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - PolicyResults
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-policyresults
+    baseUri: ''
+    description: Pulumi APIs — PolicyResults business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-policyresults-compliance
+      path: /api/orgs/{orgName}/policyresults/compliance
+      operations:
+      - name: getpolicycomplianceresults
+        method: POST
+        description: GetPolicyComplianceResults
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-issues
+      path: /api/orgs/{orgName}/policyresults/issues
+      operations:
+      - name: listpolicyissues
+        method: POST
+        description: ListPolicyIssues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-issues-export
+      path: /api/orgs/{orgName}/policyresults/issues/export
+      operations:
+      - name: exportpolicyissues
+        method: POST
+        description: ExportPolicyIssues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-issues-filters
+      path: /api/orgs/{orgName}/policyresults/issues/filters
+      operations:
+      - name: getpolicyissuesfilters
+        method: POST
+        description: GetPolicyIssuesFilters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-issues-issueId
+      path: /api/orgs/{orgName}/policyresults/issues/{issueId}
+      operations:
+      - name: getpolicyissue
+        method: GET
+        description: GetPolicyIssue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issueId
+          in: path
+          type: string
+          description: The issue identifier
+          required: true
+      - name: updatepolicyissue
+        method: PATCH
+        description: UpdatePolicyIssue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issueId
+          in: path
+          type: string
+          description: The issue identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-metadata
+      path: /api/orgs/{orgName}/policyresults/metadata
+      operations:
+      - name: getpolicyresultsmetadata
+        method: GET
+        description: GetPolicyResultsMetadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-policyresults-policies
+      path: /api/orgs/{orgName}/policyresults/policies
+      operations:
+      - name: listpoliciescompliance
+        method: POST
+        description: ListPoliciesCompliance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policyresults-violationsv2
+      path: /api/orgs/{orgName}/policyresults/violationsv2
+      operations:
+      - name: listpolicyviolationsv2
+        method: GET
+        description: ListPolicyViolationsV2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+  exposes:
+  - type: rest
+    namespace: pulumi-policyresults-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — PolicyResults. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/policyresults/compliance
+      name: api-orgs-orgname-policyresults-compliance
+      description: REST surface for api-orgs-orgName-policyresults-compliance.
+      operations:
+      - method: POST
+        name: getpolicycomplianceresults
+        description: GetPolicyComplianceResults
+        call: pulumi-policyresults.getpolicycomplianceresults
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/issues
+      name: api-orgs-orgname-policyresults-issues
+      description: REST surface for api-orgs-orgName-policyresults-issues.
+      operations:
+      - method: POST
+        name: listpolicyissues
+        description: ListPolicyIssues
+        call: pulumi-policyresults.listpolicyissues
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/issues/export
+      name: api-orgs-orgname-policyresults-issues-export
+      description: REST surface for api-orgs-orgName-policyresults-issues-export.
+      operations:
+      - method: POST
+        name: exportpolicyissues
+        description: ExportPolicyIssues
+        call: pulumi-policyresults.exportpolicyissues
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/issues/filters
+      name: api-orgs-orgname-policyresults-issues-filters
+      description: REST surface for api-orgs-orgName-policyresults-issues-filters.
+      operations:
+      - method: POST
+        name: getpolicyissuesfilters
+        description: GetPolicyIssuesFilters
+        call: pulumi-policyresults.getpolicyissuesfilters
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/issues/{issueid}
+      name: api-orgs-orgname-policyresults-issues-issueid
+      description: REST surface for api-orgs-orgName-policyresults-issues-issueId.
+      operations:
+      - method: GET
+        name: getpolicyissue
+        description: GetPolicyIssue
+        call: pulumi-policyresults.getpolicyissue
+        with:
+          orgName: rest.orgName
+          issueId: rest.issueId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatepolicyissue
+        description: UpdatePolicyIssue
+        call: pulumi-policyresults.updatepolicyissue
+        with:
+          orgName: rest.orgName
+          issueId: rest.issueId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/metadata
+      name: api-orgs-orgname-policyresults-metadata
+      description: REST surface for api-orgs-orgName-policyresults-metadata.
+      operations:
+      - method: GET
+        name: getpolicyresultsmetadata
+        description: GetPolicyResultsMetadata
+        call: pulumi-policyresults.getpolicyresultsmetadata
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/policies
+      name: api-orgs-orgname-policyresults-policies
+      description: REST surface for api-orgs-orgName-policyresults-policies.
+      operations:
+      - method: POST
+        name: listpoliciescompliance
+        description: ListPoliciesCompliance
+        call: pulumi-policyresults.listpoliciescompliance
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policyresults/violationsv2
+      name: api-orgs-orgname-policyresults-violationsv2
+      description: REST surface for api-orgs-orgName-policyresults-violationsv2.
+      operations:
+      - method: GET
+        name: listpolicyviolationsv2
+        description: ListPolicyViolationsV2
+        call: pulumi-policyresults.listpolicyviolationsv2
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-policyresults-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — PolicyResults. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: getpolicycomplianceresults
+      description: GetPolicyComplianceResults
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policyresults.getpolicycomplianceresults
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpolicyissues
+      description: ListPolicyIssues
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policyresults.listpolicyissues
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: exportpolicyissues
+      description: ExportPolicyIssues
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policyresults.exportpolicyissues
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpolicyissuesfilters
+      description: GetPolicyIssuesFilters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policyresults.getpolicyissuesfilters
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpolicyissue
+      description: GetPolicyIssue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policyresults.getpolicyissue
+      with:
+        orgName: tools.orgName
+        issueId: tools.issueId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatepolicyissue
+      description: UpdatePolicyIssue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-policyresults.updatepolicyissue
+      with:
+        orgName: tools.orgName
+        issueId: tools.issueId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpolicyresultsmetadata
+      description: GetPolicyResultsMetadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policyresults.getpolicyresultsmetadata
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpoliciescompliance
+      description: ListPoliciesCompliance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policyresults.listpoliciescompliance
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpolicyviolationsv2
+      description: ListPolicyViolationsV2
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policyresults.listpolicyviolationsv2
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.

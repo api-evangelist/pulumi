@@ -1,0 +1,342 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — StackUpdates
+  description: 'Pulumi APIs — StackUpdates. 4 operations. Lead operation: GetEngineEvents. Self-contained Naftiko capability
+    covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - StackUpdates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-stackupdates
+    baseUri: ''
+    description: Pulumi APIs — StackUpdates business capability. Self-contained, no shared references.
+    resources:
+    - name: api-stacks-orgName-projectName-stackName-destroy-updateID-events
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/destroy/{updateID}/events
+      operations:
+      - name: getengineeventsdestroy
+        method: GET
+        description: GetEngineEvents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: updateID
+          in: path
+          type: string
+          description: The update ID
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Continuation token for paginated results
+        - name: include_non_activated
+          in: query
+          type: boolean
+          description: When true, includes events that have not yet been activated; when false or omitted, only activated
+            events are returned
+        - name: type
+          in: query
+          type: array
+          description: Filter results to only include events matching these engine event type codes
+        - name: urn
+          in: query
+          type: string
+          description: Filter results to only include events for the specified resource URN
+    - name: api-stacks-orgName-projectName-stackName-update-updateID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/update/{updateID}
+      operations:
+      - name: getupdatestatusforupdate
+        method: GET
+        description: GetUpdateStatusForUpdate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: updateID
+          in: path
+          type: string
+          description: The update ID
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Continuation token for paginated results
+    - name: api-stacks-orgName-projectName-stackName-updates
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/updates
+      operations:
+      - name: getstackupdates
+        method: GET
+        description: GetStackUpdates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: output-type
+          in: query
+          type: string
+          description: Controls the response format; when unset returns the legacy format, otherwise returns the paginated
+            format
+        - name: page
+          in: query
+          type: integer
+          description: Page number for paginated results (0-indexed, where 0 returns all results)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of results per page (must be >= 1 when page > 0)
+    - name: api-stacks-orgName-projectName-stackName-updates-latest-previews
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/updates/latest/previews
+      operations:
+      - name: getlateststackpreviews
+        method: GET
+        description: GetLatestStackPreviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: asc
+          in: query
+          type: boolean
+          description: When true, sorts results in ascending chronological order; when false or omitted, sorts in descending
+            order
+        - name: page
+          in: query
+          type: integer
+          description: Page number for paginated results (0-indexed, where 0 returns all results)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of results per page (must be >= 1 when page > 0)
+  exposes:
+  - type: rest
+    namespace: pulumi-stackupdates-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — StackUpdates. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/destroy/{updateid}/events
+      name: api-stacks-orgname-projectname-stackname-destroy-updateid-events
+      description: REST surface for api-stacks-orgName-projectName-stackName-destroy-updateID-events.
+      operations:
+      - method: GET
+        name: getengineeventsdestroy
+        description: GetEngineEvents
+        call: pulumi-stackupdates.getengineeventsdestroy
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          updateID: rest.updateID
+          continuationToken: rest.continuationToken
+          include_non_activated: rest.include_non_activated
+          type: rest.type
+          urn: rest.urn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/update/{updateid}
+      name: api-stacks-orgname-projectname-stackname-update-updateid
+      description: REST surface for api-stacks-orgName-projectName-stackName-update-updateID.
+      operations:
+      - method: GET
+        name: getupdatestatusforupdate
+        description: GetUpdateStatusForUpdate
+        call: pulumi-stackupdates.getupdatestatusforupdate
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          updateID: rest.updateID
+          continuationToken: rest.continuationToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/updates
+      name: api-stacks-orgname-projectname-stackname-updates
+      description: REST surface for api-stacks-orgName-projectName-stackName-updates.
+      operations:
+      - method: GET
+        name: getstackupdates
+        description: GetStackUpdates
+        call: pulumi-stackupdates.getstackupdates
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          output-type: rest.output-type
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/updates/latest/previews
+      name: api-stacks-orgname-projectname-stackname-updates-latest-previews
+      description: REST surface for api-stacks-orgName-projectName-stackName-updates-latest-previews.
+      operations:
+      - method: GET
+        name: getlateststackpreviews
+        description: GetLatestStackPreviews
+        call: pulumi-stackupdates.getlateststackpreviews
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          asc: rest.asc
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-stackupdates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — StackUpdates. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: getengineevents
+      description: GetEngineEvents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-stackupdates.getengineeventsdestroy
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        updateID: tools.updateID
+        continuationToken: tools.continuationToken
+        include_non_activated: tools.include_non_activated
+        type: tools.type
+        urn: tools.urn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getupdatestatusforupdate
+      description: GetUpdateStatusForUpdate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-stackupdates.getupdatestatusforupdate
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        updateID: tools.updateID
+        continuationToken: tools.continuationToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getstackupdates
+      description: GetStackUpdates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-stackupdates.getstackupdates
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        output-type: tools.output-type
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlateststackpreviews
+      description: GetLatestStackPreviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-stackupdates.getlateststackpreviews
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        asc: tools.asc
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.

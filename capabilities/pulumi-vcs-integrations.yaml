@@ -1,0 +1,2015 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — VCS Integrations
+  description: 'Pulumi APIs — VCS Integrations. 43 operations. Lead operation: ListAllVCSIntegrations. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - VCS Integrations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-vcs-integrations
+    baseUri: ''
+    description: Pulumi APIs — VCS Integrations business capability. Self-contained, no shared references.
+    resources:
+    - name: api-console-orgs-orgName-integrations
+      path: /api/console/orgs/{orgName}/integrations
+      operations:
+      - name: listallvcsintegrations
+        method: GET
+        description: ListAllVCSIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-azure-devops
+      path: /api/console/orgs/{orgName}/integrations/azure-devops
+      operations:
+      - name: listazuredevopsintegrations
+        method: GET
+        description: ListAzureDevOpsIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: createazuredevopssetup
+        method: POST
+        description: CreateAzureDevOpsSetup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-azure-devops-access-status
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/access-status
+      operations:
+      - name: getazuredevopsaccessstatus
+        method: GET
+        description: GetAzureDevOpsAccessStatus
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-azure-devops-oauth-complete
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/oauth/complete
+      operations:
+      - name: completeazuredevopsoauth
+        method: POST
+        description: CompleteAzureDevOpsOAuth
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-azure-devops-oauth-initiate
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/oauth/initiate
+      operations:
+      - name: initiateazuredevopsoauth
+        method: POST
+        description: InitiateAzureDevOpsOAuth
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-azure-devops-setup-organizations
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/setup/organizations
+      operations:
+      - name: listazuredevopsorganizations
+        method: GET
+        description: ListAzureDevOpsOrganizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-azure-devops-setup-organizations-adoOrgNam
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/setup/organizations/{adoOrgName}/projects
+      operations:
+      - name: listazuredevopsprojects
+        method: GET
+        description: ListAzureDevOpsProjects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: adoOrgName
+          in: path
+          type: string
+          description: The Azure DevOps organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-azure-devops-integrationId
+      path: /api/console/orgs/{orgName}/integrations/azure-devops/{integrationId}
+      operations:
+      - name: deleteazuredevopsintegration
+        method: DELETE
+        description: DeleteAzureDevOpsIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The Azure DevOps integration identifier
+          required: true
+      - name: getazuredevopsintegration
+        method: GET
+        description: GetAzureDevOpsIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The Azure DevOps integration identifier
+          required: true
+      - name: updateazuredevopsintegration
+        method: PATCH
+        description: UpdateAzureDevOpsIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The Azure DevOps integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-bitbucket
+      path: /api/console/orgs/{orgName}/integrations/bitbucket
+      operations:
+      - name: listbitbucketintegrations
+        method: GET
+        description: ListBitBucketIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: createbitbucketsetup
+        method: POST
+        description: CreateBitBucketSetup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-bitbucket-access-status
+      path: /api/console/orgs/{orgName}/integrations/bitbucket/access-status
+      operations:
+      - name: getbitbucketaccessstatus
+        method: GET
+        description: GetBitBucketAccessStatus
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-bitbucket-integrationId
+      path: /api/console/orgs/{orgName}/integrations/bitbucket/{integrationId}
+      operations:
+      - name: deletebitbucketintegration
+        method: DELETE
+        description: DeleteBitBucketIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The BitBucket integration identifier
+          required: true
+      - name: getbitbucketintegration
+        method: GET
+        description: GetBitBucketIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The BitBucket integration identifier
+          required: true
+      - name: updatebitbucketintegration
+        method: PATCH
+        description: UpdateBitBucketIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The BitBucket integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-custom
+      path: /api/console/orgs/{orgName}/integrations/custom
+      operations:
+      - name: listcustomvcsintegrations
+        method: GET
+        description: ListCustomVCSIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: createcustomvcsintegration
+        method: POST
+        description: CreateCustomVCSIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-custom-integrationId
+      path: /api/console/orgs/{orgName}/integrations/custom/{integrationId}
+      operations:
+      - name: deletecustomvcsintegration
+        method: DELETE
+        description: DeleteCustomVCSIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The custom VCS integration identifier
+          required: true
+      - name: getcustomvcsintegration
+        method: GET
+        description: GetCustomVCSIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The custom VCS integration identifier
+          required: true
+      - name: updatecustomvcsintegration
+        method: PATCH
+        description: UpdateCustomVCSIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The custom VCS integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-custom-integrationId-repos
+      path: /api/console/orgs/{orgName}/integrations/custom/{integrationId}/repos
+      operations:
+      - name: removecustomvcsrepository
+        method: DELETE
+        description: RemoveCustomVCSRepository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The custom VCS integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: addcustomvcsrepository
+        method: POST
+        description: AddCustomVCSRepository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The custom VCS integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-github
+      path: /api/console/orgs/{orgName}/integrations/github
+      operations:
+      - name: listgithubintegrations
+        method: GET
+        description: ListGitHubIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: startgithubsetup
+        method: POST
+        description: StartGitHubSetup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-github-enterprise
+      path: /api/console/orgs/{orgName}/integrations/github-enterprise
+      operations:
+      - name: listgithubenterpriseintegrations
+        method: GET
+        description: ListGitHubEnterpriseIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-github-enterprise-integrationId
+      path: /api/console/orgs/{orgName}/integrations/github-enterprise/{integrationId}
+      operations:
+      - name: deletegithubenterpriseintegration
+        method: DELETE
+        description: DeleteGitHubEnterpriseIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub Enterprise integration identifier
+          required: true
+      - name: getgithubenterpriseintegration
+        method: GET
+        description: GetGitHubEnterpriseIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub Enterprise integration identifier
+          required: true
+      - name: updategithubenterpriseintegration
+        method: PATCH
+        description: UpdateGitHubEnterpriseIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub Enterprise integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-github-access-status
+      path: /api/console/orgs/{orgName}/integrations/github/access-status
+      operations:
+      - name: getgithubaccess
+        method: GET
+        description: GetGitHubAccess
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-github-integrationId
+      path: /api/console/orgs/{orgName}/integrations/github/{integrationId}
+      operations:
+      - name: deletegithubintegration
+        method: DELETE
+        description: DeleteGitHubIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub App integration identifier
+          required: true
+      - name: getgithubintegration
+        method: GET
+        description: GetGitHubIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub App integration identifier
+          required: true
+      - name: updategithubintegration
+        method: PATCH
+        description: UpdateGitHubIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitHub App integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-gitlab
+      path: /api/console/orgs/{orgName}/integrations/gitlab
+      operations:
+      - name: listgitlabintegrations
+        method: GET
+        description: ListGitLabIntegrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: creategitlabsetup
+        method: POST
+        description: CreateGitLabSetup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-gitlab-access-status
+      path: /api/console/orgs/{orgName}/integrations/gitlab/access-status
+      operations:
+      - name: getgitlabaccessstatus
+        method: GET
+        description: GetGitLabAccessStatus
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-console-orgs-orgName-integrations-gitlab-integrationId
+      path: /api/console/orgs/{orgName}/integrations/gitlab/{integrationId}
+      operations:
+      - name: deletegitlabintegration
+        method: DELETE
+        description: DeleteGitLabIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitLab integration identifier
+          required: true
+      - name: getgitlabintegration
+        method: GET
+        description: GetGitLabIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitLab integration identifier
+          required: true
+      - name: updategitlabintegration
+        method: PATCH
+        description: UpdateGitLabIntegration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The GitLab integration identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-console-orgs-orgName-integrations-provider-integrationId-repos
+      path: /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos
+      operations:
+      - name: listvcsrepos
+        method: GET
+        description: ListVCSRepos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: provider
+          in: path
+          type: string
+          description: The VCS provider (e.g., 'github')
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The VCS integration identifier
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+    - name: api-console-orgs-orgName-integrations-provider-integrationId-repos-destinations
+      path: /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos/destinations
+      operations:
+      - name: listvcsrepodestinations
+        method: GET
+        description: ListVCSRepoDestinations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: provider
+          in: path
+          type: string
+          description: The VCS provider (e.g., 'github')
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The VCS integration identifier
+          required: true
+    - name: api-console-orgs-orgName-integrations-provider-integrationId-repos-repoId-branch
+      path: /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos/{repoId}/branches
+      operations:
+      - name: listvcsbranches
+        method: GET
+        description: ListVCSBranches
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: provider
+          in: path
+          type: string
+          description: The VCS provider (e.g., 'github')
+          required: true
+        - name: integrationId
+          in: path
+          type: string
+          description: The VCS integration identifier
+          required: true
+        - name: repoId
+          in: path
+          type: string
+          description: The repository identifier
+          required: true
+  exposes:
+  - type: rest
+    namespace: pulumi-vcs-integrations-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — VCS Integrations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/console/orgs/{orgname}/integrations
+      name: api-console-orgs-orgname-integrations
+      description: REST surface for api-console-orgs-orgName-integrations.
+      operations:
+      - method: GET
+        name: listallvcsintegrations
+        description: ListAllVCSIntegrations
+        call: pulumi-vcs-integrations.listallvcsintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops
+      name: api-console-orgs-orgname-integrations-azure-devops
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops.
+      operations:
+      - method: GET
+        name: listazuredevopsintegrations
+        description: ListAzureDevOpsIntegrations
+        call: pulumi-vcs-integrations.listazuredevopsintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createazuredevopssetup
+        description: CreateAzureDevOpsSetup
+        call: pulumi-vcs-integrations.createazuredevopssetup
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/access-status
+      name: api-console-orgs-orgname-integrations-azure-devops-access-status
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-access-status.
+      operations:
+      - method: GET
+        name: getazuredevopsaccessstatus
+        description: GetAzureDevOpsAccessStatus
+        call: pulumi-vcs-integrations.getazuredevopsaccessstatus
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/oauth/complete
+      name: api-console-orgs-orgname-integrations-azure-devops-oauth-complete
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-oauth-complete.
+      operations:
+      - method: POST
+        name: completeazuredevopsoauth
+        description: CompleteAzureDevOpsOAuth
+        call: pulumi-vcs-integrations.completeazuredevopsoauth
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/oauth/initiate
+      name: api-console-orgs-orgname-integrations-azure-devops-oauth-initiate
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-oauth-initiate.
+      operations:
+      - method: POST
+        name: initiateazuredevopsoauth
+        description: InitiateAzureDevOpsOAuth
+        call: pulumi-vcs-integrations.initiateazuredevopsoauth
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/setup/organizations
+      name: api-console-orgs-orgname-integrations-azure-devops-setup-organizations
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-setup-organizations.
+      operations:
+      - method: GET
+        name: listazuredevopsorganizations
+        description: ListAzureDevOpsOrganizations
+        call: pulumi-vcs-integrations.listazuredevopsorganizations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/setup/organizations/{adoorgname}/projects
+      name: api-console-orgs-orgname-integrations-azure-devops-setup-organizations-adoorgnam
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-setup-organizations-adoOrgNam.
+      operations:
+      - method: GET
+        name: listazuredevopsprojects
+        description: ListAzureDevOpsProjects
+        call: pulumi-vcs-integrations.listazuredevopsprojects
+        with:
+          orgName: rest.orgName
+          adoOrgName: rest.adoOrgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/azure-devops/{integrationid}
+      name: api-console-orgs-orgname-integrations-azure-devops-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-azure-devops-integrationId.
+      operations:
+      - method: DELETE
+        name: deleteazuredevopsintegration
+        description: DeleteAzureDevOpsIntegration
+        call: pulumi-vcs-integrations.deleteazuredevopsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getazuredevopsintegration
+        description: GetAzureDevOpsIntegration
+        call: pulumi-vcs-integrations.getazuredevopsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateazuredevopsintegration
+        description: UpdateAzureDevOpsIntegration
+        call: pulumi-vcs-integrations.updateazuredevopsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/bitbucket
+      name: api-console-orgs-orgname-integrations-bitbucket
+      description: REST surface for api-console-orgs-orgName-integrations-bitbucket.
+      operations:
+      - method: GET
+        name: listbitbucketintegrations
+        description: ListBitBucketIntegrations
+        call: pulumi-vcs-integrations.listbitbucketintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbitbucketsetup
+        description: CreateBitBucketSetup
+        call: pulumi-vcs-integrations.createbitbucketsetup
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/bitbucket/access-status
+      name: api-console-orgs-orgname-integrations-bitbucket-access-status
+      description: REST surface for api-console-orgs-orgName-integrations-bitbucket-access-status.
+      operations:
+      - method: GET
+        name: getbitbucketaccessstatus
+        description: GetBitBucketAccessStatus
+        call: pulumi-vcs-integrations.getbitbucketaccessstatus
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/bitbucket/{integrationid}
+      name: api-console-orgs-orgname-integrations-bitbucket-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-bitbucket-integrationId.
+      operations:
+      - method: DELETE
+        name: deletebitbucketintegration
+        description: DeleteBitBucketIntegration
+        call: pulumi-vcs-integrations.deletebitbucketintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getbitbucketintegration
+        description: GetBitBucketIntegration
+        call: pulumi-vcs-integrations.getbitbucketintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatebitbucketintegration
+        description: UpdateBitBucketIntegration
+        call: pulumi-vcs-integrations.updatebitbucketintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/custom
+      name: api-console-orgs-orgname-integrations-custom
+      description: REST surface for api-console-orgs-orgName-integrations-custom.
+      operations:
+      - method: GET
+        name: listcustomvcsintegrations
+        description: ListCustomVCSIntegrations
+        call: pulumi-vcs-integrations.listcustomvcsintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustomvcsintegration
+        description: CreateCustomVCSIntegration
+        call: pulumi-vcs-integrations.createcustomvcsintegration
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/custom/{integrationid}
+      name: api-console-orgs-orgname-integrations-custom-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-custom-integrationId.
+      operations:
+      - method: DELETE
+        name: deletecustomvcsintegration
+        description: DeleteCustomVCSIntegration
+        call: pulumi-vcs-integrations.deletecustomvcsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcustomvcsintegration
+        description: GetCustomVCSIntegration
+        call: pulumi-vcs-integrations.getcustomvcsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecustomvcsintegration
+        description: UpdateCustomVCSIntegration
+        call: pulumi-vcs-integrations.updatecustomvcsintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/custom/{integrationid}/repos
+      name: api-console-orgs-orgname-integrations-custom-integrationid-repos
+      description: REST surface for api-console-orgs-orgName-integrations-custom-integrationId-repos.
+      operations:
+      - method: DELETE
+        name: removecustomvcsrepository
+        description: RemoveCustomVCSRepository
+        call: pulumi-vcs-integrations.removecustomvcsrepository
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addcustomvcsrepository
+        description: AddCustomVCSRepository
+        call: pulumi-vcs-integrations.addcustomvcsrepository
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/github
+      name: api-console-orgs-orgname-integrations-github
+      description: REST surface for api-console-orgs-orgName-integrations-github.
+      operations:
+      - method: GET
+        name: listgithubintegrations
+        description: ListGitHubIntegrations
+        call: pulumi-vcs-integrations.listgithubintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: startgithubsetup
+        description: StartGitHubSetup
+        call: pulumi-vcs-integrations.startgithubsetup
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/github-enterprise
+      name: api-console-orgs-orgname-integrations-github-enterprise
+      description: REST surface for api-console-orgs-orgName-integrations-github-enterprise.
+      operations:
+      - method: GET
+        name: listgithubenterpriseintegrations
+        description: ListGitHubEnterpriseIntegrations
+        call: pulumi-vcs-integrations.listgithubenterpriseintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/github-enterprise/{integrationid}
+      name: api-console-orgs-orgname-integrations-github-enterprise-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-github-enterprise-integrationId.
+      operations:
+      - method: DELETE
+        name: deletegithubenterpriseintegration
+        description: DeleteGitHubEnterpriseIntegration
+        call: pulumi-vcs-integrations.deletegithubenterpriseintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getgithubenterpriseintegration
+        description: GetGitHubEnterpriseIntegration
+        call: pulumi-vcs-integrations.getgithubenterpriseintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategithubenterpriseintegration
+        description: UpdateGitHubEnterpriseIntegration
+        call: pulumi-vcs-integrations.updategithubenterpriseintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/github/access-status
+      name: api-console-orgs-orgname-integrations-github-access-status
+      description: REST surface for api-console-orgs-orgName-integrations-github-access-status.
+      operations:
+      - method: GET
+        name: getgithubaccess
+        description: GetGitHubAccess
+        call: pulumi-vcs-integrations.getgithubaccess
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/github/{integrationid}
+      name: api-console-orgs-orgname-integrations-github-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-github-integrationId.
+      operations:
+      - method: DELETE
+        name: deletegithubintegration
+        description: DeleteGitHubIntegration
+        call: pulumi-vcs-integrations.deletegithubintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getgithubintegration
+        description: GetGitHubIntegration
+        call: pulumi-vcs-integrations.getgithubintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategithubintegration
+        description: UpdateGitHubIntegration
+        call: pulumi-vcs-integrations.updategithubintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/gitlab
+      name: api-console-orgs-orgname-integrations-gitlab
+      description: REST surface for api-console-orgs-orgName-integrations-gitlab.
+      operations:
+      - method: GET
+        name: listgitlabintegrations
+        description: ListGitLabIntegrations
+        call: pulumi-vcs-integrations.listgitlabintegrations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategitlabsetup
+        description: CreateGitLabSetup
+        call: pulumi-vcs-integrations.creategitlabsetup
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/gitlab/access-status
+      name: api-console-orgs-orgname-integrations-gitlab-access-status
+      description: REST surface for api-console-orgs-orgName-integrations-gitlab-access-status.
+      operations:
+      - method: GET
+        name: getgitlabaccessstatus
+        description: GetGitLabAccessStatus
+        call: pulumi-vcs-integrations.getgitlabaccessstatus
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/gitlab/{integrationid}
+      name: api-console-orgs-orgname-integrations-gitlab-integrationid
+      description: REST surface for api-console-orgs-orgName-integrations-gitlab-integrationId.
+      operations:
+      - method: DELETE
+        name: deletegitlabintegration
+        description: DeleteGitLabIntegration
+        call: pulumi-vcs-integrations.deletegitlabintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getgitlabintegration
+        description: GetGitLabIntegration
+        call: pulumi-vcs-integrations.getgitlabintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategitlabintegration
+        description: UpdateGitLabIntegration
+        call: pulumi-vcs-integrations.updategitlabintegration
+        with:
+          orgName: rest.orgName
+          integrationId: rest.integrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/{provider}/{integrationid}/repos
+      name: api-console-orgs-orgname-integrations-provider-integrationid-repos
+      description: REST surface for api-console-orgs-orgName-integrations-provider-integrationId-repos.
+      operations:
+      - method: GET
+        name: listvcsrepos
+        description: ListVCSRepos
+        call: pulumi-vcs-integrations.listvcsrepos
+        with:
+          orgName: rest.orgName
+          provider: rest.provider
+          integrationId: rest.integrationId
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/{provider}/{integrationid}/repos/destinations
+      name: api-console-orgs-orgname-integrations-provider-integrationid-repos-destinations
+      description: REST surface for api-console-orgs-orgName-integrations-provider-integrationId-repos-destinations.
+      operations:
+      - method: GET
+        name: listvcsrepodestinations
+        description: ListVCSRepoDestinations
+        call: pulumi-vcs-integrations.listvcsrepodestinations
+        with:
+          orgName: rest.orgName
+          provider: rest.provider
+          integrationId: rest.integrationId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/console/orgs/{orgname}/integrations/{provider}/{integrationid}/repos/{repoid}/branches
+      name: api-console-orgs-orgname-integrations-provider-integrationid-repos-repoid-branch
+      description: REST surface for api-console-orgs-orgName-integrations-provider-integrationId-repos-repoId-branch.
+      operations:
+      - method: GET
+        name: listvcsbranches
+        description: ListVCSBranches
+        call: pulumi-vcs-integrations.listvcsbranches
+        with:
+          orgName: rest.orgName
+          provider: rest.provider
+          integrationId: rest.integrationId
+          repoId: rest.repoId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-vcs-integrations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — VCS Integrations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: listallvcsintegrations
+      description: ListAllVCSIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listallvcsintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listazuredevopsintegrations
+      description: ListAzureDevOpsIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listazuredevopsintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createazuredevopssetup
+      description: CreateAzureDevOpsSetup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.createazuredevopssetup
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getazuredevopsaccessstatus
+      description: GetAzureDevOpsAccessStatus
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getazuredevopsaccessstatus
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: completeazuredevopsoauth
+      description: CompleteAzureDevOpsOAuth
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.completeazuredevopsoauth
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: initiateazuredevopsoauth
+      description: InitiateAzureDevOpsOAuth
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.initiateazuredevopsoauth
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listazuredevopsorganizations
+      description: ListAzureDevOpsOrganizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listazuredevopsorganizations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listazuredevopsprojects
+      description: ListAzureDevOpsProjects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listazuredevopsprojects
+      with:
+        orgName: tools.orgName
+        adoOrgName: tools.adoOrgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteazuredevopsintegration
+      description: DeleteAzureDevOpsIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deleteazuredevopsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getazuredevopsintegration
+      description: GetAzureDevOpsIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getazuredevopsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateazuredevopsintegration
+      description: UpdateAzureDevOpsIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updateazuredevopsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listbitbucketintegrations
+      description: ListBitBucketIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listbitbucketintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createbitbucketsetup
+      description: CreateBitBucketSetup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.createbitbucketsetup
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbitbucketaccessstatus
+      description: GetBitBucketAccessStatus
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getbitbucketaccessstatus
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletebitbucketintegration
+      description: DeleteBitBucketIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deletebitbucketintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbitbucketintegration
+      description: GetBitBucketIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getbitbucketintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatebitbucketintegration
+      description: UpdateBitBucketIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updatebitbucketintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcustomvcsintegrations
+      description: ListCustomVCSIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listcustomvcsintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcustomvcsintegration
+      description: CreateCustomVCSIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.createcustomvcsintegration
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletecustomvcsintegration
+      description: DeleteCustomVCSIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deletecustomvcsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcustomvcsintegration
+      description: GetCustomVCSIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getcustomvcsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecustomvcsintegration
+      description: UpdateCustomVCSIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updatecustomvcsintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: removecustomvcsrepository
+      description: RemoveCustomVCSRepository
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.removecustomvcsrepository
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: addcustomvcsrepository
+      description: AddCustomVCSRepository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.addcustomvcsrepository
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listgithubintegrations
+      description: ListGitHubIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listgithubintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: startgithubsetup
+      description: StartGitHubSetup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.startgithubsetup
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listgithubenterpriseintegrations
+      description: ListGitHubEnterpriseIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listgithubenterpriseintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletegithubenterpriseintegration
+      description: DeleteGitHubEnterpriseIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deletegithubenterpriseintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgithubenterpriseintegration
+      description: GetGitHubEnterpriseIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getgithubenterpriseintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updategithubenterpriseintegration
+      description: UpdateGitHubEnterpriseIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updategithubenterpriseintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgithubaccess
+      description: GetGitHubAccess
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getgithubaccess
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletegithubintegration
+      description: DeleteGitHubIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deletegithubintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgithubintegration
+      description: GetGitHubIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getgithubintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updategithubintegration
+      description: UpdateGitHubIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updategithubintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listgitlabintegrations
+      description: ListGitLabIntegrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listgitlabintegrations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creategitlabsetup
+      description: CreateGitLabSetup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-vcs-integrations.creategitlabsetup
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgitlabaccessstatus
+      description: GetGitLabAccessStatus
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getgitlabaccessstatus
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletegitlabintegration
+      description: DeleteGitLabIntegration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-vcs-integrations.deletegitlabintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgitlabintegration
+      description: GetGitLabIntegration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.getgitlabintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updategitlabintegration
+      description: UpdateGitLabIntegration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.updategitlabintegration
+      with:
+        orgName: tools.orgName
+        integrationId: tools.integrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listvcsrepos
+      description: ListVCSRepos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listvcsrepos
+      with:
+        orgName: tools.orgName
+        provider: tools.provider
+        integrationId: tools.integrationId
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listvcsrepodestinations
+      description: ListVCSRepoDestinations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listvcsrepodestinations
+      with:
+        orgName: tools.orgName
+        provider: tools.provider
+        integrationId: tools.integrationId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listvcsbranches
+      description: ListVCSBranches
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-vcs-integrations.listvcsbranches
+      with:
+        orgName: tools.orgName
+        provider: tools.provider
+        integrationId: tools.integrationId
+        repoId: tools.repoId
+      outputParameters:
+      - type: object
+        mapping: $.

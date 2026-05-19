@@ -1,0 +1,335 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — ResourceSearch
+  description: 'Pulumi APIs — ResourceSearch. 4 operations. Lead operation: GetOrgResourceSearchQuery. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - ResourceSearch
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-resourcesearch
+    baseUri: ''
+    description: Pulumi APIs — ResourceSearch business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-search-resources
+      path: /api/orgs/{orgName}/search/resources
+      operations:
+      - name: getorgresourcesearchquery
+        method: GET
+        description: GetOrgResourceSearchQuery
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: collapse
+          in: query
+          type: boolean
+          description: Collapse results to show one entry per stack instead of per resource
+        - name: cursor
+          in: query
+          type: string
+          description: Cursor for paginated results
+        - name: facet
+          in: query
+          type: array
+          description: Facet filters to apply
+        - name: groupBy
+          in: query
+          type: string
+          description: Group results by this field
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: properties
+          in: query
+          type: boolean
+          description: Include resource properties in search results (may increase response size)
+        - name: query
+          in: query
+          type: string
+          description: Search query string
+        - name: size
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: sort
+          in: query
+          type: array
+          description: Sort order for results
+        - name: top
+          in: query
+          type: integer
+          description: Number of top aggregation buckets to return
+    - name: api-orgs-orgName-search-resources-dashboard
+      path: /api/orgs/{orgName}/search/resources/dashboard
+      operations:
+      - name: getresourcedashboardaggregations
+        method: GET
+        description: GetResourceDashboardAggregations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-search-resources-parse
+      path: /api/orgs/{orgName}/search/resources/parse
+      operations:
+      - name: getnaturallanguagequery
+        method: GET
+        description: GetNaturalLanguageQuery
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Search query string
+    - name: api-orgs-orgName-search-resourcesv2
+      path: /api/orgs/{orgName}/search/resourcesv2
+      operations:
+      - name: getorgresourcesearchv2query
+        method: GET
+        description: GetOrgResourceSearchV2Query
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: asc
+          in: query
+          type: boolean
+          description: Sort in ascending order when true, descending when false
+        - name: collapse
+          in: query
+          type: boolean
+          description: Collapse results to show one entry per stack instead of per resource
+        - name: cursor
+          in: query
+          type: string
+          description: Cursor for paginated results
+        - name: facet
+          in: query
+          type: array
+          description: Facet filters to apply
+        - name: groupBy
+          in: query
+          type: string
+          description: Group results by this field
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: properties
+          in: query
+          type: boolean
+          description: Include resource properties in search results (may increase response size)
+        - name: query
+          in: query
+          type: string
+          description: Search query string
+        - name: size
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: sort
+          in: query
+          type: array
+          description: Sort order for results
+        - name: top
+          in: query
+          type: integer
+          description: Number of top aggregation buckets to return
+  exposes:
+  - type: rest
+    namespace: pulumi-resourcesearch-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — ResourceSearch. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/search/resources
+      name: api-orgs-orgname-search-resources
+      description: REST surface for api-orgs-orgName-search-resources.
+      operations:
+      - method: GET
+        name: getorgresourcesearchquery
+        description: GetOrgResourceSearchQuery
+        call: pulumi-resourcesearch.getorgresourcesearchquery
+        with:
+          orgName: rest.orgName
+          collapse: rest.collapse
+          cursor: rest.cursor
+          facet: rest.facet
+          groupBy: rest.groupBy
+          page: rest.page
+          properties: rest.properties
+          query: rest.query
+          size: rest.size
+          sort: rest.sort
+          top: rest.top
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/search/resources/dashboard
+      name: api-orgs-orgname-search-resources-dashboard
+      description: REST surface for api-orgs-orgName-search-resources-dashboard.
+      operations:
+      - method: GET
+        name: getresourcedashboardaggregations
+        description: GetResourceDashboardAggregations
+        call: pulumi-resourcesearch.getresourcedashboardaggregations
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/search/resources/parse
+      name: api-orgs-orgname-search-resources-parse
+      description: REST surface for api-orgs-orgName-search-resources-parse.
+      operations:
+      - method: GET
+        name: getnaturallanguagequery
+        description: GetNaturalLanguageQuery
+        call: pulumi-resourcesearch.getnaturallanguagequery
+        with:
+          orgName: rest.orgName
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/search/resourcesv2
+      name: api-orgs-orgname-search-resourcesv2
+      description: REST surface for api-orgs-orgName-search-resourcesv2.
+      operations:
+      - method: GET
+        name: getorgresourcesearchv2query
+        description: GetOrgResourceSearchV2Query
+        call: pulumi-resourcesearch.getorgresourcesearchv2query
+        with:
+          orgName: rest.orgName
+          asc: rest.asc
+          collapse: rest.collapse
+          cursor: rest.cursor
+          facet: rest.facet
+          groupBy: rest.groupBy
+          page: rest.page
+          properties: rest.properties
+          query: rest.query
+          size: rest.size
+          sort: rest.sort
+          top: rest.top
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-resourcesearch-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — ResourceSearch. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: getorgresourcesearchquery
+      description: GetOrgResourceSearchQuery
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-resourcesearch.getorgresourcesearchquery
+      with:
+        orgName: tools.orgName
+        collapse: tools.collapse
+        cursor: tools.cursor
+        facet: tools.facet
+        groupBy: tools.groupBy
+        page: tools.page
+        properties: tools.properties
+        query: tools.query
+        size: tools.size
+        sort: tools.sort
+        top: tools.top
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getresourcedashboardaggregations
+      description: GetResourceDashboardAggregations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-resourcesearch.getresourcedashboardaggregations
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getnaturallanguagequery
+      description: GetNaturalLanguageQuery
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-resourcesearch.getnaturallanguagequery
+      with:
+        orgName: tools.orgName
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getorgresourcesearchv2query
+      description: GetOrgResourceSearchV2Query
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-resourcesearch.getorgresourcesearchv2query
+      with:
+        orgName: tools.orgName
+        asc: tools.asc
+        collapse: tools.collapse
+        cursor: tools.cursor
+        facet: tools.facet
+        groupBy: tools.groupBy
+        page: tools.page
+        properties: tools.properties
+        query: tools.query
+        size: tools.size
+        sort: tools.sort
+        top: tools.top
+      outputParameters:
+      - type: object
+        mapping: $.

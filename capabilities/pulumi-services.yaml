@@ -1,0 +1,510 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — Services
+  description: 'Pulumi APIs — Services. 8 operations. Lead operation: ListServices. Self-contained Naftiko capability covering
+    one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - Services
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-services
+    baseUri: ''
+    description: Pulumi APIs — Services business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-services
+      path: /api/orgs/{orgName}/services
+      operations:
+      - name: listservices
+        method: GET
+        description: ListServices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: createservice
+        method: POST
+        description: CreateService
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-services-ownerType-ownerName-serviceName
+      path: /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}
+      operations:
+      - name: deleteservice
+        method: DELETE
+        description: DeleteService
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+        - name: force
+          in: query
+          type: boolean
+          description: Force deletion even if the service has other members
+      - name: getservice
+        method: GET
+        description: GetService
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+      - name: headservice
+        method: HEAD
+        description: HeadService
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+      - name: updateservice
+        method: PATCH
+        description: UpdateService
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-services-ownerType-ownerName-serviceName-items
+      path: /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}/items
+      operations:
+      - name: addserviceitems
+        method: POST
+        description: AddServiceItems
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-services-ownerType-ownerName-serviceName-items-itemType-itemNam
+      path: /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}/items/{itemType}/{itemName}
+      operations:
+      - name: removeserviceitem
+        method: DELETE
+        description: RemoveServiceItem
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: ownerType
+          in: path
+          type: string
+          description: The owner type
+          required: true
+        - name: ownerName
+          in: path
+          type: string
+          description: The owner name
+          required: true
+        - name: serviceName
+          in: path
+          type: string
+          description: The service name
+          required: true
+        - name: itemType
+          in: path
+          type: string
+          description: The item type
+          required: true
+        - name: itemName
+          in: path
+          type: string
+          description: The item name
+          required: true
+  exposes:
+  - type: rest
+    namespace: pulumi-services-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — Services. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/services
+      name: api-orgs-orgname-services
+      description: REST surface for api-orgs-orgName-services.
+      operations:
+      - method: GET
+        name: listservices
+        description: ListServices
+        call: pulumi-services.listservices
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createservice
+        description: CreateService
+        call: pulumi-services.createservice
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/services/{ownertype}/{ownername}/{servicename}
+      name: api-orgs-orgname-services-ownertype-ownername-servicename
+      description: REST surface for api-orgs-orgName-services-ownerType-ownerName-serviceName.
+      operations:
+      - method: DELETE
+        name: deleteservice
+        description: DeleteService
+        call: pulumi-services.deleteservice
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+          force: rest.force
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getservice
+        description: GetService
+        call: pulumi-services.getservice
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: HEAD
+        name: headservice
+        description: HeadService
+        call: pulumi-services.headservice
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateservice
+        description: UpdateService
+        call: pulumi-services.updateservice
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/services/{ownertype}/{ownername}/{servicename}/items
+      name: api-orgs-orgname-services-ownertype-ownername-servicename-items
+      description: REST surface for api-orgs-orgName-services-ownerType-ownerName-serviceName-items.
+      operations:
+      - method: POST
+        name: addserviceitems
+        description: AddServiceItems
+        call: pulumi-services.addserviceitems
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/services/{ownertype}/{ownername}/{servicename}/items/{itemtype}/{itemname}
+      name: api-orgs-orgname-services-ownertype-ownername-servicename-items-itemtype-itemnam
+      description: REST surface for api-orgs-orgName-services-ownerType-ownerName-serviceName-items-itemType-itemNam.
+      operations:
+      - method: DELETE
+        name: removeserviceitem
+        description: RemoveServiceItem
+        call: pulumi-services.removeserviceitem
+        with:
+          orgName: rest.orgName
+          ownerType: rest.ownerType
+          ownerName: rest.ownerName
+          serviceName: rest.serviceName
+          itemType: rest.itemType
+          itemName: rest.itemName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-services-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — Services. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: listservices
+      description: ListServices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-services.listservices
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createservice
+      description: CreateService
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-services.createservice
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteservice
+      description: DeleteService
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-services.deleteservice
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+        force: tools.force
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getservice
+      description: GetService
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-services.getservice
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: headservice
+      description: HeadService
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-services.headservice
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateservice
+      description: UpdateService
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-services.updateservice
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: addserviceitems
+      description: AddServiceItems
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-services.addserviceitems
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: removeserviceitem
+      description: RemoveServiceItem
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-services.removeserviceitem
+      with:
+        orgName: tools.orgName
+        ownerType: tools.ownerType
+        ownerName: tools.ownerName
+        serviceName: tools.serviceName
+        itemType: tools.itemType
+        itemName: tools.itemName
+      outputParameters:
+      - type: object
+        mapping: $.

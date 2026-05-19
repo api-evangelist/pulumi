@@ -1,0 +1,2363 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — Deployments
+  description: 'Pulumi APIs — Deployments. 40 operations. Lead operation: GetPulumiDeployExecutor. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-deployments
+    baseUri: ''
+    description: Pulumi APIs — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: api-deployments-executor
+      path: /api/deployments/executor
+      operations:
+      - name: getpulumideployexecutor
+        method: GET
+        description: GetPulumiDeployExecutor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-deployments-poll
+      path: /api/deployments/poll
+      operations:
+      - name: polldeploymentsqueue
+        method: GET
+        description: PollDeploymentsQueue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-deployments-deploymentId-status
+      path: /api/deployments/{deploymentId}/status
+      operations:
+      - name: getdeploymentsstatus
+        method: GET
+        description: GetDeploymentsStatus
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deploymentId
+          in: path
+          type: string
+          description: The deployment identifier
+          required: true
+    - name: api-orgs-orgName-deployments
+      path: /api/orgs/{orgName}/deployments
+      operations:
+      - name: listorgdeployments
+        method: GET
+        description: ListOrgDeployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: asc
+          in: query
+          type: boolean
+          description: Sort in ascending order when true (default false)
+        - name: page
+          in: query
+          type: integer
+          description: Page number (min 1, default 1)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Results per page (1-100, default 10)
+        - name: sort
+          in: query
+          type: string
+          description: Field to sort results by
+    - name: api-orgs-orgName-deployments-metadata
+      path: /api/orgs/{orgName}/deployments/metadata
+      operations:
+      - name: orgdeploymentsmetadata
+        method: GET
+        description: OrgDeploymentsMetadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-deployments-pause
+      path: /api/orgs/{orgName}/deployments/pause
+      operations:
+      - name: pauseorgdeployments
+        method: POST
+        description: PauseOrgDeployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-deployments-resume
+      path: /api/orgs/{orgName}/deployments/resume
+      operations:
+      - name: resumeorgdeployments
+        method: POST
+        description: ResumeOrgDeployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-deployments-summary
+      path: /api/orgs/{orgName}/deployments/summary
+      operations:
+      - name: getusagesummarydeploycompute
+        method: GET
+        description: GetUsageSummaryDeployCompute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: granularity
+          in: query
+          type: string
+          description: Time granularity for the summary (e.g. 'daily', 'hourly')
+        - name: lookbackDays
+          in: query
+          type: integer
+          description: Number of days to look back from the current date
+        - name: lookbackStart
+          in: query
+          type: integer
+          description: Start of the lookback period (Unix timestamp)
+    - name: api-orgs-orgName-deployments-usagereport
+      path: /api/orgs/{orgName}/deployments/usagereport
+      operations:
+      - name: getdeployusagereport
+        method: GET
+        description: GetDeployUsageReport
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: lookbackDays
+          in: query
+          type: integer
+          description: Number of days to look back
+    - name: api-stacks-orgName-projectName-stackName-deployments
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments
+      operations:
+      - name: liststackdeploymentshandlerv2
+        method: GET
+        description: ListStackDeploymentsHandlerV2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: asc
+          in: query
+          type: boolean
+          description: Sort in ascending order when true (default false)
+        - name: page
+          in: query
+          type: integer
+          description: Page number (min 1, default 1)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Results per page (1-100, default 10)
+        - name: sort
+          in: query
+          type: string
+          description: Field to sort results by
+      - name: createapideploymenthandlerv2
+        method: POST
+        description: CreateAPIDeploymentHandlerV2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-cache
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/cache
+      operations:
+      - name: clearprojectcache
+        method: DELETE
+        description: ClearProjectCache
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-cache-url
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/cache/url
+      operations:
+      - name: getpresignedcacheurl
+        method: POST
+        description: GetPresignedCacheURL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-drift-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules
+      operations:
+      - name: createscheduleddriftdeployment
+        method: POST
+        description: CreateScheduledDriftDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-drift-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules/{scheduleID}
+      operations:
+      - name: updatescheduleddriftdeployment
+        method: POST
+        description: UpdateScheduledDriftDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-metadata
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/metadata
+      operations:
+      - name: stackdeploymentsmetadata
+        method: GET
+        description: StackDeploymentsMetadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-pause
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/pause
+      operations:
+      - name: pausestackdeployments
+        method: POST
+        description: PauseStackDeployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-resume
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/resume
+      operations:
+      - name: resumestackdeployments
+        method: POST
+        description: ResumeStackDeployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules
+      operations:
+      - name: listscheduleddeployment
+        method: GET
+        description: ListScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+      - name: createscheduleddeployment
+        method: POST
+        description: CreateScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}
+      operations:
+      - name: deletescheduleddeployment
+        method: DELETE
+        description: DeleteScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+      - name: readscheduleddeployment
+        method: GET
+        description: ReadScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+      - name: updatescheduleddeployment
+        method: POST
+        description: UpdateScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-histor
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/history
+      operations:
+      - name: listscheduleddeploymenthistory
+        method: GET
+        description: ListScheduledDeploymentHistory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-pause
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/pause
+      operations:
+      - name: pausescheduleddeployment
+        method: POST
+        description: PauseScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-resume
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/resume
+      operations:
+      - name: resumescheduleddeployment
+        method: POST
+        description: ResumeScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-settings
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/settings
+      operations:
+      - name: deletedeploymentsettings
+        method: DELETE
+        description: DeleteDeploymentSettings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+      - name: getdeploymentsettings
+        method: GET
+        description: GetDeploymentSettings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+      - name: patchdeploymentsettings
+        method: POST
+        description: PatchDeploymentSettings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: replacedeploymentsettings
+        method: PUT
+        description: ReplaceDeploymentSettings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-settings-encrypt
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/settings/encrypt
+      operations:
+      - name: encryptdeploymentsettingssecret
+        method: POST
+        description: EncryptDeploymentSettingsSecret
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-ttl-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules
+      operations:
+      - name: createscheduledttldeployment
+        method: POST
+        description: CreateScheduledTTLDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-ttl-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules/{scheduleID}
+      operations:
+      - name: updatescheduledttldeployment
+        method: POST
+        description: UpdateScheduledTTLDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-version-version
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/version/{version}
+      operations:
+      - name: getdeploymentversion
+        method: GET
+        description: GetDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: version
+          in: path
+          type: string
+          description: The deployment version number
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-deploymentId
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/{deploymentId}
+      operations:
+      - name: getdeployment
+        method: GET
+        description: GetDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: deploymentId
+          in: path
+          type: string
+          description: The deployment identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-deploymentId-cancel
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/{deploymentId}/cancel
+      operations:
+      - name: canceldeployment
+        method: POST
+        description: CancelDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: deploymentId
+          in: path
+          type: string
+          description: The deployment identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-deploymentId-logs
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/{deploymentId}/logs
+      operations:
+      - name: getdeploymentlogs
+        method: GET
+        description: GetDeploymentLogs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: deploymentId
+          in: path
+          type: string
+          description: The deployment identifier
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Continuation token for streaming logs; use nextToken from the previous response to fetch subsequent
+            log entries
+        - name: count
+          in: query
+          type: integer
+          description: Number of log lines to return (1-499, default 100)
+        - name: job
+          in: query
+          type: integer
+          description: Zero-based job index to retrieve logs for
+        - name: offset
+          in: query
+          type: integer
+          description: Zero-based line offset within the step logs
+        - name: step
+          in: query
+          type: integer
+          description: Zero-based step index within the specified job
+    - name: api-stacks-orgName-projectName-stackName-deployments-deploymentId-updates
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/{deploymentId}/updates
+      operations:
+      - name: getdeploymentupdates
+        method: GET
+        description: GetDeploymentUpdates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: deploymentId
+          in: path
+          type: string
+          description: The deployment identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-drift-runs
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/drift/runs
+      operations:
+      - name: listdriftruns
+        method: GET
+        description: ListDriftRuns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number (min 1, default 1)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Results per page (1-100, default 10)
+    - name: api-stacks-orgName-projectName-stackName-drift-status
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/drift/status
+      operations:
+      - name: getstackdriftstatus
+        method: GET
+        description: GetStackDriftStatus
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+  exposes:
+  - type: rest
+    namespace: pulumi-deployments-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — Deployments. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/deployments/executor
+      name: api-deployments-executor
+      description: REST surface for api-deployments-executor.
+      operations:
+      - method: GET
+        name: getpulumideployexecutor
+        description: GetPulumiDeployExecutor
+        call: pulumi-deployments.getpulumideployexecutor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/deployments/poll
+      name: api-deployments-poll
+      description: REST surface for api-deployments-poll.
+      operations:
+      - method: GET
+        name: polldeploymentsqueue
+        description: PollDeploymentsQueue
+        call: pulumi-deployments.polldeploymentsqueue
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/deployments/{deploymentid}/status
+      name: api-deployments-deploymentid-status
+      description: REST surface for api-deployments-deploymentId-status.
+      operations:
+      - method: GET
+        name: getdeploymentsstatus
+        description: GetDeploymentsStatus
+        call: pulumi-deployments.getdeploymentsstatus
+        with:
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments
+      name: api-orgs-orgname-deployments
+      description: REST surface for api-orgs-orgName-deployments.
+      operations:
+      - method: GET
+        name: listorgdeployments
+        description: ListOrgDeployments
+        call: pulumi-deployments.listorgdeployments
+        with:
+          orgName: rest.orgName
+          asc: rest.asc
+          page: rest.page
+          pageSize: rest.pageSize
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments/metadata
+      name: api-orgs-orgname-deployments-metadata
+      description: REST surface for api-orgs-orgName-deployments-metadata.
+      operations:
+      - method: GET
+        name: orgdeploymentsmetadata
+        description: OrgDeploymentsMetadata
+        call: pulumi-deployments.orgdeploymentsmetadata
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments/pause
+      name: api-orgs-orgname-deployments-pause
+      description: REST surface for api-orgs-orgName-deployments-pause.
+      operations:
+      - method: POST
+        name: pauseorgdeployments
+        description: PauseOrgDeployments
+        call: pulumi-deployments.pauseorgdeployments
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments/resume
+      name: api-orgs-orgname-deployments-resume
+      description: REST surface for api-orgs-orgName-deployments-resume.
+      operations:
+      - method: POST
+        name: resumeorgdeployments
+        description: ResumeOrgDeployments
+        call: pulumi-deployments.resumeorgdeployments
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments/summary
+      name: api-orgs-orgname-deployments-summary
+      description: REST surface for api-orgs-orgName-deployments-summary.
+      operations:
+      - method: GET
+        name: getusagesummarydeploycompute
+        description: GetUsageSummaryDeployCompute
+        call: pulumi-deployments.getusagesummarydeploycompute
+        with:
+          orgName: rest.orgName
+          granularity: rest.granularity
+          lookbackDays: rest.lookbackDays
+          lookbackStart: rest.lookbackStart
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/deployments/usagereport
+      name: api-orgs-orgname-deployments-usagereport
+      description: REST surface for api-orgs-orgName-deployments-usagereport.
+      operations:
+      - method: GET
+        name: getdeployusagereport
+        description: GetDeployUsageReport
+        call: pulumi-deployments.getdeployusagereport
+        with:
+          orgName: rest.orgName
+          lookbackDays: rest.lookbackDays
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments
+      name: api-stacks-orgname-projectname-stackname-deployments
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments.
+      operations:
+      - method: GET
+        name: liststackdeploymentshandlerv2
+        description: ListStackDeploymentsHandlerV2
+        call: pulumi-deployments.liststackdeploymentshandlerv2
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          asc: rest.asc
+          page: rest.page
+          pageSize: rest.pageSize
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createapideploymenthandlerv2
+        description: CreateAPIDeploymentHandlerV2
+        call: pulumi-deployments.createapideploymenthandlerv2
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/cache
+      name: api-stacks-orgname-projectname-stackname-deployments-cache
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-cache.
+      operations:
+      - method: DELETE
+        name: clearprojectcache
+        description: ClearProjectCache
+        call: pulumi-deployments.clearprojectcache
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/cache/url
+      name: api-stacks-orgname-projectname-stackname-deployments-cache-url
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-cache-url.
+      operations:
+      - method: POST
+        name: getpresignedcacheurl
+        description: GetPresignedCacheURL
+        call: pulumi-deployments.getpresignedcacheurl
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/drift/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-drift-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-drift-schedules.
+      operations:
+      - method: POST
+        name: createscheduleddriftdeployment
+        description: CreateScheduledDriftDeployment
+        call: pulumi-deployments.createscheduleddriftdeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/drift/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-drift-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-drift-schedules-scheduleID.
+      operations:
+      - method: POST
+        name: updatescheduleddriftdeployment
+        description: UpdateScheduledDriftDeployment
+        call: pulumi-deployments.updatescheduleddriftdeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/metadata
+      name: api-stacks-orgname-projectname-stackname-deployments-metadata
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-metadata.
+      operations:
+      - method: GET
+        name: stackdeploymentsmetadata
+        description: StackDeploymentsMetadata
+        call: pulumi-deployments.stackdeploymentsmetadata
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/pause
+      name: api-stacks-orgname-projectname-stackname-deployments-pause
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-pause.
+      operations:
+      - method: POST
+        name: pausestackdeployments
+        description: PauseStackDeployments
+        call: pulumi-deployments.pausestackdeployments
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/resume
+      name: api-stacks-orgname-projectname-stackname-deployments-resume
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-resume.
+      operations:
+      - method: POST
+        name: resumestackdeployments
+        description: ResumeStackDeployments
+        call: pulumi-deployments.resumestackdeployments
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules.
+      operations:
+      - method: GET
+        name: listscheduleddeployment
+        description: ListScheduledDeployment
+        call: pulumi-deployments.listscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscheduleddeployment
+        description: CreateScheduledDeployment
+        call: pulumi-deployments.createscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID.
+      operations:
+      - method: DELETE
+        name: deletescheduleddeployment
+        description: DeleteScheduledDeployment
+        call: pulumi-deployments.deletescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readscheduleddeployment
+        description: ReadScheduledDeployment
+        call: pulumi-deployments.readscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updatescheduleddeployment
+        description: UpdateScheduledDeployment
+        call: pulumi-deployments.updatescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/history
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-histor
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-histor.
+      operations:
+      - method: GET
+        name: listscheduleddeploymenthistory
+        description: ListScheduledDeploymentHistory
+        call: pulumi-deployments.listscheduleddeploymenthistory
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/pause
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-pause
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-pause.
+      operations:
+      - method: POST
+        name: pausescheduleddeployment
+        description: PauseScheduledDeployment
+        call: pulumi-deployments.pausescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/resume
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-resume
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-resume.
+      operations:
+      - method: POST
+        name: resumescheduleddeployment
+        description: ResumeScheduledDeployment
+        call: pulumi-deployments.resumescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/settings
+      name: api-stacks-orgname-projectname-stackname-deployments-settings
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-settings.
+      operations:
+      - method: DELETE
+        name: deletedeploymentsettings
+        description: DeleteDeploymentSettings
+        call: pulumi-deployments.deletedeploymentsettings
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getdeploymentsettings
+        description: GetDeploymentSettings
+        call: pulumi-deployments.getdeploymentsettings
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: patchdeploymentsettings
+        description: PatchDeploymentSettings
+        call: pulumi-deployments.patchdeploymentsettings
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacedeploymentsettings
+        description: ReplaceDeploymentSettings
+        call: pulumi-deployments.replacedeploymentsettings
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/settings/encrypt
+      name: api-stacks-orgname-projectname-stackname-deployments-settings-encrypt
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-settings-encrypt.
+      operations:
+      - method: POST
+        name: encryptdeploymentsettingssecret
+        description: EncryptDeploymentSettingsSecret
+        call: pulumi-deployments.encryptdeploymentsettingssecret
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/ttl/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-ttl-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-ttl-schedules.
+      operations:
+      - method: POST
+        name: createscheduledttldeployment
+        description: CreateScheduledTTLDeployment
+        call: pulumi-deployments.createscheduledttldeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/ttl/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-ttl-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-ttl-schedules-scheduleID.
+      operations:
+      - method: POST
+        name: updatescheduledttldeployment
+        description: UpdateScheduledTTLDeployment
+        call: pulumi-deployments.updatescheduledttldeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/version/{version}
+      name: api-stacks-orgname-projectname-stackname-deployments-version-version
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-version-version.
+      operations:
+      - method: GET
+        name: getdeploymentversion
+        description: GetDeployment
+        call: pulumi-deployments.getdeploymentversion
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/{deploymentid}
+      name: api-stacks-orgname-projectname-stackname-deployments-deploymentid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-deploymentId.
+      operations:
+      - method: GET
+        name: getdeployment
+        description: GetDeployment
+        call: pulumi-deployments.getdeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/{deploymentid}/cancel
+      name: api-stacks-orgname-projectname-stackname-deployments-deploymentid-cancel
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-deploymentId-cancel.
+      operations:
+      - method: POST
+        name: canceldeployment
+        description: CancelDeployment
+        call: pulumi-deployments.canceldeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/{deploymentid}/logs
+      name: api-stacks-orgname-projectname-stackname-deployments-deploymentid-logs
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-deploymentId-logs.
+      operations:
+      - method: GET
+        name: getdeploymentlogs
+        description: GetDeploymentLogs
+        call: pulumi-deployments.getdeploymentlogs
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          deploymentId: rest.deploymentId
+          continuationToken: rest.continuationToken
+          count: rest.count
+          job: rest.job
+          offset: rest.offset
+          step: rest.step
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/{deploymentid}/updates
+      name: api-stacks-orgname-projectname-stackname-deployments-deploymentid-updates
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-deploymentId-updates.
+      operations:
+      - method: GET
+        name: getdeploymentupdates
+        description: GetDeploymentUpdates
+        call: pulumi-deployments.getdeploymentupdates
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/drift/runs
+      name: api-stacks-orgname-projectname-stackname-drift-runs
+      description: REST surface for api-stacks-orgName-projectName-stackName-drift-runs.
+      operations:
+      - method: GET
+        name: listdriftruns
+        description: ListDriftRuns
+        call: pulumi-deployments.listdriftruns
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/drift/status
+      name: api-stacks-orgname-projectname-stackname-drift-status
+      description: REST surface for api-stacks-orgName-projectName-stackName-drift-status.
+      operations:
+      - method: GET
+        name: getstackdriftstatus
+        description: GetStackDriftStatus
+        call: pulumi-deployments.getstackdriftstatus
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — Deployments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: getpulumideployexecutor
+      description: GetPulumiDeployExecutor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getpulumideployexecutor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: polldeploymentsqueue
+      description: PollDeploymentsQueue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.polldeploymentsqueue
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeploymentsstatus
+      description: GetDeploymentsStatus
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeploymentsstatus
+      with:
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listorgdeployments
+      description: ListOrgDeployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.listorgdeployments
+      with:
+        orgName: tools.orgName
+        asc: tools.asc
+        page: tools.page
+        pageSize: tools.pageSize
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: orgdeploymentsmetadata
+      description: OrgDeploymentsMetadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.orgdeploymentsmetadata
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pauseorgdeployments
+      description: PauseOrgDeployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.pauseorgdeployments
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumeorgdeployments
+      description: ResumeOrgDeployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.resumeorgdeployments
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getusagesummarydeploycompute
+      description: GetUsageSummaryDeployCompute
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getusagesummarydeploycompute
+      with:
+        orgName: tools.orgName
+        granularity: tools.granularity
+        lookbackDays: tools.lookbackDays
+        lookbackStart: tools.lookbackStart
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeployusagereport
+      description: GetDeployUsageReport
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeployusagereport
+      with:
+        orgName: tools.orgName
+        lookbackDays: tools.lookbackDays
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: liststackdeploymentshandlerv2
+      description: ListStackDeploymentsHandlerV2
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.liststackdeploymentshandlerv2
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        asc: tools.asc
+        page: tools.page
+        pageSize: tools.pageSize
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createapideploymenthandlerv2
+      description: CreateAPIDeploymentHandlerV2
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.createapideploymenthandlerv2
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clearprojectcache
+      description: ClearProjectCache
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-deployments.clearprojectcache
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpresignedcacheurl
+      description: GetPresignedCacheURL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.getpresignedcacheurl
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduleddriftdeployment
+      description: CreateScheduledDriftDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.createscheduleddriftdeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduleddriftdeployment
+      description: UpdateScheduledDriftDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.updatescheduleddriftdeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stackdeploymentsmetadata
+      description: StackDeploymentsMetadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.stackdeploymentsmetadata
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pausestackdeployments
+      description: PauseStackDeployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.pausestackdeployments
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumestackdeployments
+      description: ResumeStackDeployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.resumestackdeployments
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listscheduleddeployment
+      description: ListScheduledDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.listscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduleddeployment
+      description: CreateScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.createscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletescheduleddeployment
+      description: DeleteScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-deployments.deletescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: readscheduleddeployment
+      description: ReadScheduledDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.readscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduleddeployment
+      description: UpdateScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.updatescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listscheduleddeploymenthistory
+      description: ListScheduledDeploymentHistory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.listscheduleddeploymenthistory
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pausescheduleddeployment
+      description: PauseScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.pausescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumescheduleddeployment
+      description: ResumeScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.resumescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletedeploymentsettings
+      description: DeleteDeploymentSettings
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-deployments.deletedeploymentsettings
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeploymentsettings
+      description: GetDeploymentSettings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeploymentsettings
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: patchdeploymentsettings
+      description: PatchDeploymentSettings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.patchdeploymentsettings
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacedeploymentsettings
+      description: ReplaceDeploymentSettings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.replacedeploymentsettings
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: encryptdeploymentsettingssecret
+      description: EncryptDeploymentSettingsSecret
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.encryptdeploymentsettingssecret
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduledttldeployment
+      description: CreateScheduledTTLDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.createscheduledttldeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduledttldeployment
+      description: UpdateScheduledTTLDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.updatescheduledttldeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeployment
+      description: GetDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeploymentversion
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeployment-2
+      description: GetDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: canceldeployment
+      description: CancelDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-deployments.canceldeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeploymentlogs
+      description: GetDeploymentLogs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeploymentlogs
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        deploymentId: tools.deploymentId
+        continuationToken: tools.continuationToken
+        count: tools.count
+        job: tools.job
+        offset: tools.offset
+        step: tools.step
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeploymentupdates
+      description: GetDeploymentUpdates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getdeploymentupdates
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listdriftruns
+      description: ListDriftRuns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.listdriftruns
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getstackdriftstatus
+      description: GetStackDriftStatus
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-deployments.getstackdriftstatus
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.

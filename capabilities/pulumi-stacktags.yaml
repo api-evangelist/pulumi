@@ -1,0 +1,280 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — StackTags
+  description: 'Pulumi APIs — StackTags. 4 operations. Lead operation: UpdateStackTags. Self-contained Naftiko capability
+    covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - StackTags
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-stacktags
+    baseUri: ''
+    description: Pulumi APIs — StackTags business capability. Self-contained, no shared references.
+    resources:
+    - name: api-stacks-orgName-projectName-stackName-tags
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/tags
+      operations:
+      - name: updatestacktags
+        method: PATCH
+        description: UpdateStackTags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: addstacktag
+        method: POST
+        description: AddStackTag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-tags-tagName
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/tags/{tagName}
+      operations:
+      - name: deletestacktag
+        method: DELETE
+        description: DeleteStackTag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: tagName
+          in: path
+          type: string
+          description: The tag name
+          required: true
+      - name: updatestacktag
+        method: PATCH
+        description: UpdateStackTag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: tagName
+          in: path
+          type: string
+          description: The tag name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: pulumi-stacktags-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — StackTags. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/tags
+      name: api-stacks-orgname-projectname-stackname-tags
+      description: REST surface for api-stacks-orgName-projectName-stackName-tags.
+      operations:
+      - method: PATCH
+        name: updatestacktags
+        description: UpdateStackTags
+        call: pulumi-stacktags.updatestacktags
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addstacktag
+        description: AddStackTag
+        call: pulumi-stacktags.addstacktag
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/tags/{tagname}
+      name: api-stacks-orgname-projectname-stackname-tags-tagname
+      description: REST surface for api-stacks-orgName-projectName-stackName-tags-tagName.
+      operations:
+      - method: DELETE
+        name: deletestacktag
+        description: DeleteStackTag
+        call: pulumi-stacktags.deletestacktag
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          tagName: rest.tagName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatestacktag
+        description: UpdateStackTag
+        call: pulumi-stacktags.updatestacktag
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          tagName: rest.tagName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-stacktags-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — StackTags. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: updatestacktags
+      description: UpdateStackTags
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-stacktags.updatestacktags
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: addstacktag
+      description: AddStackTag
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-stacktags.addstacktag
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletestacktag
+      description: DeleteStackTag
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-stacktags.deletestacktag
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        tagName: tools.tagName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatestacktag
+      description: UpdateStackTag
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-stacktags.updatestacktag
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        tagName: tools.tagName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

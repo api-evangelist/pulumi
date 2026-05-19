@@ -1,0 +1,357 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — OidcIssuers
+  description: 'Pulumi APIs — OidcIssuers. 7 operations. Lead operation: GetAuthPolicy. Self-contained Naftiko capability
+    covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - OidcIssuers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-oidcissuers
+    baseUri: ''
+    description: Pulumi APIs — OidcIssuers business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-auth-policies-oidcissuers-issuerId
+      path: /api/orgs/{orgName}/auth/policies/oidcissuers/{issuerId}
+      operations:
+      - name: getauthpolicy
+        method: GET
+        description: GetAuthPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issuerId
+          in: path
+          type: string
+          description: The OIDC issuer identifier
+          required: true
+    - name: api-orgs-orgName-oidc-issuers
+      path: /api/orgs/{orgName}/oidc/issuers
+      operations:
+      - name: listorgsoidcissuers
+        method: GET
+        description: List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: registeroidcissuer
+        method: POST
+        description: RegisterOidcIssuer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-oidc-issuers-issuerId
+      path: /api/orgs/{orgName}/oidc/issuers/{issuerId}
+      operations:
+      - name: deleteoidcissuer
+        method: DELETE
+        description: DeleteOidcIssuer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issuerId
+          in: path
+          type: string
+          description: The OIDC issuer identifier
+          required: true
+      - name: getoidcissuer
+        method: GET
+        description: GetOidcIssuer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issuerId
+          in: path
+          type: string
+          description: The OIDC issuer identifier
+          required: true
+      - name: updateoidcissuer
+        method: PATCH
+        description: UpdateOidcIssuer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issuerId
+          in: path
+          type: string
+          description: The OIDC issuer identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-oidc-issuers-issuerId-regenerate-thumbprints
+      path: /api/orgs/{orgName}/oidc/issuers/{issuerId}/regenerate-thumbprints
+      operations:
+      - name: regeneratethumbprints
+        method: POST
+        description: RegenerateThumbprints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: issuerId
+          in: path
+          type: string
+          description: The OIDC issuer identifier
+          required: true
+  exposes:
+  - type: rest
+    namespace: pulumi-oidcissuers-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — OidcIssuers. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/auth/policies/oidcissuers/{issuerid}
+      name: api-orgs-orgname-auth-policies-oidcissuers-issuerid
+      description: REST surface for api-orgs-orgName-auth-policies-oidcissuers-issuerId.
+      operations:
+      - method: GET
+        name: getauthpolicy
+        description: GetAuthPolicy
+        call: pulumi-oidcissuers.getauthpolicy
+        with:
+          orgName: rest.orgName
+          issuerId: rest.issuerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/oidc/issuers
+      name: api-orgs-orgname-oidc-issuers
+      description: REST surface for api-orgs-orgName-oidc-issuers.
+      operations:
+      - method: GET
+        name: listorgsoidcissuers
+        description: List
+        call: pulumi-oidcissuers.listorgsoidcissuers
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: registeroidcissuer
+        description: RegisterOidcIssuer
+        call: pulumi-oidcissuers.registeroidcissuer
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/oidc/issuers/{issuerid}
+      name: api-orgs-orgname-oidc-issuers-issuerid
+      description: REST surface for api-orgs-orgName-oidc-issuers-issuerId.
+      operations:
+      - method: DELETE
+        name: deleteoidcissuer
+        description: DeleteOidcIssuer
+        call: pulumi-oidcissuers.deleteoidcissuer
+        with:
+          orgName: rest.orgName
+          issuerId: rest.issuerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getoidcissuer
+        description: GetOidcIssuer
+        call: pulumi-oidcissuers.getoidcissuer
+        with:
+          orgName: rest.orgName
+          issuerId: rest.issuerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateoidcissuer
+        description: UpdateOidcIssuer
+        call: pulumi-oidcissuers.updateoidcissuer
+        with:
+          orgName: rest.orgName
+          issuerId: rest.issuerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/oidc/issuers/{issuerid}/regenerate-thumbprints
+      name: api-orgs-orgname-oidc-issuers-issuerid-regenerate-thumbprints
+      description: REST surface for api-orgs-orgName-oidc-issuers-issuerId-regenerate-thumbprints.
+      operations:
+      - method: POST
+        name: regeneratethumbprints
+        description: RegenerateThumbprints
+        call: pulumi-oidcissuers.regeneratethumbprints
+        with:
+          orgName: rest.orgName
+          issuerId: rest.issuerId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-oidcissuers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — OidcIssuers. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: getauthpolicy
+      description: GetAuthPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-oidcissuers.getauthpolicy
+      with:
+        orgName: tools.orgName
+        issuerId: tools.issuerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list
+      description: List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-oidcissuers.listorgsoidcissuers
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: registeroidcissuer
+      description: RegisterOidcIssuer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-oidcissuers.registeroidcissuer
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteoidcissuer
+      description: DeleteOidcIssuer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-oidcissuers.deleteoidcissuer
+      with:
+        orgName: tools.orgName
+        issuerId: tools.issuerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getoidcissuer
+      description: GetOidcIssuer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-oidcissuers.getoidcissuer
+      with:
+        orgName: tools.orgName
+        issuerId: tools.issuerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateoidcissuer
+      description: UpdateOidcIssuer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-oidcissuers.updateoidcissuer
+      with:
+        orgName: tools.orgName
+        issuerId: tools.issuerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: regeneratethumbprints
+      description: RegenerateThumbprints
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-oidcissuers.regeneratethumbprints
+      with:
+        orgName: tools.orgName
+        issuerId: tools.issuerId
+      outputParameters:
+      - type: object
+        mapping: $.

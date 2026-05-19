@@ -1,130 +1,190 @@
 aid: pulumi
 name: Pulumi
-description: >-
-  Pulumi is a modern infrastructure as code platform that allows you to use
-  familiar programming languages to build, deploy, and manage cloud
-  infrastructure. The Pulumi Cloud REST API enables programmatic access to
-  manage organizations, stacks, deployments, environments, policy packs,
-  webhooks, and other Pulumi Cloud resources.
+description: Pulumi is a modern infrastructure as code platform that allows you to use familiar programming languages to build,
+  deploy, and manage cloud infrastructure. The Pulumi Cloud REST API enables programmatic access to manage organizations,
+  stacks, deployments, environments, policy packs, webhooks, and other Pulumi Cloud resources.
 type: Index
 position: Consumer
 access: 3rd-Party
 image: https://www.pulumi.com/logos/brand/logo-on-white.png
 tags:
-  - Automation
-  - Cloud
-  - DevOps
-  - Infrastructure as Code
-  - Multi-Cloud
-  - Stacks
-  - Deployments
-  - Policy
+- Automation
+- Cloud
+- DevOps
+- Infrastructure as Code
+- Multi-Cloud
+- Stacks
+- Deployments
+- Policy
 created: '2025-01-08'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: pulumi:pulumi-cloud
-    name: Pulumi Cloud REST API
-    description: >-
-      The Pulumi Cloud REST API exposes 446+ endpoints across 28 categories,
-      including access tokens, AI/agents, audit logs, change gates and
-      requests, deployments, environments (ESC), insights, OIDC issuers,
-      organizations, policy groups and packs, registry, resource search,
-      stacks, and webhooks. Authentication is via the `Authorization: token
-      {token}` header.
-    humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
-    baseURL: https://api.pulumi.com
-    tags:
-      - Cloud
-      - DevOps
-      - Infrastructure as Code
-      - Stacks
-      - Deployments
-    properties:
-      - type: Documentation
-        url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
-      - type: OpenAPI
-        url: https://api.pulumi.com/api/openapi/pulumi-spec.json
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/openapi/pulumi-openapi.json
-      - type: Authentication
-        url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
-  - aid: pulumi:automation-api
-    name: Pulumi Automation API
-    description: >-
-      The Automation API enables you to build custom cloud interfaces for your
-      technical end users. Build self-service developer portals, CLIs,
-      frameworks, and more, programmatically driving Pulumi from Go, Node.js,
-      Python, .NET, and Java.
-    humanURL: https://www.pulumi.com/automation/
-    tags:
-      - Automation
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://www.pulumi.com/automation/
-      - type: GitHub
-        url: https://github.com/pulumi/pulumi
+- aid: pulumi:pulumi-cloud
+  name: Pulumi Cloud REST API
+  description: 'The Pulumi Cloud REST API exposes 446+ endpoints across 28 categories, including access tokens, AI/agents,
+    audit logs, change gates and requests, deployments, environments (ESC), insights, OIDC issuers, organizations, policy
+    groups and packs, registry, resource search, stacks, and webhooks. Authentication is via the `Authorization: token {token}`
+    header.'
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Cloud
+  - DevOps
+  - Infrastructure as Code
+  - Stacks
+  - Deployments
+  properties:
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: OpenAPI
+    url: https://api.pulumi.com/api/openapi/pulumi-spec.json
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/openapi/pulumi-openapi.json
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+  - type: NaftikoCapability
+    url: capabilities/pulumi-ai.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-ai-agents.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-accesstokens.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-auditlogs.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-cloudsetup.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-dataexport.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-deploymentrunners.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-deployments.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-environments.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-insights.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-insightsaccounts.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-miscellaneous.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-neo.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-oauthtokenexchange.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-oidcissuers.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-organizations.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-policygroups.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-policypacks.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-policyresults.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-registry.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-registrypreview.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-resourcesearch.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-resourcesundermanagement.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-schedules.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-services.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-stackconfig.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-stackpolicy.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-stacktags.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-stackupdates.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-stacks.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-users.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-vcs-integrations.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-webhooks.yaml
+  - type: NaftikoCapability
+    url: capabilities/pulumi-workflows.yaml
+- aid: pulumi:automation-api
+  name: Pulumi Automation API
+  description: The Automation API enables you to build custom cloud interfaces for your technical end users. Build self-service
+    developer portals, CLIs, frameworks, and more, programmatically driving Pulumi from Go, Node.js, Python, .NET, and Java.
+  humanURL: https://www.pulumi.com/automation/
+  tags:
+  - Automation
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://www.pulumi.com/automation/
+  - type: GitHub
+    url: https://github.com/pulumi/pulumi
 integrations:
-  - name: Pulumi
-  - name: AWS
-  - name: Azure
-  - name: Google Cloud
-  - name: 1Password
-  - name: Checkly
-  - name: Chronosphere
-  - name: Civo
-  - name: Cloudflare
-  - name: Dagger
-  - name: Datadog
-  - name: Docker
-  - name: GitHub
-  - name: GitLab
-  - name: NewRelic
-  - name: Nitric
-  - name: Oracle
-  - name: Pinecone
-  - name: Snowflake
-  - name: Snyk
-  - name: Spot
-  - name: Tailscale
-  - name: Twingate
-  - name: Zscaler
-  - name: Pulumi X
-  - name: Pulumi Slack
-  - name: Pulumi LinkedIn
-  - name: Pulumi YouTube
-  - name: Pulumi Github
+- name: Pulumi
+- name: AWS
+- name: Azure
+- name: Google Cloud
+- name: 1Password
+- name: Checkly
+- name: Chronosphere
+- name: Civo
+- name: Cloudflare
+- name: Dagger
+- name: Datadog
+- name: Docker
+- name: GitHub
+- name: GitLab
+- name: NewRelic
+- name: Nitric
+- name: Oracle
+- name: Pinecone
+- name: Snowflake
+- name: Snyk
+- name: Spot
+- name: Tailscale
+- name: Twingate
+- name: Zscaler
+- name: Pulumi X
+- name: Pulumi Slack
+- name: Pulumi LinkedIn
+- name: Pulumi YouTube
+- name: Pulumi Github
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 common:
-  - url: https://www.pulumi.com
-    type: Website
-  - url: https://www.pulumi.com/docs/
-    type: Documentation
-  - url: https://www.pulumi.com/blog/
-    type: Blog
-  - url: https://github.com/pulumi
-    type: GitHubOrganization
-  - url: https://app.pulumi.com/signup
-    type: SignUp
-  - url: https://app.pulumi.com/signin
-    type: Login
-  - url: https://www.pulumi.com/pricing/
-    type: Pricing
-  - url: https://status.pulumi.com/
-    type: StatusPage
-  - url: https://www.pulumi.com/terms/
-    type: TermsOfService
-  - url: https://www.pulumi.com/privacy/
-    type: PrivacyPolicy
-  - url: https://app.pulumi.com/account/tokens
-    type: Authentication
-  - type: Integrations
-    url: https://www.pulumi.com/partners/
-  - name: Agent Skills
-    url: https://github.com/pulumi/agent-skills
-    type: AgentSkill
+- type: LinkedIn
+  url: https://www.linkedin.com/company/pulumi
+- url: https://www.pulumi.com
+  type: Website
+- url: https://www.pulumi.com/docs/
+  type: Documentation
+- url: https://www.pulumi.com/blog/
+  type: Blog
+- url: https://github.com/pulumi
+  type: GitHubOrganization
+- url: https://app.pulumi.com/signup
+  type: SignUp
+- url: https://app.pulumi.com/signin
+  type: Login
+- url: https://www.pulumi.com/pricing/
+  type: Pricing
+- url: https://status.pulumi.com/
+  type: StatusPage
+- url: https://www.pulumi.com/terms/
+  type: TermsOfService
+- url: https://www.pulumi.com/privacy/
+  type: PrivacyPolicy
+- url: https://app.pulumi.com/account/tokens
+  type: Authentication
+- type: Integrations
+  url: https://www.pulumi.com/partners/
+- name: Agent Skills
+  url: https://github.com/pulumi/agent-skills
+  type: AgentSkill

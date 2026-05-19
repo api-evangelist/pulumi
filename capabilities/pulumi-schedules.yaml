@@ -1,0 +1,784 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — Schedules
+  description: 'Pulumi APIs — Schedules. 12 operations. Lead operation: CreateScheduledDriftDeployment. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - Schedules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-schedules
+    baseUri: ''
+    description: Pulumi APIs — Schedules business capability. Self-contained, no shared references.
+    resources:
+    - name: api-stacks-orgName-projectName-stackName-deployments-drift-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules
+      operations:
+      - name: createscheduleddriftdeployment
+        method: POST
+        description: CreateScheduledDriftDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-drift-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules/{scheduleID}
+      operations:
+      - name: updatescheduleddriftdeployment
+        method: POST
+        description: UpdateScheduledDriftDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules
+      operations:
+      - name: listscheduleddeployment
+        method: GET
+        description: ListScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+      - name: createscheduleddeployment
+        method: POST
+        description: CreateScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}
+      operations:
+      - name: deletescheduleddeployment
+        method: DELETE
+        description: DeleteScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+      - name: readscheduleddeployment
+        method: GET
+        description: ReadScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+      - name: updatescheduleddeployment
+        method: POST
+        description: UpdateScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-histor
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/history
+      operations:
+      - name: listscheduleddeploymenthistory
+        method: GET
+        description: ListScheduledDeploymentHistory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-pause
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/pause
+      operations:
+      - name: pausescheduleddeployment
+        method: POST
+        description: PauseScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-resume
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/resume
+      operations:
+      - name: resumescheduleddeployment
+        method: POST
+        description: ResumeScheduledDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+    - name: api-stacks-orgName-projectName-stackName-deployments-ttl-schedules
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules
+      operations:
+      - name: createscheduledttldeployment
+        method: POST
+        description: CreateScheduledTTLDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-stacks-orgName-projectName-stackName-deployments-ttl-schedules-scheduleID
+      path: /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules/{scheduleID}
+      operations:
+      - name: updatescheduledttldeployment
+        method: POST
+        description: UpdateScheduledTTLDeployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: projectName
+          in: path
+          type: string
+          description: The project name
+          required: true
+        - name: stackName
+          in: path
+          type: string
+          description: The stack name
+          required: true
+        - name: scheduleID
+          in: path
+          type: string
+          description: The schedule identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: pulumi-schedules-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — Schedules. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/drift/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-drift-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-drift-schedules.
+      operations:
+      - method: POST
+        name: createscheduleddriftdeployment
+        description: CreateScheduledDriftDeployment
+        call: pulumi-schedules.createscheduleddriftdeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/drift/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-drift-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-drift-schedules-scheduleID.
+      operations:
+      - method: POST
+        name: updatescheduleddriftdeployment
+        description: UpdateScheduledDriftDeployment
+        call: pulumi-schedules.updatescheduleddriftdeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules.
+      operations:
+      - method: GET
+        name: listscheduleddeployment
+        description: ListScheduledDeployment
+        call: pulumi-schedules.listscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscheduleddeployment
+        description: CreateScheduledDeployment
+        call: pulumi-schedules.createscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID.
+      operations:
+      - method: DELETE
+        name: deletescheduleddeployment
+        description: DeleteScheduledDeployment
+        call: pulumi-schedules.deletescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readscheduleddeployment
+        description: ReadScheduledDeployment
+        call: pulumi-schedules.readscheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updatescheduleddeployment
+        description: UpdateScheduledDeployment
+        call: pulumi-schedules.updatescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/history
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-histor
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-histor.
+      operations:
+      - method: GET
+        name: listscheduleddeploymenthistory
+        description: ListScheduledDeploymentHistory
+        call: pulumi-schedules.listscheduleddeploymenthistory
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/pause
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-pause
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-pause.
+      operations:
+      - method: POST
+        name: pausescheduleddeployment
+        description: PauseScheduledDeployment
+        call: pulumi-schedules.pausescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/schedules/{scheduleid}/resume
+      name: api-stacks-orgname-projectname-stackname-deployments-schedules-scheduleid-resume
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-schedules-scheduleID-resume.
+      operations:
+      - method: POST
+        name: resumescheduleddeployment
+        description: ResumeScheduledDeployment
+        call: pulumi-schedules.resumescheduleddeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/ttl/schedules
+      name: api-stacks-orgname-projectname-stackname-deployments-ttl-schedules
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-ttl-schedules.
+      operations:
+      - method: POST
+        name: createscheduledttldeployment
+        description: CreateScheduledTTLDeployment
+        call: pulumi-schedules.createscheduledttldeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/stacks/{orgname}/{projectname}/{stackname}/deployments/ttl/schedules/{scheduleid}
+      name: api-stacks-orgname-projectname-stackname-deployments-ttl-schedules-scheduleid
+      description: REST surface for api-stacks-orgName-projectName-stackName-deployments-ttl-schedules-scheduleID.
+      operations:
+      - method: POST
+        name: updatescheduledttldeployment
+        description: UpdateScheduledTTLDeployment
+        call: pulumi-schedules.updatescheduledttldeployment
+        with:
+          orgName: rest.orgName
+          projectName: rest.projectName
+          stackName: rest.stackName
+          scheduleID: rest.scheduleID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-schedules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — Schedules. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: createscheduleddriftdeployment
+      description: CreateScheduledDriftDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.createscheduleddriftdeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduleddriftdeployment
+      description: UpdateScheduledDriftDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.updatescheduleddriftdeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listscheduleddeployment
+      description: ListScheduledDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-schedules.listscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduleddeployment
+      description: CreateScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.createscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletescheduleddeployment
+      description: DeleteScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-schedules.deletescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: readscheduleddeployment
+      description: ReadScheduledDeployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-schedules.readscheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduleddeployment
+      description: UpdateScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.updatescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listscheduleddeploymenthistory
+      description: ListScheduledDeploymentHistory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-schedules.listscheduleddeploymenthistory
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pausescheduleddeployment
+      description: PauseScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.pausescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumescheduleddeployment
+      description: ResumeScheduledDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.resumescheduleddeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduledttldeployment
+      description: CreateScheduledTTLDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.createscheduledttldeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduledttldeployment
+      description: UpdateScheduledTTLDeployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-schedules.updatescheduledttldeployment
+      with:
+        orgName: tools.orgName
+        projectName: tools.projectName
+        stackName: tools.stackName
+        scheduleID: tools.scheduleID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

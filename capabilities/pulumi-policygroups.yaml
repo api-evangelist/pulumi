@@ -1,0 +1,357 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — PolicyGroups
+  description: 'Pulumi APIs — PolicyGroups. 7 operations. Lead operation: ListPolicyGroups. Self-contained Naftiko capability
+    covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - PolicyGroups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-policygroups
+    baseUri: ''
+    description: Pulumi APIs — PolicyGroups business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-policygroups
+      path: /api/orgs/{orgName}/policygroups
+      operations:
+      - name: listpolicygroups
+        method: GET
+        description: ListPolicyGroups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: newpolicygroup
+        method: POST
+        description: NewPolicyGroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policygroups-metadata
+      path: /api/orgs/{orgName}/policygroups/metadata
+      operations:
+      - name: getpolicygroupmetadata
+        method: GET
+        description: GetPolicyGroupMetadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-policygroups-policyGroup
+      path: /api/orgs/{orgName}/policygroups/{policyGroup}
+      operations:
+      - name: deletepolicygroup
+        method: DELETE
+        description: DeletePolicyGroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: policyGroup
+          in: path
+          type: string
+          description: The policy group name
+          required: true
+      - name: getpolicygroup
+        method: GET
+        description: GetPolicyGroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: policyGroup
+          in: path
+          type: string
+          description: The policy group name
+          required: true
+      - name: updatepolicygroup
+        method: PATCH
+        description: UpdatePolicyGroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: policyGroup
+          in: path
+          type: string
+          description: The policy group name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-policygroups-policyGroup-batch
+      path: /api/orgs/{orgName}/policygroups/{policyGroup}/batch
+      operations:
+      - name: batchupdatepolicygroup
+        method: PATCH
+        description: BatchUpdatePolicyGroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: policyGroup
+          in: path
+          type: string
+          description: The policy group name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: pulumi-policygroups-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — PolicyGroups. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/policygroups
+      name: api-orgs-orgname-policygroups
+      description: REST surface for api-orgs-orgName-policygroups.
+      operations:
+      - method: GET
+        name: listpolicygroups
+        description: ListPolicyGroups
+        call: pulumi-policygroups.listpolicygroups
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: newpolicygroup
+        description: NewPolicyGroup
+        call: pulumi-policygroups.newpolicygroup
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policygroups/metadata
+      name: api-orgs-orgname-policygroups-metadata
+      description: REST surface for api-orgs-orgName-policygroups-metadata.
+      operations:
+      - method: GET
+        name: getpolicygroupmetadata
+        description: GetPolicyGroupMetadata
+        call: pulumi-policygroups.getpolicygroupmetadata
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policygroups/{policygroup}
+      name: api-orgs-orgname-policygroups-policygroup
+      description: REST surface for api-orgs-orgName-policygroups-policyGroup.
+      operations:
+      - method: DELETE
+        name: deletepolicygroup
+        description: DeletePolicyGroup
+        call: pulumi-policygroups.deletepolicygroup
+        with:
+          orgName: rest.orgName
+          policyGroup: rest.policyGroup
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpolicygroup
+        description: GetPolicyGroup
+        call: pulumi-policygroups.getpolicygroup
+        with:
+          orgName: rest.orgName
+          policyGroup: rest.policyGroup
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatepolicygroup
+        description: UpdatePolicyGroup
+        call: pulumi-policygroups.updatepolicygroup
+        with:
+          orgName: rest.orgName
+          policyGroup: rest.policyGroup
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/policygroups/{policygroup}/batch
+      name: api-orgs-orgname-policygroups-policygroup-batch
+      description: REST surface for api-orgs-orgName-policygroups-policyGroup-batch.
+      operations:
+      - method: PATCH
+        name: batchupdatepolicygroup
+        description: BatchUpdatePolicyGroup
+        call: pulumi-policygroups.batchupdatepolicygroup
+        with:
+          orgName: rest.orgName
+          policyGroup: rest.policyGroup
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-policygroups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — PolicyGroups. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: listpolicygroups
+      description: ListPolicyGroups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policygroups.listpolicygroups
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: newpolicygroup
+      description: NewPolicyGroup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-policygroups.newpolicygroup
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpolicygroupmetadata
+      description: GetPolicyGroupMetadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policygroups.getpolicygroupmetadata
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletepolicygroup
+      description: DeletePolicyGroup
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-policygroups.deletepolicygroup
+      with:
+        orgName: tools.orgName
+        policyGroup: tools.policyGroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpolicygroup
+      description: GetPolicyGroup
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-policygroups.getpolicygroup
+      with:
+        orgName: tools.orgName
+        policyGroup: tools.policyGroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatepolicygroup
+      description: UpdatePolicyGroup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-policygroups.updatepolicygroup
+      with:
+        orgName: tools.orgName
+        policyGroup: tools.policyGroup
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: batchupdatepolicygroup
+      description: BatchUpdatePolicyGroup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: pulumi-policygroups.batchupdatepolicygroup
+      with:
+        orgName: tools.orgName
+        policyGroup: tools.policyGroup
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

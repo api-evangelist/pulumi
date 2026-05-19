@@ -1,0 +1,605 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pulumi APIs — AuditLogs
+  description: 'Pulumi APIs — AuditLogs. 10 operations. Lead operation: ListAuditLogEventsHandlerV1. Self-contained Naftiko
+    capability covering one Pulumi business surface.'
+  tags:
+  - Pulumi
+  - AuditLogs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PULUMI_API_KEY: PULUMI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pulumi-auditlogs
+    baseUri: ''
+    description: Pulumi APIs — AuditLogs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-orgs-orgName-auditlogs
+      path: /api/orgs/{orgName}/auditlogs
+      operations:
+      - name: listauditlogeventshandlerv1
+        method: GET
+        description: ListAuditLogEventsHandlerV1
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Token for paginated result retrieval
+        - name: endTime
+          in: query
+          type: integer
+          description: Upper bound of the query range (unix timestamp)
+        - name: eventFilter
+          in: query
+          type: string
+          description: Filter audit logs by event type
+        - name: format
+          in: query
+          type: string
+          description: 'Response format: ''json'' (default)'
+        - name: startTime
+          in: query
+          type: integer
+          description: Returns entries older than this timestamp (unix timestamp)
+        - name: userFilter
+          in: query
+          type: string
+          description: Filter audit logs by username
+    - name: api-orgs-orgName-auditlogs-export
+      path: /api/orgs/{orgName}/auditlogs/export
+      operations:
+      - name: exportauditlogeventshandlerv1
+        method: GET
+        description: ExportAuditLogEventsHandlerV1
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Token for paginated result retrieval
+        - name: endTime
+          in: query
+          type: integer
+          description: Upper bound of the query range (unix timestamp)
+        - name: eventFilter
+          in: query
+          type: string
+          description: Filter audit logs by event type
+        - name: format
+          in: query
+          type: string
+          description: 'Response format: ''cef'' or ''csv'' (defaults to csv)'
+        - name: startTime
+          in: query
+          type: integer
+          description: Returns entries older than this timestamp (unix timestamp)
+        - name: userFilter
+          in: query
+          type: string
+          description: Filter audit logs by username
+    - name: api-orgs-orgName-auditlogs-export-config
+      path: /api/orgs/{orgName}/auditlogs/export/config
+      operations:
+      - name: deleteauditlogexportconfiguration
+        method: DELETE
+        description: DeleteAuditLogExportConfiguration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: getauditlogexportconfiguration
+        method: GET
+        description: GetAuditLogExportConfiguration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+      - name: updateauditlogexportconfiguration
+        method: POST
+        description: UpdateAuditLogExportConfiguration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-auditlogs-export-config-force
+      path: /api/orgs/{orgName}/auditlogs/export/config/force
+      operations:
+      - name: forceauditlogexport
+        method: POST
+        description: ForceAuditLogExport
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: timestamp
+          in: query
+          type: integer
+          description: Unix timestamp to export audit logs for (used for backfilling missed data)
+    - name: api-orgs-orgName-auditlogs-export-config-test
+      path: /api/orgs/{orgName}/auditlogs/export/config/test
+      operations:
+      - name: testauditlogexportconfiguration
+        method: POST
+        description: TestAuditLogExportConfiguration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-orgs-orgName-auditlogs-reader-kind
+      path: /api/orgs/{orgName}/auditlogs/reader-kind
+      operations:
+      - name: getauditlogsreaderkind
+        method: GET
+        description: GetAuditLogsReaderKind
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+    - name: api-orgs-orgName-auditlogs-v2
+      path: /api/orgs/{orgName}/auditlogs/v2
+      operations:
+      - name: listauditlogeventshandlerv2
+        method: GET
+        description: ListAuditLogEventsHandlerV2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Token for paginated result retrieval
+        - name: endTime
+          in: query
+          type: integer
+          description: Upper bound of the query range (unix timestamp)
+        - name: eventFilter
+          in: query
+          type: string
+          description: Filter audit logs by event type
+        - name: format
+          in: query
+          type: string
+          description: 'Response format: ''json'' (default)'
+        - name: startTime
+          in: query
+          type: integer
+          description: Lower bound of the query range (unix timestamp)
+        - name: userFilter
+          in: query
+          type: string
+          description: Filter audit logs by username
+    - name: api-orgs-orgName-auditlogs-v2-export
+      path: /api/orgs/{orgName}/auditlogs/v2/export
+      operations:
+      - name: exportauditlogeventshandlerv2
+        method: GET
+        description: ExportAuditLogEventsHandlerV2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgName
+          in: path
+          type: string
+          description: The organization name
+          required: true
+        - name: continuationToken
+          in: query
+          type: string
+          description: Token for paginated result retrieval
+        - name: endTime
+          in: query
+          type: integer
+          description: Upper bound of the query range (unix timestamp)
+        - name: eventFilter
+          in: query
+          type: string
+          description: Filter audit logs by event type
+        - name: format
+          in: query
+          type: string
+          description: 'Response format: ''cef'' or ''csv'' (defaults to csv)'
+        - name: startTime
+          in: query
+          type: integer
+          description: Lower bound of the query range (unix timestamp)
+        - name: userFilter
+          in: query
+          type: string
+          description: Filter audit logs by username
+  exposes:
+  - type: rest
+    namespace: pulumi-auditlogs-rest
+    port: 8080
+    description: REST adapter for Pulumi APIs — AuditLogs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/orgs/{orgname}/auditlogs
+      name: api-orgs-orgname-auditlogs
+      description: REST surface for api-orgs-orgName-auditlogs.
+      operations:
+      - method: GET
+        name: listauditlogeventshandlerv1
+        description: ListAuditLogEventsHandlerV1
+        call: pulumi-auditlogs.listauditlogeventshandlerv1
+        with:
+          orgName: rest.orgName
+          continuationToken: rest.continuationToken
+          endTime: rest.endTime
+          eventFilter: rest.eventFilter
+          format: rest.format
+          startTime: rest.startTime
+          userFilter: rest.userFilter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/export
+      name: api-orgs-orgname-auditlogs-export
+      description: REST surface for api-orgs-orgName-auditlogs-export.
+      operations:
+      - method: GET
+        name: exportauditlogeventshandlerv1
+        description: ExportAuditLogEventsHandlerV1
+        call: pulumi-auditlogs.exportauditlogeventshandlerv1
+        with:
+          orgName: rest.orgName
+          continuationToken: rest.continuationToken
+          endTime: rest.endTime
+          eventFilter: rest.eventFilter
+          format: rest.format
+          startTime: rest.startTime
+          userFilter: rest.userFilter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/export/config
+      name: api-orgs-orgname-auditlogs-export-config
+      description: REST surface for api-orgs-orgName-auditlogs-export-config.
+      operations:
+      - method: DELETE
+        name: deleteauditlogexportconfiguration
+        description: DeleteAuditLogExportConfiguration
+        call: pulumi-auditlogs.deleteauditlogexportconfiguration
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getauditlogexportconfiguration
+        description: GetAuditLogExportConfiguration
+        call: pulumi-auditlogs.getauditlogexportconfiguration
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updateauditlogexportconfiguration
+        description: UpdateAuditLogExportConfiguration
+        call: pulumi-auditlogs.updateauditlogexportconfiguration
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/export/config/force
+      name: api-orgs-orgname-auditlogs-export-config-force
+      description: REST surface for api-orgs-orgName-auditlogs-export-config-force.
+      operations:
+      - method: POST
+        name: forceauditlogexport
+        description: ForceAuditLogExport
+        call: pulumi-auditlogs.forceauditlogexport
+        with:
+          orgName: rest.orgName
+          timestamp: rest.timestamp
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/export/config/test
+      name: api-orgs-orgname-auditlogs-export-config-test
+      description: REST surface for api-orgs-orgName-auditlogs-export-config-test.
+      operations:
+      - method: POST
+        name: testauditlogexportconfiguration
+        description: TestAuditLogExportConfiguration
+        call: pulumi-auditlogs.testauditlogexportconfiguration
+        with:
+          orgName: rest.orgName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/reader-kind
+      name: api-orgs-orgname-auditlogs-reader-kind
+      description: REST surface for api-orgs-orgName-auditlogs-reader-kind.
+      operations:
+      - method: GET
+        name: getauditlogsreaderkind
+        description: GetAuditLogsReaderKind
+        call: pulumi-auditlogs.getauditlogsreaderkind
+        with:
+          orgName: rest.orgName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/v2
+      name: api-orgs-orgname-auditlogs-v2
+      description: REST surface for api-orgs-orgName-auditlogs-v2.
+      operations:
+      - method: GET
+        name: listauditlogeventshandlerv2
+        description: ListAuditLogEventsHandlerV2
+        call: pulumi-auditlogs.listauditlogeventshandlerv2
+        with:
+          orgName: rest.orgName
+          continuationToken: rest.continuationToken
+          endTime: rest.endTime
+          eventFilter: rest.eventFilter
+          format: rest.format
+          startTime: rest.startTime
+          userFilter: rest.userFilter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/orgs/{orgname}/auditlogs/v2/export
+      name: api-orgs-orgname-auditlogs-v2-export
+      description: REST surface for api-orgs-orgName-auditlogs-v2-export.
+      operations:
+      - method: GET
+        name: exportauditlogeventshandlerv2
+        description: ExportAuditLogEventsHandlerV2
+        call: pulumi-auditlogs.exportauditlogeventshandlerv2
+        with:
+          orgName: rest.orgName
+          continuationToken: rest.continuationToken
+          endTime: rest.endTime
+          eventFilter: rest.eventFilter
+          format: rest.format
+          startTime: rest.startTime
+          userFilter: rest.userFilter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pulumi-auditlogs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Pulumi APIs — AuditLogs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: listauditlogeventshandlerv1
+      description: ListAuditLogEventsHandlerV1
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.listauditlogeventshandlerv1
+      with:
+        orgName: tools.orgName
+        continuationToken: tools.continuationToken
+        endTime: tools.endTime
+        eventFilter: tools.eventFilter
+        format: tools.format
+        startTime: tools.startTime
+        userFilter: tools.userFilter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: exportauditlogeventshandlerv1
+      description: ExportAuditLogEventsHandlerV1
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.exportauditlogeventshandlerv1
+      with:
+        orgName: tools.orgName
+        continuationToken: tools.continuationToken
+        endTime: tools.endTime
+        eventFilter: tools.eventFilter
+        format: tools.format
+        startTime: tools.startTime
+        userFilter: tools.userFilter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteauditlogexportconfiguration
+      description: DeleteAuditLogExportConfiguration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: pulumi-auditlogs.deleteauditlogexportconfiguration
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getauditlogexportconfiguration
+      description: GetAuditLogExportConfiguration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.getauditlogexportconfiguration
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateauditlogexportconfiguration
+      description: UpdateAuditLogExportConfiguration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-auditlogs.updateauditlogexportconfiguration
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: forceauditlogexport
+      description: ForceAuditLogExport
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-auditlogs.forceauditlogexport
+      with:
+        orgName: tools.orgName
+        timestamp: tools.timestamp
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: testauditlogexportconfiguration
+      description: TestAuditLogExportConfiguration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pulumi-auditlogs.testauditlogexportconfiguration
+      with:
+        orgName: tools.orgName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getauditlogsreaderkind
+      description: GetAuditLogsReaderKind
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.getauditlogsreaderkind
+      with:
+        orgName: tools.orgName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listauditlogeventshandlerv2
+      description: ListAuditLogEventsHandlerV2
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.listauditlogeventshandlerv2
+      with:
+        orgName: tools.orgName
+        continuationToken: tools.continuationToken
+        endTime: tools.endTime
+        eventFilter: tools.eventFilter
+        format: tools.format
+        startTime: tools.startTime
+        userFilter: tools.userFilter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: exportauditlogeventshandlerv2
+      description: ExportAuditLogEventsHandlerV2
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pulumi-auditlogs.exportauditlogeventshandlerv2
+      with:
+        orgName: tools.orgName
+        continuationToken: tools.continuationToken
+        endTime: tools.endTime
+        eventFilter: tools.eventFilter
+        format: tools.format
+        startTime: tools.startTime
+        userFilter: tools.userFilter
+      outputParameters:
+      - type: object
+        mapping: $.
