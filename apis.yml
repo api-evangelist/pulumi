@@ -106,7 +106,7 @@ common:
   - url: https://github.com/pulumi
     type: GitHubOrganization
   - url: https://app.pulumi.com/signup
-    type: SignUp
+    type: Signup
   - url: https://app.pulumi.com/signin
     type: Login
   - url: https://www.pulumi.com/pricing/
@@ -123,4 +123,4 @@ common:
     url: https://www.pulumi.com/partners/
   - name: Agent Skills
     url: https://github.com/pulumi/agent-skills
-    type: AgentSkill
+    type: AgentSkills
