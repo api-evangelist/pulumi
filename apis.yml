@@ -95,6 +95,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: VulnerabilityDisclosure
+    url: security/pulumi-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/pulumi-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/pulumi
   - url: https://www.pulumi.com
