@@ -95,6 +95,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/pulumi-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/pulumi-vulnerability-disclosure.yml
   - type: DomainSecurity
