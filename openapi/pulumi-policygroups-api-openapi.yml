@@ -1,0 +1,829 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens PolicyGroups API
+  version: 1.0.0
+tags:
+- name: PolicyGroups
+paths:
+  /api/orgs/{orgName}/policygroups:
+    get:
+      description: Returns a list of all Policy Groups for the organization. Policy Groups define which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. Every organization has a default Policy Group, and additional groups can be created to apply different policy sets to different environments (e.g., stricter enforcement in production).
+      operationId: ListPolicyGroups
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppListPolicyGroupsResponse'
+          description: OK
+        '404':
+          description: Organization not found
+      summary: ListPolicyGroups
+      tags:
+      - PolicyGroups
+    post:
+      description: Creates a new Policy Group for an organization. Policy Groups define which Policy Packs are enforced on which stacks or cloud accounts, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. This allows different policy strictness for different environments, such as advisory-only in development and mandatory in production.
+      operationId: NewPolicyGroup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPolicyGroupRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Invalid entity type or invalid Policy Group name
+        '404':
+          description: Organization not found
+        '409':
+          description: Policy Group already exists
+      summary: NewPolicyGroup
+      tags:
+      - PolicyGroups
+  /api/orgs/{orgName}/policygroups/metadata:
+    get:
+      description: Returns high-level policy protection metrics for an organization, including the number of stacks protected by policy enforcement, the total number of Policy Groups, and overall policy coverage statistics.
+      operationId: GetPolicyGroupMetadata
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyGroupMetadata'
+          description: OK
+        '404':
+          description: Organization not found
+      summary: GetPolicyGroupMetadata
+      tags:
+      - PolicyGroups
+  /api/orgs/{orgName}/policygroups/{policyGroup}:
+    delete:
+      description: Deletes a Policy Group from an organization. A Policy Group defines which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. The organization's default Policy Group cannot be deleted. Deleting a Policy Group removes all policy enforcement associations for the stacks that were assigned to it.
+      operationId: DeletePolicyGroup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy group name
+        in: path
+        name: policyGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Cannot delete the default Policy Group
+        '404':
+          description: Organization or Policy Group not found
+      summary: DeletePolicyGroup
+      tags:
+      - PolicyGroups
+    get:
+      description: Returns the details of a specific Policy Group, including the list of Policy Packs applied to it and their enforcement levels (advisory, mandatory, or disabled), as well as the stacks or cloud accounts assigned to the group. Policy Groups enable targeted policy enforcement by associating sets of policies with specific infrastructure resources.
+      operationId: GetPolicyGroup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy group name
+        in: path
+        name: policyGroup
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyGroup'
+          description: OK
+        '404':
+          description: Organization or Policy Group not found
+      summary: GetPolicyGroup
+      tags:
+      - PolicyGroups
+    patch:
+      description: 'Updates a Policy Group''s configuration. This multi-purpose endpoint supports several operations in a single request via different body fields:
+
+
+        - `newName`: rename the policy group
+
+        - `addStack` / `removeStack`: add or remove stacks (with `name` and `routingProject` fields)
+
+        - `addPolicyPack` / `removePolicyPack`: add or remove policy packs (with `name`, `version`, `versionTag`, and optional `config`)
+
+        - `addInsightsAccount` / `removeInsightsAccount`: add or remove Insights accounts
+
+
+        Enforcement levels for policy packs are `advisory`, `mandatory`, or `disabled`.'
+      operationId: UpdatePolicyGroup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy group name
+        in: path
+        name: policyGroup
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePolicyGroupRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Organization, Policy Group, Stack, Account, or Policy Pack not found
+      summary: UpdatePolicyGroup
+      tags:
+      - PolicyGroups
+  /api/orgs/{orgName}/policygroups/{policyGroup}/batch:
+    patch:
+      description: BatchUpdatePolicyGroup applies multiple update operations to the Policy Group efficiently. Each operation in the list uses the same fields as UpdatePolicyGroupRequest. Operations are grouped by type (adds, removes) and processed in batches for efficiency.
+      operationId: BatchUpdatePolicyGroup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy group name
+        in: path
+        name: policyGroup
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/UpdatePolicyGroupRequest'
+              type: array
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Organization, Policy Group, Stack, Account, or Policy Pack not found
+      summary: BatchUpdatePolicyGroup
+      tags:
+      - PolicyGroups
+components:
+  schemas:
+    AppListPolicyGroupsResponse:
+      description: ListPolicyGroupsResponse lists a summary of the organization's Policy Groups.
+      properties:
+        policyGroups:
+          description: List of policy groups
+          items:
+            $ref: '#/components/schemas/AppPolicyGroupSummary'
+          type: array
+          x-order: 1
+      required:
+      - policyGroups
+      type: object
+    AppPolicyGroupSummary:
+      description: 'PolicyGroupSummary details the name, applicable stacks and the applied Policy
+
+        Packs for an organization''s Policy Group.'
+      properties:
+        entityType:
+          description: The type of entity this policy group targets (e.g. stacks, accounts).
+          enum:
+          - stacks
+          - accounts
+          type: string
+          x-order: 5
+          x-pulumi-model-property:
+            enumTypeName: AppEntityType
+            enumComments: EntityType indicates the type of entity a policy group applies to
+            enumFieldComments:
+            - Stacks indicates the policy group applies to stacks
+            - Accounts indicates the policy group applies to accounts
+        isOrgDefault:
+          description: Whether this is the organization's default policy group, applied to all stacks not in another group.
+          type: boolean
+          x-order: 2
+        mode:
+          description: The enforcement mode of the policy group.
+          enum:
+          - audit
+          - preventative
+          type: string
+          x-order: 6
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupMode
+            enumComments: PolicyGroupMode represents the enforcement mode for a policy group
+        name:
+          description: The unique name of the policy group.
+          type: string
+          x-order: 1
+        numAccounts:
+          description: Number of cloud accounts assigned to this policy group.
+          format: int64
+          type: integer
+          x-order: 4
+        numEnabledPolicyPacks:
+          description: Number of policy packs currently enabled in this group.
+          format: int64
+          type: integer
+          x-order: 7
+        numStacks:
+          description: Number of stacks assigned to this policy group.
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - entityType
+      - isOrgDefault
+      - mode
+      - name
+      - numEnabledPolicyPacks
+      - numStacks
+      type: object
+    AppPolicyPackMetadata:
+      description: PolicyPackMetadata is the metadata of a Policy Pack.
+      properties:
+        config:
+          additionalProperties:
+            type: object
+          description: 'The configuration that is to be passed to the Policy Pack. This
+
+            map ties Policies with their configuration.'
+          type: object
+          x-order: 5
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        environments:
+          description: References to ESC environments to use for this policy pack.
+          items:
+            type: string
+          type: array
+          x-order: 6
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        version:
+          description: The version number
+          format: int64
+          type: integer
+          x-order: 3
+        versionTag:
+          description: The version tag
+          type: string
+          x-order: 4
+      required:
+      - displayName
+      - name
+      - version
+      - versionTag
+      type: object
+    NewPolicyGroupRequest:
+      description: NewPolicyGroupRequest is the request struct to create a new Policy Group.
+      properties:
+        agentPoolId:
+          description: Agent pool ID for policy evaluation. Defaults to Pulumi hosted pool if not specified.
+          type: string
+          x-order: 4
+        entityType:
+          description: The type of entities this policy group applies to (stacks or accounts).
+          enum:
+          - stacks
+          - accounts
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupEntityType
+            enumComments: PolicyGroupEntityType represents the type of entities a policy group applies to
+        mode:
+          description: The enforcement mode for the policy group (audit or preventative). Defaults to 'audit' for account policy groups, 'preventative' for stack policy groups.
+          enum:
+          - audit
+          - preventative
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupMode
+            enumComments: PolicyGroupMode represents the enforcement mode for a policy group
+        name:
+          description: The name of the new policy group.
+          type: string
+          x-order: 1
+      required:
+      - entityType
+      - name
+      type: object
+    JobRun:
+      description: JobRun contains information about a job run.
+      properties:
+        lastUpdated:
+          description: When the job was last updated
+          format: date-time
+          type: string
+          x-order: 3
+        started:
+          description: When the job started running
+          format: date-time
+          type: string
+          x-order: 2
+        status:
+          description: The current status of the job run
+          enum:
+          - not-started
+          - accepted
+          - running
+          - failed
+          - succeeded
+          - skipped
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: JobStatus
+            enumComments: JobStatus describes the status of a job run.
+            enumFieldNames:
+            - NotStarted
+            - Accepted
+            - Running
+            - Failed
+            - Succeeded
+            - Skipped
+            enumFieldComments:
+            - JobStatusNotStarted indicates that a job has not yet started.
+            - JobStatusAccepted indicates that a job has been accepted for execution, but is not yet running.
+            - JobStatusRunning indicates that a job is running.
+            - JobStatusFailed indicates that a job has failed.
+            - JobStatusSucceeded indicates that a job has succeeded.
+            - JobStatusSkipped indicates that a job has skipped as there are fresher deployments to execute in the queue.
+        steps:
+          description: The list of step runs within this job
+          items:
+            $ref: '#/components/schemas/StepRun'
+          type: array
+          x-order: 5
+        timeout:
+          description: The timeout duration for the job in nanoseconds (Go time.Duration).
+          format: int64
+          type: integer
+          x-order: 4
+        worker:
+          description: Information about the worker executing this job
+          type: object
+          x-order: 6
+      required:
+      - status
+      - steps
+      - timeout
+      type: object
+    PolicyGroup:
+      description: PolicyGroup details the name, applicable entities and the applied PolicyPacks.
+      properties:
+        accounts:
+          description: List of Insights account names that are members of this policy group.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        agentPoolId:
+          description: Agent pool ID for audit policy evaluation. Defaults to Pulumi hosted pool if not specified.
+          type: string
+          x-order: 8
+        appliedPolicyPacks:
+          description: List of policy packs that are applied to this policy group.
+          items:
+            $ref: '#/components/schemas/AppPolicyPackMetadata'
+          type: array
+          x-order: 6
+        entityType:
+          description: The type of entities this policy group applies to (stacks or accounts).
+          enum:
+          - stacks
+          - accounts
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupEntityType
+            enumComments: PolicyGroupEntityType represents the type of entities a policy group applies to
+        isOrgDefault:
+          description: True if this is either the default stacks or default accounts policy group for the organization.
+          type: boolean
+          x-order: 2
+        mode:
+          description: The enforcement mode for the policy group (audit or preventative).
+          enum:
+          - audit
+          - preventative
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupMode
+            enumComments: PolicyGroupMode represents the enforcement mode for a policy group
+        name:
+          description: The name of the policy group.
+          type: string
+          x-order: 1
+        stacks:
+          description: List of stacks that are members of this policy group.
+          items:
+            $ref: '#/components/schemas/AppPulumiStackReference'
+          type: array
+          x-order: 5
+      required:
+      - accounts
+      - appliedPolicyPacks
+      - entityType
+      - isOrgDefault
+      - mode
+      - name
+      - stacks
+      type: object
+    AppUpdatePolicyGroupRequest:
+      description: UpdatePolicyGroupRequest modifies a Policy Group.
+      properties:
+        addPolicyPack:
+          $ref: '#/components/schemas/AppPolicyPackMetadata'
+          description: A policy pack to enable for the policy group.
+          x-order: 4
+        addStack:
+          $ref: '#/components/schemas/AppPulumiStackReference'
+          description: A stack to add to the policy group.
+          x-order: 2
+        newName:
+          description: The new name to assign to the policy group.
+          type: string
+          x-order: 1
+        removePolicyPack:
+          $ref: '#/components/schemas/AppPolicyPackMetadata'
+          description: A policy pack to disable for the policy group.
+          x-order: 5
+        removeStack:
+          $ref: '#/components/schemas/AppPulumiStackReference'
+          description: A stack to remove from the policy group.
+          x-order: 3
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    ScanStatus:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowRun'
+      - description: The status of an Insights account scan, including resource count.
+        properties:
+          accountName:
+            description: The name of the insights account associated with this scan.
+            type: string
+            x-order: 1
+          resourceCount:
+            description: The number of resources discovered by this scan.
+            format: int64
+            type: integer
+            x-order: 2
+        type: object
+    UpdatePolicyGroupRequest:
+      allOf:
+      - $ref: '#/components/schemas/AppUpdatePolicyGroupRequest'
+      - description: UpdatePolicyGroupRequest modifies a Policy Group.
+        properties:
+          addInsightsAccount:
+            $ref: '#/components/schemas/InsightsAccount'
+            description: An Insights account to add to the policy group.
+            x-order: 1
+          agentPoolId:
+            description: Agent pool ID for audit policy evaluation. Set to empty string to clear, omit to leave unchanged.
+            type: string
+            x-order: 3
+          removeInsightsAccount:
+            $ref: '#/components/schemas/InsightsAccount'
+            description: An Insights account to remove from the policy group.
+            x-order: 2
+        type: object
+    StepRun:
+      description: StepRun contains information about a step run.
+      properties:
+        lastUpdated:
+          description: The timestamp when the step was last updated.
+          format: date-time
+          type: string
+          x-order: 4
+        name:
+          description: The name of the step.
+          type: string
+          x-order: 1
+        started:
+          description: The timestamp when the step started.
+          format: date-time
+          type: string
+          x-order: 3
+        status:
+          description: The current status of the step.
+          enum:
+          - not-started
+          - running
+          - failed
+          - succeeded
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: StepStatus
+            enumComments: StepStatus describes the status of a step in a workflow job run.
+            enumFieldNames:
+            - NotStarted
+            - Running
+            - Failed
+            - Succeeded
+            enumFieldComments:
+            - StepStatusNotStarted indicates that a step has not yet started.
+            - StepStatusRunning indicates that a step is running.
+            - StepStatusFailed indicates that a step has failed.
+            - StepStatusSucceeded indicates that a step has succeeded.
+      required:
+      - name
+      - status
+      type: object
+    PolicyGroupMetadata:
+      description: PolicyGroupMetadata returns policy protection metrics for an organization.
+      properties:
+        AuditStackResources:
+          description: Number of resources in stacks in audit policy groups
+          format: int32
+          type: integer
+          x-order: 6
+        AuditStacks:
+          description: Number of stacks in audit policy groups
+          format: int32
+          type: integer
+          x-order: 5
+        PreventativeStackResources:
+          description: Number of resources in stacks in preventative policy groups
+          format: int32
+          type: integer
+          x-order: 4
+        PreventativeStacks:
+          description: Number of stacks in preventative policy groups
+          format: int32
+          type: integer
+          x-order: 3
+        ProtectedAccountResources:
+          description: Number of resources in accounts in policy groups
+          format: int32
+          type: integer
+          x-order: 10
+        ProtectedAccounts:
+          description: Number of accounts in policy groups
+          format: int32
+          type: integer
+          x-order: 9
+        ProtectedStackResources:
+          description: 'Number of resources in unique stacks in any policy group (preventative or audit). Deprecated: Use PreventativeStackResources and AuditStackResources for breakdown by mode'
+          format: int32
+          type: integer
+          x-order: 2
+        ProtectedStacks:
+          description: 'Number of unique stacks in any policy group (preventative or audit). Deprecated: Use PreventativeStacks and AuditStacks for breakdown by mode'
+          format: int32
+          type: integer
+          x-order: 1
+        TotalAccountResources:
+          description: Total number of resources in all accounts
+          format: int32
+          type: integer
+          x-order: 12
+        TotalAccounts:
+          description: Total number of accounts in the organization
+          format: int32
+          type: integer
+          x-order: 11
+        TotalStackResources:
+          description: Total number of resources in all stacks
+          format: int32
+          type: integer
+          x-order: 8
+        TotalStacks:
+          description: Total number of stacks in the organization
+          format: int32
+          type: integer
+          x-order: 7
+      required:
+      - AuditStackResources
+      - AuditStacks
+      - PreventativeStackResources
+      - PreventativeStacks
+      - ProtectedAccountResources
+      - ProtectedAccounts
+      - ProtectedStackResources
+      - ProtectedStacks
+      - TotalAccountResources
+      - TotalAccounts
+      - TotalStackResources
+      - TotalStacks
+      type: object
+    InsightsAccount:
+      description: A cloud account configured for Pulumi Insights resource discovery.
+      properties:
+        agentPoolID:
+          description: 'The ID of the agent pool to run account discovery workflows.
+
+            If not specified, discovery will use the default agent pool.'
+          type: string
+          x-order: 8
+        id:
+          description: ID of the account.
+          type: string
+          x-order: 1
+        name:
+          description: The name of the account.
+          type: string
+          x-order: 2
+        ownedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user with ownership of this Insights account
+          x-order: 3
+        provider:
+          description: The cloud provider for the account (e.g., aws, gcp, azure-native).
+          type: string
+          x-order: 4
+        providerConfig:
+          description: Provider-specific configuration for the account.
+          type: object
+          x-order: 9
+        providerEnvRef:
+          description: 'Reference to an ESC environment containing provider credentials,
+
+            in the format ''project/environment'' with an optional @version suffix.'
+          type: string
+          x-order: 6
+        providerVersion:
+          description: The version of the Pulumi provider package used for discovery.
+          type: string
+          x-order: 5
+        scanStatus:
+          $ref: '#/components/schemas/ScanStatus'
+          description: Status of the last discovery scan for this account.
+          x-order: 10
+        scheduledScanEnabled:
+          description: If true, the account is scheduled for recurring discovery.
+          type: boolean
+          x-order: 7
+      required:
+      - id
+      - name
+      - ownedBy
+      - provider
+      - scheduledScanEnabled
+      type: object
+    AppPulumiStackReference:
+      description: PulumiStackReference contains the StackName and ProjectName of the stack.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        routingProject:
+          description: The routing project
+          type: string
+          x-order: 2
+      required:
+      - name
+      - routingProject
+      type: object
+    WorkflowRun:
+      description: WorkflowRun contains information about a workflow run.
+      properties:
+        finishedAt:
+          description: The time the workflow run finished, if completed.
+          format: date-time
+          type: string
+          x-order: 6
+        id:
+          description: The unique identifier of the workflow run.
+          type: string
+          x-order: 1
+        jobTimeout:
+          description: The timeout for jobs in the workflow run.
+          format: date-time
+          type: string
+          x-order: 8
+        jobs:
+          description: The list of job runs within the workflow.
+          items:
+            $ref: '#/components/schemas/JobRun'
+          type: array
+          x-order: 9
+        lastUpdatedAt:
+          description: The time the workflow run was last updated.
+          format: date-time
+          type: string
+          x-order: 7
+        orgId:
+          description: The organization ID.
+          type: string
+          x-order: 2
+        startedAt:
+          description: The time the workflow run started.
+          format: date-time
+          type: string
+          x-order: 5
+        status:
+          description: The current status of the workflow run.
+          enum:
+          - running
+          - failed
+          - succeeded
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: WorkflowRunStatus
+            enumComments: WorkflowRunStatus describes the status of a workflow run.
+            enumFieldComments:
+            - WorkflowRunStatusRunning indicates that a workflow run is running.
+            - WorkflowRunStatusFailed indicates that a workflow run has failed.
+            - WorkflowRunStatusSucceeded indicates that a workflow run has succeeded.
+        userId:
+          description: The user ID who initiated the workflow run.
+          type: string
+          x-order: 3
+      required:
+      - finishedAt
+      - id
+      - jobTimeout
+      - lastUpdatedAt
+      - orgId
+      - startedAt
+      - status
+      - userId
+      type: object

@@ -1,0 +1,2634 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens VCS Integrations API
+  version: 1.0.0
+tags:
+- name: VCS Integrations
+paths:
+  /api/console/orgs/{orgName}/integrations:
+    get:
+      description: Returns a summary of all VCS integrations across all providers (GitHub, GitLab, Azure DevOps, Custom) for an organization. Each integration includes a hasIndividualAccess flag indicating whether the current user has an OAuth token for that provider.
+      operationId: ListAllVCSIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVCSIntegrationSummariesResponse'
+          description: OK
+        '404':
+          description: Organization not found
+      summary: ListAllVCSIntegrations
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/azure-devops:
+    get:
+      description: Lists all Azure DevOps integrations configured for an organization.
+      operationId: ListAzureDevOpsIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAzureDevOpsIntegrationsResponse'
+          description: OK
+      summary: ListAzureDevOpsIntegrations
+      tags:
+      - VCS Integrations
+    post:
+      description: Creates a new Azure DevOps integration for an organization. Requires an Azure DevOps organization and project to be specified in the request body. Returns 409 if an integration already exists for the specified project.
+      operationId: CreateAzureDevOpsSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAzureDevOpsAppIntegrationRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: Created successfully
+        '400':
+          description: Missing Azure DevOps organization or project
+        '409':
+          description: Azure DevOps integration already exists for this project
+      summary: CreateAzureDevOpsSetup
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/azure-devops/access-status:
+    get:
+      description: Returns information about a user's Azure DevOps access status for an organization, including whether the user has a valid OAuth token.
+      operationId: GetAzureDevOpsAccessStatus
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AzureDevOpsAccessResponse'
+          description: OK
+      summary: GetAzureDevOpsAccessStatus
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/azure-devops/oauth/complete:
+    post:
+      description: Completes the OAuth authorization flow for Azure DevOps VCS integration by exchanging the authorization code for access and refresh tokens.
+      operationId: CompleteAzureDevOpsOAuth
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteOAuthRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteOAuthResponse'
+          description: OK
+        '400':
+          description: Failed to complete OAuth
+      summary: CompleteAzureDevOpsOAuth
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/azure-devops/oauth/initiate:
+    post:
+      description: Initiates the OAuth authorization flow for Azure DevOps VCS integration. Returns a redirect URL that the user should be directed to for authorization.
+      operationId: InitiateAzureDevOpsOAuth
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateOAuthRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateOAuthResponse'
+          description: OK
+        '400':
+          description: Invalid provider configuration
+      summary: InitiateAzureDevOpsOAuth
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/azure-devops/setup/organizations:
+    get:
+      description: Lists Azure DevOps organizations available to the current user. Requires an active Azure DevOps OAuth token.
+      operationId: ListAzureDevOpsOrganizations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AzureDevOpsOrganization'
+                type: array
+          description: OK
+      summary: ListAzureDevOpsOrganizations
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/azure-devops/setup/organizations/{adoOrgName}/projects:
+    get:
+      description: Lists Azure DevOps projects within a specified Azure DevOps organization that are available to the current user.
+      operationId: ListAzureDevOpsProjects
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The Azure DevOps organization name
+        in: path
+        name: adoOrgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AzureDevOpsProject'
+                type: array
+          description: OK
+      summary: ListAzureDevOpsProjects
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/azure-devops/{integrationId}:
+    delete:
+      description: Removes a specific Azure DevOps integration from the organization.
+      operationId: DeleteAzureDevOpsIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The Azure DevOps integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Azure DevOps integration not found
+      summary: DeleteAzureDevOpsIntegration
+      tags:
+      - VCS Integrations
+    get:
+      description: Gets a specific Azure DevOps integration by its integration ID. Returns the integration details including organization, project, and authentication configuration.
+      operationId: GetAzureDevOpsIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The Azure DevOps integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AzureDevOpsAppIntegrationResponse'
+          description: OK
+        '404':
+          description: Azure DevOps integration not found
+      summary: GetAzureDevOpsIntegration
+      tags:
+      - VCS Integrations
+    patch:
+      description: Updates an existing Azure DevOps integration's settings. Can modify the Azure DevOps organization, project, or authentication configuration.
+      operationId: UpdateAzureDevOpsIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The Azure DevOps integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AzureDevOpsSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Missing Azure DevOps organization or project
+        '404':
+          description: Azure DevOps integration not found
+      summary: UpdateAzureDevOpsIntegration
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/bitbucket:
+    get:
+      description: Lists all BitBucket integrations configured for an organization, including their validity status and linked workspace metadata.
+      operationId: ListBitBucketIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBitBucketIntegrationsResponse'
+          description: OK
+      summary: ListBitBucketIntegrations
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Creates a new BitBucket integration for an organization. Requires a BitBucket workspace UUID and optionally configures authentication via the user's BitBucket OAuth token or a workspace access token / PAT. Returns 409 if an integration already exists for the specified workspace.
+      operationId: CreateBitBucketSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BitBucketSetupRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: Created successfully
+        '400':
+          description: Missing or invalid BitBucket workspace
+        '409':
+          description: BitBucket integration already exists for this workspace
+      summary: CreateBitBucketSetup
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/bitbucket/access-status:
+    get:
+      description: Returns information about a user's BitBucket access status for an organization, including whether they have a valid OAuth token and available BitBucket workspaces for new integrations.
+      operationId: GetBitBucketAccessStatus
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BitBucketAccessStatusResponse'
+          description: OK
+      summary: GetBitBucketAccessStatus
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/bitbucket/{integrationId}:
+    delete:
+      description: Removes a specific BitBucket integration from the organization. Cleans up associated webhooks and access tokens.
+      operationId: DeleteBitBucketIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The BitBucket integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeleteBitBucketIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    get:
+      description: Gets a specific BitBucket integration by its integration ID. Returns the integration details including the linked BitBucket workspace, authentication configuration, and validity status.
+      operationId: GetBitBucketIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The BitBucket integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BitBucketIntegrationDetails'
+          description: OK
+        '404':
+          description: BitBucket integration not found
+      summary: GetBitBucketIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    patch:
+      description: Updates an existing BitBucket integration's settings, such as PR comment preferences and AI summary options.
+      operationId: UpdateBitBucketIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The BitBucket integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BitBucketSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: BitBucket integration not found
+      summary: UpdateBitBucketIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/custom:
+    get:
+      description: Lists all custom VCS integrations configured for an organization. Returns each integration's configuration, webhook URL, and configured repositories. Webhook secrets are not included in list responses.
+      operationId: ListCustomVCSIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomVCSIntegrationsResponse'
+          description: OK
+      summary: ListCustomVCSIntegrations
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Creates a new custom VCS integration for an organization. Custom VCS integrations allow connecting self-hosted or third-party version control systems (e.g. Gitea, Forgejo, Bitbucket Server) to Pulumi Deployments. Credentials are managed via ESC environments, and deployments are triggered by inbound webhooks. Returns the created integration including its webhook URL and HMAC secret for signature verification.
+      operationId: CreateCustomVCSIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomVCSIntegrationRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomVCSIntegrationResponse'
+          description: Created
+        '400':
+          description: 'Invalid request: missing required fields or invalid vcsType'
+        '409':
+          description: An integration with this name already exists in the organization
+      summary: CreateCustomVCSIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/custom/{integrationId}:
+    delete:
+      description: Removes a specific custom VCS integration from the organization. This permanently deletes the integration, its webhook endpoint, and all configured repository associations.
+      operationId: DeleteCustomVCSIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The custom VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Custom VCS integration not found
+      summary: DeleteCustomVCSIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    get:
+      description: Gets a specific custom VCS integration by its integration ID. Returns the integration details including its configuration, webhook URL, and configured repositories. The webhook secret is not included; it is only returned at creation time or when regenerated via update.
+      operationId: GetCustomVCSIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The custom VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomVCSIntegrationResponse'
+          description: OK
+        '404':
+          description: Custom VCS integration not found
+      summary: GetCustomVCSIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    patch:
+      description: Updates an existing custom VCS integration's settings. All fields are optional; only provided fields are modified. Set regenerateWebhookSecret to true to rotate the webhook HMAC secret, which invalidates the previous secret immediately.
+      operationId: UpdateCustomVCSIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The custom VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomVCSIntegrationRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomVCSIntegrationResponse'
+          description: OK
+        '400':
+          description: 'Invalid request: invalid vcsType or other validation failure'
+        '404':
+          description: Custom VCS integration not found
+      summary: UpdateCustomVCSIntegration
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/custom/{integrationId}/repos:
+    delete:
+      description: Removes a repository from a custom VCS integration. The repository is identified by its name, as provided in the request. Returns 404 if the integration or repository is not found.
+      operationId: RemoveCustomVCSRepository
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The custom VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCustomVCSRepositoryRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Custom VCS integration or repository not found
+      summary: RemoveCustomVCSRepository
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Adds a repository to a custom VCS integration. The repository name must be unique within the integration. Returns 409 Conflict if a repository with the same name is already configured.
+      operationId: AddCustomVCSRepository
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The custom VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCustomVCSRepositoryRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Custom VCS integration not found
+        '409':
+          description: Repository name already configured on this integration
+      summary: AddCustomVCSRepository
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/github:
+    get:
+      description: Lists all GitHub App integrations for an organization.
+      operationId: ListGitHubIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGitHubIntegrationsResponse'
+          description: OK
+      summary: ListGitHubIntegrations
+      tags:
+      - VCS Integrations
+    post:
+      description: Initiates GitHub App setup, returns installation URL with state.
+      operationId: StartGitHubSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubSetupResponse'
+          description: OK
+      summary: StartGitHubSetup
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/github-enterprise:
+    get:
+      description: Lists all GitHub Enterprise Server integrations for an organization. Returns only self-hosted GitHub App installations.
+      operationId: ListGitHubEnterpriseIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGitHubIntegrationsResponse'
+          description: OK
+      summary: ListGitHubEnterpriseIntegrations
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/github-enterprise/{integrationId}:
+    delete:
+      description: Removes a GitHub Enterprise Server integration.
+      operationId: DeleteGitHubEnterpriseIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub Enterprise integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: GitHub app is used by multiple Pulumi organizations.
+        '404':
+          description: GitHub Enterprise integration not found
+      summary: DeleteGitHubEnterpriseIntegration
+      tags:
+      - VCS Integrations
+    get:
+      description: Gets a specific GitHub Enterprise Server integration.
+      operationId: GetGitHubEnterpriseIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub Enterprise integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubIntegrationDetails'
+          description: OK
+        '404':
+          description: GitHub Enterprise integration not found
+      summary: GetGitHubEnterpriseIntegration
+      tags:
+      - VCS Integrations
+    patch:
+      description: Updates GitHub Enterprise Server integration settings.
+      operationId: UpdateGitHubEnterpriseIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub Enterprise integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: GitHub Enterprise integration not found
+      summary: UpdateGitHubEnterpriseIntegration
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/github/access-status:
+    get:
+      description: Returns information about a user's GitHub OAuth status.
+      operationId: GetGitHubAccess
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VCSGitHubAccessResponse'
+          description: OK
+        '404':
+          description: GitHub App integration not found
+      summary: GetGitHubAccess
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/github/{integrationId}:
+    delete:
+      description: Removes a GitHub App integration.
+      operationId: DeleteGitHubIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub App integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: GitHub app is used by multiple Pulumi organizations.
+        '404':
+          description: GitHub App integration not found
+      summary: DeleteGitHubIntegration
+      tags:
+      - VCS Integrations
+    get:
+      description: Gets a specific GitHub App integration by its integration ID. Returns the integration details including installation ID, account info, PR comment settings, and permission status. Returns 404 if the integration is not found.
+      operationId: GetGitHubIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub App integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubIntegrationDetails'
+          description: OK
+        '404':
+          description: GitHub App integration not found
+      summary: GetGitHubIntegration
+      tags:
+      - VCS Integrations
+    patch:
+      description: Updates GitHub App integration settings.
+      operationId: UpdateGitHubIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitHub App integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: GitHub App integration not found
+      summary: UpdateGitHubIntegration
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/gitlab:
+    get:
+      description: Lists all GitLab integrations configured for an organization, including their validity status and linked group metadata.
+      operationId: ListGitLabIntegrations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGitLabIntegrationsResponse'
+          description: OK
+      summary: ListGitLabIntegrations
+      tags:
+      - VCS Integrations
+    post:
+      description: Creates a new GitLab integration for an organization. Requires a GitLab group ID and optionally configures authentication via the user's GitLab OAuth token or a group access token. Returns 409 if an integration already exists for the specified group.
+      operationId: CreateGitLabSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitLabSetupRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: Created successfully
+        '400':
+          description: Missing or invalid GitLab group ID
+        '409':
+          description: GitLab integration already exists for this group
+      summary: CreateGitLabSetup
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/gitlab/access-status:
+    get:
+      description: Returns information about a user's GitLab access status for an organization, including whether they have a valid OAuth token, existing integrations, and available GitLab groups for new integrations.
+      operationId: GetGitLabAccessStatus
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitLabAccessStatusResponse'
+          description: OK
+      summary: GetGitLabAccessStatus
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/gitlab/{integrationId}:
+    delete:
+      description: Removes a specific GitLab integration from the organization. Cleans up associated webhooks, access tokens, and group tokens.
+      operationId: DeleteGitLabIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitLab integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: GitLab integration not found
+      summary: DeleteGitLabIntegration
+      tags:
+      - VCS Integrations
+    get:
+      description: Gets a specific GitLab integration by its integration ID. Returns the integration details including the linked GitLab group, authentication configuration, and validity status.
+      operationId: GetGitLabIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitLab integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitLabIntegrationDetails'
+          description: OK
+        '404':
+          description: GitLab integration not found
+      summary: GetGitLabIntegration
+      tags:
+      - VCS Integrations
+    patch:
+      description: Updates an existing GitLab integration's settings, such as PR comment preferences and AI summary options.
+      operationId: UpdateGitLabIntegration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The GitLab integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitLabSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: GitLab integration not found
+      summary: UpdateGitLabIntegration
+      tags:
+      - VCS Integrations
+  /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos:
+    get:
+      description: Lists repositories available through the integration.
+      operationId: ListVCSRepos
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The VCS provider (e.g., 'github')
+        in: path
+        name: provider
+        required: true
+        schema:
+          enum:
+          - github
+          - gitlab
+          - bitbucket
+          - azure_devops
+          - custom
+          - github_enterprise
+          type: string
+          x-pulumi-model-property:
+            enumComments: VCSProvider describes an external version control system used by the Pulumi Service.
+            enumFieldComments:
+            - GitHub version control system
+            - GitLab version control system
+            - Bitbucket version control system
+            - Azure DevOps version control system
+            - Custom version control system
+            - GitHub Enterprise Server version control system
+            enumFieldNames:
+            - GitHub
+            - GitLab
+            - Bitbucket
+            - AzureDevOps
+            - Custom
+            - GitHubEnterprise
+            enumTypeName: VCSProvider
+      - description: The VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      - description: Page number for pagination
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVCSReposResponse'
+          description: OK
+        '400':
+          description: Unknown VCS provider
+        '403':
+          description: VCS provider access is suspended.
+        '404':
+          description: VCS integration not found
+      summary: ListVCSRepos
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos/destinations:
+    get:
+      description: Lists repositories where the authenticated user can create new repos from templates via the integration.
+      operationId: ListVCSRepoDestinations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The VCS provider (e.g., 'github')
+        in: path
+        name: provider
+        required: true
+        schema:
+          enum:
+          - github
+          - gitlab
+          - bitbucket
+          - azure_devops
+          - custom
+          - github_enterprise
+          type: string
+          x-pulumi-model-property:
+            enumComments: VCSProvider describes an external version control system used by the Pulumi Service.
+            enumFieldComments:
+            - GitHub version control system
+            - GitLab version control system
+            - Bitbucket version control system
+            - Azure DevOps version control system
+            - Custom version control system
+            - GitHub Enterprise Server version control system
+            enumFieldNames:
+            - GitHub
+            - GitLab
+            - Bitbucket
+            - AzureDevOps
+            - Custom
+            - GitHubEnterprise
+            enumTypeName: VCSProvider
+      - description: The VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVCSReposResponse'
+          description: OK
+        '400':
+          description: Unknown VCS provider
+        '404':
+          description: VCS integration or user OAuth token not found
+      summary: ListVCSRepoDestinations
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/console/orgs/{orgName}/integrations/{provider}/{integrationId}/repos/{repoId}/branches:
+    get:
+      description: Lists branches for a repository.
+      operationId: ListVCSBranches
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The VCS provider (e.g., 'github')
+        in: path
+        name: provider
+        required: true
+        schema:
+          enum:
+          - github
+          - gitlab
+          - bitbucket
+          - azure_devops
+          - custom
+          - github_enterprise
+          type: string
+          x-pulumi-model-property:
+            enumComments: VCSProvider describes an external version control system used by the Pulumi Service.
+            enumFieldComments:
+            - GitHub version control system
+            - GitLab version control system
+            - Bitbucket version control system
+            - Azure DevOps version control system
+            - Custom version control system
+            - GitHub Enterprise Server version control system
+            enumFieldNames:
+            - GitHub
+            - GitLab
+            - Bitbucket
+            - AzureDevOps
+            - Custom
+            - GitHubEnterprise
+            enumTypeName: VCSProvider
+      - description: The VCS integration identifier
+        in: path
+        name: integrationId
+        required: true
+        schema:
+          type: string
+      - description: The repository identifier
+        in: path
+        name: repoId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVCSBranchesResponse'
+          description: OK
+        '400':
+          description: Unknown VCS provider
+        '404':
+          description: VCS integration not found
+      summary: ListVCSBranches
+      tags:
+      - VCS Integrations
+      x-pulumi-route-property:
+        Visibility: Preview
+components:
+  schemas:
+    ListGitLabIntegrationsResponse:
+      description: Response containing the list of GitLab integrations for an organization.
+      properties:
+        integrations:
+          description: The list of GitLab integrations.
+          items:
+            $ref: '#/components/schemas/GitLabIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    GitLabSettingsRequest:
+      description: Request body for updating GitLab integration settings such as PR comment and AI summary preferences.
+      properties:
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration.
+          type: boolean
+          x-order: 2
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration.
+          type: boolean
+          x-order: 1
+      type: object
+    VCSIntegrationSummary:
+      description: A lightweight summary of a VCS integration, containing only the fields needed for the overview page.
+      properties:
+        avatarUrl:
+          description: Avatar URL derived from the VCS provider account (read-only).
+          type: string
+          x-order: 2
+        baseUrl:
+          description: The base URL for custom VCS integrations (e.g., "https://github.com/myorg" or "git@git.sr.ht:~user"). Used by the console to construct repository URLs. Empty for native providers.
+          type: string
+          x-order: 7
+        hasIndividualAccess:
+          description: Whether the current user has an OAuth token for this integration's provider.
+          type: boolean
+          x-order: 5
+        host:
+          description: The hostname for self-hosted providers such as GitHub Enterprise. Empty for cloud-hosted providers.
+          type: string
+          x-order: 6
+        id:
+          description: The unique identifier of the integration.
+          type: string
+          x-order: 3
+        name:
+          description: Display name derived from the VCS provider account (read-only).
+          type: string
+          x-order: 1
+        vcsProvider:
+          description: The VCS provider type for this integration.
+          enum:
+          - github
+          - gitlab
+          - bitbucket
+          - azure_devops
+          - custom
+          - github_enterprise
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: VCSProvider
+            enumComments: VCSProvider describes an external version control system used by the Pulumi Service.
+            enumFieldNames:
+            - GitHub
+            - GitLab
+            - Bitbucket
+            - AzureDevOps
+            - Custom
+            - GitHubEnterprise
+            enumFieldComments:
+            - GitHub version control system
+            - GitLab version control system
+            - Bitbucket version control system
+            - Azure DevOps version control system
+            - Custom version control system
+            - GitHub Enterprise Server version control system
+      required:
+      - hasIndividualAccess
+      - id
+      - vcsProvider
+      type: object
+    BitBucketIntegrationDetails:
+      description: Detailed information about a BitBucket VCS integration, including its configuration, authentication method, and validity status.
+      properties:
+        authType:
+          description: 'The authentication type used: ''workspace_token'', ''user_token'', or ''pat''.'
+          type: string
+          x-order: 8
+        authUser:
+          $ref: '#/components/schemas/User'
+          description: The user whose BitBucket OAuth token is being used for authentication, if user-based auth is configured.
+          x-order: 9
+        avatarUrl:
+          description: URL of the BitBucket workspace avatar image.
+          type: string
+          x-order: 5
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 12
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration.
+          type: boolean
+          x-order: 11
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration.
+          type: boolean
+          x-order: 10
+        id:
+          description: Unique identifier for this BitBucket integration.
+          type: string
+          x-order: 1
+        installed:
+          description: Whether this integration is fully installed and operational.
+          type: boolean
+          x-order: 6
+        valid:
+          description: Whether the integration's credentials are currently valid.
+          type: boolean
+          x-order: 7
+        workspaceName:
+          description: Display name of the BitBucket workspace.
+          type: string
+          x-order: 4
+        workspaceSlug:
+          description: The slug (URL-friendly name) of the linked BitBucket workspace.
+          type: string
+          x-order: 3
+        workspaceUuid:
+          description: The UUID of the linked BitBucket workspace.
+          type: string
+          x-order: 2
+      required:
+      - disableDetailedDiff
+      - disableNeoSummaries
+      - disablePRComments
+      - id
+      - installed
+      - valid
+      - workspaceSlug
+      - workspaceUuid
+      type: object
+    ListAzureDevOpsIntegrationsResponse:
+      description: ListAzureDevOpsIntegrationsResponse contains the list of Azure DevOps integrations for an organization.
+      properties:
+        installationUrl:
+          description: URL to initiate the OAuth consent flow to install a new Azure DevOps integration
+          type: string
+          x-order: 2
+        integrations:
+          description: The list of Azure DevOps integrations.
+          items:
+            $ref: '#/components/schemas/AzureDevOpsIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    BitBucketWorkspace:
+      description: Represents a BitBucket workspace with its identifying information.
+      properties:
+        avatarUrl:
+          description: URL of the workspace's avatar image.
+          type: string
+          x-order: 4
+        name:
+          description: The display name of the workspace.
+          type: string
+          x-order: 2
+        slug:
+          description: The URL-friendly slug of the workspace.
+          type: string
+          x-order: 3
+        uuid:
+          description: The unique UUID of the BitBucket workspace.
+          type: string
+          x-order: 1
+      required:
+      - name
+      - slug
+      - uuid
+      type: object
+    VCSGitHubAccessResponse:
+      description: VCSGitHubAccessResponse describes a user's GitHub access status for VCS integrations.
+      properties:
+        availableOrgs:
+          description: The list of GitHub organizations available to the user.
+          items:
+            type: string
+          type: array
+          x-order: 3
+        hasIntegration:
+          description: Whether the user has a GitHub app installed.
+          type: boolean
+          x-order: 2
+        hasUserToken:
+          description: Whether the user has a GitHub user token.
+          type: boolean
+          x-order: 1
+        integrations:
+          description: Per-integration permissions for the current user
+          items:
+            $ref: '#/components/schemas/GitHubIntegrationPermissions'
+          type: array
+          x-order: 4
+      required:
+      - availableOrgs
+      - hasIntegration
+      - hasUserToken
+      type: object
+    GitHubSettingsRequest:
+      description: GitHubSettingsRequest describes settings for a GitHub App installation.
+      properties:
+        disableCodeAccessForReviews:
+          description: Whether to disable code access for AI reviews
+          type: boolean
+          x-order: 4
+        disableDetailedDiff:
+          description: Whether to disable detailed property-level diffs in PR comments
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: Whether to disable Neo AI summaries on PRs
+          type: boolean
+          x-order: 2
+        disablePRComments:
+          description: Whether to disable PR comments from the Pulumi GitHub App
+          type: boolean
+          x-order: 1
+      type: object
+    GitLabAccessStatusResponse:
+      description: Response describing the user's GitLab access status for an organization, including whether they have a valid token and available GitLab groups.
+      properties:
+        availableGroups:
+          description: GitLab groups available for integration that the user has access to.
+          items:
+            $ref: '#/components/schemas/GitLabAppOrganization'
+          type: array
+          x-order: 2
+        hasUserToken:
+          description: Whether the user has a valid GitLab OAuth token.
+          type: boolean
+          x-order: 1
+      required:
+      - hasUserToken
+      type: object
+    CompleteOAuthRequest:
+      description: Request to complete OAuth flow by exchanging authorization code for access token
+      properties:
+        code:
+          description: Authorization code returned from OAuth provider
+          type: string
+          x-order: 3
+        provider:
+          $ref: '#/components/schemas/CloudSetupProvider'
+          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 1
+        sessionID:
+          description: Session identifier from OAuth initiation
+          type: string
+          x-order: 2
+      required:
+      - code
+      - provider
+      - sessionID
+      type: object
+    AzureDevOpsIntegrationDetails:
+      description: AzureDevOpsIntegrationDetails describes a single Azure DevOps integration installation.
+      properties:
+        disableCodeAccessForReviews:
+          description: Whether code access for AI reviews is disabled for this integration
+          type: boolean
+          x-order: 8
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 7
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 6
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 5
+        id:
+          description: The Pulumi ID of the Azure DevOps integration.
+          type: string
+          x-order: 1
+        organization:
+          $ref: '#/components/schemas/AzureDevOpsOrganization'
+          description: Metadata about the Azure DevOps organization.
+          x-order: 2
+        project:
+          $ref: '#/components/schemas/AzureDevOpsProject'
+          description: Metadata about the Azure DevOps project.
+          x-order: 3
+        valid:
+          description: Whether the integration is currently valid (tokens, hooks, etc.).
+          type: boolean
+          x-order: 4
+      required:
+      - id
+      - valid
+      type: object
+    ListBitBucketIntegrationsResponse:
+      description: Response containing a list of BitBucket integrations for an organization.
+      properties:
+        integrations:
+          description: The list of BitBucket integrations.
+          items:
+            $ref: '#/components/schemas/BitBucketIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    ListVCSBranchesResponse:
+      description: Response containing list of branches.
+      properties:
+        branches:
+          description: List of branches
+          items:
+            $ref: '#/components/schemas/VCSBranch'
+          type: array
+          x-order: 1
+      required:
+      - branches
+      type: object
+    ListCustomVCSIntegrationsResponse:
+      description: Response containing a list of all custom VCS integrations configured for an organization.
+      properties:
+        integrations:
+          description: List of custom VCS integrations for the organization
+          items:
+            $ref: '#/components/schemas/CustomVCSIntegrationResponse'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    InitiateOAuthResponse:
+      description: Response from OAuth initiation containing authorization URL and session details
+      properties:
+        sessionID:
+          description: Session identifier for tracking the OAuth flow
+          type: string
+          x-order: 2
+        url:
+          description: Authorization URL to redirect user to
+          type: string
+          x-order: 1
+      required:
+      - sessionID
+      - url
+      type: object
+    ListVCSReposResponse:
+      description: Response containing list of repositories.
+      properties:
+        nextPageToken:
+          description: Next page token for pagination
+          type: string
+          x-order: 2
+        repos:
+          description: List of repositories
+          items:
+            $ref: '#/components/schemas/VCSRepo'
+          type: array
+          x-order: 1
+      required:
+      - repos
+      type: object
+    AzureDevOpsSettingsRequest:
+      description: AzureDevOpsSettingsRequest describes settings for an Azure DevOps integration.
+      properties:
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 2
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 1
+      type: object
+    GitHubIntegrationPermissions:
+      description: GitHubIntegrationPermissions describes per-integration permissions for the current user.
+      properties:
+        canCreateRepo:
+          description: Whether the user can create repos under this installation
+          type: boolean
+          x-order: 2
+        id:
+          description: Pulumi installation ID
+          type: string
+          x-order: 1
+      required:
+      - canCreateRepo
+      - id
+      type: object
+    GitHubIntegrationDetails:
+      description: GitHubIntegrationDetails describes a single GitHub App installation.
+      properties:
+        accountID:
+          description: The GitHub account ID (user or org).
+          format: int64
+          type: integer
+          x-order: 4
+        accountName:
+          description: The GitHub account name (login).
+          type: string
+          x-order: 5
+        avatarUrl:
+          description: The avatar URL of the GitHub account.
+          type: string
+          x-order: 1
+        created:
+          description: When the installation was created.
+          format: date-time
+          type: string
+          x-order: 8
+        disableCodeAccessForReviews:
+          description: Whether code access for AI reviews is disabled for this installation.
+          type: boolean
+          x-order: 12
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 11
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this installation.
+          type: boolean
+          x-order: 10
+        disablePRComments:
+          description: Whether PR comments are disabled for this installation.
+          type: boolean
+          x-order: 9
+        ghUrls:
+          $ref: '#/components/schemas/GitHubAppURLs'
+          description: URL to configure repository access for this GitHub App installation.
+          x-order: 16
+        hasContentsPermission:
+          description: Whether the installation has the 'contents' permission.
+          type: boolean
+          x-order: 14
+        hasMembersPermission:
+          description: Whether the installation has the 'members' permission (only relevant for organization accounts).
+          type: boolean
+          x-order: 13
+        id:
+          description: The Pulumi ID of the GitHub App installation.
+          type: string
+          x-order: 2
+        installationID:
+          description: The GitHub installation ID.
+          format: int64
+          type: integer
+          x-order: 3
+        isOrganization:
+          description: Whether the GitHub account is an organization (as opposed to a personal account).
+          type: boolean
+          x-order: 6
+        isSelfHosted:
+          description: Whether this is a self-hosted GitHub Enterprise installation.
+          type: boolean
+          x-order: 7
+        neoGitHubAppPermissionRequirements:
+          description: Neo GitHub App permission requirements for this installation.
+          items:
+            $ref: '#/components/schemas/GitHubAppPermissionRequirement'
+          type: array
+          x-order: 15
+      required:
+      - disableCodeAccessForReviews
+      - disableDetailedDiff
+      - disableNeoSummaries
+      - disablePRComments
+      - hasContentsPermission
+      - hasMembersPermission
+      - id
+      - installationID
+      - isOrganization
+      - isSelfHosted
+      type: object
+    GitLabIntegrationDetails:
+      description: Details of a GitLab integration installation, including linked GitLab group metadata and authentication details.
+      properties:
+        authUser:
+          $ref: '#/components/schemas/User'
+          description: The Pulumi user whose GitLab authentication token is being used, if applicable.
+          x-order: 9
+        avatarUrl:
+          description: The URL of the GitLab group's avatar image.
+          type: string
+          x-order: 5
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 13
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration.
+          type: boolean
+          x-order: 12
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration.
+          type: boolean
+          x-order: 11
+        gitLabGroupId:
+          description: The GitLab group ID linked to this integration.
+          format: int64
+          type: integer
+          x-order: 2
+        gitLabOrg:
+          $ref: '#/components/schemas/GitLabAppOrganization'
+          description: Metadata about the GitLab group linked to this integration.
+          x-order: 8
+        groupAccessTokenExpiration:
+          description: The expiration date of the group access token, if one is being used for authentication.
+          format: date-time
+          type: string
+          x-order: 10
+        groupName:
+          description: The display name of the GitLab group.
+          type: string
+          x-order: 3
+        groupPath:
+          description: The URL-safe path of the GitLab group (e.g. 'parent-group/child-group').
+          type: string
+          x-order: 4
+        id:
+          description: The unique identifier of the GitLab integration.
+          type: string
+          x-order: 1
+        installed:
+          description: Whether the integration has been fully installed.
+          type: boolean
+          x-order: 6
+        valid:
+          description: Whether the integration is currently valid (tokens, hooks, etc.).
+          type: boolean
+          x-order: 7
+      required:
+      - disableDetailedDiff
+      - disableNeoSummaries
+      - disablePRComments
+      - gitLabGroupId
+      - id
+      - installed
+      - valid
+      type: object
+    AzureDevOpsAppIntegrationResponse:
+      description: Response containing the Azure DevOps app integration status and configuration for a Pulumi organization.
+      properties:
+        authUser:
+          $ref: '#/components/schemas/User'
+          description: The Pulumi user whose Azure DevOps authentication token is being used
+          x-order: 5
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 8
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 7
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 6
+        installed:
+          description: Does the org have an Azure DevOps app integration configured
+          type: boolean
+          x-order: 1
+        organization:
+          $ref: '#/components/schemas/AzureDevOpsOrganization'
+          description: Metadata about the Azure DevOps organization linked to the Pulumi organization
+          x-order: 3
+        project:
+          $ref: '#/components/schemas/AzureDevOpsProject'
+          description: Metadata about the Azure DevOps project linked to the Pulumi organization
+          x-order: 4
+        valid:
+          description: Is the app integration valid
+          type: boolean
+          x-order: 2
+      required:
+      - installed
+      - valid
+      type: object
+    VCSRepo:
+      description: VCSRepo describes a VCS repository.
+      properties:
+        id:
+          description: Repository ID
+          type: string
+          x-order: 1
+        name:
+          description: Repository name
+          type: string
+          x-order: 3
+        owner:
+          description: Repository owner (organization or user)
+          type: string
+          x-order: 2
+      required:
+      - id
+      - name
+      - owner
+      type: object
+    CustomVCSRepository:
+      description: A repository configured on a custom VCS integration. Each repository is identified by its name, which is joined with the integration's base URL to form the full clone URL.
+      properties:
+        displayName:
+          description: Human-readable display name for the repository. If not provided, the name is used for display purposes.
+          type: string
+          x-order: 2
+        name:
+          description: Repository name or path, joined with the integration's base URL to form the clone URL (e.g. 'myrepo' or 'subgroup/myrepo')
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    BitBucketSettingsRequest:
+      description: Request body for updating BitBucket integration settings such as PR comment preferences and AI summary options.
+      properties:
+        disableDetailedDiff:
+          description: If true, disable detailed property-level diffs in PR comments.
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: If true, disable Neo AI-generated deployment summaries in PR comments.
+          type: boolean
+          x-order: 2
+        disablePRComments:
+          description: If true, disable automatic PR comments on deployments.
+          type: boolean
+          x-order: 1
+      type: object
+    UpdateCustomVCSIntegrationRequest:
+      description: Request to update an existing custom VCS integration. All fields are optional; only provided fields are updated. Use regenerateWebhookSecret to rotate the webhook HMAC secret.
+      properties:
+        baseUrl:
+          description: Updated URL prefix for repositories covered by this integration
+          type: string
+          x-order: 2
+        environment:
+          description: Updated ESC environment reference in 'project/envName' format
+          type: string
+          x-order: 3
+        name:
+          description: Updated human-readable name for the integration
+          type: string
+          x-order: 1
+        regenerateWebhookSecret:
+          description: When true, generates a new webhook HMAC secret and invalidates the previous one. The new secret is returned in the response.
+          type: boolean
+          x-order: 4
+      type: object
+    AzureDevOpsAccessResponse:
+      description: AzureDevOpsAccessResponse describes the user's Azure DevOps access status for an organization.
+      properties:
+        availableOrgs:
+          description: The Azure DevOps organizations the user's token can access.
+          items:
+            $ref: '#/components/schemas/AzureDevOpsOrganization'
+          type: array
+          x-order: 3
+        hasIntegration:
+          description: Whether the org has an Azure DevOps integration installed.
+          type: boolean
+          x-order: 2
+        hasUserToken:
+          description: Whether the user has an Azure DevOps OAuth or PAT token.
+          type: boolean
+          x-order: 1
+      required:
+      - hasIntegration
+      - hasUserToken
+      type: object
+    GitLabAppOrganization:
+      description: Metadata about a GitLab organization linked to a Pulumi organization.
+      properties:
+        avatarURL:
+          description: The URL of the organization's avatar image
+          type: string
+          x-order: 3
+        hasRequiredPermissions:
+          description: Whether the integration has the required permissions
+          type: boolean
+          x-order: 4
+        id:
+          description: The GitLab group or organization ID
+          format: int64
+          type: integer
+          x-order: 1
+        name:
+          description: The name of the GitLab organization
+          type: string
+          x-order: 2
+      required:
+      - avatarURL
+      - hasRequiredPermissions
+      - id
+      - name
+      type: object
+    GitHubAppPermissionRequirement:
+      description: GitHubAppPermissionRequirement represents a single GitHub App permission requirement for Neo agents.
+      properties:
+        actual:
+          description: The actual permission level from the installation.
+          enum:
+          - NoAccess
+          - ReadOnly
+          - ReadWrite
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: GitHubAppPermissionLevel
+            enumComments: GitHubAppPermissionLevel represents the level of access for a GitHub App permission.
+            enumFieldComments:
+            - No access to the resource.
+            - Read-only access to the resource.
+            - Read and write access to the resource.
+        isSufficient:
+          description: Whether the actual permission level satisfies the required level. This is always precomputed from checking that actual satisfies required.
+          type: boolean
+          x-order: 5
+        name:
+          description: The permission name (e.g., 'Checks', 'Contents').
+          type: string
+          x-order: 1
+        reason:
+          description: Explanation of why this permission is needed.
+          type: string
+          x-order: 4
+        required:
+          description: The required permission level.
+          enum:
+          - NoAccess
+          - ReadOnly
+          - ReadWrite
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: GitHubAppPermissionLevel
+            enumComments: GitHubAppPermissionLevel represents the level of access for a GitHub App permission.
+            enumFieldComments:
+            - No access to the resource.
+            - Read-only access to the resource.
+            - Read and write access to the resource.
+      required:
+      - actual
+      - isSufficient
+      - name
+      - reason
+      - required
+      type: object
+    GitHubSetupResponse:
+      description: Response for GitHub setup initiation containing installation URL.
+      properties:
+        installationUrl:
+          description: URL to install the GitHub App
+          type: string
+          x-order: 1
+      required:
+      - installationUrl
+      type: object
+    AzureOptions:
+      description: Azure provider options
+      properties:
+        apiName:
+          description: Azure API name identifying which Azure service to target.
+          enum:
+          - ado
+          - graph
+          - arm
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: AzureApiName
+            enumComments: Azure API name identifying which Azure service API to target.
+            enumFieldComments:
+            - Azure DevOps API
+            - Microsoft Graph API
+            - Azure Resource Manager API
+        tenantId:
+          description: Azure tenant ID
+          type: string
+          x-order: 1
+      type: object
+    CustomVCSIntegrationResponse:
+      description: Response containing the details of a custom VCS integration, including its configuration, webhook endpoint, and configured repositories.
+      properties:
+        baseUrl:
+          description: URL prefix for repositories covered by this integration
+          type: string
+          x-order: 3
+        created:
+          description: ISO 8601 timestamp of when the integration was created
+          type: string
+          x-order: 9
+        environment:
+          description: ESC environment reference in 'project/envName' format containing VCS credentials
+          type: string
+          x-order: 4
+        id:
+          description: Unique identifier (UUID) for this integration
+          type: string
+          x-order: 1
+        modified:
+          description: ISO 8601 timestamp of when the integration was last modified
+          type: string
+          x-order: 10
+        name:
+          description: Human-readable name for the integration
+          type: string
+          x-order: 2
+        repositories:
+          description: List of repositories configured on this integration
+          items:
+            $ref: '#/components/schemas/CustomVCSRepository'
+          type: array
+          x-order: 8
+        vcsType:
+          description: Version control system type
+          enum:
+          - git
+          - hg
+          type: string
+          x-order: 5
+          x-pulumi-model-property:
+            enumTypeName: VCSType
+            enumComments: VCSType describes the version control system type for a custom VCS integration.
+            enumFieldComments:
+            - Git version control system
+            - Mercurial version control system
+        webhookSecret:
+          description: HMAC secret for webhook signature verification. Only returned on integration creation; subsequent GET requests omit this field.
+          type: string
+          x-order: 7
+        webhookUrl:
+          description: Full webhook endpoint URL that the external VCS should POST events to. This URL is generated by the service and includes the integration ID.
+          type: string
+          x-order: 6
+      required:
+      - baseUrl
+      - created
+      - environment
+      - id
+      - modified
+      - name
+      - vcsType
+      type: object
+    RemoveCustomVCSRepositoryRequest:
+      description: Request to remove a repository from a custom VCS integration. The repository is identified by its name.
+      properties:
+        name:
+          description: Repository name to remove (must match a previously added name exactly)
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    ListVCSIntegrationSummariesResponse:
+      description: Response containing a lightweight list of all VCS integrations across providers for an organization.
+      properties:
+        integrations:
+          description: The list of VCS integration summaries across all providers.
+          items:
+            $ref: '#/components/schemas/VCSIntegrationSummary'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    BitBucketAccessStatusResponse:
+      description: Information about a user's BitBucket access status, including whether they have a valid OAuth token and which workspaces are available.
+      properties:
+        availableWorkspaces:
+          description: List of BitBucket workspaces available to the user for integration.
+          items:
+            $ref: '#/components/schemas/BitBucketWorkspace'
+          type: array
+          x-order: 2
+        hasUserToken:
+          description: Whether the current user has a valid BitBucket OAuth token.
+          type: boolean
+          x-order: 1
+      required:
+      - hasUserToken
+      type: object
+    AzureDevOpsOrganization:
+      description: Metadata about an Azure DevOps organization, including its name, URL, and permission status.
+      properties:
+        accountUrl:
+          description: The account URL for the organization (e.g., https://dev.azure.com/myorg)
+          type: string
+          x-order: 3
+        hasRequiredPermissions:
+          description: Whether the current user has the required permissions
+          type: boolean
+          x-order: 4
+        id:
+          description: The unique ID of the organization
+          type: string
+          x-order: 1
+        name:
+          description: The name of the organization
+          type: string
+          x-order: 2
+      required:
+      - name
+      type: object
+    UpdateAzureDevOpsAppIntegrationRequest:
+      description: Request body for creating or updating an Azure DevOps app integration for a Pulumi organization.
+      properties:
+        disableCodeAccessForReviews:
+          description: Whether to disable code access for AI reviews
+          type: boolean
+          x-order: 6
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 5
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 4
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 3
+        organizationName:
+          description: The name of the Azure DevOps organization (e.g., 'mycompany' in dev.azure.com/mycompany)
+          type: string
+          x-order: 1
+        projectId:
+          description: The ID of the Azure DevOps project to integrate
+          type: string
+          x-order: 2
+      type: object
+    CompleteOAuthResponse:
+      description: Response from OAuth completion
+      type: object
+    GitHubAppURLs:
+      description: 'GitHubAppURLs contains links that should be used to properly account for
+
+        things like installation IDs, org names, etc. when installing and
+
+        configuring the app.'
+      properties:
+        configurationUrl:
+          description: URL to configure the GitHub App installation
+          type: string
+          x-order: 2
+        installationUrl:
+          description: URL to install the GitHub App
+          type: string
+          x-order: 1
+        permissionsUrl:
+          description: URL to manage the GitHub App permissions
+          type: string
+          x-order: 3
+        stateParam:
+          description: OAuth state parameter for CSRF protection
+          type: string
+          x-order: 4
+      required:
+      - configurationUrl
+      - installationUrl
+      - permissionsUrl
+      - stateParam
+      type: object
+    GitLabSetupRequest:
+      description: Request body for creating a new GitLab integration. Specifies the GitLab group to integrate and the authentication method.
+      properties:
+        gitLabGroupId:
+          description: The GitLab group ID to integrate with the Pulumi organization.
+          format: int32
+          type: integer
+          x-order: 1
+        useUserGitLabAuth:
+          description: Whether to use the current user's GitLab OAuth token instead of a group access token for authentication.
+          type: boolean
+          x-order: 2
+      required:
+      - gitLabGroupId
+      type: object
+    User:
+      description: 'User represents a Pulumi user.  This structure contains the full, private information that will be used only for
+
+        an authenticated user.  As a result, sensitive information (like email) is permitted.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 5
+        email:
+          description: The user's email address.
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name (originally from GitHub).
+          type: string
+          x-order: 2
+        hasMFA:
+          description: Whether the user has multi-factor authentication enabled.
+          type: boolean
+          x-order: 12
+        id:
+          description: The unique identifier of the user.
+          type: string
+          x-order: 1
+        identities:
+          description: Identities is the array of identities a Pulumi user's account is tied to.
+          items:
+            enum:
+            - dev.azure.com
+            - bitbucket.org
+            - github.com
+            - gitlab.com
+            - google.com
+            - Pulumi
+            - SAML
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: IdentityProvider
+              enumComments: 'IdentityProvider describes an identity system used by the Pulumi Service. It generally maps 1:1
+
+                to OrganizationKind, but we intentionally keep this separate (and with different values!) for
+
+                compatibility with older code that passes these values between the Node backend, Angular, and
+
+                our API backend.'
+              enumFieldNames:
+              - AzureDevOps
+              - Bitbucket
+              - GitHub
+              - GitLab
+              - Google
+              - Pulumi
+              - SAML
+          type: array
+          x-order: 8
+        isManagedByMultiOrg:
+          description: Whether the user's account is managed by multiple organizations.
+          type: boolean
+          x-order: 14
+        isOrgManaged:
+          description: Whether the user's account is managed by an organization.
+          type: boolean
+          x-order: 13
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 3
+        organizations:
+          description: Organizations is the list of Pulumi organizations the user is a member of.
+          items:
+            $ref: '#/components/schemas/OrganizationSummaryWithRole'
+          type: array
+          x-order: 6
+        potentialOrganizations:
+          description: PotentialOrganizations is the list of Pulumi organizations the user is a potential member of.
+          items:
+            $ref: '#/components/schemas/OrganizationSummaryWithRole'
+          type: array
+          x-order: 7
+        registryAdmin:
+          description: RegistryAdmin is whether or not the user is a registry administrator.
+          type: boolean
+          x-order: 10
+        siteAdmin:
+          description: SiteAdministrator is whether or not the user is a site administrator.
+          type: boolean
+          x-order: 9
+        tokenInfo:
+          $ref: '#/components/schemas/TokenInfo'
+          description: TokenInfo is contains metadata, set only for machine tokens & to be used only in the CLI
+          x-order: 11
+      required:
+      - avatarUrl
+      - email
+      - githubLogin
+      - hasMFA
+      - id
+      - identities
+      - isManagedByMultiOrg
+      - isOrgManaged
+      - name
+      - organizations
+      type: object
+    CloudSetupProvider:
+      description: CloudSetupProvider configuration
+      properties:
+        azure:
+          $ref: '#/components/schemas/AzureOptions'
+          description: Azure-specific configuration options
+          x-order: 2
+        name:
+          description: CloudSetupProvider name (e.g., 'azure', 'gcp')
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    OrganizationSummary:
+      description: OrganizationSummary is just the display information for an organization.
+      properties:
+        avatarUrl:
+          description: The URL of the organization's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The GitHub login associated with the organization.
+          type: string
+          x-order: 2
+        name:
+          description: The name of the organization.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    OrganizationSummaryWithRole:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationSummary'
+      - description: OrganizationSummaryWithRole is the display information for an organization, paired with the role of a given user into that.
+        properties:
+          role:
+            description: The role of the user within this organization.
+            enum:
+            - none
+            - member
+            - admin
+            - potential-member
+            - stack-collaborator
+            - billing-manager
+            type: string
+            x-order: 1
+            x-pulumi-model-property:
+              enumTypeName: OrganizationRole
+              enumComments: OrganizationRole is an enum defining a member's role within an organization.
+              enumFieldNames:
+              - None
+              - Member
+              - Admin
+              - PotentialMember
+              - StackCollaborator
+              - BillingManager
+              enumFieldComments:
+              - OrganizationRoleNone describes the role of non-members.
+              - OrganizationRoleMember is the role for regular members.
+              - OrganizationRoleAdmin is the role for admins.
+              - 'OrganizationRolePotentialMember is the role for users who are explicitly
+
+                not a member of the organization, but are a member of the backing org on
+
+                the 3rd party identity provider. (i.e. they could join the org.)'
+              - 'OrganizationRoleStackCollaborator is the role for users who are not a member
+
+                of an organization, but have been explicitly granted access to some of the
+
+                organization''s stacks. So they have limited permissions to access the org''s
+
+                data.'
+              - OrganizationRoleBillingManager is the role for billing admins.
+        required:
+        - role
+        type: object
+    CreateCustomVCSIntegrationRequest:
+      description: Request to create a new custom VCS integration for an organization. Custom VCS integrations allow connecting self-hosted or third-party version control systems (e.g. Gitea, Forgejo, Bitbucket Server) to Pulumi Deployments via ESC-managed credentials and inbound webhooks.
+      properties:
+        baseUrl:
+          description: URL prefix for repositories covered by this integration (e.g. 'https://gitea.example.com/myorg'). Used to match repositories to integrations.
+          type: string
+          x-order: 2
+        environment:
+          description: ESC environment reference in 'project/envName' format containing VCS credentials (e.g. SSH keys, access tokens) used for repository operations
+          type: string
+          x-order: 3
+        name:
+          description: Human-readable name for the integration, unique within the organization (e.g. 'Gitea Production')
+          type: string
+          x-order: 1
+        vcsType:
+          description: Version control system type. Defaults to 'git' if not specified.
+          enum:
+          - git
+          - hg
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: VCSType
+            enumComments: VCSType describes the version control system type for a custom VCS integration.
+            enumFieldComments:
+            - Git version control system
+            - Mercurial version control system
+      required:
+      - baseUrl
+      - environment
+      - name
+      type: object
+    AzureDevOpsProject:
+      description: Metadata about an Azure DevOps project within an organization.
+      properties:
+        id:
+          description: The unique ID of the project
+          type: string
+          x-order: 1
+        name:
+          description: The name of the project
+          type: string
+          x-order: 2
+      required:
+      - id
+      - name
+      type: object
+    VCSBranch:
+      description: VCSBranch describes a VCS branch.
+      properties:
+        isProtected:
+          description: Whether branch is protected
+          type: boolean
+          x-order: 2
+        name:
+          description: Branch name
+          type: string
+          x-order: 1
+      required:
+      - isProtected
+      - name
+      type: object
+    InitiateOAuthRequest:
+      description: Request to initiate OAuth flow for cloud provider authentication
+      properties:
+        provider:
+          $ref: '#/components/schemas/CloudSetupProvider'
+          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 1
+      required:
+      - provider
+      type: object
+    AddCustomVCSRepositoryRequest:
+      description: Request to add a repository to a custom VCS integration. The repository name must be unique within the integration; adding a duplicate name returns 409 Conflict.
+      properties:
+        displayName:
+          description: Human-readable display name for the repository. If not provided, the name is used for display purposes.
+          type: string
+          x-order: 2
+        name:
+          description: Repository name or path, joined with the integration's base URL to form the clone URL (e.g. 'myrepo' or 'subgroup/myrepo')
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    ListGitHubIntegrationsResponse:
+      description: ListGitHubIntegrationsResponse contains the list of GitHub App integrations for an organization.
+      properties:
+        installationUrl:
+          description: URL to install the Pulumi GitHub App for this organization.
+          type: string
+          x-order: 2
+        integrations:
+          description: The list of GitHub App integrations.
+          items:
+            $ref: '#/components/schemas/GitHubIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    BitBucketSetupRequest:
+      description: Request body for creating a new BitBucket VCS integration. Specifies the workspace to integrate and the authentication method.
+      properties:
+        useUserAuth:
+          description: If true, use the current user's BitBucket OAuth token for authentication instead of a workspace access token.
+          type: boolean
+          x-order: 3
+        workspaceAccessToken:
+          description: Optional workspace access token or personal access token (PAT) for authenticating with the BitBucket API. Required if useUserAuth is false.
+          type: string
+          x-order: 4
+        workspaceSlug:
+          description: The slug (URL-friendly name) of the BitBucket workspace.
+          type: string
+          x-order: 2
+        workspaceUuid:
+          description: The UUID of the BitBucket workspace to integrate.
+          type: string
+          x-order: 1
+      required:
+      - workspaceSlug
+      - workspaceUuid
+      type: object
+    TokenInfo:
+      description: TokenInfo contains metadata about an access token.
+      properties:
+        name:
+          description: The name of the access token.
+          type: string
+          x-order: 1
+        organization:
+          description: The organization the token is scoped to, if any.
+          type: string
+          x-order: 2
+        team:
+          description: The team the token is scoped to, if any.
+          type: string
+          x-order: 3
+      required:
+      - name
+      - organization
+      - team
+      type: object

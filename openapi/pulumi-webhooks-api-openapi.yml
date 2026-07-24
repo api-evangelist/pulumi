@@ -1,0 +1,744 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Webhooks API
+  version: 1.0.0
+tags:
+- name: Webhooks
+paths:
+  /api/orgs/{orgName}/hooks:
+    get:
+      description: Returns all webhooks configured at the organization level. Each webhook in the response includes its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, and subscribed event filters. Organization-level webhooks can fire on stack lifecycle events, deployment events, drift detection events, and policy violation events.
+      operationId: ListOrganizationWebhooks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookResponse'
+                type: array
+          description: successful operation
+      summary: ListOrganizationWebhooks
+      tags:
+      - Webhooks
+    post:
+      description: 'Creates a new webhook for an organization to notify external services when events occur. Webhooks can be configured to fire on stack events (created, deleted, update succeeded/failed), deployment events (queued, started, succeeded, failed), drift detection events, and policy violation events (mandatory, advisory).
+
+
+        The `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.
+
+
+        The `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.
+
+
+        The optional `secret` field sets the HMAC key for signature verification via the `Pulumi-Webhook-Signature` header. See the [webhook headers documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#headers) for details.'
+      operationId: CreateOrganizationWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: Created
+        '400':
+          description: Organization name from request body doesn't match URL.
+        '409':
+          description: Webhook with this name already exists
+      summary: CreateOrganizationWebhook
+      tags:
+      - Webhooks
+  /api/orgs/{orgName}/hooks/{hookName}:
+    delete:
+      description: Permanently deletes an organization-level webhook. The webhook will no longer receive event notifications for stack updates, deployments, drift detection, or policy violations. This action cannot be undone.
+      operationId: DeleteOrganizationWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeleteOrganizationWebhook
+      tags:
+      - Webhooks
+    get:
+      description: Returns the configuration of a specific organization-level webhook, including its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, event filter subscriptions, and whether a shared secret is configured for HMAC signature verification.
+      operationId: GetOrganizationWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: OK
+        '404':
+          description: Webhook
+      summary: GetOrganizationWebhook
+      tags:
+      - Webhooks
+    patch:
+      description: Updates an existing organization-level webhook's configuration, including its destination URL, format, active status, event filter subscriptions, and shared secret. The 'pulumi_deployments' format can only be used on stack or environment webhooks, not organization-level ones.
+      operationId: UpdateOrganizationWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: OK
+        '400':
+          description: '''pulumi_deployments'' format can only be used on stack or environment webhooks.'
+        '404':
+          description: Webhook
+      summary: UpdateOrganizationWebhook
+      tags:
+      - Webhooks
+  /api/orgs/{orgName}/hooks/{hookName}/deliveries:
+    get:
+      description: Returns the recent delivery history for a specific webhook, including the HTTP status code, response time, request payload, and delivery timestamp for each attempt. This allows monitoring webhook health and diagnosing delivery failures. Each delivery includes a unique Pulumi-Webhook-ID.
+      operationId: GetOrganizationWebhookDeliveries
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookDelivery'
+                type: array
+          description: successful operation
+      summary: GetOrganizationWebhookDeliveries
+      tags:
+      - Webhooks
+  /api/orgs/{orgName}/hooks/{hookName}/deliveries/{event}/redeliver:
+    post:
+      description: 'Triggers the Pulumi Service to redeliver
+
+        a specific event to a webhook. For example, to resend an event that the
+
+        hook failed to process the first time.'
+      operationId: RedeliverOrganizationWebhookEvent
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      - description: The event identifier to redeliver
+        in: path
+        name: event
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookDelivery'
+          description: OK
+        '404':
+          description: Webhook
+      summary: RedeliverOrganizationWebhookEvent
+      tags:
+      - Webhooks
+  /api/orgs/{orgName}/hooks/{hookName}/ping:
+    post:
+      description: 'Sends a test ping to an organization webhook to validate that it is working.
+
+        This function bypasses the message queue machinery and issues the request directly to the webhook.'
+      operationId: PingOrganizationWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name identifier
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookDelivery'
+          description: OK
+        '404':
+          description: Webhook
+      summary: PingOrganizationWebhook
+      tags:
+      - Webhooks
+  /api/stacks/{orgName}/{projectName}/{stackName}/hooks:
+    get:
+      description: Returns all webhooks configured for the specified stack. Each webhook in the response includes its name, display name, payload URL, format, filters, and active status.
+      operationId: ListStackWebhooks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookResponse'
+                type: array
+          description: successful operation
+      summary: ListStackWebhooks
+      tags:
+      - Webhooks
+    post:
+      description: 'Creates a new webhook for the specified stack. The request body must include the webhook name, payload URL, and format.
+
+
+        The `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.
+
+
+        The `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.
+
+
+        The optional `secret` field sets the HMAC key for signature verification. See the [webhook headers documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#headers) for details.
+
+
+        Returns 409 if a webhook with the same name already exists. Returns 400 if the organization or stack name in the request body does not match the URL path parameters.'
+      operationId: CreateStackWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: Created
+        '400':
+          description: Organization name from request body doesn't match URL or Stack name from request body doesn't match URL or invalid webhook name, display name, format, payload URL, groups, or filters.
+        '409':
+          description: Webhook with name {name} already exists.
+      summary: CreateStackWebhook
+      tags:
+      - Webhooks
+  /api/stacks/{orgName}/{projectName}/{stackName}/hooks/{hookName}:
+    delete:
+      description: Deletes a webhook from the specified stack. Returns 204 with no content on success.
+      operationId: DeleteStackWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeleteStackWebhook
+      tags:
+      - Webhooks
+    get:
+      description: Returns the details of a single webhook identified by its name, including its configuration, filters, groups, and active status. Returns 404 if the webhook does not exist.
+      operationId: GetStackWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: OK
+        '404':
+          description: Webhook
+      summary: GetStackWebhook
+      tags:
+      - Webhooks
+    patch:
+      description: Updates an existing webhook's configuration. Supports modifying the display name, payload URL, format, groups, filters, and active status. The 'pulumi_deployments' format can only be used on stack or environment webhooks. Returns 404 if the webhook does not exist.
+      operationId: UpdateStackWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+          description: OK
+        '400':
+          description: '''pulumi_deployments'' format can only be used on stack or environment webhooks or Invalid display name, format, payload URL, groups, or filters.'
+        '404':
+          description: Webhook
+      summary: UpdateStackWebhook
+      tags:
+      - Webhooks
+  /api/stacks/{orgName}/{projectName}/{stackName}/hooks/{hookName}/deliveries:
+    get:
+      description: Returns the recent delivery history for a specific webhook. Each delivery includes the timestamp, HTTP status code, request and response details, and whether the delivery was successful.
+      operationId: GetStackWebhookDeliveries
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookDelivery'
+                type: array
+          description: successful operation
+      summary: GetStackWebhookDeliveries
+      tags:
+      - Webhooks
+  /api/stacks/{orgName}/{projectName}/{stackName}/hooks/{hookName}/deliveries/{event}/redeliver:
+    post:
+      description: Triggers the Pulumi Service to redeliver a specific event to a webhook. This is useful for resending an event that the webhook endpoint failed to process on the initial delivery attempt. Returns the delivery result with HTTP status and response details. Returns 404 if the webhook or event does not exist.
+      operationId: RedeliverStackWebhookEvent
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      - description: The webhook delivery event identifier to redeliver
+        in: path
+        name: event
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookDelivery'
+          description: OK
+        '404':
+          description: Webhook or WebhookEvent
+      summary: RedeliverStackWebhookEvent
+      tags:
+      - Webhooks
+  /api/stacks/{orgName}/{projectName}/{stackName}/hooks/{hookName}/ping:
+    post:
+      description: Issues a test ping event to the specified webhook to verify it is properly configured and reachable. Unlike normal webhook deliveries, this bypasses the message queue and sends the request directly to the webhook endpoint. The response includes the delivery result with HTTP status and response details. Returns 404 if the webhook does not exist.
+      operationId: PingStackWebhook
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The webhook name
+        in: path
+        name: hookName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookDelivery'
+          description: OK
+        '404':
+          description: Webhook
+      summary: PingStackWebhook
+      tags:
+      - Webhooks
+components:
+  schemas:
+    Webhook:
+      description: 'Webhook describes a webhook registered with the Pulumi Service. It may
+
+        be registered to either an Organization, Stack or Environment.'
+      properties:
+        active:
+          description: Whether the webhook is active and will receive deliveries.
+          type: boolean
+          x-order: 9
+        displayName:
+          description: The human-readable display name shown in the UI.
+          type: string
+          x-order: 6
+        envName:
+          description: The environment name. Set when the webhook is scoped to a specific environment.
+          type: string
+          x-order: 4
+        filters:
+          description: Specific event types this webhook subscribes to. If empty, all events are delivered.
+          items:
+            type: string
+          type: array
+          x-order: 11
+        format:
+          description: The format of the webhook payload (e.g., 'raw', 'slack', 'ms_teams').
+          type: string
+          x-order: 10
+        groups:
+          description: Event groups this webhook subscribes to (e.g., 'stacks', 'deployments').
+          items:
+            type: string
+          type: array
+          x-order: 12
+        name:
+          description: The unique identifier name for the webhook within its scope.
+          type: string
+          x-order: 5
+        organizationName:
+          description: The organization that owns this webhook.
+          type: string
+          x-order: 1
+        payloadUrl:
+          description: The URL to which webhook payloads are delivered.
+          type: string
+          x-order: 7
+        projectName:
+          description: The project name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 2
+        secret:
+          description: Secret will be omitted when returned from the service.
+          type: string
+          x-order: 8
+        stackName:
+          description: The stack name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 3
+      required:
+      - active
+      - displayName
+      - name
+      - organizationName
+      - payloadUrl
+      type: object
+    WebhookDelivery:
+      description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
+
+        for the end-users webhook. It merges both model.WebhookEvent and model.WebhookDelivery.'
+      properties:
+        duration:
+          description: The duration of the delivery request in milliseconds.
+          format: int64
+          type: integer
+          x-order: 5
+        id:
+          description: The unique identifier of the delivery.
+          type: string
+          x-order: 1
+        kind:
+          description: The kind of webhook event.
+          type: string
+          x-order: 2
+        payload:
+          description: The JSON payload that was sent.
+          type: string
+          x-order: 3
+        requestHeaders:
+          description: The HTTP headers sent with the request.
+          type: string
+          x-order: 7
+        requestUrl:
+          description: The URL the webhook was delivered to.
+          type: string
+          x-order: 6
+        responseBody:
+          description: The HTTP response body.
+          type: string
+          x-order: 10
+        responseCode:
+          description: The HTTP response status code.
+          format: int64
+          type: integer
+          x-order: 8
+        responseHeaders:
+          description: The HTTP response headers.
+          type: string
+          x-order: 9
+        timestamp:
+          description: The time the delivery was sent, as a Unix epoch timestamp.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - duration
+      - id
+      - kind
+      - payload
+      - requestHeaders
+      - requestUrl
+      - responseBody
+      - responseCode
+      - responseHeaders
+      - timestamp
+      type: object
+    WebhookResponse:
+      allOf:
+      - $ref: '#/components/schemas/Webhook'
+      - description: WebhookResponse extends Webhook with additional response-only fields.
+        properties:
+          hasSecret:
+            description: 'HasSecret is true if the webhook has a secret. This is used to determine whether
+
+              to show that there is a secret in the UI.'
+            type: boolean
+            x-order: 1
+          secretCiphertext:
+            description: 'SecretCiphertext is the ciphertext value of the webhook''s secret.
+
+              It''s used to check whether the secret was changed by the PSP'
+            type: string
+            x-order: 2
+        required:
+        - hasSecret
+        - secretCiphertext
+        type: object

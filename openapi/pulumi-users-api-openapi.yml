@@ -1,0 +1,1091 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Users API
+  version: 1.0.0
+tags:
+- name: Users
+paths:
+  /api/user:
+    get:
+      description: Returns the authenticated user's profile information, including login name, display name, email, avatar URL, and organization memberships.
+      operationId: GetCurrentUser
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+      summary: GetCurrentUser
+      tags:
+      - Users
+  /api/user/github/{ghOrgName}/teams:
+    get:
+      description: ListGitHubOrganizationTeams returns all GitHub teams the requesting user has access to see.
+      operationId: ListGitHubOrganizationTeams
+      parameters:
+      - description: The GitHub organization name
+        in: path
+        name: ghOrgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGitHubOrganizationTeamsResponse'
+          description: OK
+        '400':
+          description: operation only supported for GitHub-backed users
+        '404':
+          description: Organization
+      summary: ListGitHubOrganizationTeams
+      tags:
+      - Users
+  /api/user/gitlab-app/organizations:
+    get:
+      deprecated: true
+      description: 'Gets a list of GitLab groups available to be used with the Pulumi GitLab app.
+
+        This endpoint explicitly denotes which groups can be used based on the
+
+        user''s permissions within each group.'
+      operationId: GetGroupsForGitLabApp
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GitLabAppOrganization'
+                type: array
+          description: successful operation
+      summary: GetGroupsForGitLabApp
+      tags:
+      - Users
+      x-pulumi-route-property:
+        Deprecated: true
+        Visibility: Public
+  /api/user/organizations/default:
+    get:
+      description: GetDefaultOrganization returns the default organization for the current user.
+      operationId: GetDefaultOrganization
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppGetDefaultOrganizationResponse'
+          description: OK
+        '400':
+          description: User is not a member of any organizations.
+      summary: GetDefaultOrganization
+      tags:
+      - Users
+  /api/user/organizations/{orgName}/default:
+    post:
+      description: UpdateDefaultOrganization sets the default organization for the current user.
+      operationId: UpdateDefaultOrganization
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: UpdateDefaultOrganization
+      tags:
+      - Users
+  /api/user/pending-emails:
+    delete:
+      description: 'DeletePendingEmailChange removes the pending email change for the currently logged-in user.
+
+        Deletes the pending verification only if it isn''t a verification record for the current primary email itself.'
+      operationId: DeletePendingEmailChange
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Cannot delete the pending verification for primary email.
+      summary: DeletePendingEmailChange
+      tags:
+      - Users
+    get:
+      description: 'GetLatestPendingEmailChange returns only the latest email change,
+
+        that is pending. Returns a 204 if no pending email change requests exist.'
+      operationId: GetLatestPendingEmailChange
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPendingEmailVerificationResponse'
+          description: OK
+        '204':
+          description: No Content
+      summary: GetLatestPendingEmailChange
+      tags:
+      - Users
+  /api/user/pending-invites:
+    get:
+      description: ListUserOrgInvites lists the pending invites for the requesting user.
+      operationId: ListUserOrgInvites
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganizationInvitesResponse'
+          description: OK
+      summary: ListUserOrgInvites
+      tags:
+      - Users
+  /api/user/stacks:
+    get:
+      description: Lists all stacks accessible to the authenticated user. Results can be filtered by organization, project, and stack tags (tagName/tagValue). Supports pagination via continuationToken and maxResults parameters. Returns stack summary information including name, project, last update status, and resource count.
+      operationId: ListUserStacks
+      parameters:
+      - description: Token from a previous response to fetch the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Maximum number of stacks to return per page
+        in: query
+        name: maxResults
+        schema:
+          format: int64
+          type: integer
+      - description: Filter stacks to those owned by this organization
+        in: query
+        name: organization
+        schema:
+          type: string
+      - description: Filter stacks to those in this project
+        in: query
+        name: project
+        schema:
+          type: string
+      - description: List stacks only using this custom role
+        in: query
+        name: roleID
+        schema:
+          type: string
+      - description: Filter stacks by tag name (use with tagValue for exact match)
+        in: query
+        name: tagName
+        schema:
+          type: string
+      - description: Filter stacks by tag value (requires tagName)
+        in: query
+        name: tagValue
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppListStacksResponse'
+          description: OK
+        '400':
+          description: Invalid continuation token
+      summary: ListUserStacks
+      tags:
+      - Users
+  /api/user/tokens:
+    get:
+      description: Returns all personal access tokens for the authenticated user. Web-session generated tokens (type 'web') are excluded from the results. Each token in the response includes its ID, description, and lastUsed timestamp. Use the filter query parameter to search tokens by name or description.
+      operationId: ListPersonalTokens
+      parameters:
+      - description: Filter tokens by name or description
+        in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccessTokensResponse'
+          description: OK
+      summary: ListPersonalTokens
+      tags:
+      - Users
+    post:
+      description: Creates a new personal access token for the authenticated user. The request body includes a description for the token and an optional expiration time. The response includes the token ID and the tokenValue (prefixed with 'pul-'). The token value is only returned once at creation time and cannot be retrieved later.
+      operationId: CreatePersonalToken
+      parameters:
+      - description: Tracks the context that triggered token creation (e.g., redirect URL or referral source)
+        in: query
+        name: reason
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalAccessTokenRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccessTokenResponse'
+          description: OK
+      summary: CreatePersonalToken
+      tags:
+      - Users
+  /api/user/tokens/{tokenId}:
+    delete:
+      description: Permanently deletes a personal access token by its identifier. The token is immediately invalidated and can no longer be used for authentication. Returns 204 on success or 404 if the token does not exist.
+      operationId: DeletePersonalToken
+      parameters:
+      - description: The access token identifier
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Token
+      summary: DeletePersonalToken
+      tags:
+      - Users
+  /api/user/vcs:
+    delete:
+      description: DeleteIdentityProvider removes a VCS identity provider from the current user's account.
+      operationId: DeleteIdentityProvider
+      parameters:
+      - description: The VCS identity provider to disconnect (e.g., github, gitlab, bitbucket)
+        in: query
+        name: identity
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '400':
+          description: must have more than one identity provider
+        '404':
+          description: organizations
+      summary: DeleteIdentityProvider
+      tags:
+      - Users
+  /api/user/vcs/organizations:
+    get:
+      description: 'ListIdentityProviderOrganizations lists all of the organizations from a backing VCS visible to the Pulumi Service
+
+        for the requesting user. Ignores errors if this user doesn''t have a specific backing identity.'
+      operationId: ListIdentityProviderOrganizations
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGitHubOrganizationsResponse'
+          description: OK
+      summary: ListIdentityProviderOrganizations
+      tags:
+      - Users
+  /api/user/vcs/sync:
+    post:
+      description: 'SyncWithIdentityProvider contacts the requesting user''s identity provider,
+
+        and updates their profile information (display name, avatar URL, etc.)
+
+        This is required since we don''t get update events from the identity provider
+
+        when changes are made in the identity provider''s system.'
+      operationId: SyncWithIdentityProvider
+      parameters:
+      - description: The VCS identity provider to sync profile data from (e.g., github, gitlab)
+        in: query
+        name: identity
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '400':
+          description: invalid query parameter
+      summary: SyncWithIdentityProvider
+      tags:
+      - Users
+  /api/user/verified-email:
+    get:
+      description: 'GetUserHasVerifiedEmail returns a success response if the user has a verified email,
+
+        404 not found if they are not verified'
+      operationId: GetUserHasVerifiedEmail
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: OK
+      summary: GetUserHasVerifiedEmail
+      tags:
+      - Users
+components:
+  schemas:
+    ListOrganizationInvitesResponse:
+      description: ListOrganizationInvitesResponse describes all pending invites for an organization.
+      properties:
+        invites:
+          description: The list of pending organization invites
+          items:
+            $ref: '#/components/schemas/PendingOrganizationInvite'
+          type: array
+          x-order: 1
+      required:
+      - invites
+      type: object
+    PulumiGitHubOrganization:
+      description: PulumiGitHubOrganization is a union of a GitHub organization with any Pulumi-specific data.
+      properties:
+        knownToPulumi:
+          description: KnownToPulumi is true if there is a Pulumi organization backed by the GitHub organization.
+          type: boolean
+          x-order: 3
+        organization:
+          $ref: '#/components/schemas/UserInfo'
+          description: Organization data from GitHub.
+          x-order: 1
+        vcsKind:
+          description: The identity provider associated with this GitHub organization.
+          enum:
+          - dev.azure.com
+          - bitbucket.org
+          - github.com
+          - gitlab.com
+          - google.com
+          - Pulumi
+          - SAML
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: IdentityProvider
+            enumComments: 'IdentityProvider describes an identity system used by the Pulumi Service. It generally maps 1:1
+
+              to OrganizationKind, but we intentionally keep this separate (and with different values!) for
+
+              compatibility with older code that passes these values between the Node backend, Angular, and
+
+              our API backend.'
+            enumFieldNames:
+            - AzureDevOps
+            - Bitbucket
+            - GitHub
+            - GitLab
+            - Google
+            - Pulumi
+            - SAML
+      required:
+      - knownToPulumi
+      - organization
+      - vcsKind
+      type: object
+    AccessToken:
+      description: AccessToken holds a pulumi access token and some associated metadata
+      properties:
+        admin:
+          description: Whether this token has Pulumi Cloud admin privileges.
+          type: boolean
+          x-order: 7
+        created:
+          description: Timestamp when the token was created, in ISO 8601 format.
+          type: string
+          x-order: 4
+        createdBy:
+          description: User.GitHubLogin of the user that created the access token
+          type: string
+          x-order: 8
+        description:
+          description: User-provided description of the token's purpose.
+          type: string
+          x-order: 3
+        expires:
+          description: Unix epoch timestamp (seconds) when the token expires. Zero if it never expires.
+          format: int64
+          type: integer
+          x-order: 6
+        id:
+          description: Unique identifier for this access token.
+          type: string
+          x-order: 1
+        lastUsed:
+          description: Unix epoch timestamp (seconds) when the token was last used. Zero if never used.
+          format: int64
+          type: integer
+          x-order: 5
+        name:
+          description: Human-readable name assigned to this access token.
+          type: string
+          x-order: 2
+        role:
+          $ref: '#/components/schemas/AccessTokenRole'
+          description: Role associated with the token, if applicable
+          x-order: 9
+      required:
+      - admin
+      - created
+      - createdBy
+      - description
+      - expires
+      - id
+      - lastUsed
+      - name
+      type: object
+    AppListStacksResponse:
+      description: ListStacksResponse returns a set of stack summaries. This call is designed to be inexpensive.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value used to mark the end of the all stacks. If non-nil,
+
+            pass it into a subsequent call in order to get the next batch of results.
+
+
+            A value of nil means that all stacks have been returned.'
+          type: string
+          x-order: 2
+        stacks:
+          description: List of stacks
+          items:
+            $ref: '#/components/schemas/AppStackSummary'
+          type: array
+          x-order: 1
+      required:
+      - stacks
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    GitHubTeam:
+      description: GitHubTeam is the summary of a GitHub team.
+      properties:
+        description:
+          description: The team description
+          type: string
+          x-order: 4
+        id:
+          description: The GitHub team ID
+          format: int64
+          type: integer
+          x-order: 1
+        knownToPulumi:
+          description: Whether the team is known to Pulumi
+          type: boolean
+          x-order: 5
+        name:
+          description: The team name
+          type: string
+          x-order: 2
+        slug:
+          description: The team slug (URL-friendly name)
+          type: string
+          x-order: 3
+      required:
+      - description
+      - id
+      - knownToPulumi
+      - name
+      - slug
+      type: object
+    AppGetDefaultOrganizationResponse:
+      description: 'GetDefaultOrganizationResponse returns the backend''s opinion of which organization
+
+        to default to for a given user, if a default organization has not been configured.'
+      properties:
+        GitHubLogin:
+          description: Returns the organization name. Can be an empty string, if the user is a member of no organizations
+          type: string
+          x-order: 1
+        Messages:
+          description: 'Messages is a list of messages that should be displayed to the user that contextualize
+
+            the default org; for example: warning new users if their default org as returned by the
+
+            service is on an expiring trial and not free tier, with possible recommendations
+
+            on how to configure their default org locally.
+
+            Can be possibly empty.'
+          items:
+            $ref: '#/components/schemas/AppMessage'
+          type: array
+          x-order: 2
+      required:
+      - GitHubLogin
+      - Messages
+      type: object
+    ListAccessTokensResponse:
+      description: ListAccessTokensResponse is the shape of the response when listing access tokens for a user.
+      properties:
+        tokens:
+          description: The list of access tokens
+          items:
+            $ref: '#/components/schemas/AccessToken'
+          type: array
+          x-order: 1
+      required:
+      - tokens
+      type: object
+    BaseCreateAccessTokenRequest:
+      description: Request body for base create access token.
+      properties:
+        description:
+          description: The description
+          type: string
+          x-order: 1
+        expires:
+          description: The expiration time
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - description
+      - expires
+      type: object
+    AppMessage:
+      description: Message is a message from the backend to be displayed to the user.
+      properties:
+        message:
+          description: Message is the message to display to the user.
+          type: string
+          x-order: 2
+        severity:
+          description: Severity is the severity of the message.
+          enum:
+          - warning
+          - error
+          - info
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppMessageSeverity
+            enumComments: Represents app message severity.
+      required:
+      - message
+      type: object
+    GetPendingEmailVerificationResponse:
+      description: 'GetPendingEmailVerificationResponse is the response when a client requests the pending email
+
+        for the currently authenticated user.'
+      properties:
+        email:
+          description: The pending email address awaiting verification
+          type: string
+          x-order: 1
+      required:
+      - email
+      type: object
+    CreateAccessTokenResponse:
+      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
+
+        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
+      properties:
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+        tokenValue:
+          description: The token value
+          type: string
+          x-order: 2
+      required:
+      - id
+      - tokenValue
+      type: object
+    GitLabAppOrganization:
+      description: Metadata about a GitLab organization linked to a Pulumi organization.
+      properties:
+        avatarURL:
+          description: The URL of the organization's avatar image
+          type: string
+          x-order: 3
+        hasRequiredPermissions:
+          description: Whether the integration has the required permissions
+          type: boolean
+          x-order: 4
+        id:
+          description: The GitLab group or organization ID
+          format: int64
+          type: integer
+          x-order: 1
+        name:
+          description: The name of the GitLab organization
+          type: string
+          x-order: 2
+      required:
+      - avatarURL
+      - hasRequiredPermissions
+      - id
+      - name
+      type: object
+    AppStackLinks:
+      description: Represents app stack links.
+      properties:
+        self:
+          description: The self link URL
+          type: string
+          x-order: 1
+      required:
+      - self
+      type: object
+    PendingOrganizationInvite:
+      description: 'PendingOrganizationInvite describes an invite that has been sent out for someone to
+
+        join a Pulumi organization.'
+      properties:
+        acceptError:
+          description: 'AcceptError is the most recent error a user has hit while trying to accept
+
+            an organization invite.  By default it is null.'
+          type: string
+          x-order: 7
+        acceptInviteUrl:
+          description: AcceptInviteURL is the url where a user would go to accept an invite to an organization.
+          type: string
+          x-order: 6
+        email:
+          description: The email address the invite was sent to.
+          type: string
+          x-order: 2
+        id:
+          description: ID is the internal ID of the invite. Used to refer to this invite later to accept/cancel.
+          type: string
+          x-order: 1
+        role:
+          description: Role is the new role to give the member. Must be one of MEMBER, ADMIN, or BILLING MANAGER.
+          enum:
+          - none
+          - member
+          - admin
+          - potential-member
+          - stack-collaborator
+          - billing-manager
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: OrganizationRole
+            enumComments: OrganizationRole is an enum defining a member's role within an organization.
+            enumFieldNames:
+            - None
+            - Member
+            - Admin
+            - PotentialMember
+            - StackCollaborator
+            - BillingManager
+            enumFieldComments:
+            - OrganizationRoleNone describes the role of non-members.
+            - OrganizationRoleMember is the role for regular members.
+            - OrganizationRoleAdmin is the role for admins.
+            - 'OrganizationRolePotentialMember is the role for users who are explicitly
+
+              not a member of the organization, but are a member of the backing org on
+
+              the 3rd party identity provider. (i.e. they could join the org.)'
+            - 'OrganizationRoleStackCollaborator is the role for users who are not a member
+
+              of an organization, but have been explicitly granted access to some of the
+
+              organization''s stacks. So they have limited permissions to access the org''s
+
+              data.'
+            - OrganizationRoleBillingManager is the role for billing admins.
+        roleId:
+          description: RoleID is the optional UUID of a custom role assigned to this invite.
+          type: string
+          x-order: 9
+        sentAt:
+          description: SentAt is the timestamp when the invite was first sent.
+          format: int64
+          type: integer
+          x-order: 5
+        sentBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user who sent the invite.
+          x-order: 4
+        status:
+          description: 'The friendly name of the invite status. Valid values are
+
+            "pending", "accepted", "expired", and "canceled".'
+          type: string
+          x-order: 8
+      required:
+      - acceptInviteUrl
+      - email
+      - id
+      - role
+      - sentAt
+      - sentBy
+      - status
+      type: object
+    ListGitHubOrganizationTeamsResponse:
+      description: 'ListGitHubOrganizationTeamsResponse is the response when the Pulumi Service
+
+        proxies a request to GitHub to list all GitHub teams in a GitHub organization.'
+      properties:
+        teams:
+          description: The list of GitHub teams in the organization
+          items:
+            $ref: '#/components/schemas/GitHubTeam'
+          type: array
+          x-order: 1
+      required:
+      - teams
+      type: object
+    ListGitHubOrganizationsResponse:
+      description: ListGitHubOrganizationsResponse is the list of GitHub organizations known to the Pulumi Service.
+      properties:
+        organizations:
+          description: The list of GitHub organizations
+          items:
+            $ref: '#/components/schemas/PulumiGitHubOrganization'
+          type: array
+          x-order: 1
+      required:
+      - organizations
+      type: object
+    User:
+      description: 'User represents a Pulumi user.  This structure contains the full, private information that will be used only for
+
+        an authenticated user.  As a result, sensitive information (like email) is permitted.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 5
+        email:
+          description: The user's email address.
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name (originally from GitHub).
+          type: string
+          x-order: 2
+        hasMFA:
+          description: Whether the user has multi-factor authentication enabled.
+          type: boolean
+          x-order: 12
+        id:
+          description: The unique identifier of the user.
+          type: string
+          x-order: 1
+        identities:
+          description: Identities is the array of identities a Pulumi user's account is tied to.
+          items:
+            enum:
+            - dev.azure.com
+            - bitbucket.org
+            - github.com
+            - gitlab.com
+            - google.com
+            - Pulumi
+            - SAML
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: IdentityProvider
+              enumComments: 'IdentityProvider describes an identity system used by the Pulumi Service. It generally maps 1:1
+
+                to OrganizationKind, but we intentionally keep this separate (and with different values!) for
+
+                compatibility with older code that passes these values between the Node backend, Angular, and
+
+                our API backend.'
+              enumFieldNames:
+              - AzureDevOps
+              - Bitbucket
+              - GitHub
+              - GitLab
+              - Google
+              - Pulumi
+              - SAML
+          type: array
+          x-order: 8
+        isManagedByMultiOrg:
+          description: Whether the user's account is managed by multiple organizations.
+          type: boolean
+          x-order: 14
+        isOrgManaged:
+          description: Whether the user's account is managed by an organization.
+          type: boolean
+          x-order: 13
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 3
+        organizations:
+          description: Organizations is the list of Pulumi organizations the user is a member of.
+          items:
+            $ref: '#/components/schemas/OrganizationSummaryWithRole'
+          type: array
+          x-order: 6
+        potentialOrganizations:
+          description: PotentialOrganizations is the list of Pulumi organizations the user is a potential member of.
+          items:
+            $ref: '#/components/schemas/OrganizationSummaryWithRole'
+          type: array
+          x-order: 7
+        registryAdmin:
+          description: RegistryAdmin is whether or not the user is a registry administrator.
+          type: boolean
+          x-order: 10
+        siteAdmin:
+          description: SiteAdministrator is whether or not the user is a site administrator.
+          type: boolean
+          x-order: 9
+        tokenInfo:
+          $ref: '#/components/schemas/TokenInfo'
+          description: TokenInfo is contains metadata, set only for machine tokens & to be used only in the CLI
+          x-order: 11
+      required:
+      - avatarUrl
+      - email
+      - githubLogin
+      - hasMFA
+      - id
+      - identities
+      - isManagedByMultiOrg
+      - isOrgManaged
+      - name
+      - organizations
+      type: object
+    OrganizationSummary:
+      description: OrganizationSummary is just the display information for an organization.
+      properties:
+        avatarUrl:
+          description: The URL of the organization's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The GitHub login associated with the organization.
+          type: string
+          x-order: 2
+        name:
+          description: The name of the organization.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    OrganizationSummaryWithRole:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationSummary'
+      - description: OrganizationSummaryWithRole is the display information for an organization, paired with the role of a given user into that.
+        properties:
+          role:
+            description: The role of the user within this organization.
+            enum:
+            - none
+            - member
+            - admin
+            - potential-member
+            - stack-collaborator
+            - billing-manager
+            type: string
+            x-order: 1
+            x-pulumi-model-property:
+              enumTypeName: OrganizationRole
+              enumComments: OrganizationRole is an enum defining a member's role within an organization.
+              enumFieldNames:
+              - None
+              - Member
+              - Admin
+              - PotentialMember
+              - StackCollaborator
+              - BillingManager
+              enumFieldComments:
+              - OrganizationRoleNone describes the role of non-members.
+              - OrganizationRoleMember is the role for regular members.
+              - OrganizationRoleAdmin is the role for admins.
+              - 'OrganizationRolePotentialMember is the role for users who are explicitly
+
+                not a member of the organization, but are a member of the backing org on
+
+                the 3rd party identity provider. (i.e. they could join the org.)'
+              - 'OrganizationRoleStackCollaborator is the role for users who are not a member
+
+                of an organization, but have been explicitly granted access to some of the
+
+                organization''s stacks. So they have limited permissions to access the org''s
+
+                data.'
+              - OrganizationRoleBillingManager is the role for billing admins.
+        required:
+        - role
+        type: object
+    AppStackSummary:
+      description: StackSummary describes the state of a stack, without including its specific resources, etc.
+      properties:
+        id:
+          description: The logical identifier of the stack.
+          type: string
+          x-order: 1
+        lastUpdate:
+          description: LastUpdate is a Unix timestamp of the start time of the stack's last update, as applicable.
+          format: int64
+          type: integer
+          x-order: 5
+        links:
+          $ref: '#/components/schemas/AppStackLinks'
+          description: Links to the stack in the Pulumi Console
+          x-order: 7
+        orgName:
+          description: OrgName is the organization name the stack is found in.
+          type: string
+          x-order: 2
+        projectName:
+          description: ProjectName is the name of the project the stack is associated with.
+          type: string
+          x-order: 3
+        resourceCount:
+          description: ResourceCount is the number of resources associated with this stack, as applicable.
+          format: int64
+          type: integer
+          x-order: 6
+        stackName:
+          description: StackName is the name of the stack.
+          type: string
+          x-order: 4
+      required:
+      - id
+      - orgName
+      - projectName
+      - stackName
+      type: object
+    CreatePersonalAccessTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
+      - description: CreatePersonalAccessTokenRequest is the accepted request body for creating a personal access token.
+        type: object
+    AccessTokenRole:
+      description: A role that can be associated with an access token to scope its permissions.
+      properties:
+        defaultIdentifier:
+          description: The default identity to assume when using a token with this role.
+          enum:
+          - member
+          - admin
+          - billing-manager
+          - stack-read
+          - stack-write
+          - stack-admin
+          - environment-read
+          - environment-write
+          - environment-admin
+          - environment-open
+          - insights-account-read
+          - insights-account-write
+          - insights-account-admin
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: DefaultIdentifier
+            enumComments: DefaultIdentifier is an enum describing the permission level for a default role.
+            enumFieldNames:
+            - Member
+            - Admin
+            - BillingManager
+            - StackRead
+            - StackWrite
+            - StackAdmin
+            - EnvironmentRead
+            - EnvironmentWrite
+            - EnvironmentAdmin
+            - EnvironmentOpen
+            - InsightsAccountRead
+            - InsightsAccountWrite
+            - InsightsAccountAdmin
+        id:
+          description: Unique identifier for this role.
+          type: string
+          x-order: 1
+        name:
+          description: Display name of the role.
+          type: string
+          x-order: 2
+      required:
+      - defaultIdentifier
+      - id
+      - name
+      type: object
+    TokenInfo:
+      description: TokenInfo contains metadata about an access token.
+      properties:
+        name:
+          description: The name of the access token.
+          type: string
+          x-order: 1
+        organization:
+          description: The organization the token is scoped to, if any.
+          type: string
+          x-order: 2
+        team:
+          description: The team the token is scoped to, if any.
+          type: string
+          x-order: 3
+      required:
+      - name
+      - organization
+      - team
+      type: object

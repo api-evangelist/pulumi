@@ -1,0 +1,1568 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens RegistryPreview API
+  version: 1.0.0
+tags:
+- name: RegistryPreview
+paths:
+  /api/preview/registry/packages:
+    get:
+      deprecated: true
+      description: Retrieves all registry packages accessible to the caller, with support for filtering, sorting, and pagination. No authentication is required, but authenticated requests may include additional usage statistics per package. Results can be filtered by package name, publisher, owning organization, sort field, and visibility level. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the full package metadata including name, publisher, source, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, creation timestamp, and visibility.
+      operationId: ListPackages_preview
+      parameters:
+      - description: When true, sort results in ascending order
+        in: query
+        name: asc
+        schema:
+          type: boolean
+      - description: Pagination token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: 'Results per page (default: 100)'
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      - description: Filter by specific package name
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      - description: Filter by publisher organization
+        in: query
+        name: publisher
+        schema:
+          type: string
+      - description: Sort field for results
+        in: query
+        name: sort
+        schema:
+          type: string
+      - description: Filter by visibility level
+        in: query
+        name: visibility
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPackagesResponse'
+          description: OK
+        '400':
+          description: Bad continuationToken
+      summary: ListPackages
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: ListPackages
+        Visibility: Preview
+  /api/preview/registry/packages/{source}/{publisher}/{name}/versions:
+    post:
+      deprecated: true
+      description: Initiates the first step of a two-phase package version publish workflow. This creates a publish transaction and returns an operationID along with pre-signed upload URLs for the package artifacts (schema, index, and installationConfiguration). The caller must upload all required artifacts to the provided URLs and then call the PostPublishPackageVersionComplete endpoint with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, 404 if the source does not exist, or 409 if the specified version already exists.
+      operationId: PostPublishPackageVersion_preview
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartPackagePublishRequest'
+        x-originalParamName: body
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartPackagePublishResponse'
+          description: Accepted
+        '404':
+          description: Source
+        '409':
+          description: Version already exists
+      summary: PostPublishPackageVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: PostPublishPackageVersion
+        Visibility: Preview
+  /api/preview/registry/packages/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      deprecated: true
+      description: Removes a specific version of a package from the registry. The package is identified by its source (e.g. 'pulumi', 'opentofu', or 'private'), publisher organization, name, and semantic version. Requires the RegistryPublish permission on the publisher organization. Returns 204 No Content on success.
+      operationId: DeletePublishPackageVersion_preview
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the package version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeletePublishPackageVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: DeletePublishPackageVersion
+        Visibility: Preview
+    get:
+      deprecated: true
+      description: Retrieves metadata for a specific version of a registry package. The package is identified by its source, publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the package's name, publisher, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, plugin download URL, creation timestamp, visibility, parameterization details, and usage statistics (when the caller is authenticated). Returns 404 if the specified package version does not exist.
+      operationId: GetPackageVersion_preview
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageMetadata'
+          description: OK
+        '404':
+          description: package version
+      summary: GetPackageVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: GetPackageVersion
+        Visibility: Preview
+  /api/preview/registry/packages/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      deprecated: true
+      description: Finalizes the second step of the two-phase package version publish workflow. After initiating a publish with PostPublishPackageVersion and uploading all required artifacts (schema, index, installationConfiguration) to the pre-signed URLs, call this endpoint with the operationID to complete the publish. The service validates that all artifacts were uploaded successfully before making the version available in the registry. Returns 201 Created on success, 400 for a bad request (e.g. missing artifacts), 404 if the publish operation is not found, or 409 if the version already exists.
+      operationId: PostPublishPackageVersionComplete_preview
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the package version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishPackageVersionCompleteRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishPackageVersionCompleteResponse'
+          description: Created
+        '400':
+          description: Bad request
+        '404':
+          description: Publish Operation
+        '409':
+          description: Version already exists
+      summary: PostPublishPackageVersionComplete
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: PostPublishPackageVersionComplete
+        Visibility: Preview
+  /api/preview/registry/policypacks:
+    get:
+      deprecated: true
+      description: Lists all policy packs accessible to the calling user for a given organization. The orgLogin query parameter is required and restricts results to policy packs owned by that organization. Results can optionally be filtered by access level. No authentication is required. Returns 400 if the policy pack access filter value is invalid. This is the deprecated GET variant; prefer the POST ListPolicyPacks endpoint instead.
+      operationId: ListPolicyPacks_preview_registry
+      parameters:
+      - description: Filter by access level
+        in: query
+        name: access
+        schema:
+          type: string
+      - description: Required. Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '400':
+          description: Policy pack access is not valid
+      summary: ListPolicyPacks
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: ListPolicyPacks_preview_registry_post
+        Visibility: Preview
+    post:
+      description: Lists all policy packs accessible to the calling user, with support for filtering by access level, organization, and specific policy pack IDs. The request body accepts an optional orgLogin to scope results to a specific organization, an optional access level filter (defaults to 'enabled'), and an optional list of policy pack IDs to restrict the results to specific packs. No authentication is required. Returns 400 if the access filter value is invalid.
+      operationId: ListPolicyPacks_preview_registry_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListPolicyPacksRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '400':
+          description: Policy pack access is not valid
+      summary: ListPolicyPacks
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}:
+    delete:
+      description: Deletes a policy pack and all of its versions from the registry. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This is a destructive operation that permanently removes the policy pack and all associated version data. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack does not exist.
+      operationId: DeletePolicyPack_preview_registry_policypacks
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: DeletePolicyPack
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions:
+    get:
+      description: Lists all versions of a specific policy pack. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The response includes a list of policy pack version metadata and an optional continuationToken for pagination. Returns 404 if the policy pack does not exist.
+      operationId: ListPolicyPackVersions
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '404':
+          description: error getting Registry Policy Pack
+      summary: ListPolicyPackVersions
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Initiates the first step of a two-phase policy pack version publish workflow. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This creates a publish transaction that must be completed by calling PostPublishPolicyPackVersionComplete. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack is not found.
+      operationId: PostPublishPolicyPackVersion
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: PostPublishPolicyPackVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      description: Deletes a specific version of a policy pack from the registry. The policy pack version is identified by its source (currently only 'private'), publisher organization, name, and semantic version string. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the specified policy pack version does not exist.
+      operationId: DeletePolicyPack_preview_registry_policypacks_versions
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the policy pack version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: DeletePolicyPack
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+    get:
+      description: Retrieves detailed information about a specific version of a policy pack, including the individual policy definitions. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the policy pack metadata and an optional list of policies, where each policy includes its configuration schema and enforcement rules. Returns 404 if the specified policy pack does not exist.
+      operationId: GetPolicyPackVersion
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRegistryPolicyPackVersionResponse'
+          description: OK
+        '404':
+          description: Policy Pack
+      summary: GetPolicyPackVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      description: Finalizes the second step of the two-phase policy pack version publish workflow. After initiating a publish with PostPublishPolicyPackVersion, call this endpoint with the policy pack source, publisher, name, and version to complete the publish and make the version available in the registry. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the publish operation is not found.
+      operationId: PostPublishPolicyPackVersionComplete
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the policy pack version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Publish operation not found
+      summary: PostPublishPolicyPackVersionComplete
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/templates:
+    get:
+      deprecated: true
+      description: Lists registry-backed templates with optional filtering, search, and pagination. This endpoint returns only registry-backed templates and does not include VCS-backed templates (those sourced from GitHub or GitLab repositories). No authentication is required. Results can be filtered by template name and owning organization (orgLogin). The search parameter performs case-insensitive partial matching against the template name, display name, description, metadata values, and runtime language. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response includes the template's name, publisher, source, display name, description, runtime, language, readme URL, download URL, visibility, and updated timestamp.
+      operationId: ListTemplates_preview
+      parameters:
+      - description: Pagination token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: 'Maximum number of results to return (default: 100)'
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      - description: Filter by specific template name
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      - description: Search query matching template name, display name, description, metadata values, or runtime language. Multiple space-separated terms require all terms to match (AND semantics).
+        in: query
+        name: search
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTemplatesResponse'
+          description: OK
+        '400':
+          description: Bad continuationToken
+      summary: ListTemplates
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: ListTemplates
+        Visibility: Preview
+  /api/preview/registry/templates/{source}/{publisher}/{name}/versions:
+    post:
+      deprecated: true
+      description: Initiates the first step of a two-phase template version publish workflow. This creates a publish transaction and returns an operationID along with a pre-signed upload URL for the template archive. The source must be 'private'. The caller must upload the template archive (a gzip-compressed tar file containing a root-level Pulumi.yaml with a template section, and optionally a README.md) to the provided URL, then call PostPublishTemplateVersionComplete with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, or 404 if the source does not exist.
+      operationId: PostPublishTemplateVersion_preview
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartTemplatePublishRequest'
+        x-originalParamName: body
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartTemplatePublishResponse'
+          description: Accepted
+        '404':
+          description: Source
+      summary: PostPublishTemplateVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: PostPublishTemplateVersion
+        Visibility: Preview
+  /api/preview/registry/templates/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      deprecated: true
+      description: Removes a specific version of a template from the registry. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, name, and semantic version. If this is the last remaining version of the template, the 'force' query parameter must be set to true; doing so will also delete the template itself. Returns 204 No Content on success, or 400 if an invalid query parameter is provided.
+      operationId: DeleteTemplateVersion_preview
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the template version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: When true, allows deletion of the final remaining template version
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: invalid query parameter
+      summary: DeleteTemplateVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: DeleteTemplateVersion
+        Visibility: Preview
+    get:
+      deprecated: true
+      description: Retrieves metadata for a specific version of a registry template. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recent version. The response includes the template's name, display name, description, runtime information, language, readme URL, download URL (a pre-signed URL valid for at least 5 minutes for retrieving the .tar.gz archive), repository slug (for VCS-backed templates), visibility, updated timestamp, metadata, and configuration values. Returns 400 if a specific version is provided for VCS-backed templates (which do not support versioning), or 404 if the template version does not exist.
+      operationId: GetTemplateVersion_preview
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTemplateResponse'
+          description: OK
+        '400':
+          description: version cannot be specified for VCS-backed templates
+        '404':
+          description: template version
+      summary: GetTemplateVersion
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: GetTemplateVersion
+        Visibility: Preview
+  /api/preview/registry/templates/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      deprecated: true
+      description: Finalizes the second step of the two-phase template version publish workflow. After initiating a publish with PostPublishTemplateVersion and uploading the template archive (.tar.gz) to the pre-signed URL, call this endpoint with the operationID to complete the publish. The service validates that the archive was uploaded successfully before making the version available in the registry. Once complete, the template becomes available to the publisher's organization. Returns 201 Created on success, 400 for invalid operation state, 404 if the publish operation is not found, or 409 if the version already exists.
+      operationId: PostPublishTemplateVersionComplete_preview
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the template version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishTemplateVersionCompleteRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishTemplateVersionCompleteResponse'
+          description: Created
+        '400':
+          description: Operation
+        '404':
+          description: Publish Operation
+        '409':
+          description: Version already exists
+      summary: PostPublishTemplateVersionComplete
+      tags:
+      - RegistryPreview
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: PostPublishTemplateVersionComplete
+        Visibility: Preview
+components:
+  schemas:
+    PublishTemplateVersionCompleteRequest:
+      description: PublishTemplateVersionCompleteRequest is a request to mark a template version publish operation as complete.
+      properties:
+        operationID:
+          description: The identifier of the publish operation to complete.
+          type: string
+          x-order: 1
+      required:
+      - operationID
+      type: object
+    AppPolicyComplianceFramework:
+      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
+      properties:
+        name:
+          description: The compliance framework name.
+          type: string
+          x-order: 1
+        reference:
+          description: The compliance framework reference.
+          type: string
+          x-order: 3
+        specification:
+          description: The compliance framework specification.
+          type: string
+          x-order: 4
+        version:
+          description: The compliance framework version.
+          type: string
+          x-order: 2
+      type: object
+    StartPackagePublishRequest:
+      description: Request to start publishing a package to the registry.
+      properties:
+        publishedAt:
+          description: Optional timestamp for when the package version was originally published. If not provided, defaults to current server time. Useful for backfilling historical versions with their original publish dates.
+          format: date-time
+          type: string
+          x-order: 2
+        version:
+          description: The semantic version of the package to publish.
+          type: string
+          x-order: 1
+      required:
+      - version
+      type: object
+    AppPolicy:
+      description: Policy defines the metadata for an individual Policy within a Policy Pack.
+      properties:
+        configSchema:
+          $ref: '#/components/schemas/AppPolicyConfigSchema'
+          description: The JSON schema for the Policy's configuration.
+          x-order: 6
+        description:
+          description: Description is used to provide more context about the purpose of the policy.
+          type: string
+          x-order: 3
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        enforcementLevel:
+          description: The enforcement level
+          enum:
+          - advisory
+          - mandatory
+          - remediate
+          - disabled
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: AppEnforcementLevel
+            enumComments: EnforcementLevel indicates how a policy should be enforced
+            enumFieldComments:
+            - 'Advisory is an enforcement level where the resource is still created, but a
+
+              message is displayed to the user for informational / warning purposes.'
+            - Mandatory is an enforcement level that prevents a resource from being created.
+            - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+            - Disabled is an enforcement level that disables the policy from being enforced.
+        framework:
+          $ref: '#/components/schemas/AppPolicyComplianceFramework'
+          description: The compliance framework that this policy belongs to.
+          x-order: 8
+        message:
+          description: Message is the message that will be displayed to end users when they violate this policy.
+          type: string
+          x-order: 5
+        name:
+          description: Unique URL-safe name for the policy.  This is unique to a specific version of a Policy Pack.
+          type: string
+          x-order: 1
+        remediationSteps:
+          description: A description of the steps to take to remediate a policy violation.
+          type: string
+          x-order: 10
+        severity:
+          description: The severity of the policy.
+          enum:
+          - ''
+          - low
+          - medium
+          - high
+          - critical
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: AppPolicySeverity
+            enumComments: Indicates the severity of a policy.
+            enumFieldNames:
+            - Unspecified
+            - Low
+            - Medium
+            - High
+            - Critical
+        tags:
+          description: Tags associated with the policy.
+          items:
+            type: string
+          type: array
+          x-order: 9
+        url:
+          description: A URL to more information about the policy.
+          type: string
+          x-order: 11
+      required:
+      - description
+      - displayName
+      - enforcementLevel
+      - message
+      - name
+      type: object
+    StartTemplatePublishRequest:
+      description: Request to start publishing a template to the registry.
+      properties:
+        version:
+          description: The semantic version of the template to publish.
+          type: string
+          x-order: 1
+      required:
+      - version
+      type: object
+    PackageMetadata:
+      description: PackageMetadata describes a Pulumi package and its associated metadata in the registry.
+      properties:
+        category:
+          description: The category of the package.
+          type: string
+          x-order: 10
+        createdAt:
+          description: The date and time the package version was created.
+          format: date-time
+          type: string
+          x-order: 17
+        description:
+          description: The description of the package.
+          type: string
+          x-order: 7
+        isFeatured:
+          description: Whether the package is featured.
+          type: boolean
+          x-order: 11
+        logoUrl:
+          description: The URL of the logo for the package.
+          type: string
+          x-order: 8
+        name:
+          description: The name of the package.
+          type: string
+          x-order: 1
+        packageStatus:
+          description: The maturity level of the package, e.g. "ga", "public_preview"
+          enum:
+          - ga
+          - public_preview
+          type: string
+          x-order: 13
+          x-pulumi-model-property:
+            enumTypeName: PackageStatus
+            enumComments: PackageStatus represents the maturity level of a registry package.
+            enumFieldNames:
+            - GA
+            - PublicPreview
+        packageTypes:
+          description: The package types, e.g. "native", "component", "bridged"
+          items:
+            enum:
+            - native
+            - component
+            - bridged
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: PackageType
+              enumComments: PackageType represents the type of a registry package.
+              enumFieldComments:
+              - A package that offers native resources.
+              - A package that offers component resources.
+              - A package that is bridged from a different ecosystem (e.g. OpenTofu).
+          type: array
+          x-order: 12
+        parameterization:
+          $ref: '#/components/schemas/PackageParameterization'
+          description: The parameterization of the provider, if any.
+          x-order: 19
+        pluginDownloadURL:
+          description: The URL to download the plugin at, as found in the schema.
+          type: string
+          x-order: 16
+        publisher:
+          description: The publisher of the package.
+          type: string
+          x-order: 2
+        publisherDisplayName:
+          description: The display name of the publisher.
+          type: string
+          x-order: 3
+        readmeURL:
+          description: The URL of the readme for the package.
+          type: string
+          x-order: 14
+        repoUrl:
+          description: The URL of the repository the package is hosted in.
+          type: string
+          x-order: 9
+        schemaURL:
+          description: The URL of the schema for the package.
+          type: string
+          x-order: 15
+        source:
+          description: The source of the package.
+          type: string
+          x-order: 4
+        title:
+          description: The title/display name of the package.
+          type: string
+          x-order: 6
+        usageStats:
+          $ref: '#/components/schemas/PackageUsageStats'
+          description: Usage statistics for this package within the requesting org. Only populated when the caller is authenticated.
+          x-order: 20
+        version:
+          description: The version of the package in semver format.
+          type: string
+          x-order: 5
+        visibility:
+          description: The visibility of the package.
+          enum:
+          - public
+          - private
+          type: string
+          x-order: 18
+          x-pulumi-model-property:
+            enumTypeName: Visibility
+            enumComments: Visibility indicates whether an entity is public or private.
+      required:
+      - createdAt
+      - isFeatured
+      - name
+      - packageStatus
+      - publisher
+      - readmeURL
+      - schemaURL
+      - source
+      - version
+      - visibility
+      type: object
+    StartPackagePublishResponse:
+      description: Response containing the operation ID and upload URLs for a package publish.
+      properties:
+        operationID:
+          description: The unique identifier for the publish operation.
+          type: string
+          x-order: 1
+        uploadURLs:
+          $ref: '#/components/schemas/PackageUploadURLs'
+          description: The URLs to upload package artifacts to.
+          x-order: 2
+      required:
+      - operationID
+      - uploadURLs
+      type: object
+    ListPolicyPacksRequest:
+      description: ListPolicyPacksRequest is the request to list policy packs.
+      properties:
+        access:
+          description: The access of the policy packs to list. Default is `enabled`.
+          enum:
+          - added
+          - available
+          - enabled
+          - private
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: PolicyPackAccess
+            enumComments: PolicyPackAccess defines the access level of a policy pack relative to an organization.
+            enumFieldComments:
+            - Public, and added through org access
+            - Public, but not approved
+            - Created by the user, and added to the org.
+            - Created by the user
+        ids:
+          description: 'A list of policy pack IDs to list.
+
+            If specified, only the policy packs with the specified IDs will be listed.
+
+            If not specified, all policy packs will be listed.'
+          items:
+            type: string
+          type: array
+          x-order: 2
+        orgLogin:
+          description: The canonical name of the organization to list policy packs for.
+          type: string
+          x-order: 3
+      type: object
+    GetRegistryPolicyPackVersionResponse:
+      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
+
+        version of a policy pack, optionally including the actual policy definitions.'
+      properties:
+        policies:
+          description: 'Policies contains the individual policy definitions in this version.
+
+            Each policy includes its configuration schema and enforcement rules.
+
+            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 2
+        policyPack:
+          $ref: '#/components/schemas/RegistryPolicyPack'
+          description: PolicyPack contains the metadata for this specific version.
+          x-order: 1
+      required:
+      - policyPack
+      type: object
+    ArtifactVersionNameSpec:
+      description: ArtifactVersionNameSpec represents an arbitrary artifact version name for serialization.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        publisher:
+          description: The publisher
+          type: string
+          x-order: 2
+        source:
+          description: The source
+          type: string
+          x-order: 3
+        version:
+          description: The version number
+          type: string
+          x-order: 4
+      required:
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    ListPackagesResponse:
+      description: Response containing a list of packages.
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        packages:
+          description: The list of packages
+          items:
+            $ref: '#/components/schemas/PackageMetadata'
+          type: array
+          x-order: 1
+      required:
+      - packages
+      type: object
+    AppPolicyConfigSchema:
+      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
+      properties:
+        properties:
+          additionalProperties:
+            type: object
+          description: Config property name to JSON Schema map.
+          type: object
+          x-order: 1
+        required:
+          description: Required config properties.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        type:
+          description: Type defines the data type allowed for the schema.
+          enum:
+          - object
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: AppJSONSchemaType
+            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
+            enumFieldComments:
+            - Object is a dictionary.
+      required:
+      - type
+      type: object
+    ListPolicyPacksResponse:
+      description: ListPolicyPacksResponse contains the results of listing policy packs.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If nil, there are no more results available.'
+          type: string
+          x-order: 1
+        policyPacks:
+          description: PolicyPacks contains the policy pack metadata for the current page.
+          items:
+            $ref: '#/components/schemas/RegistryPolicyPack'
+          type: array
+          x-order: 2
+      required:
+      - policyPacks
+      type: object
+    PublishPackageVersionCompleteResponse:
+      description: PublishPackageVersionCompleteResponse is the response after completing a package version publish operation.
+      type: object
+    Template:
+      description: Template describes a Pulumi project template.
+      properties:
+        config:
+          additionalProperties:
+            $ref: '#/components/schemas/AppProjectTemplateConfigValue'
+          description: Configuration values for the template.
+          type: object
+          x-order: 14
+        description:
+          description: A free-form text description of the template's purpose.
+          type: string
+          x-order: 5
+        displayName:
+          description: The human-readable display name shown in the UI.
+          type: string
+          x-order: 4
+        downloadURL:
+          description: 'An URL, valid for at least 5 minutes that you can retrieve the full download
+
+            bundle for your template.
+
+
+            The bundle will be a .tar.gz.'
+          type: string
+          x-order: 9
+        language:
+          description: 'The language that the template is in, inferred from the runtime.
+
+            This may differ from the runtime (e.g., dotnet runtime with C# language,
+
+            nodejs runtime with TypeScript language) or be the same (e.g., python).'
+          enum:
+          - unknown
+          - python
+          - go
+          - dotnet
+          - java
+          - javascript
+          - typescript
+          - yaml
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: RuntimeLanguage
+            enumComments: The programming language runtime used by a Pulumi program.
+            enumFieldNames:
+            - Unknown
+            - Python
+            - Go
+            - DotNet
+            - Java
+            - JavaScript
+            - Typescript
+            - Yaml
+        metadata:
+          additionalProperties:
+            type: string
+          description: Key-value metadata associated with the template.
+          type: object
+          x-order: 13
+        name:
+          description: The unique identifier name of the template.
+          type: string
+          x-order: 1
+        publisher:
+          description: The organization or user that published the template.
+          type: string
+          x-order: 2
+        readmeURL:
+          description: ReadmeURL is just a pre-signed URL, derived from the artifact key.
+          type: string
+          x-order: 8
+        repoSlug:
+          description: A link to the hosting repository. Non-VCS backed templates do not have a repo slug as of now.
+          type: string
+          x-order: 10
+        runtime:
+          $ref: '#/components/schemas/TemplateRuntimeInfo'
+          description: The runtime that the template uses with optional configuration.
+          x-order: 6
+        source:
+          description: The source identifier indicating where the template originates from.
+          type: string
+          x-order: 3
+        updatedAt:
+          description: The timestamp when the template was last updated.
+          format: date-time
+          type: string
+          x-order: 12
+        url:
+          description: 'For registry-backed templates, the URL will be a registry:// URL. For
+
+            VCS-backed templates, this will be the VCS URL (e.g., GitHub, GitLab).'
+          type: string
+          x-order: 15
+        visibility:
+          description: The visibility of the template (public or private).
+          enum:
+          - public
+          - private
+          type: string
+          x-order: 11
+          x-pulumi-model-property:
+            enumTypeName: Visibility
+            enumComments: Visibility indicates whether an entity is public or private.
+      required:
+      - displayName
+      - downloadURL
+      - language
+      - name
+      - publisher
+      - source
+      - updatedAt
+      - url
+      - visibility
+      type: object
+    PublishPackageVersionCompleteRequest:
+      description: PublishPackageVersionCompleteRequest is a request to mark a package version publish operation as complete.
+      properties:
+        operationID:
+          description: The identifier of the publish operation to complete.
+          type: string
+          x-order: 1
+      required:
+      - operationID
+      type: object
+    TemplateRuntimeInfo:
+      description: TemplateRuntimeInfo describes the runtime used by a template.
+      properties:
+        name:
+          description: The runtime language or platform, e.g. 'nodejs', 'python', 'go', 'dotnet', 'java', 'yaml'.
+          type: string
+          x-order: 1
+        options:
+          additionalProperties:
+            type: object
+          description: Optional configuration options for the runtime.
+          type: object
+          x-order: 2
+      type: object
+    PackageUploadURLs:
+      description: PackageUploadURLs contains pre-signed URLs for uploading package artifacts.
+      properties:
+        index:
+          description: The pre-signed URL for uploading the package index.
+          type: string
+          x-order: 2
+        installationConfiguration:
+          description: The pre-signed URL for uploading the package installation configuration.
+          type: string
+          x-order: 3
+        schema:
+          description: The pre-signed URL for uploading the package schema.
+          type: string
+          x-order: 1
+      required:
+      - index
+      - installationConfiguration
+      - schema
+      type: object
+    ListTemplatesResponse:
+      description: Response containing a paginated list of templates.
+      properties:
+        continuationToken:
+          description: An opaque token for fetching the next page of results
+          type: string
+          x-order: 2
+        diagnostics:
+          description: Diagnostic messages encountered during template listing
+          items:
+            type: string
+          type: array
+          x-order: 3
+        templates:
+          description: The list of templates
+          items:
+            $ref: '#/components/schemas/Template'
+          type: array
+          x-order: 1
+      required:
+      - templates
+      type: object
+    GetTemplateResponse:
+      allOf:
+      - $ref: '#/components/schemas/Template'
+      - description: Response body for retrieving a single template.
+        type: object
+    RegistryPolicyPack:
+      description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
+
+        This is the primary data structure returned by most registry API endpoints.'
+      properties:
+        accessLevel:
+          description: AccessLevel is the client's level of access to this policy pack.
+          enum:
+          - full
+          - view-only
+          - deny
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: RegistryPolicyPackAccessLevel
+            enumComments: The level of access a client has to a registry policy pack.
+            enumFieldNames:
+            - Full
+            - ViewOnly
+            - Deny
+            enumFieldComments:
+            - Full access to a policy pack (view + use)
+            - Access to view a policy pack
+            - No access to a policy pack
+        displayName:
+          description: 'DisplayName is a human-readable name for this policy pack.
+
+            This is typically more descriptive than the technical name.'
+          type: string
+          x-order: 6
+        enforcementLevels:
+          description: EnforcementLevels are the client's allowed enforcement levels for this policy pack.
+          items:
+            enum:
+            - advisory
+            - mandatory
+            - remediate
+            - disabled
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: AppEnforcementLevel
+              enumComments: EnforcementLevel indicates how a policy should be enforced
+              enumFieldComments:
+              - 'Advisory is an enforcement level where the resource is still created, but a
+
+                message is displayed to the user for informational / warning purposes.'
+              - Mandatory is an enforcement level that prevents a resource from being created.
+              - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+              - Disabled is an enforcement level that disables the policy from being enforced.
+          type: array
+          x-order: 8
+        id:
+          description: 'ID is the unique identifier for this policy pack in the registry.
+
+            This is a UUID that corresponds to the policy pack''s database ID.'
+          type: string
+          x-order: 1
+        name:
+          description: 'Name is the unique identifier for this policy pack within the publisher''s namespace.
+
+            Policy pack names must be URL-safe and unique per publisher.'
+          type: string
+          x-order: 4
+        publisher:
+          description: 'Publisher is the organization or user that published this policy pack.
+
+            This corresponds to the Pulumi organization name.'
+          type: string
+          x-order: 3
+        source:
+          description: 'Source indicates where this policy pack is hosted (e.g., "private", "pulumi").
+
+            Currently, only "private" policy packs are supported.'
+          type: string
+          x-order: 2
+        version:
+          description: 'Version is the semantic version of this policy pack.
+
+            This represents the latest or specific version being referenced.'
+          type: string
+          x-order: 5
+      required:
+      - accessLevel
+      - displayName
+      - enforcementLevels
+      - id
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    PackageUsageStats:
+      description: PackageUsageStats contains usage statistics for a package within an organization.
+      properties:
+        onLatest:
+          description: Number of stacks on the latest version of this package.
+          format: int32
+          type: integer
+          x-order: 2
+        onOlder:
+          description: Number of stacks on an older version of this package.
+          format: int32
+          type: integer
+          x-order: 3
+        totalStacks:
+          description: Total number of stacks using this package.
+          format: int32
+          type: integer
+          x-order: 1
+        versionUnresolved:
+          description: Number of stacks where the version could not be resolved.
+          format: int32
+          type: integer
+          x-order: 4
+      type: object
+    PackageParameterization:
+      description: PackageParameterization describes the parameterization of a provider package.
+      properties:
+        baseProvider:
+          $ref: '#/components/schemas/ArtifactVersionNameSpec'
+          description: The base provider that this package is parameterized from.
+          x-order: 1
+        parameter:
+          description: The opaque parameterization data passed to the base provider, base64-encoded.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 2
+      required:
+      - baseProvider
+      - parameter
+      type: object
+    TemplateUploadURLs:
+      description: TemplateUploadURLs contains pre-signed URLs for uploading template artifacts.
+      properties:
+        archive:
+          description: The pre-signed URL for uploading the template archive.
+          type: string
+          x-order: 1
+      required:
+      - archive
+      type: object
+    PublishTemplateVersionCompleteResponse:
+      description: PublishTemplateVersionCompleteResponse is the response after completing a template version publish operation.
+      type: object
+    AppProjectTemplateConfigValue:
+      description: ProjectTemplateConfigValue is a config value included in the project template manifest.
+      properties:
+        default:
+          description: Default is an optional default value for the config value.
+          type: string
+          x-order: 2
+        description:
+          description: Description is an optional description for the config value.
+          type: string
+          x-order: 1
+        secret:
+          description: Secret may be set to true to indicate that the config value should be encrypted.
+          type: boolean
+          x-order: 3
+      type: object
+    StartTemplatePublishResponse:
+      description: Response containing the operation ID and upload URLs for a template publish.
+      properties:
+        operationID:
+          description: The unique identifier for the publish operation.
+          type: string
+          x-order: 1
+        uploadURLs:
+          $ref: '#/components/schemas/TemplateUploadURLs'
+          description: The URLs to upload template artifacts to.
+          x-order: 2
+      required:
+      - operationID
+      - uploadURLs
+      type: object

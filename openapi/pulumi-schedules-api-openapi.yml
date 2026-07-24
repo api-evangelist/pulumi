@@ -1,0 +1,1215 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Schedules API
+  version: 1.0.0
+tags:
+- name: Schedules
+paths:
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules:
+    post:
+      description: Creates a drift detection schedule for a stack using Pulumi Deployments. Drift detection identifies divergence between the declared infrastructure state in your Pulumi program and the actual state of resources in the cloud provider. The 'scheduleCron' field accepts a cron expression defining when drift detection should run (e.g. '0 */4 * * *' for every 4 hours). When 'autoRemediate' is set to true, a remediation update is automatically triggered to bring resources back into alignment with the declared state whenever drift is detected. Auto-remediation requires a Business Critical subscription. The stack must have deployment settings configured before a drift schedule can be created.
+      operationId: CreateScheduledDriftDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledDriftDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Stack does not have deployment settings configured
+        '402':
+          description: Drift remediation requires Business Critical subscription
+        '404':
+          description: ScheduledAction
+      summary: CreateScheduledDriftDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/drift/schedules/{scheduleID}:
+    post:
+      description: Updates the configuration of an existing drift detection schedule. The request body can modify the cron expression controlling when drift detection runs and the autoRemediate flag that determines whether detected drift is automatically corrected by running an update operation. Auto-remediation requires a Business Critical subscription. Only future executions are affected; past drift detection runs are not modified.
+      operationId: UpdateScheduledDriftDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledDriftDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Invalid schedule
+        '402':
+          description: Drift remediation requires Business Critical subscription
+        '404':
+          description: ScheduledAction or ScheduledDeployment
+      summary: UpdateScheduledDriftDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules:
+    get:
+      description: 'Returns all scheduled deployment actions configured for a stack. The response includes all schedule types: custom deployment schedules (cron-based recurring or one-time), drift detection schedules, and TTL (time-to-live) schedules. Each schedule in the response contains its ID, type, configuration (cron expression or timestamp), current status (active or paused), and the deployment request that will be executed on each run.'
+      operationId: ListScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScheduledActionsResponse'
+          description: OK
+        '404':
+          description: Organization
+      summary: ListScheduledDeployment
+      tags:
+      - Schedules
+    post:
+      description: Creates a custom deployment schedule for a stack using Pulumi Deployments. Custom schedules allow you to automate recurring or one-time Pulumi operations on a stack. The request must include exactly one of 'scheduleCron' (a cron expression for recurring executions, e.g. '0 */4 * * *' for every 4 hours) or 'scheduleOnce' (an ISO 8601 timestamp for a one-time execution). The 'request' field contains the deployment configuration that will be executed on each scheduled run, including the Pulumi operation type and any settings overrides. The stack must have deployment settings configured before a schedule can be created.
+      operationId: CreateScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Invalid definition for scheduled deployment or stack does not have deployment settings configured
+      summary: CreateScheduledDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}:
+    delete:
+      description: Permanently deletes a scheduled deployment action from a stack. This removes the schedule configuration entirely and cannot be undone. The schedule will no longer execute any future runs. This endpoint is used for all schedule types (custom, drift detection, and TTL). To temporarily stop a schedule without deleting it, use the pause endpoint instead.
+      operationId: DeleteScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: ScheduledDeployment
+      summary: DeleteScheduledDeployment
+      tags:
+      - Schedules
+    get:
+      description: Retrieves the full configuration and metadata for a specific scheduled deployment action. The response includes the schedule's ID, type (custom, drift, or TTL), timing configuration (cron expression or one-time timestamp), current status (active or paused), the deployment request that will be executed, and any type-specific fields such as autoRemediate for drift schedules or deleteAfterDestroy for TTL schedules.
+      operationId: ReadScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '404':
+          description: ScheduledAction
+      summary: ReadScheduledDeployment
+      tags:
+      - Schedules
+    post:
+      description: Updates the configuration of an existing custom deployment schedule. The request body can modify the timing (cron expression for recurring schedules or ISO 8601 timestamp for one-time schedules) and the deployment request that will be executed on each future run, including the Pulumi operation type and settings overrides. Only future executions are affected; past executions are not modified. The stack must have deployment settings configured.
+      operationId: UpdateScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Stack does not have deployment settings configured
+        '404':
+          description: ScheduledDeployment or ScheduledAction
+      summary: UpdateScheduledDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/history:
+    get:
+      description: Returns the execution history for a specific scheduled deployment action. The response includes a chronological list of past schedule invocations and their outcomes, such as whether the triggered deployment succeeded, failed, or was skipped. This is useful for monitoring the reliability and results of recurring deployments, drift detection runs, or TTL schedule executions.
+      operationId: ListScheduledDeploymentHistory
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScheduledActionHistoryResponse'
+          description: OK
+        '404':
+          description: ScheduledDeployment or ScheduledAction
+      summary: ListScheduledDeploymentHistory
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/pause:
+    post:
+      description: Temporarily suspends future executions of a scheduled deployment action without deleting the schedule configuration. The schedule remains configured and can be reactivated at any time using the ResumeScheduledDeployment endpoint. This is useful for temporarily halting recurring schedules (drift detection, TTL, or custom) during maintenance periods or when troubleshooting issues.
+      operationId: PauseScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: ScheduledDeployment or ScheduledAction
+      summary: PauseScheduledDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules/{scheduleID}/resume:
+    post:
+      description: 'Reactivates a previously paused scheduled deployment action. After resuming, the schedule will continue executing according to its configured timing (cron expression for recurring schedules, or at the scheduled timestamp for one-time schedules). This works for all schedule types: custom deployment schedules, drift detection schedules, and TTL schedules.'
+      operationId: ResumeScheduledDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: ScheduledDeployment or ScheduledAction
+      summary: ResumeScheduledDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules:
+    post:
+      description: Creates a TTL (time-to-live) schedule for a stack using Pulumi Deployments. TTL schedules automatically destroy a stack's cloud resources at a specified expiration time, which is useful for temporary or ephemeral infrastructure that should be cleaned up after a defined period. The 'timestamp' field must be an ISO 8601 formatted date-time (e.g. '2024-12-31T00:00:00.000Z') specifying when the destroy operation should execute. When 'deleteAfterDestroy' is set to true, the stack itself is also removed from Pulumi Cloud after its resources have been successfully destroyed. The stack must have deployment settings configured before a TTL schedule can be created.
+      operationId: CreateScheduledTTLDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledTTLDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Stack does not have deployment settings configured or timestamp needs to be set
+        '404':
+          description: ScheduledAction
+      summary: CreateScheduledTTLDeployment
+      tags:
+      - Schedules
+  /api/stacks/{orgName}/{projectName}/{stackName}/deployments/ttl/schedules/{scheduleID}:
+    post:
+      description: Updates the configuration of an existing TTL (time-to-live) schedule. The request body can modify the destruction timestamp (ISO 8601 format) and the deleteAfterDestroy flag that controls whether the stack is also removed from Pulumi Cloud after its resources are successfully destroyed. The timestamp field is required and must be set to a valid future date-time.
+      operationId: UpdateScheduledTTLDeployment
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The schedule identifier
+        in: path
+        name: scheduleID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledTTLDeploymentRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledAction'
+          description: OK
+        '400':
+          description: Timestamp needs to be set
+        '404':
+          description: ScheduledAction or ScheduledDeployment
+      summary: UpdateScheduledTTLDeployment
+      tags:
+      - Schedules
+components:
+  schemas:
+    OperationContextOptionsRequest:
+      description: Request body for updating operation context options.
+      properties:
+        deleteAfterDestroy:
+          description: Whether the stack should be deleted after it is destroyed.
+          type: boolean
+          x-order: 4
+        remediateIfDriftDetected:
+          description: Whether a detect-drift operation should be followed by a remediate-drift step if drift is detected.
+          type: boolean
+          x-order: 5
+        shell:
+          description: The shell to use when running commands.
+          type: string
+          x-order: 3
+        skipInstallDependencies:
+          description: Whether to skip the default dependency installation step.
+          type: boolean
+          x-order: 1
+        skipIntermediateDeployments:
+          description: Whether to skip queued intermediate deployments.
+          type: boolean
+          x-order: 2
+      type: object
+    SourceContextGitRequest:
+      description: Request to configure a git-based source context.
+      properties:
+        branch:
+          description: The branch to use from the repository.
+          type: string
+          x-order: 2
+        commit:
+          description: The commit hash to deploy. Mutually exclusive with `branch`.
+          type: string
+          x-order: 4
+        gitAuth:
+          $ref: '#/components/schemas/GitAuthConfigRequest'
+          description: Git authentication configuration.
+          x-order: 5
+        repoDir:
+          description: The subdirectory within the repository where Pulumi.yaml is located.
+          type: string
+          x-order: 3
+        repoUrl:
+          description: The URL of the git repository.
+          type: string
+          x-order: 1
+      type: object
+    OperationContextGCPOIDCConfigurationRequest:
+      description: Request body for updating the GCP OIDC configuration of an operation context.
+      properties:
+        projectId:
+          description: The numerical ID of the GCP project.
+          type: string
+          x-order: 1
+        providerId:
+          description: The ID of the identity provider associated with the workload pool.
+          type: string
+          x-order: 4
+        region:
+          description: The region of the GCP project.
+          type: string
+          x-order: 2
+        serviceAccount:
+          description: The email address of the service account to use.
+          type: string
+          x-order: 5
+        tokenLifetime:
+          description: The lifetime of the temporary credentials.
+          type: string
+          x-order: 6
+        workloadPoolId:
+          description: The ID of the workload pool to use.
+          type: string
+          x-order: 3
+      type: object
+    SSHAuthRequest:
+      description: Request to configure SSH-based authentication for git operations.
+      properties:
+        password:
+          $ref: '#/components/schemas/SecretValue'
+          description: An optional password for the SSH private key.
+          x-order: 2
+        sshPrivateKey:
+          $ref: '#/components/schemas/SecretValue'
+          description: The SSH private key for authentication.
+          x-order: 1
+      type: object
+    OperationContextAzureOIDCConfigurationRequest:
+      description: Request body for updating the Azure OIDC configuration of an operation context.
+      properties:
+        clientId:
+          description: The client ID of the federated workload identity.
+          type: string
+          x-order: 1
+        subscriptionId:
+          description: The subscription ID of the federated workload identity.
+          type: string
+          x-order: 3
+        tenantId:
+          description: The tenant ID of the federated workload identity.
+          type: string
+          x-order: 2
+      type: object
+    OperationContextAWSOIDCConfigurationRequest:
+      description: Request body for updating the AWS OIDC configuration of an operation context.
+      properties:
+        duration:
+          description: Duration of the assume-role session.
+          type: string
+          x-order: 1
+        policyArns:
+          description: Optional set of IAM policy ARNs that further restrict the assume-role session.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        roleArn:
+          description: The ARN of the role to assume using the OIDC token.
+          type: string
+          x-order: 3
+        sessionName:
+          description: The name of the assume-role session.
+          type: string
+          x-order: 4
+      type: object
+    ListScheduledActionsResponse:
+      description: ListScheduledActionsResponse is the API response when scheduled deployments are listed.
+      properties:
+        schedules:
+          description: The list of scheduled actions
+          items:
+            $ref: '#/components/schemas/ScheduledAction'
+          type: array
+          x-order: 1
+      required:
+      - schedules
+      type: object
+    DeploymentSettingsVCS:
+      description: DeploymentSettingsVCS contains VCS provider deployment settings.
+      discriminator:
+        mapping:
+          azure_devops: '#/components/schemas/DeploymentSettingsVCSAzureDevOps'
+          bitbucket: '#/components/schemas/DeploymentSettingsVCSBitbucket'
+          custom: '#/components/schemas/DeploymentSettingsVCSCustom'
+          github: '#/components/schemas/DeploymentSettingsVCSGitHub'
+          gitlab: '#/components/schemas/DeploymentSettingsVCSGitLab'
+        propertyName: provider
+      properties:
+        deployCommits:
+          description: Whether to deploy all commits to the default branch
+          type: boolean
+          x-order: 2
+        deployPullRequest:
+          description: Specific pull request number to deploy (overrides automatic deployment)
+          format: int64
+          type: integer
+          x-order: 7
+        installationId:
+          description: VCS installation/integration ID linking to the VCS provider
+          type: string
+          x-order: 4
+        paths:
+          description: Paths within the repository that trigger deployments when changed
+          items:
+            type: string
+          type: array
+          x-order: 3
+        previewPullRequests:
+          description: Whether to create preview deployments for pull requests
+          type: boolean
+          x-order: 6
+        provider:
+          type: string
+        pullRequestTemplate:
+          description: Whether to use pull request templates for deployment PRs
+          type: boolean
+          x-order: 5
+        repository:
+          description: The VCS repository reference (format varies by provider)
+          type: string
+          x-order: 1
+      required:
+      - provider
+      type: object
+    CreateDeploymentRequest:
+      allOf:
+      - $ref: '#/components/schemas/DeploymentSettingsRequest'
+      - description: CreateDeploymentRequest defines the request payload that is expected when creating a new deployment.
+        properties:
+          inheritSettings:
+            description: Whether this deployment should inherit the stack's deployment settings. Defaults to true.
+            type: boolean
+            x-order: 2
+          operation:
+            description: The Pulumi operation to perform.
+            enum:
+            - update
+            - preview
+            - destroy
+            - refresh
+            - detect-drift
+            - remediate-drift
+            type: string
+            x-order: 1
+            x-pulumi-model-property:
+              enumTypeName: PulumiOperation
+              enumComments: PulumiOperation describes what operation to perform on the stack as defined in the Job spec.
+              enumFieldNames:
+              - Update
+              - Preview
+              - Destroy
+              - Refresh
+              - DetectDrift
+              - RemediateDrift
+        type: object
+    DockerImageCredentialsRequest:
+      description: DockerImageCredentialsRequest is the request body for specifying Docker registry credentials.
+      properties:
+        password:
+          $ref: '#/components/schemas/SecretValue'
+          description: The password for authenticating with the Docker registry.
+          x-order: 2
+        username:
+          description: The username for authenticating with the Docker registry.
+          type: string
+          x-order: 1
+      type: object
+    ScheduledAction:
+      description: ScheduledAction describes the state of a scheduled action.
+      properties:
+        created:
+          description: The timestamp when this scheduled action was created.
+          type: string
+          x-order: 9
+        definition:
+          additionalProperties:
+            type: object
+          description: The action definition, which varies based on the action kind.
+          type: object
+          x-order: 8
+        id:
+          description: The unique identifier for this scheduled action.
+          type: string
+          x-order: 1
+        kind:
+          description: The kind of action to be executed.
+          enum:
+          - deployment
+          - environment_rotation
+          - scan
+          - agent_automation
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: ScheduledActionKind
+            enumComments: The kind of scheduled action.
+            enumFieldNames:
+            - Deployment
+            - EnvironmentRotation
+            - Scan
+            - AgentAutomation
+            enumFieldComments:
+            - A scheduled deployment action.
+            - A scheduled environment secret rotation action.
+            - A scheduled Insights scan action.
+            - An agent automation.
+        lastExecuted:
+          description: The timestamp of the last execution, if any.
+          type: string
+          x-order: 11
+        modified:
+          description: The timestamp when this scheduled action was last modified.
+          type: string
+          x-order: 10
+        nextExecution:
+          description: The timestamp of the next scheduled execution.
+          type: string
+          x-order: 5
+        orgID:
+          description: The organization ID that owns this scheduled action.
+          type: string
+          x-order: 2
+        paused:
+          description: Whether the scheduled action is currently paused.
+          type: boolean
+          x-order: 6
+        scheduleCron:
+          description: A cron expression defining the recurring schedule.
+          type: string
+          x-order: 3
+        scheduleOnce:
+          description: A timestamp for a one-time scheduled execution.
+          type: string
+          x-order: 4
+      required:
+      - created
+      - definition
+      - id
+      - kind
+      - lastExecuted
+      - modified
+      - nextExecution
+      - orgID
+      - paused
+      type: object
+    DeploymentRoleRequest:
+      description: DeploymentRoleRequest represents a request to create or update a deployment role.
+      properties:
+        defaultIdentifier:
+          description: The default identifier to assign to this role.
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier of the deployment role.
+          type: string
+          x-order: 1
+        name:
+          description: The name of the deployment role.
+          type: string
+          x-order: 2
+      type: object
+    SecretValue:
+      description: A SecretValue describes a secret value on the wire. The JSON representation is an object with a required 'secret' field containing the plaintext and an optional 'ciphertext' field containing the encrypted representation.
+      properties:
+        ciphertext:
+          description: The encrypted representation of the secret value.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 2
+        secret:
+          description: The secret value in plaintext.
+          type: string
+          x-order: 1
+      required:
+      - secret
+      type: object
+    CreateScheduledTTLDeploymentRequest:
+      description: CreateScheduledTTLDeploymentRequest is the API request for a ttl scheduled deployment.
+      properties:
+        deleteAfterDestroy:
+          description: If true, delete the stack from Pulumi Cloud after successfully destroying its resources.
+          type: boolean
+          x-order: 2
+        timestamp:
+          description: When the TTL expires and the stack should be destroyed, in ISO 8601 format.
+          format: date-time
+          type: string
+          x-order: 1
+      type: object
+    CreateScheduledDriftDeploymentRequest:
+      description: CreateScheduledDriftDeploymentRequest is the API request for a scheduled drift deployment.
+      properties:
+        autoRemediate:
+          description: If true, automatically run a remediation update when drift is detected.
+          type: boolean
+          x-order: 2
+        scheduleCron:
+          description: Cron expression defining when drift detection should run (e.g. '0 */4 * * *' for every 4 hours).
+          type: string
+          x-order: 1
+      type: object
+    GitAuthConfigRequest:
+      description: Request body for configuring git authentication options.
+      properties:
+        accessToken:
+          $ref: '#/components/schemas/SecretValue'
+          description: Personal access token for git authentication
+          x-order: 1
+        basicAuth:
+          $ref: '#/components/schemas/BasicAuthRequest'
+          description: Basic authentication configuration
+          x-order: 3
+        sshAuth:
+          $ref: '#/components/schemas/SSHAuthRequest'
+          description: SSH authentication configuration
+          x-order: 2
+      type: object
+    ScheduledActionHistoryEvent:
+      description: ScheduledActionHistoryEvent describes the state of a scheduled deployment history event.
+      properties:
+        executed:
+          description: The timestamp when the action was executed.
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier for this history event.
+          type: string
+          x-order: 1
+        result:
+          description: The result of the execution.
+          type: string
+          x-order: 5
+        scheduledActionID:
+          description: The ID of the scheduled action this event belongs to.
+          type: string
+          x-order: 2
+        version:
+          description: The version of the scheduled action at the time of execution.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - executed
+      - id
+      - result
+      - scheduledActionID
+      - version
+      type: object
+    DeploymentSettingsRequest:
+      description: DeploymentSettingsRequest is the request body for creating or updating deployment settings.
+      properties:
+        agentPoolID:
+          description: The identifier of the agent pool to use for deployments.
+          type: string
+          x-order: 7
+        cacheOptions:
+          $ref: '#/components/schemas/CacheOptionsRequest'
+          description: Cache options for the deployment.
+          x-order: 8
+        executorContext:
+          $ref: '#/components/schemas/ExecutorSettingsRequest'
+          description: The executor context defining the execution environment.
+          x-order: 2
+        gitHub:
+          $ref: '#/components/schemas/DeploymentSettingsGitHubRequest'
+          description: GitHub-specific deployment settings
+          x-order: 4
+        operationContext:
+          $ref: '#/components/schemas/OperationContextRequest'
+          description: The operation context defining pre-run and post-run commands and environment variables.
+          x-order: 6
+        sourceContext:
+          $ref: '#/components/schemas/SourceContextRequest'
+          description: The source context defining where the source code is located.
+          x-order: 3
+        tag:
+          description: A tag to identify the deployment settings configuration.
+          type: string
+          x-order: 1
+        vcs:
+          $ref: '#/components/schemas/DeploymentSettingsVCS'
+          description: VCS provider settings
+          x-order: 5
+      type: object
+    CacheOptionsRequest:
+      description: Request body for updating deployment build cache options.
+      properties:
+        enable:
+          description: Whether build caching should be enabled for deployments on this stack.
+          type: boolean
+          x-order: 1
+      type: object
+    ListScheduledActionHistoryResponse:
+      description: ListScheduledActionHistoryResponse is the API response when a scheduled action history is listed.
+      properties:
+        scheduleHistoryEvents:
+          description: The list of scheduled action history events
+          items:
+            $ref: '#/components/schemas/ScheduledActionHistoryEvent'
+          type: array
+          x-order: 1
+      required:
+      - scheduleHistoryEvents
+      type: object
+    ExecutorSettingsRequest:
+      description: ExecutorSettingsRequest is the request body for configuring the execution environment settings.
+      properties:
+        executorImage:
+          $ref: '#/components/schemas/DockerImageRequest'
+          description: The Docker image to use for the execution environment.
+          x-order: 1
+        executorRootPath:
+          description: The root path for the executor binary and working directory.
+          type: string
+          x-order: 2
+      type: object
+    SourceContextTemplateRequest:
+      description: Request to configure a template-based source context.
+      properties:
+        gitAuth:
+          $ref: '#/components/schemas/GitAuthConfigRequest'
+          description: Git authentication configuration for accessing the template source.
+          x-order: 2
+        sourceUrl:
+          description: 'The URL of the template source. Supports two URL schemes:
+
+
+            **Registry-backed templates** use the `registry://` scheme with the format:
+
+            `registry://templates/source/publisher/name[@version]`
+
+
+            - `source`: The template source identifier (e.g., the registry source name)
+
+            - `publisher`: The organization or user that published the template
+
+            - `name`: The template name
+
+            - `version`: Optional semver version (e.g., `1.0.0`). If omitted, defaults to the latest version
+
+
+            Example: `registry://templates/pulumi/acme-corp/aws-vpc@2.1.0`
+
+
+            **VCS-backed templates** use standard VCS URLs (GitHub, GitLab, Azure DevOps, etc.):
+
+            `https://github.com/org/repo`'
+          type: string
+          x-order: 1
+      type: object
+    SourceContextHgRequest:
+      description: Request to configure a Mercurial-based source context.
+      properties:
+        branch:
+          description: The branch to use from the repository.
+          type: string
+          x-order: 2
+        hgAuth:
+          $ref: '#/components/schemas/GitAuthConfigRequest'
+          description: Mercurial authentication configuration.
+          x-order: 5
+        repoDir:
+          description: The subdirectory within the repository where Pulumi.yaml is located.
+          type: string
+          x-order: 3
+        repoUrl:
+          description: The URL of the Mercurial repository.
+          type: string
+          x-order: 1
+        revision:
+          description: The changeset hash to check out.
+          type: string
+          x-order: 4
+      type: object
+    OperationContextRequest:
+      description: Request body for updating an operation context.
+      properties:
+        environmentVariables:
+          additionalProperties:
+            $ref: '#/components/schemas/SecretValue'
+          description: Environment variables to apply during execution.
+          type: object
+          x-order: 4
+        oidc:
+          $ref: '#/components/schemas/OperationContextOIDCConfigurationRequest'
+          description: The OIDC configuration for the operation.
+          x-order: 1
+        operation:
+          description: The Pulumi operation to perform (e.g. update, preview, destroy).
+          enum:
+          - update
+          - preview
+          - destroy
+          - refresh
+          - detect-drift
+          - remediate-drift
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: PulumiOperation
+            enumComments: PulumiOperation describes what operation to perform on the stack as defined in the Job spec.
+            enumFieldNames:
+            - Update
+            - Preview
+            - Destroy
+            - Refresh
+            - DetectDrift
+            - RemediateDrift
+        options:
+          $ref: '#/components/schemas/OperationContextOptionsRequest'
+          description: Options to specify or override default behavior.
+          x-order: 5
+        preRunCommands:
+          description: Optional list of commands to run before Pulumi is invoked.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        role:
+          $ref: '#/components/schemas/DeploymentRoleRequest'
+          description: The deployment role to assume for the operation.
+          x-order: 6
+      type: object
+    CreateScheduledDeploymentRequest:
+      description: CreateScheduledDeploymentRequest is the API request for a scheduled deployment.
+      properties:
+        request:
+          $ref: '#/components/schemas/CreateDeploymentRequest'
+          description: Deployment request payload to execute when the schedule fires. This has the same shape and semantics as CreateDeploymentRequest used for immediate deployments.
+          x-order: 3
+        scheduleCron:
+          description: Cron expression defining a recurring schedule for this deployment. When set, scheduleOnce must be null. Uses standard 5-field cron syntax (MIN HOUR DOM MON DOW) and is evaluated in UTC.
+          type: string
+          x-order: 1
+        scheduleOnce:
+          description: Single point-in-time schedule for this deployment. When set, scheduleCron must be null. The value must be an ISO 8601 timestamp with timezone.
+          format: date-time
+          type: string
+          x-order: 2
+      type: object
+    DeploymentSettingsGitHubRequest:
+      description: DeploymentSettingsGitHubRequest is the request body for updating GitHub-specific deployment settings.
+      properties:
+        deployCommits:
+          description: Whether to automatically deploy commits pushed to the target branch.
+          type: boolean
+          x-order: 2
+        deployPullRequest:
+          description: The pull request number to deploy, if targeting a specific pull request.
+          format: int64
+          type: integer
+          x-order: 5
+        installationId:
+          description: The GitHub App installation ID.
+          type: string
+          x-order: 7
+        paths:
+          description: The list of file paths to filter deployment triggers.
+          items:
+            type: string
+          type: array
+          x-order: 6
+        previewPullRequests:
+          description: Whether to automatically preview pull requests.
+          type: boolean
+          x-order: 3
+        pullRequestTemplate:
+          description: Whether to use a pull request template for deployment previews.
+          type: boolean
+          x-order: 4
+        repository:
+          description: The GitHub repository in the format owner/repo.
+          type: string
+          x-order: 1
+        reviewStackLabels:
+          description: Gates review stack creation. When set, only pull requests carrying a matching label (exact, case-sensitive) create a review stack.
+          items:
+            type: string
+          type: array
+          x-order: 8
+      required:
+      - pullRequestTemplate
+      type: object
+    DockerImageRequest:
+      description: DockerImageRequest is the request body for specifying a Docker image and its credentials.
+      properties:
+        credentials:
+          $ref: '#/components/schemas/DockerImageCredentialsRequest'
+          description: The credentials needed to pull the Docker image.
+          x-order: 2
+        reference:
+          description: The Docker image reference (e.g. registry/image:tag).
+          type: string
+          x-order: 1
+      type: object
+    SourceContextRequest:
+      description: 'Request to configure a source context: git-based, Mercurial-based, or template-based. Only one may be specified.'
+      properties:
+        git:
+          $ref: '#/components/schemas/SourceContextGitRequest'
+          description: Git-based source context configuration.
+          x-order: 1
+        hg:
+          $ref: '#/components/schemas/SourceContextHgRequest'
+          description: Mercurial-based source context configuration.
+          x-order: 2
+        template:
+          $ref: '#/components/schemas/SourceContextTemplateRequest'
+          description: Template-based source context configuration.
+          x-order: 3
+      type: object
+    OperationContextOIDCConfigurationRequest:
+      description: Request body for updating the OIDC configuration of an operation context.
+      properties:
+        aws:
+          $ref: '#/components/schemas/OperationContextAWSOIDCConfigurationRequest'
+          description: AWS-specific OIDC configuration.
+          x-order: 1
+        azure:
+          $ref: '#/components/schemas/OperationContextAzureOIDCConfigurationRequest'
+          description: Azure-specific OIDC configuration.
+          x-order: 2
+        gcp:
+          $ref: '#/components/schemas/OperationContextGCPOIDCConfigurationRequest'
+          description: GCP-specific OIDC configuration.
+          x-order: 3
+      type: object
+    BasicAuthRequest:
+      description: Request body for basic auth.
+      properties:
+        password:
+          $ref: '#/components/schemas/SecretValue'
+          description: The password
+          x-order: 2
+        userName:
+          $ref: '#/components/schemas/SecretValue'
+          description: The user name
+          x-order: 1
+      type: object

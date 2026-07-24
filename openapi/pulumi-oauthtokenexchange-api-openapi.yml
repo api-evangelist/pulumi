@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens OAuthTokenExchange API
+  version: 1.0.0
+tags:
+- name: OAuthTokenExchange
+paths:
+  /api/oauth/token:
+    post:
+      description: 'Exchanges an external identity provider token for a Pulumi access token using the OAuth 2.0 Token Exchange flow (RFC 8693).
+
+
+        The request body must include:
+
+        - `audience`: a URN identifying the target org (e.g., `urn:pulumi:org:{ORG_NAME}`)
+
+        - `grant_type`: must be `urn:ietf:params:oauth:grant-type:token-exchange`
+
+        - `subject_token`: the OIDC identity token from the external provider
+
+        - `subject_token_type`: must be `urn:ietf:params:oauth:token-type:id_token`
+
+        - `requested_token_type`: one of `urn:pulumi:token-type:access_token:organization`, `...team`, `...personal`, or `...runner`
+
+
+        Optional parameters:
+
+        - `scope`: depends on the requested token type. For `organization`, must be empty or `admin`. For `team`, must be `team:TEAM_NAME`. For `personal`, must be `user:USER_LOGIN`. For `runner`, must be `runner:RUNNER_NAME`.
+
+        - `expiration`: token lifetime in seconds
+
+
+        The response includes `access_token`, `issued_token_type`, `token_type`, `expires_in`, `scope`, and `refresh_token`.'
+      operationId: Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenExchangeGrantResponse'
+          description: OK
+      summary: Token
+      tags:
+      - OAuthTokenExchange
+components:
+  schemas:
+    TokenExchangeGrantResponse:
+      description: https://datatracker.ietf.org/doc/html/rfc8693#section-2.2.1
+      properties:
+        access_token:
+          description: The security token issued by the authorization server.
+          type: string
+          x-order: 1
+        expires_in:
+          description: The lifetime in seconds of the access token.
+          format: int64
+          type: integer
+          x-order: 4
+        issued_token_type:
+          description: The type of the issued token.
+          type: string
+          x-order: 2
+        refresh_token:
+          description: The refresh token, if issued.
+          type: string
+          x-order: 6
+        scope:
+          description: The scope of the access token.
+          type: string
+          x-order: 5
+        token_type:
+          description: The token type (e.g., Bearer).
+          type: string
+          x-order: 3
+      required:
+      - access_token
+      - expires_in
+      - issued_token_type
+      - scope
+      - token_type
+      type: object

@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens ResourcesUnderManagement API
+  version: 1.0.0
+tags:
+- name: ResourcesUnderManagement
+paths:
+  /api/orgs/{orgName}/discovered-resources/summary:
+    get:
+      description: 'GetUsageSummaryDiscoveredResourceHours handles request to fetch the summary
+
+        of discovered resources for an organization.'
+      operationId: GetUsageSummaryDiscoveredResourceHours
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')
+        in: query
+        name: granularity
+        schema:
+          type: string
+      - description: Number of days to look back from the current time or lookbackStart
+        in: query
+        name: lookbackDays
+        schema:
+          format: int64
+          type: integer
+      - description: Unix timestamp for the start of the lookback period (defaults to current time if omitted)
+        in: query
+        name: lookbackStart
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResourceCountSummaryResponse'
+          description: OK
+        '204':
+          description: No Content
+      summary: GetUsageSummaryDiscoveredResourceHours
+      tags:
+      - ResourcesUnderManagement
+  /api/orgs/{orgName}/resources/summary:
+    get:
+      description: 'GetUsageSummaryResourceHours handles request to fetch the summary
+
+        of resources under management (RUM) and resource hours under management
+
+        (RHUM) for an organization.'
+      operationId: GetUsageSummaryResourceHours
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')
+        in: query
+        name: granularity
+        schema:
+          type: string
+      - description: Number of days to look back from the current time or lookbackStart
+        in: query
+        name: lookbackDays
+        schema:
+          format: int64
+          type: integer
+      - description: Unix timestamp for the start of the lookback period (defaults to current time if omitted)
+        in: query
+        name: lookbackStart
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResourceCountSummaryResponse'
+          description: OK
+        '204':
+          description: No Content
+      summary: GetUsageSummaryResourceHours
+      tags:
+      - ResourcesUnderManagement
+components:
+  schemas:
+    ResourceCountSummary:
+      description: 'ResourceCountSummary represents a single point of summary for resources
+
+        under management for an organization.'
+      properties:
+        day:
+          description: The day of month. Ranges from 1 to 31.
+          format: int64
+          type: integer
+          x-order: 3
+        hour:
+          description: The hour of the day. Ranges from 0 to 23.
+          format: int64
+          type: integer
+          x-order: 5
+        month:
+          description: The month of the year. Ranges from 1 to 12.
+          format: int64
+          type: integer
+          x-order: 2
+        resourceHours:
+          description: 'The RHUM, which is the number of hours the resources under management have
+
+            been running. Calculated by getting the sum of all the resources for the
+
+            given time frame. 1 resource hour = 1 Pulumi credit.'
+          format: int64
+          type: integer
+          x-order: 7
+        resources:
+          description: 'The RUM (total number of resources under management at a given time).
+
+            Calculated by getting the average of the all the resources for the given
+
+            time frame.'
+          format: int64
+          type: integer
+          x-order: 6
+        weekNumber:
+          description: The week number in the year with Sunday marking the start of the week. Ranges from 0-53.
+          format: int64
+          type: integer
+          x-order: 4
+        year:
+          description: The 4-digit year.
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - resourceHours
+      - resources
+      - year
+      type: object
+    GetResourceCountSummaryResponse:
+      description: Response body for retrieving a summary of resource counts.
+      properties:
+        summary:
+          description: The list of resource count summaries
+          items:
+            $ref: '#/components/schemas/ResourceCountSummary'
+          type: array
+          x-order: 1
+      required:
+      - summary
+      type: object

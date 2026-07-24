@@ -1,0 +1,587 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens AuditLogs API
+  version: 1.0.0
+tags:
+- name: AuditLogs
+paths:
+  /api/orgs/{orgName}/auditlogs:
+    get:
+      description: Lists audit log events for an organization. Either continuationToken or startTime is required. Supports filtering by event type and user.
+      operationId: ListAuditLogEventsHandlerV1
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Token for paginated result retrieval
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Upper bound of the query range (unix timestamp)
+        in: query
+        name: endTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by event type
+        in: query
+        name: eventFilter
+        schema:
+          type: string
+      - description: 'Response format: ''json'' (default)'
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: Returns entries older than this timestamp (unix timestamp)
+        in: query
+        name: startTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by username
+        in: query
+        name: userFilter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAuditLogs'
+          description: OK
+        '400':
+          description: invalid query params
+        '404':
+          description: user not found
+      summary: ListAuditLogEventsHandlerV1
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/export:
+    get:
+      description: 'Exports audit log events for an organization in a downloadable format. Audit logs provide an immutable record of all user activity within the organization, including stack operations, member changes, and policy modifications. Results can be filtered by time range, event type, and user. Supported export formats are CSV and CEF (Common Event Format for SIEM integration). Pagination is supported via the continuationToken parameter.
+
+
+        **Important:** This endpoint differs from other API endpoints:
+
+        - The response is always **gzip compressed**. Use `--compressed` with curl or handle gzip decompression in your client.
+
+        - The `Content-Type: application/json` response header is omitted.
+
+
+        Note: In V1, startTime specifies the upper bound of the query range. Use the V2 endpoint for more intuitive time range semantics.'
+      operationId: ExportAuditLogEventsHandlerV1
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Token for paginated result retrieval
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Upper bound of the query range (unix timestamp)
+        in: query
+        name: endTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by event type
+        in: query
+        name: eventFilter
+        schema:
+          type: string
+      - description: 'Response format: ''cef'' or ''csv'' (defaults to csv)'
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: Returns entries older than this timestamp (unix timestamp)
+        in: query
+        name: startTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by username
+        in: query
+        name: userFilter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: Audit Logs is available only to organizations with an Enterprise subscription.
+        '404':
+          description: user not found
+      summary: ExportAuditLogEventsHandlerV1
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/export/config:
+    delete:
+      description: 'DeleteAuditLogExportConfiguration removes an organization''s audit log export settings.
+
+        Skip feature validation so removal can happen if org no longer has access to feature.'
+      operationId: DeleteAuditLogExportConfiguration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Organization has not configured audit log export.
+      summary: DeleteAuditLogExportConfiguration
+      tags:
+      - AuditLogs
+    get:
+      description: 'GetAuditLogExportConfiguration returns the organization''s current audit log export configuration.
+
+        If the organization has not configured its audit logs for export, returns a 404.'
+      operationId: GetAuditLogExportConfiguration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAuditLogExportSettings'
+          description: OK
+        '404':
+          description: Audit log export configuration
+      summary: GetAuditLogExportConfiguration
+      tags:
+      - AuditLogs
+    post:
+      description: Creates or updates the organization's automated audit log export configuration. Audit log export enables automatic delivery of audit events to an S3 bucket for long-term retention and SIEM integration. The configuration includes the S3 bucket details and IAM role for authentication. This feature is available on Business Critical edition.
+      operationId: UpdateAuditLogExportConfiguration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationAuditLogExportSettingsRequest'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Audit log export is not available for this organization.
+      summary: UpdateAuditLogExportConfiguration
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/export/config/force:
+    post:
+      description: 'ForceAuditLogExport exports the audit logs for the organization for a user-supplied timestamp.
+
+        This can be used to backfill data that may have been missed due to an outage or permissions issue.'
+      operationId: ForceAuditLogExport
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Unix timestamp to export audit logs for (used for backfilling missed data)
+        in: query
+        name: timestamp
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogExportResult'
+          description: OK
+        '400':
+          description: Audit log export is not available for this organization.
+        '404':
+          description: Audit log export configuration
+      summary: ForceAuditLogExport
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/export/config/test:
+    post:
+      description: 'TestAuditLogExportConfiguration uses the provided audit log configuration and
+
+        checks if we are able to successfully write some data.'
+      operationId: TestAuditLogExportConfiguration
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditLogsExportS3Config'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogExportResult'
+          description: OK
+        '400':
+          description: Audit log export is not available for this organization.
+      summary: TestAuditLogExportConfiguration
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/reader-kind:
+    get:
+      description: 'GetAuditLogsReaderKind returns whether the audit log is being read
+
+        from MySQL or DynamoDB to control the event filtering UI on the front end.'
+      operationId: GetAuditLogsReaderKind
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: OK
+      summary: GetAuditLogsReaderKind
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/v2:
+    get:
+      description: Lists audit log events for an organization. Uses startTime as the lower bound and endTime as the upper bound of the query range. Supports filtering by event type and user.
+      operationId: ListAuditLogEventsHandlerV2
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Token for paginated result retrieval
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Upper bound of the query range (unix timestamp)
+        in: query
+        name: endTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by event type
+        in: query
+        name: eventFilter
+        schema:
+          type: string
+      - description: 'Response format: ''json'' (default)'
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: Lower bound of the query range (unix timestamp)
+        in: query
+        name: startTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by username
+        in: query
+        name: userFilter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAuditLogs'
+          description: OK
+        '400':
+          description: invalid query params
+        '404':
+          description: user not found
+      summary: ListAuditLogEventsHandlerV2
+      tags:
+      - AuditLogs
+  /api/orgs/{orgName}/auditlogs/v2/export:
+    get:
+      description: Exports audit log events in a downloadable format (CSV or CEF). Supports filtering by time range using startTime (lower bound) and endTime (upper bound), as well as filtering by event type and user.
+      operationId: ExportAuditLogEventsHandlerV2
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Token for paginated result retrieval
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Upper bound of the query range (unix timestamp)
+        in: query
+        name: endTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by event type
+        in: query
+        name: eventFilter
+        schema:
+          type: string
+      - description: 'Response format: ''cef'' or ''csv'' (defaults to csv)'
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: Lower bound of the query range (unix timestamp)
+        in: query
+        name: startTime
+        schema:
+          format: int64
+          type: integer
+      - description: Filter audit logs by username
+        in: query
+        name: userFilter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: Audit Logs is available only to organizations with an Enterprise subscription.
+        '404':
+          description: user not found
+      summary: ExportAuditLogEventsHandlerV2
+      tags:
+      - AuditLogs
+components:
+  schemas:
+    ResponseAuditLogs:
+      description: 'ResponseAuditLogs represents the audit event logs response given
+
+        when listing audit log events. Contains a continuation token for
+
+        pagination as well as a list of the AuditLogEvent objects.'
+      properties:
+        auditLogEvents:
+          description: The list of audit log events.
+          items:
+            $ref: '#/components/schemas/AuditLogEvent'
+          type: array
+          x-order: 2
+        continuationToken:
+          description: A continuation token for paginating through audit log results.
+          type: string
+          x-order: 1
+      required:
+      - auditLogEvents
+      type: object
+    AuditLogsExportS3Config:
+      description: AuditLogsExportS3Config describes how a Pulumi organization's audit log data can be exported to S3.
+      properties:
+        iamRoleArn:
+          description: ARN of the IAM role that Pulumi will assume to write to the S3 bucket.
+          type: string
+          x-order: 3
+        s3BucketName:
+          description: Name of the S3 bucket to export audit logs to.
+          type: string
+          x-order: 1
+        s3PathPrefix:
+          description: Optional path prefix within the S3 bucket for exported log files.
+          type: string
+          x-order: 2
+      required:
+      - iamRoleArn
+      - s3BucketName
+      type: object
+    OrganizationAuditLogExportSettings:
+      description: OrganizationAuditLogExportSettings is an organization's current audit log export configuration.
+      properties:
+        enabled:
+          description: Whether audit log export is currently active. May be paused automatically if the configured destination repeatedly fails to authenticate.
+          type: boolean
+          x-order: 1
+        lastResult:
+          $ref: '#/components/schemas/AuditLogExportResult'
+          description: The result of the last audit log export attempt.
+          x-order: 3
+        s3Config:
+          $ref: '#/components/schemas/AuditLogsExportS3Config'
+          description: The S3 configuration for exporting audit logs.
+          x-order: 2
+      required:
+      - enabled
+      - lastResult
+      - s3Config
+      type: object
+    AuditLogEvent:
+      description: AuditLogEvent represents an AuditLogEvent. It also contains the user who invoked it.
+      properties:
+        actorName:
+          description: Display name of the non-human actor (e.g. deploy token name) that triggered the event.
+          type: string
+          x-order: 11
+        actorUrn:
+          description: Pulumi URN of the non-human actor that triggered the event.
+          type: string
+          x-order: 12
+        authFailure:
+          description: Whether this event represents a failed authentication attempt.
+          type: boolean
+          x-order: 10
+        description:
+          description: Human-readable description of the event.
+          type: string
+          x-order: 4
+        event:
+          description: The audit event type identifier (e.g. 'stack.update', 'member.added').
+          type: string
+          x-order: 3
+        reqOrgAdmin:
+          description: Whether the action that triggered this event required the organization ADMIN role.
+          type: boolean
+          x-order: 8
+        reqStackAdmin:
+          description: Whether the action required stack admin privileges.
+          type: boolean
+          x-order: 9
+        sourceIP:
+          description: IP address of the client that triggered the event.
+          type: string
+          x-order: 2
+        timestamp:
+          description: Unix epoch timestamp (seconds) when the event occurred.
+          format: int64
+          type: integer
+          x-order: 1
+        tokenID:
+          description: ID of the access token used to authenticate, if applicable.
+          type: string
+          x-order: 6
+        tokenName:
+          description: Name of the access token used to authenticate, if applicable.
+          type: string
+          x-order: 7
+        user:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user who performed the action.
+          x-order: 5
+      required:
+      - description
+      - event
+      - sourceIP
+      - timestamp
+      - user
+      type: object
+    UpdateOrganizationAuditLogExportSettingsRequest:
+      description: 'UpdateOrganizationAuditLogExportSettingsRequest is the request type when making
+
+        changes to an existing audit log export configuration.'
+      properties:
+        newEnabled:
+          description: Whether the audit log export is enabled.
+          type: boolean
+          x-order: 1
+        newS3Configuration:
+          $ref: '#/components/schemas/AuditLogsExportS3Config'
+          description: The new S3 configuration for audit log export.
+          x-order: 2
+      required:
+      - newEnabled
+      - newS3Configuration
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AuditLogExportResult:
+      description: AuditLogExportResult is the result of an audit log export or attempt to test access.
+      properties:
+        message:
+          description: 'If the last result was successful, message will be "".
+
+            Any other value is a user-facing error message.'
+          type: string
+          x-order: 2
+        timestamp:
+          description: The timestamp
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - message
+      - timestamp
+      type: object

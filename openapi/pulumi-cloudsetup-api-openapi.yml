@@ -1,0 +1,687 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens CloudSetup API
+  version: 1.0.0
+tags:
+- name: CloudSetup
+paths:
+  /api/esc/cloudsetup/{orgName}/aws/setup:
+    post:
+      description: Sets up AWS infrastructure using provided static credentials
+      operationId: AWSSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSetupRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudSetupResult'
+          description: OK
+        '400':
+          description: Failed to setup infrastructure
+      summary: AWSSetup
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/aws/sso/accounts:
+    get:
+      description: Lists AWS accounts accessible with the provided session
+      operationId: AWSSSOListAccounts
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The AWS region
+        in: query
+        name: region
+        schema:
+          type: string
+      - description: The SSO session identifier
+        in: query
+        name: sessionId
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCloudAccountsResponse'
+          description: OK
+        '400':
+          description: Failed to list accounts
+        '404':
+          description: Organization or Session not found
+        '412':
+          description: Session not yet authorized
+      summary: AWSSSOListAccounts
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/aws/sso/initiate:
+    post:
+      description: Initiates the AWS SSO flow
+      operationId: AWSSSOInitiate
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSSOInitiateRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWSSSOInitiateResponse'
+          description: OK
+        '400':
+          description: Failed to initiate AWS SSO flow
+      summary: AWSSSOInitiate
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/aws/sso/setup:
+    post:
+      description: Sets up AWS infrastructure and ESC environments using AWS SSO
+      operationId: AWSSSOSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSSOSetupRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudSetupResult'
+          description: OK
+        '400':
+          description: Failed to setup infrastructure
+        '404':
+          description: Organization or Session not found
+      summary: AWSSSOSetup
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/azure/accounts:
+    get:
+      description: Lists Azure subscriptions accessible with the provided ARM session
+      operationId: AzureListAccounts
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The Azure ARM session identifier
+        in: query
+        name: armSessionId
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCloudAccountsResponse'
+          description: OK
+        '400':
+          description: Failed to list azure subscriptions
+        '404':
+          description: Organization or Session not found
+      summary: AzureListAccounts
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/azure/setup:
+    post:
+      description: Sets up Azure infrastructure and ESC environments using OAuth credentials
+      operationId: AzureSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AzureSetupRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudSetupResult'
+          description: OK
+        '400':
+          description: Failed to setup infrastructure
+        '404':
+          description: Organization or Session not found
+      summary: AzureSetup
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/complete:
+    post:
+      description: Completes OAuth flow by exchanging authorization code for access token
+      operationId: CompleteOAuth
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteOAuthRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteOAuthResponse'
+          description: OK
+        '400':
+          description: Failed to complete OAuth
+      summary: CompleteOAuth
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/gcp/accounts:
+    get:
+      description: Lists GCP projects accessible with the provided oauth session
+      operationId: GCPListAccounts
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OAuth session identifier
+        in: query
+        name: oauthSessionId
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCloudAccountsResponse'
+          description: OK
+        '400':
+          description: Failed to list gcp projects
+        '404':
+          description: Organization or Session not found
+      summary: GCPListAccounts
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/gcp/setup:
+    post:
+      description: Sets up GCP infrastructure using OAuth credentials
+      operationId: GCPSetup
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GCPSetupRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudSetupResult'
+          description: OK
+        '400':
+          description: Failed to setup infrastructure
+        '404':
+          description: Organization or Session not found
+      summary: GCPSetup
+      tags:
+      - CloudSetup
+  /api/esc/cloudsetup/{orgName}/oauth/initiate:
+    post:
+      description: Initiates OAuth flow for a given cloud provider
+      operationId: InitiateOAuth
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateOAuthRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateOAuthResponse'
+          description: OK
+        '400':
+          description: Failed to initiate oauth
+      summary: InitiateOAuth
+      tags:
+      - CloudSetup
+components:
+  schemas:
+    CompleteOAuthResponse:
+      description: Response from OAuth completion
+      type: object
+    AWSSSOInitiateResponse:
+      description: Response of the initialization of the AWS SSO flow
+      properties:
+        sessionId:
+          description: The auth session id
+          type: string
+          x-order: 3
+        url:
+          description: The AWS SSO Verification URL
+          type: string
+          x-order: 1
+        userCode:
+          description: The AWS SSO User Code to verify
+          type: string
+          x-order: 2
+      required:
+      - sessionId
+      - url
+      - userCode
+      type: object
+    CloudSetupProvider:
+      description: CloudSetupProvider configuration
+      properties:
+        azure:
+          $ref: '#/components/schemas/AzureOptions'
+          description: Azure-specific configuration options
+          x-order: 2
+        name:
+          description: CloudSetupProvider name (e.g., 'azure', 'gcp')
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    GCPSetupRequest:
+      description: Request to setup GCP OIDC infrastructure
+      properties:
+        gcpEnvironmentInfo:
+          $ref: '#/components/schemas/GCPEnvironmentInfo'
+          description: GCP environment configuration to create
+          x-order: 2
+        oauthSessionId:
+          description: GCP OAuth session ID
+          type: string
+          x-order: 1
+      required:
+      - gcpEnvironmentInfo
+      - oauthSessionId
+      type: object
+    CloudAccount:
+      description: Cloud account information
+      properties:
+        id:
+          description: Account/subscription ID
+          type: string
+          x-order: 1
+        name:
+          description: Account/subscription name
+          type: string
+          x-order: 2
+        number:
+          description: Project number (for Azure)
+          format: int64
+          type: integer
+          x-order: 4
+        roles:
+          description: Roles
+          items:
+            type: string
+          type: array
+          x-order: 3
+      required:
+      - id
+      - name
+      type: object
+    AzureEnvironmentInfo:
+      description: Azure environment configuration information
+      properties:
+        environmentName:
+          description: ESC environment name
+          type: string
+          x-order: 4
+        projectName:
+          description: ESC project name
+          type: string
+          x-order: 3
+        roleID:
+          description: Azure role ID
+          type: string
+          x-order: 2
+        subscriptionID:
+          description: Azure subscription ID
+          type: string
+          x-order: 1
+      required:
+      - environmentName
+      - projectName
+      - roleID
+      - subscriptionID
+      type: object
+    InitiateOAuthResponse:
+      description: Response from OAuth initiation containing authorization URL and session details
+      properties:
+        sessionID:
+          description: Session identifier for tracking the OAuth flow
+          type: string
+          x-order: 2
+        url:
+          description: Authorization URL to redirect user to
+          type: string
+          x-order: 1
+      required:
+      - sessionID
+      - url
+      type: object
+    AWSSSOInitiateRequest:
+      description: Request to initiate AWS SSO flow
+      properties:
+        region:
+          description: The AWS SSO Region
+          type: string
+          x-order: 2
+        startUrl:
+          description: The AWS SSO Start URL
+          type: string
+          x-order: 1
+      required:
+      - region
+      - startUrl
+      type: object
+    AzureSetupRequest:
+      description: Request to setup Azure infrastructure and ESC environments
+      properties:
+        armSessionId:
+          description: ARM (Azure Resource Manager) OAuth session ID
+          type: string
+          x-order: 1
+        azureEnvironmentInfos:
+          description: List of Azure environment configurations to create
+          items:
+            $ref: '#/components/schemas/AzureEnvironmentInfo'
+          type: array
+          x-order: 3
+        graphSessionId:
+          description: Microsoft Graph OAuth session ID
+          type: string
+          x-order: 2
+      required:
+      - armSessionId
+      - azureEnvironmentInfos
+      - graphSessionId
+      type: object
+    GCPEnvironmentInfo:
+      description: GCP environment configuration information
+      properties:
+        environmentName:
+          description: ESC environment name
+          type: string
+          x-order: 5
+        gcpProjectID:
+          description: GCP project ID
+          type: string
+          x-order: 1
+        gcpRoleID:
+          description: GCP role ID
+          type: string
+          x-order: 2
+        gcpServiceAccountName:
+          description: GCP service account name
+          type: string
+          x-order: 3
+        projectName:
+          description: ESC project name
+          type: string
+          x-order: 4
+      required:
+      - environmentName
+      - gcpProjectID
+      - gcpRoleID
+      - gcpServiceAccountName
+      - projectName
+      type: object
+    AWSSetupRequest:
+      description: Request to setup AWS OIDC infrastructure using static credentials
+      properties:
+        accessKeyId:
+          description: AWS Access Key ID
+          type: string
+          x-order: 1
+        oidcRoleName:
+          description: Name of IAM Role for OIDC
+          type: string
+          x-order: 5
+        policyArn:
+          description: ARN of the IAM policy to attach to the role
+          type: string
+          x-order: 4
+        secretAccessKey:
+          description: AWS Secret Access Key
+          type: string
+          x-order: 2
+        sessionToken:
+          description: AWS Session Token (for temporary credentials)
+          type: string
+          x-order: 3
+      required:
+      - accessKeyId
+      - oidcRoleName
+      - policyArn
+      - secretAccessKey
+      - sessionToken
+      type: object
+    AWSSSOSetupRequest:
+      description: Request to setup AWS from AWS SSO
+      properties:
+        accountId:
+          description: The AWS account id
+          type: string
+          x-order: 3
+        accountRoleName:
+          description: The AWS account role name
+          type: string
+          x-order: 4
+        oidcRoleName:
+          description: Name of IAM Role for OIDC
+          type: string
+          x-order: 6
+        policyArn:
+          description: ARN of the IAM policy to attach to the role
+          type: string
+          x-order: 5
+        region:
+          description: The AWS SSO Region
+          type: string
+          x-order: 2
+        sessionId:
+          description: The auth session id
+          type: string
+          x-order: 1
+      required:
+      - accountId
+      - accountRoleName
+      - oidcRoleName
+      - policyArn
+      - region
+      - sessionId
+      type: object
+    AzureOptions:
+      description: Azure provider options
+      properties:
+        apiName:
+          description: Azure API name identifying which Azure service to target.
+          enum:
+          - ado
+          - graph
+          - arm
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: AzureApiName
+            enumComments: Azure API name identifying which Azure service API to target.
+            enumFieldComments:
+            - Azure DevOps API
+            - Microsoft Graph API
+            - Azure Resource Manager API
+        tenantId:
+          description: Azure tenant ID
+          type: string
+          x-order: 1
+      type: object
+    CompleteOAuthRequest:
+      description: Request to complete OAuth flow by exchanging authorization code for access token
+      properties:
+        code:
+          description: Authorization code returned from OAuth provider
+          type: string
+          x-order: 3
+        provider:
+          $ref: '#/components/schemas/CloudSetupProvider'
+          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 1
+        sessionID:
+          description: Session identifier from OAuth initiation
+          type: string
+          x-order: 2
+      required:
+      - code
+      - provider
+      - sessionID
+      type: object
+    InitiateOAuthRequest:
+      description: Request to initiate OAuth flow for cloud provider authentication
+      properties:
+        provider:
+          $ref: '#/components/schemas/CloudSetupProvider'
+          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 1
+      required:
+      - provider
+      type: object
+    CloudSetupResource:
+      description: A cloud resource that was created or managed during setup
+      properties:
+        error:
+          description: Error message if the resource operation failed
+          type: string
+          x-order: 5
+        id:
+          description: Unique identifier of the resource
+          type: string
+          x-order: 2
+        name:
+          description: Name of the resource
+          type: string
+          x-order: 3
+        properties:
+          additionalProperties:
+            type: string
+          description: Additional properties of the resource
+          type: object
+          x-order: 6
+        status:
+          description: Status of the resource operation
+          type: string
+          x-order: 4
+        type:
+          description: Type of the resource
+          type: string
+          x-order: 1
+      required:
+      - id
+      - name
+      - status
+      - type
+      type: object
+    ListCloudAccountsResponse:
+      description: Response containing list of cloud accounts
+      properties:
+        accounts:
+          description: List of cloud accounts/subscriptions
+          items:
+            $ref: '#/components/schemas/CloudAccount'
+          type: array
+          x-order: 1
+      required:
+      - accounts
+      type: object
+    CloudSetupResult:
+      description: Result of a cloud setup operation
+      properties:
+        message:
+          description: Optional message about the setup operation
+          type: string
+          x-order: 3
+        resources:
+          description: List of resources created or managed during setup
+          items:
+            $ref: '#/components/schemas/CloudSetupResource'
+          type: array
+          x-order: 2
+        success:
+          description: Whether the setup operation was successful
+          type: boolean
+          x-order: 1
+      required:
+      - resources
+      - success
+      type: object

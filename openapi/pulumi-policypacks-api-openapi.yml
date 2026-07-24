@@ -1,0 +1,1032 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens PolicyPacks API
+  version: 1.0.0
+tags:
+- name: PolicyPacks
+paths:
+  /api/orgs/{orgName}/policypacks:
+    get:
+      description: 'ListPolicyPacks returns a list of all complete Policy Packs for the organization.
+
+        If the `policypack` query parameter is set, it will only list the policy
+
+        packs with the specified name.'
+      operationId: ListPolicyPacks_orgs
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: query
+        name: policypack
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppListPolicyPacksResponse'
+          description: OK
+        '400':
+          description: invalid query parameter
+      summary: ListPolicyPacks
+      tags:
+      - PolicyPacks
+    post:
+      description: Creates a new Policy Pack for an organization. A Policy Pack is a versioned collection of related policies that validate infrastructure configuration during deployments. Policies can enforce rules such as requiring encryption on storage buckets or prohibiting public access to databases. The pack must contain at least one policy. Once created, the pack can be applied to Policy Groups to enforce rules on specific stacks with configurable enforcement levels (advisory, mandatory, or disabled).
+      operationId: CreatePolicyPack
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppCreatePolicyPackRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppCreatePolicyPackResponse'
+          description: Created
+        '400':
+          description: Policy Pack must have at least one policy.
+      summary: CreatePolicyPack
+      tags:
+      - PolicyPacks
+  /api/orgs/{orgName}/policypacks/{policyPackName}:
+    delete:
+      description: 'DeletePolicyPack deletes all versions of a Policy Pack, the associated
+
+        packs stored in S3, and any applied versions of the Policy Packs.'
+      operationId: DeletePolicyPack_orgs_policypacks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Cannot delete an enabled Policy Pack
+        '404':
+          description: Policy Pack
+      summary: DeletePolicyPack
+      tags:
+      - PolicyPacks
+  /api/orgs/{orgName}/policypacks/{policyPackName}/versions/{version}:
+    delete:
+      description: 'DeletePolicyPackVersion deletes a specific version of a Policy Pack and deletes
+
+        the associated pack stored in S3. A Policy Pack must be unapplied to be deleted.'
+      operationId: DeletePolicyPackVersion
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      - description: The version number
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Cannot delete external policy packs
+        '404':
+          description: Organization or Policy Pack not found
+        '409':
+          description: Cannot delete a Policy Pack that is applied to Policy Groups
+      summary: DeletePolicyPackVersion
+      tags:
+      - PolicyPacks
+    get:
+      description: Returns the metadata and list of individual policies for a specific version of a Policy Pack. Each policy includes its name, description, enforcement level (advisory, mandatory, or disabled), and configuration schema. Returns 400 if the Policy Pack version is not yet complete (still being uploaded), or 404 if the organization or pack is not found.
+      operationId: GetPolicyPack
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      - description: The version number
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppGetPolicyPackResponse'
+          description: OK
+        '400':
+          description: Cannot get incomplete Policy Pack
+        '404':
+          description: Organization or Policy Pack not found
+      summary: GetPolicyPack
+      tags:
+      - PolicyPacks
+  /api/orgs/{orgName}/policypacks/{policyPackName}/versions/{version}/complete:
+    post:
+      description: 'Transitions the publish status of a specific Policy Pack version to ''complete'', making it available for enforcement. Policy Packs go through a multi-step publish process: first the pack content is uploaded, then this endpoint is called to finalize publication. Returns 400 if the pack is already complete.'
+      operationId: CompletePolicyPack
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      - description: The version number
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Policy Pack is already complete
+        '404':
+          description: Organization or Policy Pack not found
+      summary: CompletePolicyPack
+      tags:
+      - PolicyPacks
+  /api/orgs/{orgName}/policypacks/{policyPackName}/versions/{version}/schema:
+    get:
+      description: Returns the JSON configuration schema for a specific version of a Policy Pack. The schema defines the configurable parameters for each policy in the pack, including allowed values, defaults, and validation rules. Policy Groups use this schema to configure policy behavior when assigning packs to stacks.
+      operationId: GetPolicyPackConfigSchema
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      - description: The version number
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppGetPolicyPackConfigSchemaResponse'
+          description: OK
+        '400':
+          description: Policy as code feature not enabled
+        '404':
+          description: Organization or Policy Pack not found
+      summary: GetPolicyPackConfigSchema
+      tags:
+      - PolicyPacks
+  /api/orgs/{orgName}/registry/policypacks/{policyPackName}:
+    get:
+      description: Retrieves lightweight registry metadata for a policy pack (source/publisher/name) without loading detailed policy definitions.
+      operationId: GetOrgRegistryPolicyPack
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: policyPackName
+        required: true
+        schema:
+          type: string
+      - description: Version tag to retrieve (e.g., 'latest')
+        in: query
+        name: tag
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRegistryPolicyPackVersionResponse'
+          description: OK
+        '404':
+          description: Organization or Policy pack not found
+      summary: GetOrgRegistryPolicyPack
+      tags:
+      - PolicyPacks
+  /api/preview/registry/policypacks:
+    get:
+      deprecated: true
+      description: Lists all policy packs accessible to the calling user for a given organization. The orgLogin query parameter is required and restricts results to policy packs owned by that organization. Results can optionally be filtered by access level. No authentication is required. Returns 400 if the policy pack access filter value is invalid. This is the deprecated GET variant; prefer the POST ListPolicyPacks endpoint instead.
+      operationId: ListPolicyPacks_preview_registry
+      parameters:
+      - description: Filter by access level
+        in: query
+        name: access
+        schema:
+          type: string
+      - description: Required. Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '400':
+          description: Policy pack access is not valid
+      summary: ListPolicyPacks
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: ListPolicyPacks_preview_registry_post
+        Visibility: Preview
+    post:
+      description: Lists all policy packs accessible to the calling user, with support for filtering by access level, organization, and specific policy pack IDs. The request body accepts an optional orgLogin to scope results to a specific organization, an optional access level filter (defaults to 'enabled'), and an optional list of policy pack IDs to restrict the results to specific packs. No authentication is required. Returns 400 if the access filter value is invalid.
+      operationId: ListPolicyPacks_preview_registry_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListPolicyPacksRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '400':
+          description: Policy pack access is not valid
+      summary: ListPolicyPacks
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}:
+    delete:
+      description: Deletes a policy pack and all of its versions from the registry. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This is a destructive operation that permanently removes the policy pack and all associated version data. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack does not exist.
+      operationId: DeletePolicyPack_preview_registry_policypacks
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: DeletePolicyPack
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions:
+    get:
+      description: Lists all versions of a specific policy pack. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The response includes a list of policy pack version metadata and an optional continuationToken for pagination. Returns 404 if the policy pack does not exist.
+      operationId: ListPolicyPackVersions
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPolicyPacksResponse'
+          description: OK
+        '404':
+          description: error getting Registry Policy Pack
+      summary: ListPolicyPackVersions
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Initiates the first step of a two-phase policy pack version publish workflow. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This creates a publish transaction that must be completed by calling PostPublishPolicyPackVersionComplete. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack is not found.
+      operationId: PostPublishPolicyPackVersion
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: PostPublishPolicyPackVersion
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      description: Deletes a specific version of a policy pack from the registry. The policy pack version is identified by its source (currently only 'private'), publisher organization, name, and semantic version string. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the specified policy pack version does not exist.
+      operationId: DeletePolicyPack_preview_registry_policypacks_versions
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the policy pack version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Policy pack not found
+      summary: DeletePolicyPack
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+    get:
+      description: Retrieves detailed information about a specific version of a policy pack, including the individual policy definitions. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the policy pack metadata and an optional list of policies, where each policy includes its configuration schema and enforcement rules. Returns 404 if the specified policy pack does not exist.
+      operationId: GetPolicyPackVersion
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRegistryPolicyPackVersionResponse'
+          description: OK
+        '404':
+          description: Policy Pack
+      summary: GetPolicyPackVersion
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/registry/policypacks/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      description: Finalizes the second step of the two-phase policy pack version publish workflow. After initiating a publish with PostPublishPolicyPackVersion, call this endpoint with the policy pack source, publisher, name, and version to complete the publish and make the version available in the registry. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the publish operation is not found.
+      operationId: PostPublishPolicyPackVersionComplete
+      parameters:
+      - description: 'The policy pack source: ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the policy pack
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The policy pack name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the policy pack version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Publish operation not found
+      summary: PostPublishPolicyPackVersionComplete
+      tags:
+      - PolicyPacks
+      x-pulumi-route-property:
+        Visibility: Preview
+components:
+  schemas:
+    ListPolicyPacksResponse:
+      description: ListPolicyPacksResponse contains the results of listing policy packs.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If nil, there are no more results available.'
+          type: string
+          x-order: 1
+        policyPacks:
+          description: PolicyPacks contains the policy pack metadata for the current page.
+          items:
+            $ref: '#/components/schemas/RegistryPolicyPack'
+          type: array
+          x-order: 2
+      required:
+      - policyPacks
+      type: object
+    AppListPolicyPacksResponse:
+      description: ListPolicyPacksResponse is the response to list an organization's Policy Packs.
+      properties:
+        policyPacks:
+          description: List of policy packs
+          items:
+            $ref: '#/components/schemas/AppPolicyPackWithVersions'
+          type: array
+          x-order: 1
+      required:
+      - policyPacks
+      type: object
+    AppPolicyComplianceFramework:
+      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
+      properties:
+        name:
+          description: The compliance framework name.
+          type: string
+          x-order: 1
+        reference:
+          description: The compliance framework reference.
+          type: string
+          x-order: 3
+        specification:
+          description: The compliance framework specification.
+          type: string
+          x-order: 4
+        version:
+          description: The compliance framework version.
+          type: string
+          x-order: 2
+      type: object
+    RegistryPolicyPack:
+      description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
+
+        This is the primary data structure returned by most registry API endpoints.'
+      properties:
+        accessLevel:
+          description: AccessLevel is the client's level of access to this policy pack.
+          enum:
+          - full
+          - view-only
+          - deny
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: RegistryPolicyPackAccessLevel
+            enumComments: The level of access a client has to a registry policy pack.
+            enumFieldNames:
+            - Full
+            - ViewOnly
+            - Deny
+            enumFieldComments:
+            - Full access to a policy pack (view + use)
+            - Access to view a policy pack
+            - No access to a policy pack
+        displayName:
+          description: 'DisplayName is a human-readable name for this policy pack.
+
+            This is typically more descriptive than the technical name.'
+          type: string
+          x-order: 6
+        enforcementLevels:
+          description: EnforcementLevels are the client's allowed enforcement levels for this policy pack.
+          items:
+            enum:
+            - advisory
+            - mandatory
+            - remediate
+            - disabled
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: AppEnforcementLevel
+              enumComments: EnforcementLevel indicates how a policy should be enforced
+              enumFieldComments:
+              - 'Advisory is an enforcement level where the resource is still created, but a
+
+                message is displayed to the user for informational / warning purposes.'
+              - Mandatory is an enforcement level that prevents a resource from being created.
+              - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+              - Disabled is an enforcement level that disables the policy from being enforced.
+          type: array
+          x-order: 8
+        id:
+          description: 'ID is the unique identifier for this policy pack in the registry.
+
+            This is a UUID that corresponds to the policy pack''s database ID.'
+          type: string
+          x-order: 1
+        name:
+          description: 'Name is the unique identifier for this policy pack within the publisher''s namespace.
+
+            Policy pack names must be URL-safe and unique per publisher.'
+          type: string
+          x-order: 4
+        publisher:
+          description: 'Publisher is the organization or user that published this policy pack.
+
+            This corresponds to the Pulumi organization name.'
+          type: string
+          x-order: 3
+        source:
+          description: 'Source indicates where this policy pack is hosted (e.g., "private", "pulumi").
+
+            Currently, only "private" policy packs are supported.'
+          type: string
+          x-order: 2
+        version:
+          description: 'Version is the semantic version of this policy pack.
+
+            This represents the latest or specific version being referenced.'
+          type: string
+          x-order: 5
+      required:
+      - accessLevel
+      - displayName
+      - enforcementLevels
+      - id
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    AppPolicy:
+      description: Policy defines the metadata for an individual Policy within a Policy Pack.
+      properties:
+        configSchema:
+          $ref: '#/components/schemas/AppPolicyConfigSchema'
+          description: The JSON schema for the Policy's configuration.
+          x-order: 6
+        description:
+          description: Description is used to provide more context about the purpose of the policy.
+          type: string
+          x-order: 3
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        enforcementLevel:
+          description: The enforcement level
+          enum:
+          - advisory
+          - mandatory
+          - remediate
+          - disabled
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: AppEnforcementLevel
+            enumComments: EnforcementLevel indicates how a policy should be enforced
+            enumFieldComments:
+            - 'Advisory is an enforcement level where the resource is still created, but a
+
+              message is displayed to the user for informational / warning purposes.'
+            - Mandatory is an enforcement level that prevents a resource from being created.
+            - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+            - Disabled is an enforcement level that disables the policy from being enforced.
+        framework:
+          $ref: '#/components/schemas/AppPolicyComplianceFramework'
+          description: The compliance framework that this policy belongs to.
+          x-order: 8
+        message:
+          description: Message is the message that will be displayed to end users when they violate this policy.
+          type: string
+          x-order: 5
+        name:
+          description: Unique URL-safe name for the policy.  This is unique to a specific version of a Policy Pack.
+          type: string
+          x-order: 1
+        remediationSteps:
+          description: A description of the steps to take to remediate a policy violation.
+          type: string
+          x-order: 10
+        severity:
+          description: The severity of the policy.
+          enum:
+          - ''
+          - low
+          - medium
+          - high
+          - critical
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: AppPolicySeverity
+            enumComments: Indicates the severity of a policy.
+            enumFieldNames:
+            - Unspecified
+            - Low
+            - Medium
+            - High
+            - Critical
+        tags:
+          description: Tags associated with the policy.
+          items:
+            type: string
+          type: array
+          x-order: 9
+        url:
+          description: A URL to more information about the policy.
+          type: string
+          x-order: 11
+      required:
+      - description
+      - displayName
+      - enforcementLevel
+      - message
+      - name
+      type: object
+    AppGetPolicyPackResponse:
+      description: GetPolicyPackResponse is the response to get a specific Policy Pack's metadata and policies.
+      properties:
+        applied:
+          description: Whether this policy pack version is currently applied to any policy group.
+          type: boolean
+          x-order: 6
+        displayName:
+          description: Human-readable display name of the policy pack.
+          type: string
+          x-order: 2
+        name:
+          description: The unique name of the policy pack.
+          type: string
+          x-order: 1
+        policies:
+          description: The individual policies contained in this policy pack.
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 5
+        version:
+          description: Numeric version of the policy pack, auto-incremented on each publish.
+          format: int64
+          type: integer
+          x-order: 3
+        versionTag:
+          description: Semantic version tag for this policy pack version (e.g. '1.2.0').
+          type: string
+          x-order: 4
+      required:
+      - applied
+      - displayName
+      - name
+      - policies
+      - version
+      - versionTag
+      type: object
+    AppCreatePolicyPackRequest:
+      description: 'CreatePolicyPackRequest defines the request body for creating a new Policy
+
+        Pack for an organization. The request contains the metadata related to the
+
+        Policy Pack.'
+      properties:
+        description:
+          description: A brief description of the policy pack.
+          type: string
+          x-order: 5
+        displayName:
+          description: A pretty name for the Policy Pack that is supplied by the package.
+          type: string
+          x-order: 2
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Metadata contains optional data about the environment performing the publish operation,
+
+            e.g. the current source code control commit information.'
+          type: object
+          x-order: 10
+        name:
+          description: 'Name is a unique URL-safe identifier (at the org level) for the package.
+
+            If the name has already been used by the organization, then the request will
+
+            create a new version of the Policy Pack (incremented by one). This is supplied
+
+            by the CLI.'
+          type: string
+          x-order: 1
+        policies:
+          description: 'The Policies outline the specific Policies in the package, and are derived
+
+            from the package by the CLI.'
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 4
+        provider:
+          description: The cloud provider/platform this policy pack is associated with, e.g. AWS, Azure, etc.
+          type: string
+          x-order: 7
+        readme:
+          description: README text about the policy pack.
+          type: string
+          x-order: 6
+        repository:
+          description: A URL to the repository where the policy pack is defined.
+          type: string
+          x-order: 9
+        tags:
+          description: Tags for this policy pack.
+          items:
+            type: string
+          type: array
+          x-order: 8
+        versionTag:
+          description: 'VersionTag is the semantic version of the Policy Pack. One a version is published, it
+
+            cannot never be republished. Older clients will not have a version tag.'
+          type: string
+          x-order: 3
+      required:
+      - displayName
+      - name
+      - policies
+      type: object
+    AppGetPolicyPackConfigSchemaResponse:
+      description: 'GetPolicyPackConfigSchemaResponse is the response that includes the JSON
+
+        schemas of Policies within a particular Policy Pack.'
+      properties:
+        configSchema:
+          additionalProperties:
+            $ref: '#/components/schemas/AppPolicyConfigSchema'
+          description: The JSON schema for each Policy's configuration.
+          type: object
+          x-order: 1
+      type: object
+    AppPolicyPackWithVersions:
+      description: PolicyPackWithVersions details the specifics of a Policy Pack and all its available versions.
+      properties:
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        versionTags:
+          description: List of version tags
+          items:
+            type: string
+          type: array
+          x-order: 4
+        versions:
+          description: List of versions
+          items:
+            format: int64
+            type: integer
+          type: array
+          x-order: 3
+      required:
+      - displayName
+      - name
+      - versionTags
+      - versions
+      type: object
+    ListPolicyPacksRequest:
+      description: ListPolicyPacksRequest is the request to list policy packs.
+      properties:
+        access:
+          description: The access of the policy packs to list. Default is `enabled`.
+          enum:
+          - added
+          - available
+          - enabled
+          - private
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: PolicyPackAccess
+            enumComments: PolicyPackAccess defines the access level of a policy pack relative to an organization.
+            enumFieldComments:
+            - Public, and added through org access
+            - Public, but not approved
+            - Created by the user, and added to the org.
+            - Created by the user
+        ids:
+          description: 'A list of policy pack IDs to list.
+
+            If specified, only the policy packs with the specified IDs will be listed.
+
+            If not specified, all policy packs will be listed.'
+          items:
+            type: string
+          type: array
+          x-order: 2
+        orgLogin:
+          description: The canonical name of the organization to list policy packs for.
+          type: string
+          x-order: 3
+      type: object
+    GetRegistryPolicyPackVersionResponse:
+      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
+
+        version of a policy pack, optionally including the actual policy definitions.'
+      properties:
+        policies:
+          description: 'Policies contains the individual policy definitions in this version.
+
+            Each policy includes its configuration schema and enforcement rules.
+
+            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 2
+        policyPack:
+          $ref: '#/components/schemas/RegistryPolicyPack'
+          description: PolicyPack contains the metadata for this specific version.
+          x-order: 1
+      required:
+      - policyPack
+      type: object
+    AppCreatePolicyPackResponse:
+      description: 'CreatePolicyPackResponse is the response from creating a Policy Pack. It returns
+
+        a URI to upload the Policy Pack zip file to.'
+      properties:
+        requiredHeaders:
+          additionalProperties:
+            type: string
+          description: RequiredHeaders represents headers that the CLI must set in order for the upload to succeed.
+          type: object
+          x-order: 3
+        uploadURI:
+          description: The upload URI
+          type: string
+          x-order: 2
+        version:
+          description: The version number
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - uploadURI
+      - version
+      type: object
+    AppPolicyConfigSchema:
+      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
+      properties:
+        properties:
+          additionalProperties:
+            type: object
+          description: Config property name to JSON Schema map.
+          type: object
+          x-order: 1
+        required:
+          description: Required config properties.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        type:
+          description: Type defines the data type allowed for the schema.
+          enum:
+          - object
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: AppJSONSchemaType
+            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
+            enumFieldComments:
+            - Object is a dictionary.
+      required:
+      - type
+      type: object

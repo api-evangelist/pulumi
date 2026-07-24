@@ -1,0 +1,1449 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens StackUpdates API
+  version: 1.0.0
+tags:
+- name: StackUpdates
+paths:
+  /api/stacks/{orgName}/{projectName}/{stackName}/destroy/{updateID}/events:
+    get:
+      description: Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included.
+      operationId: GetEngineEvents_destroy
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The update ID
+        in: path
+        name: updateID
+        required: true
+        schema:
+          type: string
+      - description: Continuation token for paginated results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: When true, includes events that have not yet been activated; when false or omitted, only activated events are returned
+        in: query
+        name: include_non_activated
+        schema:
+          type: boolean
+      - description: Filter results to only include events matching these engine event type codes
+        in: query
+        name: type
+        schema:
+          items:
+            format: int64
+            type: integer
+          type: array
+      - description: Filter results to only include events for the specified resource URN
+        in: query
+        name: urn
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUpdateEventsResponse'
+          description: OK
+        '400':
+          description: Invalid continuation token.
+      summary: GetEngineEvents
+      tags:
+      - StackUpdates
+  /api/stacks/{orgName}/{projectName}/{stackName}/update/{updateID}:
+    get:
+      description: Returns the current status and results of a standard (pulumi up) update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter.
+      operationId: GetUpdateStatusForUpdate
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The update ID
+        in: path
+        name: updateID
+        required: true
+        schema:
+          type: string
+      - description: Continuation token for paginated results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUpdateResults'
+          description: OK
+        '400':
+          description: invalid query parameter
+      summary: GetUpdateStatusForUpdate
+      tags:
+      - StackUpdates
+  /api/stacks/{orgName}/{projectName}/{stackName}/updates:
+    get:
+      description: 'Returns the update history for a stack. Each update includes its kind (update, preview, refresh, destroy, import), start and end times, result status, resource changes summary, and resource count. Supports pagination via ''page'' and ''pageSize'' query parameters (page 0 returns all results, pageSize=1 with page=1 returns only the most recent update). The ''output-type'' parameter controls the response format: when unset, returns a legacy format; when set, returns a paginated response.'
+      operationId: GetStackUpdates
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: Controls the response format; when unset returns the legacy format, otherwise returns the paginated format
+        in: query
+        name: output-type
+        schema:
+          type: string
+      - description: Page number for paginated results (0-indexed, where 0 returns all results)
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      - description: Number of results per page (must be >= 1 when page > 0)
+        in: query
+        name: pageSize
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK
+        '400':
+          description: Invalid 'page' value. or Invalid 'pageSize' value.
+      summary: GetStackUpdates
+      tags:
+      - StackUpdates
+  /api/stacks/{orgName}/{projectName}/{stackName}/updates/latest/previews:
+    get:
+      description: Returns all preview operations associated with the latest stack update version. Previews are dry-run operations that show what changes would be made. Supports pagination via page and pageSize parameters (page 0 returns all results). The asc parameter controls sort order (ascending or descending by chronological order).
+      operationId: GetLatestStackPreviews
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: When true, sorts results in ascending chronological order; when false or omitted, sorts in descending order
+        in: query
+        name: asc
+        schema:
+          type: boolean
+      - description: Page number for paginated results (0-indexed, where 0 returns all results)
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      - description: Number of results per page (must be >= 1 when page > 0)
+        in: query
+        name: pageSize
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStackUpdatesResponse'
+          description: OK
+        '400':
+          description: Invalid 'page' value. Must be >= 0. or Invalid 'pageSize' value. Must be >= 1. or Invalid 'pageSize' value. Must be 0 or unset when 'page' is 0.
+      summary: GetLatestStackPreviews
+      tags:
+      - StackUpdates
+components:
+  schemas:
+    AppProgressEvent:
+      description: ProgressEvent is emitted when a potentially long-running engine process is in progress.
+      properties:
+        done:
+          description: True if and only if the process has completed.
+          type: boolean
+          x-order: 6
+        id:
+          description: A unique identifier for the process.
+          type: string
+          x-order: 2
+        message:
+          description: A message accompanying the process.
+          type: string
+          x-order: 3
+        received:
+          description: The number of items completed so far (e.g. bytes received, items installed, etc.)
+          format: int64
+          type: integer
+          x-order: 4
+        total:
+          description: The total number of items that must be completed.
+          format: int64
+          type: integer
+          x-order: 5
+        type:
+          description: The type of process (e.g. plugin download, plugin install).
+          enum:
+          - plugin-download
+          - plugin-install
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppProgressType
+            enumComments: ProgressType is the type of process occurring.
+            enumFieldNames:
+            - PluginDownload
+            - PluginInstall
+            enumFieldComments:
+            - PluginDownload represents a download of a plugin.
+            - PluginInstall represents the installation of a plugin.
+      required:
+      - done
+      - id
+      - message
+      - received
+      - total
+      - type
+      type: object
+    AppStepEventStateMetadata:
+      description: 'StepEventStateMetadata is the more detailed state information for a resource as it relates to
+
+        a step(s) being performed.'
+      properties:
+        custom:
+          description: Custom indicates if the resource is managed by a plugin.
+          type: boolean
+          x-order: 3
+        delete:
+          description: Delete is true when the resource is pending deletion due to a replacement.
+          type: boolean
+          x-order: 4
+        external:
+          description: True if the resource is external to Pulumi (its lifecycle is managed outside of Pulumi).
+          type: boolean
+          x-order: 14
+        hideDiffs:
+          description: HideDiffs is the set of property paths where diffs are not displayed.
+          items:
+            type: string
+          type: array
+          x-order: 15
+        id:
+          description: ID is the resource's unique ID, assigned by the resource provider (or blank if none/uncreated).
+          type: string
+          x-order: 5
+        initErrors:
+          description: InitErrors is the set of errors encountered in the process of initializing resource.
+          items:
+            type: string
+          type: array
+          x-order: 13
+        inputs:
+          additionalProperties:
+            type: object
+          description: 'Inputs contains the resource''s input properties (as specified by the program). Secrets have
+
+            filtered out, and large assets have been replaced by hashes as applicable.'
+          type: object
+          x-order: 10
+        outputs:
+          additionalProperties:
+            type: object
+          description: Outputs contains the resource's complete output state (as returned by the resource provider).
+          type: object
+          x-order: 11
+        parent:
+          description: Parent is an optional parent URN that this resource belongs to.
+          type: string
+          x-order: 6
+        protect:
+          description: Protect is true to "protect" this resource (protected resources cannot be deleted).
+          type: boolean
+          x-order: 7
+        provider:
+          description: Provider is the resource's provider reference
+          type: string
+          x-order: 12
+        retainOnDelete:
+          description: RetainOnDelete is true if the resource is not physically deleted when it is logically deleted.
+          type: boolean
+          x-order: 9
+        taint:
+          description: Taint is set to true when we wish to force it to be replaced upon the next update.
+          type: boolean
+          x-order: 8
+        type:
+          description: The type
+          type: string
+          x-order: 1
+        urn:
+          description: The Pulumi URN
+          type: string
+          x-order: 2
+      required:
+      - id
+      - inputs
+      - outputs
+      - parent
+      - provider
+      - type
+      - urn
+      type: object
+    AppResOutputsEvent:
+      description: ResOutputsEvent is emitted when a resource is finished being provisioned.
+      properties:
+        metadata:
+          $ref: '#/components/schemas/AppStepEventMetadata'
+          description: The metadata
+          x-order: 1
+        planning:
+          description: Whether planning is enabled
+          type: boolean
+          x-order: 2
+      required:
+      - metadata
+      type: object
+    AppStdoutEngineEvent:
+      description: 'StdoutEngineEvent is emitted whenever a generic message is written, for example warnings
+
+        from the pulumi CLI itself. Less common that DiagnosticEvent'
+      properties:
+        color:
+          description: The output color
+          type: string
+          x-order: 2
+        message:
+          description: The message content
+          type: string
+          x-order: 1
+      required:
+      - color
+      - message
+      type: object
+    AppUpdateInfo:
+      description: 'UpdateInfo describes a previous update.
+
+        Should generally mirror backend.UpdateInfo, but we clone it in this package to add
+
+        flexibility in case there is a breaking change in the backend-type.'
+      properties:
+        config:
+          additionalProperties:
+            $ref: '#/components/schemas/AppConfigValue'
+          description: Stack configuration values used during the update, keyed by config key.
+          type: object
+          x-order: 5
+        deployment:
+          description: Raw deployment state snapshot, if requested.
+          type: object
+          x-order: 9
+        endTime:
+          description: Unix epoch timestamp (seconds) when the update completed.
+          format: int64
+          type: integer
+          x-order: 7
+        environment:
+          additionalProperties:
+            type: string
+          description: Environment variables that were set during the update, keyed by variable name.
+          type: object
+          x-order: 4
+        kind:
+          description: Information known before an update is started.
+          enum:
+          - update
+          - preview
+          - refresh
+          - rename
+          - destroy
+          - import
+          - Pupdate
+          - Prefresh
+          - Pdestroy
+          - Pimport
+          - Prename
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppUpdateKind
+            enumComments: 'UpdateKind is an enum for the type of update performed.
+
+              Should generally mirror backend.UpdateKind, but we clone it in this package to add
+
+              flexibility in case there is a breaking change in the backend-type.'
+            enumFieldNames:
+            - Update
+            - Preview
+            - Refresh
+            - Rename
+            - Destroy
+            - Import
+            - PreviewUpdate
+            - PreviewRefresh
+            - PreviewDestroy
+            - PreviewImport
+            - PreviewRename
+            enumFieldComments:
+            - A Pulumi program update.
+            - A preview of an update, without impacting resources.
+            - A refresh operation.
+            - 'A rename of the stack or project name.
+
+              NOTE: Do not remove this type - it is used by Pulumi Cloud code.'
+            - An update which removes all resources.
+            - An update that entails importing a raw checkpoint file.
+            - A preview of an update operation.
+            - A preview of a refresh operation.
+            - A preview of a destroy operation.
+            - A preview of an import operation.
+            - A preview of a rename operation.
+        message:
+          description: User-provided message describing the purpose of the update.
+          type: string
+          x-order: 3
+        resourceChanges:
+          additionalProperties:
+            format: int64
+            type: integer
+          description: 'Count of resource changes by operation type (e.g. ''create'': 5, ''update'': 2, ''delete'': 1).'
+          type: object
+          x-order: 10
+        resourceCount:
+          description: Total number of resources managed by the stack after this update.
+          format: int64
+          type: integer
+          x-order: 11
+        result:
+          description: Information obtained from an update completing.
+          enum:
+          - not-started
+          - in-progress
+          - succeeded
+          - failed
+          type: string
+          x-order: 6
+          x-pulumi-model-property:
+            enumTypeName: AppUpdateResult
+            enumComments: 'UpdateResult is an enum for the result of the update.
+
+              Should generally mirror backend.UpdateResult, but we clone it in this package to add
+
+              flexibility in case there is a breaking change in the backend-type.'
+            enumFieldNames:
+            - NotStarted
+            - InProgress
+            - Succeeded
+            - Failed
+            enumFieldComments:
+            - The update has not started.
+            - The update has not yet completed.
+            - The update completed successfully.
+            - The update has failed.
+        startTime:
+          description: Unix epoch timestamp (seconds) when the update started.
+          format: int64
+          type: integer
+          x-order: 2
+        version:
+          description: The stack version after this update completed.
+          format: int64
+          type: integer
+          x-order: 8
+      required:
+      - config
+      - endTime
+      - environment
+      - kind
+      - message
+      - result
+      - startTime
+      - version
+      type: object
+    AppCancelEvent:
+      description: 'CancelEvent is emitted when the user initiates a cancellation of the update in progress, or
+
+        the update successfully completes.'
+      type: object
+    AppPolicyAnalyzeStackSummaryEvent:
+      description: PolicyAnalyzeStackSummaryEvent is emitted after a call to AnalyzeStack on an analyzer, summarizing the results.
+      properties:
+        failed:
+          description: The names of stack policies that failed (i.e. produced violations).
+          items:
+            type: string
+          type: array
+          x-order: 5
+        passed:
+          description: The names of stack policies that passed (i.e. did not produce any violations).
+          items:
+            type: string
+          type: array
+          x-order: 4
+        policyPackName:
+          description: The name of the policy pack.
+          type: string
+          x-order: 1
+        policyPackVersion:
+          description: The version of the policy pack.
+          type: string
+          x-order: 2
+        policyPackVersionTag:
+          description: The version tag of the policy pack.
+          type: string
+          x-order: 3
+      required:
+      - policyPackName
+      - policyPackVersion
+      - policyPackVersionTag
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AppPolicyRemediateSummaryEvent:
+      description: PolicyRemediateSummaryEvent is emitted after a call to Remediate on an analyzer, summarizing the results.
+      properties:
+        failed:
+          description: The names of resource policies that failed (i.e. produced violations).
+          items:
+            type: string
+          type: array
+          x-order: 6
+        passed:
+          description: The names of resource policies that passed (i.e. did not produce any violations).
+          items:
+            type: string
+          type: array
+          x-order: 5
+        policyPackName:
+          description: The name of the policy pack.
+          type: string
+          x-order: 2
+        policyPackVersion:
+          description: The version of the policy pack.
+          type: string
+          x-order: 3
+        policyPackVersionTag:
+          description: The version tag of the policy pack.
+          type: string
+          x-order: 4
+        resourceUrn:
+          description: The URN of the resource being remediated.
+          type: string
+          x-order: 1
+      required:
+      - policyPackName
+      - policyPackVersion
+      - policyPackVersionTag
+      - resourceUrn
+      type: object
+    AppPreludeEvent:
+      description: PreludeEvent is emitted at the start of an update.
+      properties:
+        config:
+          additionalProperties:
+            type: string
+          description: Config contains the keys and values for the update. Encrypted configuration values may be blinded.
+          type: object
+          x-order: 1
+      required:
+      - config
+      type: object
+    AppPropertyDiff:
+      description: PropertyDiff describes the difference between a single property's old and new values.
+      properties:
+        diffKind:
+          description: Kind is the kind of difference.
+          enum:
+          - add
+          - add-replace
+          - delete
+          - delete-replace
+          - update
+          - update-replace
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppDiffKind
+            enumComments: DiffKind describes the kind of a particular property diff.
+            enumFieldNames:
+            - DiffAdd
+            - DiffAddReplace
+            - DiffDelete
+            - DiffDeleteReplace
+            - DiffUpdate
+            - DiffUpdateReplace
+            enumFieldComments:
+            - DiffAdd indicates that the property was added.
+            - DiffAddReplace indicates that the property was added and requires that the resource be replaced.
+            - DiffDelete indicates that the property was deleted.
+            - DiffDeleteReplace indicates that the property was deleted and requires that the resource be replaced.
+            - DiffUpdate indicates that the property was updated.
+            - DiffUpdateReplace indicates that the property was updated and requires that the resource be replaced.
+        inputDiff:
+          description: InputDiff is true if this is a difference between old and new inputs rather than old state and new inputs.
+          type: boolean
+          x-order: 2
+      required:
+      - diffKind
+      - inputDiff
+      type: object
+    AppUpdateResults:
+      description: 'UpdateResults returns a series of events and the current status of an update. The events can be filtered. See
+
+        API call for more details.'
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value used to indiciate the end of the returned update
+
+            results. Pass it in the next request to obtain subsequent update events.
+
+
+            The same continuation token may be returned if no new update events are available, but the
+
+            update is still in-progress.
+
+
+            A value of nil means that no new updates will be available. Everything has been returned to
+
+            the client and the update has completed.'
+          type: string
+          x-order: 3
+        events:
+          description: List of events
+          items:
+            $ref: '#/components/schemas/AppUpdateEvent'
+          type: array
+          x-order: 2
+        status:
+          description: The current status
+          enum:
+          - not started
+          - requested
+          - running
+          - failed
+          - succeeded
+          - cancelled
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppUpdateStatus
+            enumComments: UpdateStatus is an enum describing the current state during the lifecycle of an update.
+            enumFieldNames:
+            - NotStarted
+            - Requested
+            - Running
+            - Failed
+            - Succeeded
+            - Cancelled
+            enumFieldComments:
+            - StatusNotStarted is returned when the Update has been created but not applied.
+            - StatusRequested is returned when the Update application has been requested but not started.
+            - StatusRunning is returned when the Update is in progress.
+            - StatusFailed is returned when the update has failed.
+            - StatusSucceeded is returned when the update has succeeded.
+            - UpdateStatusCancelled indicates that an update completed due to cancellation.
+      required:
+      - events
+      - status
+      type: object
+    AppDiagnosticEvent:
+      description: 'DiagnosticEvent is emitted whenever a diagnostic message is provided, for example errors from
+
+        a cloud resource provider while trying to create or update a resource.'
+      properties:
+        color:
+          description: The output color
+          type: string
+          x-order: 4
+        ephemeral:
+          description: Whether ephemeral is enabled
+          type: boolean
+          x-order: 7
+        message:
+          description: The message content
+          type: string
+          x-order: 3
+        prefix:
+          description: The prefix
+          type: string
+          x-order: 2
+        severity:
+          description: Severity is one of "info", "info#err", "warning", or "error".
+          type: string
+          x-order: 5
+        streamID:
+          description: The stream identifier
+          format: int64
+          type: integer
+          x-order: 6
+        urn:
+          description: The Pulumi URN
+          type: string
+          x-order: 1
+      required:
+      - color
+      - message
+      - severity
+      type: object
+    AppPolicyEvent:
+      description: PolicyEvent is emitted whenever there is Policy violation.
+      properties:
+        color:
+          description: The output color
+          type: string
+          x-order: 3
+        enforcementLevel:
+          description: EnforcementLevel is one of "warning", "mandatory", "remediate", or "none".
+          type: string
+          x-order: 8
+        message:
+          description: The message content
+          type: string
+          x-order: 2
+        policyName:
+          description: The policy name
+          type: string
+          x-order: 4
+        policyPackName:
+          description: The policy pack name
+          type: string
+          x-order: 5
+        policyPackVersion:
+          description: The policy pack version
+          type: string
+          x-order: 6
+        policyPackVersionTag:
+          description: The policy pack version tag
+          type: string
+          x-order: 7
+        resourceUrn:
+          description: The resource urn
+          type: string
+          x-order: 1
+        severity:
+          description: 'Severity is one of "low", "medium", "high", or "critical".
+
+            An empty string is omitted and represents an unspecified severity.'
+          type: string
+          x-order: 9
+      required:
+      - color
+      - enforcementLevel
+      - message
+      - policyName
+      - policyPackName
+      - policyPackVersion
+      - policyPackVersionTag
+      type: object
+    AppPolicyAnalyzeSummaryEvent:
+      description: PolicyAnalyzeSummaryEvent is emitted after a call to Analyze on an analyzer, summarizing the results.
+      properties:
+        failed:
+          description: The names of resource policies that failed (i.e. produced violations).
+          items:
+            type: string
+          type: array
+          x-order: 6
+        passed:
+          description: The names of resource policies that passed (i.e. did not produce any violations).
+          items:
+            type: string
+          type: array
+          x-order: 5
+        policyPackName:
+          description: The name of the policy pack.
+          type: string
+          x-order: 2
+        policyPackVersion:
+          description: The version of the policy pack.
+          type: string
+          x-order: 3
+        policyPackVersionTag:
+          description: The version tag of the policy pack.
+          type: string
+          x-order: 4
+        resourceUrn:
+          description: The URN of the resource being analyzed.
+          type: string
+          x-order: 1
+      required:
+      - policyPackName
+      - policyPackVersion
+      - policyPackVersionTag
+      - resourceUrn
+      type: object
+    AppConfigValue:
+      description: ConfigValue describes a single (possibly secret) configuration value.
+      properties:
+        object:
+          description: Object is true if this value is a JSON encoded object.
+          type: boolean
+          x-order: 3
+        secret:
+          description: Secret is true if this value is a secret and false otherwise.
+          type: boolean
+          x-order: 2
+        string:
+          description: 'When Object is false: String is either the plaintext value (for non-secrets) or the base64-encoded ciphertext
+
+            (for secrets). When Object is true: String is a JSON encoded object. If both Object and Secret are true, then the
+
+            object contains at least one secure value. Secure values in an object are encoded as `{"secure":"ciphertext"}`
+
+            where ciphertext is the base64-encoded ciphertext.'
+          type: string
+          x-order: 1
+      required:
+      - object
+      - secret
+      - string
+      type: object
+    AppResOpFailedEvent:
+      description: 'ResOpFailedEvent is emitted when a resource operation fails. Typically a DiagnosticEvent is
+
+        emitted before this event, indicating the root cause of the error.'
+      properties:
+        metadata:
+          $ref: '#/components/schemas/AppStepEventMetadata'
+          description: The metadata
+          x-order: 1
+        status:
+          description: The current status
+          format: int64
+          type: integer
+          x-order: 2
+        steps:
+          description: The steps
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - metadata
+      - status
+      - steps
+      type: object
+    AppSummaryEvent:
+      description: SummaryEvent is emitted at the end of an update, with a summary of the changes made.
+      properties:
+        PolicyPacks:
+          additionalProperties:
+            type: string
+          description: Policy Packs run during the update, as a map from policy pack name to version. For newer clients, the value is the version tag prefixed with `v`; for older clients it is the raw version.
+          type: object
+          x-order: 4
+        durationSeconds:
+          description: Duration is the number of seconds the update was executing.
+          format: int64
+          type: integer
+          x-order: 2
+        isPreview:
+          description: IsPreview indicates whether this is a preview or an update.
+          type: boolean
+          x-order: 5
+        maybeCorrupt:
+          description: MaybeCorrupt is set if one or more of the resources is in an invalid state.
+          type: boolean
+          x-order: 1
+        resourceChanges:
+          additionalProperties:
+            format: int64
+            type: integer
+          description: ResourceChanges contains the count for resource change by type.
+          type: object
+          x-order: 3
+      required:
+      - PolicyPacks
+      - durationSeconds
+      - isPreview
+      - maybeCorrupt
+      - resourceChanges
+      type: object
+    AppUpdateEvent:
+      description: UpdateEvent describes an event that happened on the Pulumi Cloud while processing an update.
+      properties:
+        fields:
+          additionalProperties:
+            type: object
+          description: The fields
+          type: object
+          x-order: 3
+        index:
+          description: The index
+          type: string
+          x-order: 1
+        kind:
+          description: The kind
+          enum:
+          - stdout
+          - stderr
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: AppUpdateEventKind
+            enumComments: UpdateEventKind is an enum for the type of update events.
+            enumFieldNames:
+            - StdoutEvent
+            - StderrEvent
+            enumFieldComments:
+            - StdoutEvent is used to mark the event being emitted to STDOUT.
+            - StderrEvent is used to mark the event being emitted to STDERR.
+      required:
+      - fields
+      - index
+      - kind
+      type: object
+    GitHubCommitInfo:
+      description: 'GitHubCommitInfo contains summary information about a GitHub commit.
+
+        We try to provide as much information as possible, so in some situations only
+
+        a subset of the fields are present.
+
+        https://developer.github.com/v3/git/commits/#get-a-commit'
+      properties:
+        author:
+          $ref: '#/components/schemas/UserInfo'
+          description: The author of the commit
+          x-order: 5
+        committer:
+          $ref: '#/components/schemas/UserInfo'
+          description: The committer of the commit
+          x-order: 6
+        message:
+          description: The commit message
+          type: string
+          x-order: 4
+        sha:
+          description: The commit SHA hash
+          type: string
+          x-order: 2
+        slug:
+          description: <user>/<repo>
+          type: string
+          x-order: 1
+        url:
+          description: The URL to the commit on GitHub
+          type: string
+          x-order: 3
+      type: object
+    EngineEvent:
+      description: EngineEvent expands apitype.EngineEvent, adding a little more metadata.
+      properties:
+        cancelEvent:
+          $ref: '#/components/schemas/AppCancelEvent'
+          description: Present when `type` is `cancelEvent`.
+          x-order: 3
+        diagnosticEvent:
+          $ref: '#/components/schemas/AppDiagnosticEvent'
+          description: Present when `type` is `diagnosticEvent`.
+          x-order: 5
+        errorEvent:
+          $ref: '#/components/schemas/AppErrorEvent'
+          description: Present when `type` is `errorEvent`.
+          x-order: 19
+        policyAnalyzeStackSummaryEvent:
+          $ref: '#/components/schemas/AppPolicyAnalyzeStackSummaryEvent'
+          description: Present when `type` is `policyAnalyzeStackSummaryEvent`.
+          x-order: 16
+        policyAnalyzeSummaryEvent:
+          $ref: '#/components/schemas/AppPolicyAnalyzeSummaryEvent'
+          description: Present when `type` is `policyAnalyzeSummaryEvent`.
+          x-order: 14
+        policyEvent:
+          $ref: '#/components/schemas/AppPolicyEvent'
+          description: Present when `type` is `policyEvent`.
+          x-order: 11
+        policyLoadEvent:
+          $ref: '#/components/schemas/AppPolicyLoadEvent'
+          description: Present when `type` is `policyLoadEvent`.
+          x-order: 13
+        policyRemediateSummaryEvent:
+          $ref: '#/components/schemas/AppPolicyRemediateSummaryEvent'
+          description: Present when `type` is `policyRemediateSummaryEvent`.
+          x-order: 15
+        policyRemediationEvent:
+          $ref: '#/components/schemas/AppPolicyRemediationEvent'
+          description: Present when `type` is `policyRemediationEvent`.
+          x-order: 12
+        preludeEvent:
+          $ref: '#/components/schemas/AppPreludeEvent'
+          description: Present when `type` is `preludeEvent`.
+          x-order: 6
+        progressEvent:
+          $ref: '#/components/schemas/AppProgressEvent'
+          description: Present when `type` is `progressEvent`.
+          x-order: 18
+        resOpFailedEvent:
+          $ref: '#/components/schemas/AppResOpFailedEvent'
+          description: Present when `type` is `resOpFailedEvent`.
+          x-order: 10
+        resOutputsEvent:
+          $ref: '#/components/schemas/AppResOutputsEvent'
+          description: Present when `type` is `resOutputsEvent`.
+          x-order: 9
+        resourcePreEvent:
+          $ref: '#/components/schemas/AppResourcePreEvent'
+          description: Present when `type` is `resourcePreEvent`.
+          x-order: 8
+        startDebuggingEvent:
+          $ref: '#/components/schemas/AppStartDebuggingEvent'
+          description: Present when `type` is `startDebuggingEvent`.
+          x-order: 17
+        stdoutEvent:
+          $ref: '#/components/schemas/AppStdoutEngineEvent'
+          description: Present when `type` is `stdoutEvent`.
+          x-order: 4
+        summaryEvent:
+          $ref: '#/components/schemas/AppSummaryEvent'
+          description: Present when `type` is `summaryEvent`.
+          x-order: 7
+        timestamp:
+          description: Timestamp of the event (seconds).
+          format: int64
+          type: integer
+          x-order: 1
+        type:
+          description: 'Type describes which payload object is associated with the event, such that in JavaScript
+
+            `event[event.type]` is never undefined/null.'
+          type: string
+          x-order: 2
+      required:
+      - timestamp
+      - type
+      type: object
+    AppPolicyRemediationEvent:
+      description: PolicyRemediationEvent is emitted whenever there is Policy transformation.
+      properties:
+        after:
+          additionalProperties:
+            type: object
+          description: Map of after
+          type: object
+          x-order: 8
+        before:
+          additionalProperties:
+            type: object
+          description: Map of before
+          type: object
+          x-order: 7
+        color:
+          description: The output color
+          type: string
+          x-order: 2
+        policyName:
+          description: The policy name
+          type: string
+          x-order: 3
+        policyPackName:
+          description: The policy pack name
+          type: string
+          x-order: 4
+        policyPackVersion:
+          description: The policy pack version
+          type: string
+          x-order: 5
+        policyPackVersionTag:
+          description: The policy pack version tag
+          type: string
+          x-order: 6
+        resourceUrn:
+          description: The resource urn
+          type: string
+          x-order: 1
+      required:
+      - color
+      - policyName
+      - policyPackName
+      - policyPackVersion
+      - policyPackVersionTag
+      type: object
+    AppStepEventMetadata:
+      description: 'StepEventMetadata describes a "step" within the Pulumi engine, which is any concrete action
+
+        to migrate a set of cloud resources from one state to another.'
+      properties:
+        detailedDiff:
+          additionalProperties:
+            $ref: '#/components/schemas/AppPropertyDiff'
+          description: The diff for this step as a map of property paths to difference types. An empty map indicates no detailed property-level diff is available; if this field is omitted or null, the diff was not computed.
+          type: object
+          x-order: 8
+        diffs:
+          description: Keys that changed with this step.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        keys:
+          description: Keys causing a replacement (only applicable for `create` and `replace` Ops).
+          items:
+            type: string
+          type: array
+          x-order: 6
+        logical:
+          description: Logical is set if the step is a logical operation in the program.
+          type: boolean
+          x-order: 9
+        new:
+          $ref: '#/components/schemas/AppStepEventStateMetadata'
+          description: New is the state of the resource after performing the step.
+          x-order: 5
+        old:
+          $ref: '#/components/schemas/AppStepEventStateMetadata'
+          description: Old is the state of the resource before performing the step.
+          x-order: 4
+        op:
+          description: Op is the operation being performed.
+          enum:
+          - same
+          - create
+          - update
+          - delete
+          - replace
+          - create-replacement
+          - delete-replaced
+          - read
+          - read-replacement
+          - refresh
+          - discard
+          - discard-replaced
+          - remove-pending-replace
+          - import
+          - import-replacement
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppOpType
+            enumComments: 'OpType describes the type of operation performed to a resource managed by Pulumi.
+
+              Should generally mirror deploy.StepOp, but we clone it in this package to add
+
+              flexibility in case there is a breaking change in the backend-type.'
+            enumFieldNames:
+            - OpSame
+            - OpCreate
+            - OpUpdate
+            - OpDelete
+            - OpReplace
+            - OpCreateReplacement
+            - OpDeleteReplaced
+            - OpRead
+            - OpReadReplacement
+            - OpRefresh
+            - OpReadDiscard
+            - OpDiscardReplaced
+            - OpRemovePendingReplace
+            - OpImport
+            - OpImportReplacement
+            enumFieldComments:
+            - OpSame indicates no change was made.
+            - OpCreate indicates a new resource was created.
+            - OpUpdate indicates an existing resource was updated.
+            - OpDelete indicates an existing resource was deleted.
+            - OpReplace indicates an existing resource was replaced with a new one.
+            - OpCreateReplacement indicates a new resource was created for a replacement.
+            - OpDeleteReplaced indicates an existing resource was deleted after replacement.
+            - OpRead indicates reading an existing resource.
+            - OpReadReplacement indicates reading an existing resource for a replacement.
+            - OpRefresh indicates refreshing an existing resource.
+            - OpReadDiscard indicates removing a resource that was read.
+            - OpDiscardReplaced indicates discarding a read resource that was replaced.
+            - OpRemovePendingReplace indicates removing a pending replace resource.
+            - OpImport indicates importing an existing resource.
+            - OpImportReplacement indicates replacement of an existing resource with an imported resource.
+        provider:
+          description: Provider actually performing the step.
+          type: string
+          x-order: 10
+        type:
+          description: The type
+          type: string
+          x-order: 3
+        urn:
+          description: The Pulumi URN
+          type: string
+          x-order: 2
+      required:
+      - detailedDiff
+      - new
+      - old
+      - op
+      - provider
+      - type
+      - urn
+      type: object
+    AppErrorEvent:
+      description: 'ErrorEvent is emitted when an internal error occurs in the engine. This is not meant
+
+        to be used for user facing errors, but rather for internal errors, where an event
+
+        can help with debugging.'
+      properties:
+        error:
+          description: Error is the error message.
+          type: string
+          x-order: 1
+      required:
+      - error
+      type: object
+    GetStackUpdatesResponse:
+      description: GetStackUpdatesResponse is the Service-centric view of a Program's update history.
+      properties:
+        itemsPerPage:
+          description: The number of items per page
+          format: int64
+          type: integer
+          x-order: 2
+        total:
+          description: The total number of updates
+          format: int64
+          type: integer
+          x-order: 3
+        updates:
+          description: The list of stack updates
+          items:
+            $ref: '#/components/schemas/UpdateInfo'
+          type: array
+          x-order: 1
+      required:
+      - itemsPerPage
+      - total
+      - updates
+      type: object
+    AppPolicyPackMetadata:
+      description: PolicyPackMetadata is the metadata of a Policy Pack.
+      properties:
+        config:
+          additionalProperties:
+            type: object
+          description: 'The configuration that is to be passed to the Policy Pack. This
+
+            map ties Policies with their configuration.'
+          type: object
+          x-order: 5
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        environments:
+          description: References to ESC environments to use for this policy pack.
+          items:
+            type: string
+          type: array
+          x-order: 6
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        version:
+          description: The version number
+          format: int64
+          type: integer
+          x-order: 3
+        versionTag:
+          description: The version tag
+          type: string
+          x-order: 4
+      required:
+      - displayName
+      - name
+      - version
+      - versionTag
+      type: object
+    GetUpdateEventsResponse:
+      description: GetUpdateEventsResponse contains the engine events for am update.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value the client can send to fetch more recent
+
+            events if the update is still in progress. Will be nil once all events have
+
+            been returned and the update is complete.'
+          type: string
+          x-order: 2
+        events:
+          description: 'Events are returned sorted by their internal sequence number (not exposed to the API).
+
+            So the last Event in the slice is the most recent event which was stored in the database.
+
+            (Should sort identical to timestamp, but may not if we support parallel writes.)'
+          items:
+            $ref: '#/components/schemas/EngineEvent'
+          type: array
+          x-order: 1
+      required:
+      - continuationToken
+      - events
+      type: object
+    AppPolicyLoadEvent:
+      description: PolicyLoadEvent is emitted when a policy starts loading
+      type: object
+    AppResourcePreEvent:
+      description: ResourcePreEvent is emitted before a resource is modified.
+      properties:
+        metadata:
+          $ref: '#/components/schemas/AppStepEventMetadata'
+          description: The metadata
+          x-order: 1
+        planning:
+          description: Whether planning is enabled
+          type: boolean
+          x-order: 2
+      required:
+      - metadata
+      type: object
+    AppStartDebuggingEvent:
+      description: StartDebuggingEvent is emitted to start a debugging session.
+      properties:
+        config:
+          additionalProperties:
+            type: object
+          description: The configuration
+          type: object
+          x-order: 1
+      type: object
+    UpdateInfo:
+      description: UpdateInfo is an extension to the simpler pulumi CLI's UpdateInfo object.
+      properties:
+        githubCommitInfo:
+          $ref: '#/components/schemas/GitHubCommitInfo'
+          description: 'If the update''s metadata indicates the update environment was from a GitHub based repo
+
+            we try to lookup the commit that was HEAD at the time of the update.
+
+
+            May not be set depending on which API is used to obtain the UpdateInfo object.'
+          x-order: 3
+        info:
+          $ref: '#/components/schemas/AppUpdateInfo'
+          description: The underlying update information from the Pulumi CLI.
+          x-order: 1
+        latestVersion:
+          description: LatestVersion of the stack in general. i.e. the latest when Version == LatestVersion.
+          format: int64
+          type: integer
+          x-order: 5
+        policyPacks:
+          description: The Policy Packs that were required for this update.
+          items:
+            $ref: '#/components/schemas/AppPolicyPackMetadata'
+          type: array
+          x-order: 7
+        requestedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user who requested the update.
+          x-order: 6
+        requestedByToken:
+          description: The access token used to request the update, if applicable.
+          type: string
+          x-order: 8
+        updateID:
+          description: UpdateID is the underlying Update's ID on the PPC.
+          type: string
+          x-order: 2
+        version:
+          description: Version of the stack that this UpdateInfo describe.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - info
+      - latestVersion
+      - requestedBy
+      - updateID
+      - version
+      type: object

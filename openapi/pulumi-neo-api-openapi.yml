@@ -1,0 +1,815 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Neo API
+  version: 1.0.0
+tags:
+- name: Neo
+paths:
+  /api/preview/agents/{orgName}/tasks:
+    get:
+      description: Lists all agent tasks for the specified organization. Supports pagination via continuationToken with a configurable pageSize (1-1000, default 100). Returns task metadata including ID, name, status, and creation timestamp.
+      operationId: ListTasks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Number of results per page
+        in: query
+        name: pageSize
+        schema:
+          format: int64
+          type: integer
+      - description: Field to sort the results by. Defaults to lastEvent.
+        in: query
+        name: sortBy
+        schema:
+          enum:
+          - lastEvent
+          - created
+          - status
+          - name
+          type: string
+          x-pulumi-model-property:
+            enumComments: The field used to sort Neo agent tasks in list results.
+            enumFieldComments:
+            - Sort by the time of the most recent event on the task.
+            - Sort by when the task was created.
+            - Sort by task status, with running ordered before idle when ascending.
+            - Sort by task name.
+            enumTypeName: AgentTaskSortField
+      - description: Direction to sort the results in. Defaults to desc.
+        in: query
+        name: sortDirection
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          x-pulumi-model-property:
+            enumComments: The direction used when sorting Neo agent tasks.
+            enumFieldComments:
+            - Sort in ascending order.
+            - Sort in descending order.
+            enumTypeName: AgentTaskSortDirection
+      - description: Task type to filter by
+        in: query
+        name: taskType
+        schema:
+          enum:
+          - sync
+          - async
+          type: string
+          x-pulumi-model-property:
+            enumComments: The origin category for a Neo agent task.
+            enumFieldComments:
+            - A task started directly by a user in an interactive flow.
+            - A task started asynchronously by background signal infrastructure.
+            enumTypeName: AgentTaskType
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentTasksResponse'
+          description: OK
+        '400':
+          description: pageSize must be between 1 and 1000
+      summary: ListTasks
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Creates a new agent task for the specified organization. The request must include a prompt (the user event message) that initiates the task. Set the 'permissionMode' field in the request body to restrict the agent to read-only operations. Returns the created task details including task ID, name, status, and timestamp.
+      operationId: CreateTasks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentTaskRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAgentTaskResponse'
+          description: Created
+        '400':
+          description: prompt is required
+      summary: CreateTasks
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/agents/{orgName}/tasks/{taskID}:
+    get:
+      description: Retrieves metadata for a specific agent task, including its ID, name, status, creation timestamp, and associated entities. Returns 404 if the task does not exist.
+      operationId: GetTask
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent task identifier
+        in: path
+        name: taskID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentTask'
+          description: OK
+        '404':
+          description: task
+      summary: GetTask
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+    patch:
+      description: Updates the settings or metadata of an agent task. Only the user who created the task can modify it.
+      operationId: UpdateTask
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent task identifier
+        in: path
+        name: taskID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentTask'
+          description: OK
+        '403':
+          description: feature not enabled for organization
+        '404':
+          description: task not found or not owned by user
+      summary: UpdateTask
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+    post:
+      description: Sends a response to an ongoing agent task. Supported event types include user_message, user_confirmation, and user_cancel. Returns 409 if the task already has a pending request that has not completed.
+      operationId: RespondToTask
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent task identifier
+        in: path
+        name: taskID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentRespondToTaskRequest'
+        x-originalParamName: body
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: event field is required
+        '404':
+          description: task
+        '409':
+          description: cannot respond while a request is still ongoing
+      summary: RespondToTask
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/agents/{orgName}/tasks/{taskID}/events:
+    get:
+      description: Retrieves the event stream for a specific agent task. Events include agent messages, tool calls, status changes, and user interactions. Supports pagination via continuationToken with a configurable pageSize (1-1000).
+      operationId: GetTaskEvents
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent task identifier
+        in: path
+        name: taskID
+        required: true
+        schema:
+          type: string
+      - description: Token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: Number of results per page
+        in: query
+        name: pageSize
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentTaskEventsResponse'
+          description: OK
+        '400':
+          description: pageSize must be between 1 and 1000
+        '404':
+          description: task
+      summary: GetTaskEvents
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/preview/agents/{orgName}/tasks/{taskID}/events/stream:
+    get:
+      description: Streams events for a specific agent task as Server-Sent Events. Each SSE data frame contains a JSON-encoded AgentConsoleEvent. The stream delivers existing events immediately, then keeps the connection open to deliver new events in real time until the task completes.
+      operationId: StreamTaskEvents
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent task identifier
+        in: path
+        name: taskID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/AgentConsoleEvent'
+          description: OK
+        '404':
+          description: task
+      summary: StreamTaskEvents
+      tags:
+      - Neo
+      x-pulumi-route-property:
+        Visibility: Preview
+components:
+  schemas:
+    AgentEntityDiff:
+      description: Represents agent entity diff.
+      properties:
+        add:
+          description: 'Entities to add to the Agent''s context.
+
+            Entities must be valid, and will be automatically deleted if they are invalid.'
+          items:
+            $ref: '#/components/schemas/AgentEntity'
+          type: array
+          x-order: 1
+        remove:
+          description: Entities to remove from the Agent's context.
+          items:
+            $ref: '#/components/schemas/AgentEntity'
+          type: array
+          x-order: 2
+      type: object
+    ListAgentTasksResponse:
+      description: Response containing a paginated list of agent tasks.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If null, there are no more results available.'
+          type: string
+          x-order: 2
+        tasks:
+          description: Tasks contains the list of tasks for this page.
+          items:
+            $ref: '#/components/schemas/AgentTask'
+          type: array
+          x-order: 1
+      required:
+      - tasks
+      type: object
+    AgentUserEvent:
+      description: Represents an agent user event.
+      discriminator:
+        mapping:
+          exec_tool_call: '#/components/schemas/AgentUserEventExecToolCall'
+          tool_result: '#/components/schemas/AgentUserEventToolResult'
+          user_cancel: '#/components/schemas/AgentUserEventCancel'
+          user_confirmation: '#/components/schemas/AgentUserEventConfirmation'
+          user_message: '#/components/schemas/AgentUserEventMessage'
+        propertyName: type
+      properties:
+        entity_diff:
+          $ref: '#/components/schemas/AgentEntityDiff'
+          description: Entities to add or remove from the agent.
+          x-order: 1
+        timestamp:
+          description: When the event occurred.
+          format: date-time
+          type: string
+        type:
+          type: string
+      required:
+      - timestamp
+      - type
+      type: object
+    UpdateTaskRequest:
+      description: Request to update a task.
+      properties:
+        approvalMode:
+          description: 'Approval mode for this task. Null means no change. Valid values: ''manual'', ''auto'', ''balanced''.'
+          enum:
+          - manual
+          - auto
+          - balanced
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: NeoApprovalMode
+            enumComments: NeoApprovalMode represents the default approval mode for Neo AI agent tasks in an organization
+        isShared:
+          description: Whether to share the task with other org members. Null means no change.
+          type: boolean
+          x-order: 2
+        name:
+          description: A new display name for the task. Null means no change. Must be between 1 and 255 characters after trimming whitespace.
+          type: string
+          x-order: 1
+        permissionMode:
+          description: The permission scope for the task. Null means no change.
+          enum:
+          - default
+          - read-only
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: NeoPermissionMode
+            enumComments: Permission scope for a Neo agent task. Controls the level of access the agent has when acting on behalf of the user.
+            enumFieldNames:
+            - Default
+            - ReadOnly
+      type: object
+    ListAgentTaskEventsResponse:
+      description: 'TODO: add polling support (via lastSeen)'
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If null, there are no more results available.'
+          type: string
+          x-order: 2
+        events:
+          description: Events contains the list of events for this page.
+          items:
+            $ref: '#/components/schemas/AgentConsoleEvent'
+          type: array
+          x-order: 1
+      required:
+      - events
+      type: object
+    AgentConsoleEvent:
+      description: A console event in an agent task conversation, either a user input or an agent response.
+      discriminator:
+        mapping:
+          agentResponse: '#/components/schemas/AgentConsoleEventAgentResponse'
+          userInput: '#/components/schemas/AgentConsoleEventUserInput'
+        propertyName: type
+      properties:
+        id:
+          description: The UUID of the event
+          type: string
+          x-order: 1
+        isSynthetic:
+          description: True when the event was synthesized by the backend rather than submitted directly by the user or agent runtime.
+          type: boolean
+          x-order: 2
+        type:
+          type: string
+      required:
+      - id
+      - isSynthetic
+      - type
+      type: object
+    AgentUserEventMessage:
+      allOf:
+      - $ref: '#/components/schemas/AgentUserEvent'
+      - description: Represents an agent user event.
+        properties:
+          commands:
+            additionalProperties:
+              $ref: '#/components/schemas/AgentSlashCommand'
+            description: Slash Commands the user selected when creating their message.
+            type: object
+            x-order: 2
+          content:
+            description: The exact natural language instruction from the user.
+            type: string
+            x-order: 1
+        required:
+        - content
+        type: object
+    AgentSlashCommand:
+      description: An agent slash command.
+      properties:
+        builtIn:
+          description: Whether this is a built-in system command (true) or user-created (false).
+          type: boolean
+          x-order: 4
+        description:
+          description: Human-readable description shown to users in the command palette.
+          type: string
+          x-order: 3
+        modifiedAt:
+          description: When the command was last modified, in ISO 8601 format.
+          format: date-time
+          type: string
+          x-order: 5
+        name:
+          description: The slash command name (e.g. '/fix', '/explain'). Used to invoke the command.
+          type: string
+          x-order: 1
+        prompt:
+          description: The system prompt text sent to the AI when this command is invoked.
+          type: string
+          x-order: 2
+        tag:
+          description: Version tag for optimistic concurrency control.
+          type: string
+          x-order: 6
+      required:
+      - builtIn
+      - description
+      - modifiedAt
+      - name
+      - prompt
+      - tag
+      type: object
+    AgentEntity:
+      description: Represents agent entity.
+      discriminator:
+        mapping:
+          policy_issue: '#/components/schemas/AgentEntityPolicyIssue'
+          pull_request: '#/components/schemas/AgentEntityPR'
+          repository: '#/components/schemas/AgentEntityRepository'
+          stack: '#/components/schemas/AgentEntityStack'
+        propertyName: type
+      properties:
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    AgentRespondToTaskRequest:
+      description: The API payload for users responding to an existing agent task.
+      properties:
+        event:
+          $ref: '#/components/schemas/AgentUserEvent'
+          description: The event
+          x-order: 1
+      type: object
+    CreateAgentTaskResponse:
+      description: Response body for creating an agent task.
+      properties:
+        taskId:
+          description: The task identifier
+          type: string
+          x-order: 1
+      required:
+      - taskId
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AgentTask:
+      description: A Pulumi Copilot agent task representing a conversation and its associated context.
+      properties:
+        approvalMode:
+          description: 'Approval mode for this task. Valid values: ''manual'', ''auto'', ''balanced''.'
+          enum:
+          - manual
+          - auto
+          - balanced
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: NeoApprovalMode
+            enumComments: NeoApprovalMode represents the default approval mode for Neo AI agent tasks in an organization
+        asyncTriggerType:
+          description: The async trigger source for this task. Null for sync tasks.
+          enum:
+          - scheduled
+          - external_signal
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: AgentAsyncTriggerType
+            enumComments: The async trigger source for a Neo agent task.
+            enumFieldNames:
+            - Scheduled
+            - ExternalSignal
+            enumFieldComments:
+            - The task was started by a cron-driven scheduled signal.
+            - The task was started in reaction to an external signal payload.
+        contextUsedTokens:
+          description: Total input tokens consumed across all model invocations for this task. Approximate context window usage.
+          format: int32
+          type: integer
+          x-order: 16
+        contextWindowTokens:
+          description: Maximum context window size in tokens for the primary model used by this task.
+          format: int32
+          type: integer
+          x-order: 17
+        createdAt:
+          description: When the task was created, in ISO 8601 format.
+          format: date-time
+          type: string
+          x-order: 6
+        createdBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: Information about the user who created this task.
+          x-order: 12
+        entities:
+          description: Pulumi entities (stacks, projects, etc.) that provide context for the agent.
+          items:
+            $ref: '#/components/schemas/AgentEntity'
+          type: array
+          x-order: 8
+        id:
+          description: Unique identifier for the task.
+          type: string
+          x-order: 1
+        isShared:
+          description: Whether this task is shared with other org members.
+          type: boolean
+          x-order: 10
+        lastHeartbeat:
+          description: When the task runtime last reported a heartbeat. Null if the runtime has never checked in.
+          format: date-time
+          type: string
+          x-order: 15
+        name:
+          description: Display name for the task, typically auto-generated from the initial user message.
+          type: string
+          x-order: 2
+        permissionMode:
+          description: The permission scope for the task.
+          enum:
+          - default
+          - read-only
+          type: string
+          x-order: 13
+          x-pulumi-model-property:
+            enumTypeName: NeoPermissionMode
+            enumComments: Permission scope for a Neo agent task. Controls the level of access the agent has when acting on behalf of the user.
+            enumFieldNames:
+            - Default
+            - ReadOnly
+        planMode:
+          description: Whether the task is in plan mode. Set based on the first user message.
+          type: boolean
+          x-order: 9
+        runtimePhase:
+          description: The current runtime phase for this task. Null until the runtime checks in.
+          enum:
+          - booting
+          - ready
+          - running
+          type: string
+          x-order: 14
+          x-pulumi-model-property:
+            enumTypeName: AgentTaskRuntimePhase
+            enumComments: Runtime lifecycle phase for a Neo agent task runtime.
+        sharedAt:
+          description: When the task was first shared. Null if never shared.
+          format: date-time
+          type: string
+          x-order: 11
+        source:
+          description: 'The origin that triggered this task. Valid values: ''console'', ''cli'', ''slack'', ''schedule'', ''api'', ''github''.'
+          enum:
+          - api
+          - console
+          - cli
+          - slack
+          - schedule
+          - github
+          type: string
+          x-order: 20
+          x-pulumi-model-property:
+            enumTypeName: AgentTaskSource
+            enumComments: Identifies the origin that triggered a Neo agent task.
+            enumFieldComments:
+            - Task created via the REST API without a more specific origin.
+            - Task created from the Pulumi Cloud web console.
+            - Task created from the Pulumi CLI.
+            - Task created from the Slack integration.
+            - Task created by a scheduled automation.
+            - Task triggered from a GitHub integration.
+        sourceAutomationID:
+          description: The automation that spawned this task, if the task was created by an automation run.
+          type: string
+          x-order: 19
+        status:
+          description: Current execution status of the task.
+          enum:
+          - running
+          - idle
+          type: string
+          x-order: 5
+          x-pulumi-model-property:
+            enumTypeName: AgentTaskStatus
+            enumComments: 'Execution status of an agent task. Valid values: ''running'', ''idle''.'
+        taskType:
+          description: Whether the task was started synchronously by a user or asynchronously by background automation.
+          enum:
+          - sync
+          - async
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: AgentTaskType
+            enumComments: The origin category for a Neo agent task.
+            enumFieldComments:
+            - A task started directly by a user in an interactive flow.
+            - A task started asynchronously by background signal infrastructure.
+        toolExecutionMode:
+          description: 'Where tools are executed for this task. Valid values: ''cloud'', ''cli''.'
+          enum:
+          - cloud
+          - cli
+          type: string
+          x-order: 18
+          x-pulumi-model-property:
+            enumTypeName: ToolExecutionMode
+            enumComments: Where tools are executed for an agent task.
+      required:
+      - approvalMode
+      - createdAt
+      - createdBy
+      - entities
+      - id
+      - isShared
+      - name
+      - planMode
+      - status
+      - taskType
+      type: object
+    AgentTaskIntegrationRef:
+      description: A reference to an integration enabled for an agent task. Structured as an object (rather than a bare string) so additional fields like instance name or scope can be added later without breaking the wire format.
+      properties:
+        id:
+          description: The catalog integration ID (e.g. 'honeycomb', 'datadog').
+          type: string
+          x-order: 1
+      required:
+      - id
+      type: object
+    CreateAgentTaskRequest:
+      description: Create a new task by sending the first event in the conversation.
+      properties:
+        approvalMode:
+          description: Optional approval mode override for this task. If omitted, org default is used.
+          enum:
+          - manual
+          - auto
+          - balanced
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: NeoApprovalMode
+            enumComments: NeoApprovalMode represents the default approval mode for Neo AI agent tasks in an organization
+        enabledIntegrations:
+          description: 'Optional list of integrations to enable for this task. Semantics: omitted/null → inherit all org-enabled integrations; empty list → explicit opt-out (no integration credentials for this task); populated list → whitelist of specific integrations by ID. Modeled as an object array rather than a bare string array so multi-instance support (instance_name, scope, etc.) can be added later without a wire break.'
+          items:
+            $ref: '#/components/schemas/AgentTaskIntegrationRef'
+          type: array
+          x-order: 6
+        message:
+          $ref: '#/components/schemas/AgentUserEventMessage'
+          description: The message content
+          x-order: 1
+        permissionMode:
+          description: Controls the permission scope for the task. When omitted, defaults to 'default' (the agent uses the creating user's full permissions).
+          enum:
+          - default
+          - read-only
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: NeoPermissionMode
+            enumComments: Permission scope for a Neo agent task. Controls the level of access the agent has when acting on behalf of the user.
+            enumFieldNames:
+            - Default
+            - ReadOnly
+        planMode:
+          description: Whether to enable plan mode for this task.
+          type: boolean
+          x-order: 3
+        source:
+          description: The origin that triggered this task. Defaults to 'api' if omitted.
+          enum:
+          - api
+          - console
+          - cli
+          - slack
+          - schedule
+          - github
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: AgentTaskSource
+            enumComments: Identifies the origin that triggered a Neo agent task.
+            enumFieldComments:
+            - Task created via the REST API without a more specific origin.
+            - Task created from the Pulumi Cloud web console.
+            - Task created from the Pulumi CLI.
+            - Task created from the Slack integration.
+            - Task created by a scheduled automation.
+            - Task triggered from a GitHub integration.
+        toolExecutionMode:
+          description: Where tools should be executed. Defaults to 'cloud' if omitted.
+          enum:
+          - cloud
+          - cli
+          type: string
+          x-order: 5
+          x-pulumi-model-property:
+            enumTypeName: ToolExecutionMode
+            enumComments: Where tools are executed for an agent task.
+      type: object

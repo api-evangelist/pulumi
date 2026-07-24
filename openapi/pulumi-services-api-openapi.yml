@@ -1,0 +1,622 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Services API
+  version: 1.0.0
+tags:
+- name: Services
+paths:
+  /api/orgs/{orgName}/services:
+    get:
+      description: Returns all service accounts in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They can hold access tokens, belong to teams, and have stack permissions, making them suitable for CI/CD pipelines, automation tools, and other machine-to-machine integrations.
+      operationId: ListServices
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListServicesResponse'
+          description: OK
+      summary: ListServices
+      tags:
+      - Services
+    post:
+      description: Creates a new service account in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They are scoped to an organization and can hold access tokens, belong to teams, and have stack permissions. The service name must be unique within the organization.
+      operationId: CreateService
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServiceRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+          description: OK
+        '400':
+          description: Invalid service data provided
+        '404':
+          description: service
+        '409':
+          description: Service with this name already exists
+      summary: CreateService
+      tags:
+      - Services
+  /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}:
+    delete:
+      description: Deletes a service account from an organization. Service accounts provide programmatic, non-human access to Pulumi Cloud resources. If the service has other members, deletion requires explicit confirmation via the force parameter. All access tokens and permissions associated with the service are revoked.
+      operationId: DeleteService
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      - description: Force deletion even if the service has other members
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: invalid query parameter
+        '404':
+          description: service
+        '412':
+          description: confirmation is required to delete service with other members
+      summary: DeleteService
+      tags:
+      - Services
+    get:
+      description: Returns the details of a specific service account, including its name, owner, description, team memberships, access tokens, and stack permissions. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are identified by their owner type, owner name, and service name.
+      operationId: GetService
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServiceResponse'
+          description: OK
+      summary: GetService
+      tags:
+      - Services
+    head:
+      description: Checks whether a service account exists in the organization without returning its full details. Returns 204 No Content if the service exists, or an error if not found. This is a lightweight check useful for validating service account references.
+      operationId: HeadService
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: HeadService
+      tags:
+      - Services
+    patch:
+      description: Updates the metadata and configuration of an existing service account, such as its description, team memberships, and access settings. Service accounts provide programmatic, non-human access to Pulumi Cloud resources.
+      operationId: UpdateService
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServiceMetadataRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+          description: OK
+        '400':
+          description: Invalid service update data provided or invalid member type.
+        '404':
+          description: service
+      summary: UpdateService
+      tags:
+      - Services
+  /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}/items:
+    post:
+      description: Adds items (such as access tokens, team memberships, or stack permissions) to an existing service account. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are scoped to an organization. Items define what the service account can access and what credentials it holds. Returns the updated service details.
+      operationId: AddServiceItems
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddServiceItemsRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServiceResponse'
+          description: OK
+        '400':
+          description: Invalid service item data provided.
+      summary: AddServiceItems
+      tags:
+      - Services
+  /api/orgs/{orgName}/services/{ownerType}/{ownerName}/{serviceName}/items/{itemType}/{itemName}:
+    delete:
+      description: Removes a specific item (such as a team membership, access token, or stack permission) from a service account. Returns the updated service details after the item has been removed.
+      operationId: RemoveServiceItem
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The owner type
+        in: path
+        name: ownerType
+        required: true
+        schema:
+          type: string
+      - description: The owner name
+        in: path
+        name: ownerName
+        required: true
+        schema:
+          type: string
+      - description: The service name
+        in: path
+        name: serviceName
+        required: true
+        schema:
+          type: string
+      - description: The item type
+        in: path
+        name: itemType
+        required: true
+        schema:
+          type: string
+      - description: The item name
+        in: path
+        name: itemName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServiceResponse'
+          description: OK
+        '400':
+          description: invalid item name
+      summary: RemoveServiceItem
+      tags:
+      - Services
+components:
+  schemas:
+    AddServiceItem:
+      description: A simple struct representing the metadata needed to add an item via user-facing information.
+      properties:
+        name:
+          description: the name (including any namespacing) of the item
+          type: string
+          x-order: 2
+        type:
+          description: the type of the item to add
+          type: string
+          x-order: 1
+      required:
+      - name
+      - type
+      type: object
+    ListServicesResponse:
+      description: Response when listing services for a user.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value the client can send to fetch additional
+
+            services. Will be nil once all services have been returned.'
+          type: string
+          x-order: 2
+        services:
+          description: The list of services
+          items:
+            $ref: '#/components/schemas/Service'
+          type: array
+          x-order: 1
+      required:
+      - services
+      type: object
+    UpdateServiceMetadataRequest:
+      description: Request for updating a services metadata.
+      properties:
+        description:
+          description: an optional description of the service
+          type: string
+          x-order: 2
+        name:
+          description: the name of the service
+          type: string
+          x-order: 1
+        properties:
+          description: an optional list of properties to set on the service
+          items:
+            $ref: '#/components/schemas/ServiceProperty'
+          type: array
+          x-order: 3
+      type: object
+    GetServiceResponse:
+      description: Response when requesting a service.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value the client can send to fetch additional
+
+            items. Will be nil once all items have been returned.'
+          type: string
+          x-order: 3
+        items:
+          description: The list of service items
+          items:
+            $ref: '#/components/schemas/ServiceItem'
+          type: array
+          x-order: 2
+        service:
+          $ref: '#/components/schemas/Service'
+          description: The service details
+          x-order: 1
+      required:
+      - items
+      - service
+      type: object
+    ServiceMember:
+      description: 'A service member is either a direct user or a indirect user representation
+
+        that allows them to access and mutate a service.'
+      properties:
+        avatarUrl:
+          description: an optional avatar URL for the member
+          type: string
+          x-order: 3
+        name:
+          description: the login name of the member within Pulumi
+          type: string
+          x-order: 2
+        type:
+          description: the type of the member (e.g. team / user)
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - name
+      - type
+      type: object
+    ServiceItemUpdate:
+      description: An update that the item may have in it's history.
+      properties:
+        message:
+          description: the message to show alongside the timestamp
+          type: string
+          x-order: 2
+        success:
+          description: used to toggle a status icon for the update
+          type: boolean
+          x-order: 3
+        timestamp:
+          description: the timestamp of the last update
+          format: date-time
+          type: string
+          x-order: 1
+      required:
+      - message
+      - timestamp
+      type: object
+    CreateServiceRequest:
+      description: 'Request for creating a new service with an optional list
+
+        of items to populate the service with after creation.'
+      properties:
+        description:
+          description: an optional description of the service
+          type: string
+          x-order: 4
+        items:
+          description: an optional list of items to add during service creation
+          items:
+            $ref: '#/components/schemas/AddServiceItem'
+          type: array
+          x-order: 5
+        name:
+          description: the name of the service
+          type: string
+          x-order: 3
+        ownerName:
+          description: the service owner name
+          type: string
+          x-order: 2
+        ownerType:
+          description: the service owner type
+          type: string
+          x-order: 1
+        properties:
+          description: an optional list of properties to set on the service
+          items:
+            $ref: '#/components/schemas/ServiceProperty'
+          type: array
+          x-order: 6
+      required:
+      - description
+      - items
+      - name
+      - ownerName
+      - ownerType
+      - properties
+      type: object
+    Service:
+      description: 'A service is a Pulumi construct that aggregates items and additional metadata
+
+        that can be accessed by the service''s members.'
+      properties:
+        created:
+          description: the time the service was create
+          format: date-time
+          type: string
+          x-order: 5
+        description:
+          description: an optional description of the service
+          type: string
+          x-order: 4
+        itemCountSummary:
+          additionalProperties:
+            format: int64
+            type: integer
+          description: item types to their count within the service based on the current user's permissions
+          type: object
+          x-order: 7
+        members:
+          description: a list of members that have access to the service
+          items:
+            $ref: '#/components/schemas/ServiceMember'
+          type: array
+          x-order: 6
+        name:
+          description: the name of the service
+          type: string
+          x-order: 3
+        organizationName:
+          description: the name of the organization this service belongs to
+          type: string
+          x-order: 1
+        owner:
+          $ref: '#/components/schemas/ServiceMember'
+          description: the owner of the service
+          x-order: 2
+        properties:
+          description: an optional list of properties set on the service
+          items:
+            $ref: '#/components/schemas/ServiceProperty'
+          type: array
+          x-order: 8
+      required:
+      - description
+      - itemCountSummary
+      - members
+      - name
+      - organizationName
+      - owner
+      - properties
+      type: object
+    ServiceItem:
+      description: An item within a service.
+      properties:
+        addedByUser:
+          $ref: '#/components/schemas/ServiceMember'
+          description: who added the item reference to the service - this will always be a user
+          x-order: 7
+        cloudCount:
+          description: how many Pulumi cloud measured primitives are within this item
+          format: int64
+          type: integer
+          x-order: 8
+        created:
+          description: timestamp of when the item was  created
+          format: date-time
+          type: string
+          x-order: 5
+        lastUpdate:
+          $ref: '#/components/schemas/ServiceItemUpdate'
+          description: when did the last update occur to this item, if any
+          x-order: 6
+        name:
+          description: the name (including any namespacing) of the item
+          type: string
+          x-order: 3
+        organizationName:
+          description: the name of the organization this item belongs to
+          type: string
+          x-order: 1
+        type:
+          description: the type of the item
+          type: string
+          x-order: 2
+        version:
+          description: optional field if the item has versioning
+          type: string
+          x-order: 4
+      required:
+      - cloudCount
+      - created
+      - name
+      - organizationName
+      - type
+      type: object
+    ServiceProperty:
+      description: A property that the service will show in it's metadata.
+      properties:
+        key:
+          description: the name of the property
+          type: string
+          x-order: 1
+        order:
+          description: the position of the property
+          format: int64
+          type: integer
+          x-order: 4
+        type:
+          description: the type of the property
+          type: string
+          x-order: 3
+        value:
+          description: the value of the property
+          type: string
+          x-order: 2
+      required:
+      - key
+      - order
+      - type
+      - value
+      type: object
+    AddServiceItemsRequest:
+      description: Request for adding items to an existing service.
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/AddServiceItem'
+          type: array
+          x-order: 1
+      required:
+      - items
+      type: object

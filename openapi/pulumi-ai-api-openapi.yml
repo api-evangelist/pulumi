@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens AI API
+  version: 1.0.0
+tags:
+- name: AI
+paths:
+  /api/ai/template:
+    post:
+      deprecated: true
+      description: Generates a Pulumi template using the Pulumi AI service.
+      operationId: AITemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AITemplateRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK
+      summary: AITemplate
+      tags:
+      - AI
+      x-pulumi-route-property:
+        Deprecated: true
+        Visibility: Public
+components:
+  schemas:
+    AITemplateRequest:
+      description: Request body for generating an infrastructure-as-code template using AI.
+      properties:
+        connectionId:
+          description: Optional identifier for the connection/session.
+          type: string
+          x-order: 4
+        conversationId:
+          description: Optional identifier to continue an existing AI conversation.
+          type: string
+          x-order: 3
+        instructions:
+          description: Natural language instructions describing the desired infrastructure.
+          type: string
+          x-order: 2
+        language:
+          description: The programming language for the generated template (e.g. 'typescript', 'python', 'go').
+          type: string
+          x-order: 1
+      required:
+      - instructions
+      - language
+      type: object

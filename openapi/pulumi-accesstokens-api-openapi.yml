@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens API
+  version: 1.0.0
+tags:
+- name: AccessTokens
+paths:
+  /api/orgs/{orgName}/tokens:
+    get:
+      description: Retrieves all access tokens created for an organization. Organization tokens provide CI/CD automation access scoped to the organization rather than tied to individual user accounts. The response includes token metadata such as name, description, creation date, last used date, and expiration status. The actual token values are never returned after initial creation. An optional filter parameter can include expired tokens in the results.
+      operationId: ListOrgTokens
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Filter tokens by status (e.g., include expired tokens)
+        in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccessTokensResponse'
+          description: OK
+      summary: ListOrgTokens
+      tags:
+      - AccessTokens
+    post:
+      description: 'Generates a new access token scoped to the organization for use in CI/CD pipelines and automated workflows. Organization tokens belong to the organization rather than individual users, ensuring that access is not disrupted when team members leave.
+
+
+        The `name` field must be unique across the organization (including deleted tokens) and cannot exceed 40 characters. The `expires` field accepts a unix epoch timestamp up to two years from the present, or `0` for no expiry (default).
+
+
+        **Important:** The token value in the response is only returned once at creation time and cannot be retrieved later. Audit logs for actions performed with organization tokens are attributed to the organization rather than an individual user.'
+      operationId: CreateOrgToken
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Audit log reason for creating this token
+        in: query
+        name: reason
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgAccessTokenRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccessTokenResponse'
+          description: OK
+      summary: CreateOrgToken
+      tags:
+      - AccessTokens
+  /api/orgs/{orgName}/tokens/{tokenId}:
+    delete:
+      description: Permanently revokes and deletes an organization access token. Any CI/CD pipelines or automation using this token will immediately lose access to the organization's resources. This action cannot be undone.
+      operationId: DeleteOrgToken
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The access token identifier
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeleteOrgToken
+      tags:
+      - AccessTokens
+  /api/user/tokens:
+    get:
+      description: Returns all personal access tokens for the authenticated user. Web-session generated tokens (type 'web') are excluded from the results. Each token in the response includes its ID, description, and lastUsed timestamp. Use the filter query parameter to search tokens by name or description.
+      operationId: ListPersonalTokens
+      parameters:
+      - description: Filter tokens by name or description
+        in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccessTokensResponse'
+          description: OK
+      summary: ListPersonalTokens
+      tags:
+      - AccessTokens
+    post:
+      description: Creates a new personal access token for the authenticated user. The request body includes a description for the token and an optional expiration time. The response includes the token ID and the tokenValue (prefixed with 'pul-'). The token value is only returned once at creation time and cannot be retrieved later.
+      operationId: CreatePersonalToken
+      parameters:
+      - description: Tracks the context that triggered token creation (e.g., redirect URL or referral source)
+        in: query
+        name: reason
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalAccessTokenRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccessTokenResponse'
+          description: OK
+      summary: CreatePersonalToken
+      tags:
+      - AccessTokens
+  /api/user/tokens/{tokenId}:
+    delete:
+      description: Permanently deletes a personal access token by its identifier. The token is immediately invalidated and can no longer be used for authentication. Returns 204 on success or 404 if the token does not exist.
+      operationId: DeletePersonalToken
+      parameters:
+      - description: The access token identifier
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Token
+      summary: DeletePersonalToken
+      tags:
+      - AccessTokens
+components:
+  schemas:
+    CreateOrgAccessTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
+      - description: CreateOrgAccessTokenRequest is the accepted request body for creating an organization access token.
+        properties:
+          admin:
+            description: Whether the entity has admin privileges
+            type: boolean
+            x-order: 2
+          name:
+            description: The name
+            type: string
+            x-order: 1
+          roleID:
+            description: The role identifier
+            type: string
+            x-order: 3
+        required:
+        - admin
+        - name
+        type: object
+    CreateAccessTokenResponse:
+      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
+
+        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
+      properties:
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+        tokenValue:
+          description: The token value
+          type: string
+          x-order: 2
+      required:
+      - id
+      - tokenValue
+      type: object
+    AccessToken:
+      description: AccessToken holds a pulumi access token and some associated metadata
+      properties:
+        admin:
+          description: Whether this token has Pulumi Cloud admin privileges.
+          type: boolean
+          x-order: 7
+        created:
+          description: Timestamp when the token was created, in ISO 8601 format.
+          type: string
+          x-order: 4
+        createdBy:
+          description: User.GitHubLogin of the user that created the access token
+          type: string
+          x-order: 8
+        description:
+          description: User-provided description of the token's purpose.
+          type: string
+          x-order: 3
+        expires:
+          description: Unix epoch timestamp (seconds) when the token expires. Zero if it never expires.
+          format: int64
+          type: integer
+          x-order: 6
+        id:
+          description: Unique identifier for this access token.
+          type: string
+          x-order: 1
+        lastUsed:
+          description: Unix epoch timestamp (seconds) when the token was last used. Zero if never used.
+          format: int64
+          type: integer
+          x-order: 5
+        name:
+          description: Human-readable name assigned to this access token.
+          type: string
+          x-order: 2
+        role:
+          $ref: '#/components/schemas/AccessTokenRole'
+          description: Role associated with the token, if applicable
+          x-order: 9
+      required:
+      - admin
+      - created
+      - createdBy
+      - description
+      - expires
+      - id
+      - lastUsed
+      - name
+      type: object
+    ListAccessTokensResponse:
+      description: ListAccessTokensResponse is the shape of the response when listing access tokens for a user.
+      properties:
+        tokens:
+          description: The list of access tokens
+          items:
+            $ref: '#/components/schemas/AccessToken'
+          type: array
+          x-order: 1
+      required:
+      - tokens
+      type: object
+    CreatePersonalAccessTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
+      - description: CreatePersonalAccessTokenRequest is the accepted request body for creating a personal access token.
+        type: object
+    AccessTokenRole:
+      description: A role that can be associated with an access token to scope its permissions.
+      properties:
+        defaultIdentifier:
+          description: The default identity to assume when using a token with this role.
+          enum:
+          - member
+          - admin
+          - billing-manager
+          - stack-read
+          - stack-write
+          - stack-admin
+          - environment-read
+          - environment-write
+          - environment-admin
+          - environment-open
+          - insights-account-read
+          - insights-account-write
+          - insights-account-admin
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: DefaultIdentifier
+            enumComments: DefaultIdentifier is an enum describing the permission level for a default role.
+            enumFieldNames:
+            - Member
+            - Admin
+            - BillingManager
+            - StackRead
+            - StackWrite
+            - StackAdmin
+            - EnvironmentRead
+            - EnvironmentWrite
+            - EnvironmentAdmin
+            - EnvironmentOpen
+            - InsightsAccountRead
+            - InsightsAccountWrite
+            - InsightsAccountAdmin
+        id:
+          description: Unique identifier for this role.
+          type: string
+          x-order: 1
+        name:
+          description: Display name of the role.
+          type: string
+          x-order: 2
+      required:
+      - defaultIdentifier
+      - id
+      - name
+      type: object
+    BaseCreateAccessTokenRequest:
+      description: Request body for base create access token.
+      properties:
+        description:
+          description: The description
+          type: string
+          x-order: 1
+        expires:
+          description: The expiration time
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - description
+      - expires
+      type: object

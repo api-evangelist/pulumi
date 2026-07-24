@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens StackPolicy API
+  version: 1.0.0
+tags:
+- name: StackPolicy
+paths:
+  /api/stacks/{orgName}/{projectName}/{stackName}/policygroups:
+    get:
+      description: Returns the list of policy groups that include the specified stack. Policy groups define which policy packs are enforced on a set of stacks. The response includes each group's name, the stacks it applies to, and the policy packs configured within it.
+      operationId: GetStackPolicyGroups
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppListPolicyGroupsResponse'
+          description: OK
+      summary: GetStackPolicyGroups
+      tags:
+      - StackPolicy
+  /api/stacks/{orgName}/{projectName}/{stackName}/policypacks:
+    get:
+      description: 'Returns the policy packs currently enforced on the specified stack through its policy group memberships. The optional ''mode'' query parameter filters results by enforcement mode: ''audit'' (violations are logged but allowed) or ''preventative'' (violations block the update). Returns 400 if the mode parameter is invalid.'
+      operationId: GetStackPolicyPacks
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: Filter by policy group enforcement mode ('audit' or 'preventative')
+        in: query
+        name: mode
+        schema:
+          enum:
+          - audit
+          - preventative
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppGetStackPolicyPacksResponse'
+          description: OK
+        '400':
+          description: Invalid mode parameter value
+      summary: GetStackPolicyPacks
+      tags:
+      - StackPolicy
+components:
+  schemas:
+    AppListPolicyGroupsResponse:
+      description: ListPolicyGroupsResponse lists a summary of the organization's Policy Groups.
+      properties:
+        policyGroups:
+          description: List of policy groups
+          items:
+            $ref: '#/components/schemas/AppPolicyGroupSummary'
+          type: array
+          x-order: 1
+      required:
+      - policyGroups
+      type: object
+    AppGetStackPolicyPacksResponse:
+      description: 'GetStackPolicyPacksResponse is the response to getting the applicable Policy Packs
+
+        for a particular stack. This allows the CLI to download the packs prior to
+
+        starting an update.'
+      properties:
+        requiredPolicies:
+          description: RequiredPolicies is a list of required Policy Packs to run during the update.
+          items:
+            $ref: '#/components/schemas/AppRequiredPolicy'
+          type: array
+          x-order: 1
+      type: object
+    AppPolicyGroupSummary:
+      description: 'PolicyGroupSummary details the name, applicable stacks and the applied Policy
+
+        Packs for an organization''s Policy Group.'
+      properties:
+        entityType:
+          description: The type of entity this policy group targets (e.g. stacks, accounts).
+          enum:
+          - stacks
+          - accounts
+          type: string
+          x-order: 5
+          x-pulumi-model-property:
+            enumTypeName: AppEntityType
+            enumComments: EntityType indicates the type of entity a policy group applies to
+            enumFieldComments:
+            - Stacks indicates the policy group applies to stacks
+            - Accounts indicates the policy group applies to accounts
+        isOrgDefault:
+          description: Whether this is the organization's default policy group, applied to all stacks not in another group.
+          type: boolean
+          x-order: 2
+        mode:
+          description: The enforcement mode of the policy group.
+          enum:
+          - audit
+          - preventative
+          type: string
+          x-order: 6
+          x-pulumi-model-property:
+            enumTypeName: PolicyGroupMode
+            enumComments: PolicyGroupMode represents the enforcement mode for a policy group
+        name:
+          description: The unique name of the policy group.
+          type: string
+          x-order: 1
+        numAccounts:
+          description: Number of cloud accounts assigned to this policy group.
+          format: int64
+          type: integer
+          x-order: 4
+        numEnabledPolicyPacks:
+          description: Number of policy packs currently enabled in this group.
+          format: int64
+          type: integer
+          x-order: 7
+        numStacks:
+          description: Number of stacks assigned to this policy group.
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - entityType
+      - isOrgDefault
+      - mode
+      - name
+      - numEnabledPolicyPacks
+      - numStacks
+      type: object
+    AppRequiredPolicy:
+      description: RequiredPolicy is the information regarding a particular Policy that is required by an organization.
+      properties:
+        config:
+          additionalProperties:
+            type: object
+          description: 'The configuration that is to be passed to the Policy Pack. This is map a of policies
+
+            mapped to their configuration. Each individual configuration must comply with the
+
+            JSON schema for each Policy within the Policy Pack.'
+          type: object
+          x-order: 6
+        displayName:
+          description: The pretty name of the required Policy Pack.
+          type: string
+          x-order: 4
+        environments:
+          description: References to ESC environments whose resolved values the CLI should inject into the policy pack process.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        name:
+          description: The name (unique and URL-safe) of the required Policy Pack.
+          type: string
+          x-order: 1
+        packLocation:
+          description: Where the Policy Pack can be downloaded from.
+          type: string
+          x-order: 5
+        version:
+          description: The version of the required Policy Pack.
+          format: int64
+          type: integer
+          x-order: 2
+        versionTag:
+          description: The version tag of the required Policy Pack.
+          type: string
+          x-order: 3
+      required:
+      - displayName
+      - name
+      - version
+      - versionTag
+      type: object

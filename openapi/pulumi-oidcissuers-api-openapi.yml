@@ -1,0 +1,1028 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens OidcIssuers API
+  version: 1.0.0
+tags:
+- name: OidcIssuers
+paths:
+  /api/orgs/{orgName}/auth/policies/oidcissuers/{issuerId}:
+    get:
+      description: Returns the authentication policy associated with a specific OIDC issuer registration. Authentication policies define rules for how OIDC tokens from the issuer are validated and what access they grant, including claim mappings and trust conditions.
+      operationId: GetAuthPolicy
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OIDC issuer identifier
+        in: path
+        name: issuerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthPolicy'
+          description: OK
+        '400':
+          description: Invalid issuer ID
+      summary: GetAuthPolicy
+      tags:
+      - OidcIssuers
+  /api/orgs/{orgName}/oidc/issuers:
+    get:
+      description: Returns all OIDC issuer registrations for an organization. OIDC issuer registrations establish trust relationships with external identity providers (such as AWS, Azure, Google Cloud, or GitHub Actions) to enable token exchange for temporary Pulumi Cloud credentials. This eliminates the need for long-lived access tokens in CI/CD pipelines and deployment automation.
+      operationId: List_orgs_oidc_issuers
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOidcIssuersResponse'
+          description: OK
+      summary: List
+      tags:
+      - OidcIssuers
+    post:
+      description: Registers a new OIDC issuer for an organization, establishing a trust relationship with an external identity provider. Once registered, the identity provider can issue signed, short-lived tokens that are exchanged for temporary Pulumi Cloud credentials during deployments. This eliminates the need to store long-lived access tokens. Supported providers include AWS, Azure, Google Cloud, GitHub Actions, and any OIDC-compliant identity provider. The request must include the issuer URL, and the service will fetch the provider's public signing keys to verify token authenticity.
+      operationId: RegisterOidcIssuer
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OidcIssuerRegistrationRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcIssuerRegistrationResponse'
+          description: OK
+        '400':
+          description: metadata object store endpoint is not configured
+      summary: RegisterOidcIssuer
+      tags:
+      - OidcIssuers
+  /api/orgs/{orgName}/oidc/issuers/{issuerId}:
+    delete:
+      description: Deletes an OIDC issuer registration from an organization, removing the trust relationship between the organization and the identity provider. After deletion, tokens issued by this provider can no longer be exchanged for temporary Pulumi Cloud credentials. Any deployments or automation relying on this OIDC issuer for authentication will stop working.
+      operationId: DeleteOidcIssuer
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OIDC issuer identifier
+        in: path
+        name: issuerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: oidc issuer
+      summary: DeleteOidcIssuer
+      tags:
+      - OidcIssuers
+    get:
+      description: Returns the details of a specific OIDC issuer registration, including the issuer URL, audience restrictions, TLS thumbprints, and trust policy configuration. OIDC issuer registrations establish trust relationships between the organization and external identity providers, enabling token exchange for temporary Pulumi Cloud credentials without storing long-lived secrets.
+      operationId: GetOidcIssuer
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OIDC issuer identifier
+        in: path
+        name: issuerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcIssuerRegistrationResponse'
+          description: OK
+        '404':
+          description: oidc issuer
+      summary: GetOidcIssuer
+      tags:
+      - OidcIssuers
+    patch:
+      description: Updates an existing OIDC issuer registration for an organization. This can be used to modify the issuer name, audience restrictions, trust policies, or other configuration. The issuer URL itself cannot be changed after creation. The issuer name is required in the update request.
+      operationId: UpdateOidcIssuer
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OIDC issuer identifier
+        in: path
+        name: issuerId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OidcIssuerUpdateRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcIssuerRegistrationResponse'
+          description: OK
+        '400':
+          description: the issuer name is required
+        '404':
+          description: oidc issuer
+      summary: UpdateOidcIssuer
+      tags:
+      - OidcIssuers
+  /api/orgs/{orgName}/oidc/issuers/{issuerId}/regenerate-thumbprints:
+    post:
+      description: Regenerates the TLS certificate thumbprints for an OIDC issuer by re-fetching the issuer's public keys. This is needed when the identity provider rotates its TLS certificates. Cannot be used if the issuer's JWKS are statically configured.
+      operationId: RegenerateThumbprints
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The OIDC issuer identifier
+        in: path
+        name: issuerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcIssuerRegistrationResponse'
+          description: OK
+        '400':
+          description: issuer jwks are statically configured, can't regenerate thumbprints
+        '404':
+          description: oidc issuer
+      summary: RegenerateThumbprints
+      tags:
+      - OidcIssuers
+components:
+  schemas:
+    OidcIssuerRegistrationRequest:
+      description: Request body for registering a new OIDC issuer.
+      properties:
+        jwks:
+          $ref: '#/components/schemas/JSONWebKeySet'
+          description: The JSON Web Key Set for the OIDC issuer.
+          x-order: 5
+        maxExpiration:
+          description: The maximum token expiration time in seconds.
+          format: int64
+          type: integer
+          x-order: 4
+        name:
+          description: The display name of the OIDC issuer.
+          type: string
+          x-order: 1
+        thumbprints:
+          description: SHA-1 certificate thumbprints used to verify the OIDC issuer's TLS certificate.
+          items:
+            type: string
+          type: array
+          x-order: 3
+        url:
+          description: The URL of the OIDC issuer.
+          type: string
+          x-order: 2
+      required:
+      - name
+      - url
+      type: object
+    ListOidcIssuersResponse:
+      description: Response containing a list of registered OIDC issuers.
+      properties:
+        oidcIssuers:
+          description: The list of OIDC issuers
+          items:
+            $ref: '#/components/schemas/OidcIssuerRegistrationResponse'
+          type: array
+          x-order: 1
+      required:
+      - oidcIssuers
+      type: object
+    X509Certificate:
+      description: X509Certificate represents an X.509 certificate.
+      properties:
+        AuthorityKeyId:
+          description: The authority key identifier extension value.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 27
+        BasicConstraintsValid:
+          description: Whether the basic constraints extension is valid.
+          type: boolean
+          x-order: 22
+        CRLDistributionPoints:
+          description: CRL distribution point URLs.
+          items:
+            type: string
+          type: array
+          x-order: 43
+        DNSNames:
+          description: DNS names from the subject alternative name extension.
+          items:
+            type: string
+          type: array
+          x-order: 30
+        EmailAddresses:
+          description: Email addresses from the subject alternative name extension.
+          items:
+            type: string
+          type: array
+          x-order: 31
+        ExcludedDNSDomains:
+          description: Excluded DNS domain names from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 36
+        ExcludedEmailAddresses:
+          description: Excluded email addresses from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 40
+        ExcludedIPRanges:
+          description: Excluded IP ranges from the name constraints extension.
+          items:
+            $ref: '#/components/schemas/NetIPNet'
+          type: array
+          x-order: 38
+        ExcludedURIDomains:
+          description: Excluded URI domains from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 42
+        ExtKeyUsage:
+          description: Extended key usage values.
+          items:
+            format: int64
+            type: integer
+          type: array
+          x-order: 20
+        Extensions:
+          description: The certificate extensions.
+          items:
+            $ref: '#/components/schemas/PkixExtension'
+          type: array
+          x-order: 17
+        ExtraExtensions:
+          description: Additional extensions to add to the certificate.
+          items:
+            $ref: '#/components/schemas/PkixExtension'
+          type: array
+          x-order: 18
+        IPAddresses:
+          description: IP addresses from the subject alternative name extension.
+          items:
+            items:
+              format: byte
+              type: string
+            type: array
+          type: array
+          x-order: 32
+        InhibitAnyPolicy:
+          description: The inhibit any-policy constraint value.
+          format: int64
+          type: integer
+          x-order: 46
+        InhibitAnyPolicyZero:
+          description: Whether InhibitAnyPolicy was explicitly set to zero.
+          type: boolean
+          x-order: 47
+        InhibitPolicyMapping:
+          description: The inhibit policy mapping constraint value.
+          format: int64
+          type: integer
+          x-order: 48
+        InhibitPolicyMappingZero:
+          description: Whether InhibitPolicyMapping was explicitly set to zero.
+          type: boolean
+          x-order: 49
+        IsCA:
+          description: Whether the certificate is a CA certificate.
+          type: boolean
+          x-order: 23
+        Issuer:
+          $ref: '#/components/schemas/PkixName'
+          description: The certificate issuer distinguished name.
+          x-order: 12
+        IssuingCertificateURL:
+          description: Issuing certificate URLs from the authority information access extension.
+          items:
+            type: string
+          type: array
+          x-order: 29
+        KeyUsage:
+          description: Bitfield of key usage flags.
+          format: int64
+          type: integer
+          x-order: 16
+        MaxPathLen:
+          description: Maximum number of intermediate CAs allowed in the path.
+          format: int64
+          type: integer
+          x-order: 24
+        MaxPathLenZero:
+          description: Whether MaxPathLen was explicitly set to zero.
+          type: boolean
+          x-order: 25
+        NotAfter:
+          description: The end of the certificate validity period.
+          format: date-time
+          type: string
+          x-order: 15
+        NotBefore:
+          description: The start of the certificate validity period.
+          format: date-time
+          type: string
+          x-order: 14
+        OCSPServer:
+          description: OCSP server URLs from the authority information access extension.
+          items:
+            type: string
+          type: array
+          x-order: 28
+        PermittedDNSDomains:
+          description: Permitted DNS domain names from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 35
+        PermittedDNSDomainsCritical:
+          description: Whether the name constraints are marked critical.
+          type: boolean
+          x-order: 34
+        PermittedEmailAddresses:
+          description: Permitted email addresses from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 39
+        PermittedIPRanges:
+          description: Permitted IP ranges from the name constraints extension.
+          items:
+            $ref: '#/components/schemas/NetIPNet'
+          type: array
+          x-order: 37
+        PermittedURIDomains:
+          description: Permitted URI domains from the name constraints extension.
+          items:
+            type: string
+          type: array
+          x-order: 41
+        Policies:
+          description: Certificate policies.
+          items:
+            type: string
+          type: array
+          x-order: 45
+        PolicyIdentifiers:
+          description: Certificate policy OIDs.
+          items:
+            type: string
+          type: array
+          x-order: 44
+        PolicyMappings:
+          description: Policy mappings from the policy mapping extension.
+          items:
+            $ref: '#/components/schemas/X509PolicyMapping'
+          type: array
+          x-order: 52
+        PublicKey:
+          description: The public key contained in the certificate.
+          type: object
+          x-order: 9
+        PublicKeyAlgorithm:
+          description: The public key algorithm identifier.
+          format: int64
+          type: integer
+          x-order: 8
+        Raw:
+          description: The raw ASN.1 DER encoded certificate.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 1
+        RawIssuer:
+          description: The raw ASN.1 DER encoded issuer.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 5
+        RawSubject:
+          description: The raw ASN.1 DER encoded subject.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 4
+        RawSubjectPublicKeyInfo:
+          description: The raw ASN.1 DER encoded SubjectPublicKeyInfo.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 3
+        RawTBSCertificate:
+          description: The raw ASN.1 DER encoded TBSCertificate.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 2
+        RequireExplicitPolicy:
+          description: The require explicit policy constraint value.
+          format: int64
+          type: integer
+          x-order: 50
+        RequireExplicitPolicyZero:
+          description: Whether RequireExplicitPolicy was explicitly set to zero.
+          type: boolean
+          x-order: 51
+        SerialNumber:
+          description: The certificate serial number.
+          format: int64
+          type: integer
+          x-order: 11
+        Signature:
+          description: The certificate signature.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 6
+        SignatureAlgorithm:
+          description: The signature algorithm identifier.
+          format: int64
+          type: integer
+          x-order: 7
+        Subject:
+          $ref: '#/components/schemas/PkixName'
+          description: The certificate subject distinguished name.
+          x-order: 13
+        SubjectKeyId:
+          description: The subject key identifier extension value.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 26
+        URIs:
+          description: URIs from the subject alternative name extension.
+          items:
+            $ref: '#/components/schemas/NetURL'
+          type: array
+          x-order: 33
+        UnhandledCriticalExtensions:
+          description: Critical extensions that were not handled during parsing.
+          items:
+            type: string
+          type: array
+          x-order: 19
+        UnknownExtKeyUsage:
+          description: Unknown extended key usage OIDs.
+          items:
+            type: string
+          type: array
+          x-order: 21
+        Version:
+          description: The X.509 certificate version.
+          format: int64
+          type: integer
+          x-order: 10
+      required:
+      - AuthorityKeyId
+      - BasicConstraintsValid
+      - CRLDistributionPoints
+      - DNSNames
+      - EmailAddresses
+      - ExcludedDNSDomains
+      - ExcludedEmailAddresses
+      - ExcludedIPRanges
+      - ExcludedURIDomains
+      - ExtKeyUsage
+      - Extensions
+      - ExtraExtensions
+      - IPAddresses
+      - InhibitAnyPolicy
+      - InhibitAnyPolicyZero
+      - InhibitPolicyMapping
+      - InhibitPolicyMappingZero
+      - IsCA
+      - Issuer
+      - IssuingCertificateURL
+      - KeyUsage
+      - MaxPathLen
+      - MaxPathLenZero
+      - NotAfter
+      - NotBefore
+      - OCSPServer
+      - PermittedDNSDomains
+      - PermittedDNSDomainsCritical
+      - PermittedEmailAddresses
+      - PermittedIPRanges
+      - PermittedURIDomains
+      - Policies
+      - PolicyIdentifiers
+      - PolicyMappings
+      - PublicKey
+      - PublicKeyAlgorithm
+      - Raw
+      - RawIssuer
+      - RawSubject
+      - RawSubjectPublicKeyInfo
+      - RawTBSCertificate
+      - RequireExplicitPolicy
+      - RequireExplicitPolicyZero
+      - SerialNumber
+      - Signature
+      - SignatureAlgorithm
+      - Subject
+      - SubjectKeyId
+      - URIs
+      - UnhandledCriticalExtensions
+      - UnknownExtKeyUsage
+      - Version
+      type: object
+    JSONWebKeySet:
+      description: A JSON Web Key Set (JWKS) as defined by RFC 7517.
+      properties:
+        keys:
+          description: The set of JSON Web Keys
+          items:
+            $ref: '#/components/schemas/JSONWebKey'
+          type: array
+          x-order: 1
+      required:
+      - keys
+      type: object
+    NetURL:
+      description: NetURL represents a parsed URL (Uniform Resource Locator).
+      properties:
+        ForceQuery:
+          description: Whether to force a trailing question mark even if the query is empty.
+          type: boolean
+          x-order: 8
+        Fragment:
+          description: The URL fragment (without the leading hash).
+          type: string
+          x-order: 10
+        Host:
+          description: The host or host:port of the URL.
+          type: string
+          x-order: 4
+        OmitHost:
+          description: Whether to omit the host in the URL string.
+          type: boolean
+          x-order: 7
+        Opaque:
+          description: The opaque data of the URL.
+          type: string
+          x-order: 2
+        Path:
+          description: The path of the URL.
+          type: string
+          x-order: 5
+        RawFragment:
+          description: The encoded fragment hint.
+          type: string
+          x-order: 11
+        RawPath:
+          description: The encoded path hint, used when the path contains escaped characters.
+          type: string
+          x-order: 6
+        RawQuery:
+          description: The encoded query string, without the leading question mark.
+          type: string
+          x-order: 9
+        Scheme:
+          description: The URL scheme (e.g. https, http).
+          type: string
+          x-order: 1
+        User:
+          description: The user information associated with the URL.
+          type: string
+          x-order: 3
+      required:
+      - ForceQuery
+      - Fragment
+      - Host
+      - OmitHost
+      - Opaque
+      - Path
+      - RawFragment
+      - RawPath
+      - RawQuery
+      - Scheme
+      - User
+      type: object
+    PkixAttributeTypeAndValue:
+      description: PkixAttributeTypeAndValue represents an ASN.1 attribute type and value pair.
+      properties:
+        Type:
+          description: The ASN.1 object identifier of the attribute type.
+          type: string
+          x-order: 1
+        Value:
+          description: The value of the attribute.
+          type: object
+          x-order: 2
+      required:
+      - Type
+      - Value
+      type: object
+    OidcIssuerRegistrationResponse:
+      description: Response body after registering an OIDC issuer.
+      properties:
+        created:
+          description: The ISO 8601 timestamp when the OIDC issuer was created.
+          type: string
+          x-order: 8
+        id:
+          description: The unique identifier of the registered OIDC issuer.
+          type: string
+          x-order: 1
+        issuer:
+          description: The OIDC issuer identifier, typically a URL that uniquely identifies the identity provider.
+          type: string
+          x-order: 4
+        jwks:
+          $ref: '#/components/schemas/JSONWebKeySet'
+          description: The JSON Web Key Set for the OIDC issuer.
+          x-order: 6
+        lastUsed:
+          description: The ISO 8601 timestamp when the OIDC issuer was last used for token exchange.
+          type: string
+          x-order: 10
+        maxExpiration:
+          description: The maximum token expiration time in seconds.
+          format: int64
+          type: integer
+          x-order: 7
+        modified:
+          description: The ISO 8601 timestamp when the OIDC issuer was last modified.
+          type: string
+          x-order: 9
+        name:
+          description: The display name of the OIDC issuer.
+          type: string
+          x-order: 2
+        thumbprints:
+          description: SHA-1 certificate thumbprints used to verify the OIDC issuer's TLS certificate.
+          items:
+            type: string
+          type: array
+          x-order: 5
+        url:
+          description: The URL of the OIDC issuer.
+          type: string
+          x-order: 3
+      required:
+      - id
+      - issuer
+      - name
+      - url
+      type: object
+    NetIPNet:
+      description: NetIPNet represents an IP network with an address and subnet mask.
+      properties:
+        IP:
+          description: The IP address of the network.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 1
+        Mask:
+          description: The subnet mask of the network.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 2
+      required:
+      - IP
+      - Mask
+      type: object
+    X509PolicyMapping:
+      description: X509PolicyMapping represents a mapping between issuer and subject domain policies in an X.509 certificate.
+      properties:
+        IssuerDomainPolicy:
+          description: The OID of the issuer domain policy.
+          type: string
+          x-order: 1
+        SubjectDomainPolicy:
+          description: The OID of the subject domain policy.
+          type: string
+          x-order: 2
+      required:
+      - IssuerDomainPolicy
+      - SubjectDomainPolicy
+      type: object
+    PkixName:
+      description: PkixName represents an X.509 distinguished name (DN).
+      properties:
+        CommonName:
+          description: The common name (CN) of the distinguished name.
+          type: string
+          x-order: 9
+        Country:
+          description: The country names in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 1
+        ExtraNames:
+          description: Additional attribute type and value pairs to include in the distinguished name.
+          items:
+            $ref: '#/components/schemas/PkixAttributeTypeAndValue'
+          type: array
+          x-order: 11
+        Locality:
+          description: The locality (city) names in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 4
+        Names:
+          description: The parsed attribute type and value pairs of the distinguished name.
+          items:
+            $ref: '#/components/schemas/PkixAttributeTypeAndValue'
+          type: array
+          x-order: 10
+        Organization:
+          description: The organization names in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        OrganizationalUnit:
+          description: The organizational unit names in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 3
+        PostalCode:
+          description: The postal codes in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        Province:
+          description: The state or province names in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 5
+        SerialNumber:
+          description: The serial number of the distinguished name.
+          type: string
+          x-order: 8
+        StreetAddress:
+          description: The street addresses in the distinguished name.
+          items:
+            type: string
+          type: array
+          x-order: 6
+      required:
+      - CommonName
+      - Country
+      - ExtraNames
+      - Locality
+      - Names
+      - Organization
+      - OrganizationalUnit
+      - PostalCode
+      - Province
+      - SerialNumber
+      - StreetAddress
+      type: object
+    PkixExtension:
+      description: PkixExtension represents an X.509 certificate extension.
+      properties:
+        Critical:
+          description: Whether this extension is critical.
+          type: boolean
+          x-order: 2
+        Id:
+          description: The ASN.1 object identifier of the extension.
+          type: string
+          x-order: 1
+        Value:
+          description: The raw extension value.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 3
+      required:
+      - Critical
+      - Id
+      - Value
+      type: object
+    AuthPolicyDefinition:
+      description: A single rule within an authentication policy, specifying access decisions for a token type.
+      properties:
+        authorizedPermissions:
+          description: The set of permissions granted when this rule matches.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        decision:
+          description: The access decision for matching tokens (e.g. 'allow', 'deny').
+          type: string
+          x-order: 1
+        roleID:
+          description: Role ID filter. When set, this rule only applies to tokens with this role.
+          type: string
+          x-order: 6
+        rules:
+          additionalProperties:
+            type: object
+          description: Additional rule conditions as key-value pairs.
+          type: object
+          x-order: 8
+        runnerID:
+          description: Runner ID filter. When set, this rule only applies to tokens for this deployment runner.
+          type: string
+          x-order: 5
+        teamName:
+          description: Team name filter. When set, this rule only applies to tokens belonging to this team.
+          type: string
+          x-order: 3
+        tokenType:
+          description: The type of token this rule applies to (e.g. 'personal', 'org', 'team').
+          type: string
+          x-order: 2
+        userLogin:
+          description: User login filter. When set, this rule only applies to tokens belonging to this user.
+          type: string
+          x-order: 4
+      required:
+      - authorizedPermissions
+      - decision
+      - rules
+      - tokenType
+      type: object
+    OidcIssuerUpdateRequest:
+      description: Request body for updating an existing OIDC issuer.
+      properties:
+        jwks:
+          $ref: '#/components/schemas/JSONWebKeySet'
+          description: The updated JSON Web Key Set for the OIDC issuer.
+          x-order: 4
+        maxExpiration:
+          description: The updated maximum token expiration time in seconds.
+          format: int64
+          type: integer
+          x-order: 3
+        name:
+          description: The updated display name of the OIDC issuer.
+          type: string
+          x-order: 1
+        thumbprints:
+          description: Updated SHA-1 certificate thumbprints used to verify the OIDC issuer's TLS certificate.
+          items:
+            type: string
+          type: array
+          x-order: 2
+      type: object
+    AuthPolicy:
+      description: Represents auth policy.
+      properties:
+        created:
+          description: The creation timestamp
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+        modified:
+          description: The last modification timestamp
+          type: string
+          x-order: 4
+        policies:
+          description: List of policies
+          items:
+            $ref: '#/components/schemas/AuthPolicyDefinition'
+          type: array
+          x-order: 5
+        version:
+          description: The version number
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - id
+      - policies
+      - version
+      type: object
+    JSONWebKey:
+      description: A JSON Web Key (JWK) as defined by RFC 7517.
+      properties:
+        Algorithm:
+          description: 'The ''alg'' parameter: the algorithm intended for use with this key (e.g. RS256, ES256).'
+          type: string
+          x-order: 3
+        CertificateThumbprintSHA1:
+          description: The SHA-1 thumbprint of the X.509 certificate
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 7
+        CertificateThumbprintSHA256:
+          description: The SHA-256 thumbprint of the X.509 certificate
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 8
+        Certificates:
+          description: The X.509 certificate chain
+          items:
+            $ref: '#/components/schemas/X509Certificate'
+          type: array
+          x-order: 5
+        CertificatesURL:
+          $ref: '#/components/schemas/NetURL'
+          description: The URL for the X.509 certificate chain
+          x-order: 6
+        Key:
+          description: The cryptographic key material. Structure depends on the key type (RSA, EC, etc.).
+          type: object
+          x-order: 1
+        KeyID:
+          description: 'The ''kid'' parameter: a unique identifier for the key.'
+          type: string
+          x-order: 2
+        Use:
+          description: 'The ''use'' parameter: ''sig'' for signing or ''enc'' for encryption.'
+          type: string
+          x-order: 4
+      required:
+      - Algorithm
+      - CertificateThumbprintSHA1
+      - CertificateThumbprintSHA256
+      - Certificates
+      - CertificatesURL
+      - Key
+      - KeyID
+      - Use
+      type: object

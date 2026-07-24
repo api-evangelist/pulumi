@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens StackConfig API
+  version: 1.0.0
+tags:
+- name: StackConfig
+paths:
+  /api/stacks/{orgName}/{projectName}/{stackName}/config:
+    delete:
+      description: Removes the service-managed configuration for a stack, including the secrets provider settings, encrypted key, encryption salt, and ESC environment reference. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Deleting the config causes the CLI to fall back to the local config file. Returns 204 with no content on success.
+      operationId: DeleteStackConfig
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeleteStackConfig
+      tags:
+      - StackConfig
+    get:
+      description: Retrieves the service-managed configuration for a stack. The response includes the ESC environment reference, secrets provider type, encrypted key, and encryption salt. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Returns 404 if no service-managed configuration exists for the stack.
+      operationId: GetStackConfig
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStackConfig'
+          description: OK
+        '404':
+          description: Stack Config
+      summary: GetStackConfig
+      tags:
+      - StackConfig
+    put:
+      description: Updates the service-managed configuration for a stack. The request body may include the ESC environment reference, secrets provider type, encrypted key, and encryption salt. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Returns the updated configuration object. Returns 400 if the environment reference is invalid or not found.
+      operationId: UpdateStackConfig
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppStackConfig'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStackConfig'
+          description: OK
+        '400':
+          description: invalid environment or invalid environment version or environment not found
+      summary: UpdateStackConfig
+      tags:
+      - StackConfig
+components:
+  schemas:
+    AppStackConfig:
+      description: StackConfig describes the configuration of a stack from Pulumi Cloud.
+      properties:
+        encryptedKey:
+          description: The KMS-encrypted ciphertext for the data key used for secrets encryption. Only used for cloud-based secrets providers.
+          type: string
+          x-order: 3
+        encryptionSalt:
+          description: The stack's base64-encoded encryption salt. Only used for passphrase-based secrets providers.
+          type: string
+          x-order: 4
+        environment:
+          description: Reference to ESC environment to use as stack configuration.
+          type: string
+          x-order: 1
+        secretsProvider:
+          description: The stack's secrets provider.
+          type: string
+          x-order: 2
+      required:
+      - environment
+      type: object

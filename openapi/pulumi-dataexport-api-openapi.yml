@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens DataExport API
+  version: 1.0.0
+tags:
+- name: DataExport
+paths:
+  /api/orgs/{orgName}/search/resources/export:
+    get:
+      description: ExportOrgResourceSearchQuery exports resource search results as a CSV file download. Supports the same query parameters as the standard resource search to filter results.
+      operationId: ExportOrgResourceSearchQuery
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Collapse results to show one entry per stack instead of per resource
+        in: query
+        name: collapse
+        schema:
+          type: boolean
+      - description: Cursor for paginated results
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - description: Facet filters to apply
+        in: query
+        name: facet
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Page number for pagination
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      - description: Include resource properties in search results (may increase response size)
+        in: query
+        name: properties
+        schema:
+          type: boolean
+      - description: Search query string
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Number of results to return
+        in: query
+        name: size
+        schema:
+          format: int64
+          type: integer
+      - description: Sort order for results
+        in: query
+        name: sort
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Number of top aggregation buckets to return
+        in: query
+        name: top
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: CSV file with exported resource data
+        '422':
+          description: search cluster is unreachable
+      summary: ExportOrgResourceSearchQuery
+      tags:
+      - DataExport

@@ -1,0 +1,359 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Workflows API
+  version: 1.0.0
+tags:
+- name: Workflows
+paths:
+  /api/orgs/{orgName}/agent-pools:
+    get:
+      description: Returns all agent pools configured for an organization. Agent pools enable self-hosted deployment agents, allowing organizations to run Pulumi Deployments on their own infrastructure for accessing private networks, meeting compliance requirements, or using custom execution environments. Each pool in the response includes its ID, name, and configuration details.
+      operationId: ListOrgAgentPool
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentPoolsResponse'
+          description: OK
+        '403':
+          description: Forbidden
+      summary: ListOrgAgentPool
+      tags:
+      - Workflows
+    post:
+      description: Creates a new agent pool for an organization. Agent pools enable self-hosted deployment agents, allowing organizations to run Pulumi Deployments on their own infrastructure rather than Pulumi-managed infrastructure. This is useful for accessing private networks, meeting compliance requirements, or using custom execution environments. The response includes an access token (agent pool secret) that self-hosted agents use to authenticate when polling for deployment work. This token is only returned once at creation time and cannot be retrieved later.
+      operationId: CreateOrgAgentPool
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgAgentPoolRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccessTokenResponse'
+          description: OK
+        '400':
+          description: Metadata object store endpoint is not configured
+        '403':
+          description: Forbidden
+      summary: CreateOrgAgentPool
+      tags:
+      - Workflows
+  /api/orgs/{orgName}/agent-pools/{poolId}:
+    delete:
+      description: Deletes an agent pool from an organization. If the agent pool is currently referenced by any stack's deployment settings, the deletion will fail with a 400 error unless the 'force' query parameter is set to true. Force-deleting a pool that is in use will cause affected stacks to fall back to Pulumi-managed infrastructure for future deployments. Returns 204 No Content on success.
+      operationId: DeleteOrgAgentPool
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent pool identifier
+        in: path
+        name: poolId
+        required: true
+        schema:
+          type: string
+      - description: Force the operation even if the pool is in use
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Agent pool is in use
+        '403':
+          description: Forbidden
+        '404':
+          description: AgentPool
+      summary: DeleteOrgAgentPool
+      tags:
+      - Workflows
+    get:
+      description: Returns the details of a specific agent pool, including its name, ID, creation timestamp, and configuration. Agent pools enable self-hosted deployment agents that run Pulumi Deployments on organization-managed infrastructure. The pool ID can be referenced in stack deployment settings to route deployments to self-hosted agents instead of Pulumi-managed infrastructure.
+      operationId: GetAgentPool
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent pool identifier
+        in: path
+        name: poolId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolDetail'
+          description: OK
+        '403':
+          description: Forbidden
+        '404':
+          description: AgentPool
+      summary: GetAgentPool
+      tags:
+      - Workflows
+    patch:
+      description: Updates an existing agent pool's configuration for an organization. This can be used to modify the pool's name or other configurable properties. The request body uses the same format as CreateOrgAgentPool. Only provided fields are updated; omitted fields remain unchanged.
+      operationId: PatchOrgAgentPool
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The agent pool identifier
+        in: path
+        name: poolId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgAgentPoolRequest'
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchOrgAgentPoolResponse'
+          description: OK
+        '403':
+          description: Forbidden
+        '404':
+          description: AgentPool
+      summary: PatchOrgAgentPool
+      tags:
+      - Workflows
+components:
+  schemas:
+    ListAgentPoolsResponse:
+      description: Response containing a list of agent pools.
+      properties:
+        agentPools:
+          description: The list of agent pools
+          items:
+            $ref: '#/components/schemas/AgentPool'
+          type: array
+          x-order: 1
+        defaultAgentPoolID:
+          description: The ID of the organization's default agent pool. Omitted if the organization uses the Pulumi Hosted Pool.
+          type: string
+          x-order: 2
+      required:
+      - agentPools
+      type: object
+    PatchOrgAgentPoolResponse:
+      description: Response body after partially updating an organization's agent pool.
+      properties:
+        description:
+          description: The updated description of the agent pool after the patch operation.
+          type: string
+          x-order: 2
+        name:
+          description: The updated name of the agent pool after the patch operation.
+          type: string
+          x-order: 1
+      required:
+      - description
+      - name
+      type: object
+    CreateAccessTokenResponse:
+      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
+
+        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
+      properties:
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+        tokenValue:
+          description: The token value
+          type: string
+          x-order: 2
+      required:
+      - id
+      - tokenValue
+      type: object
+    AgentPoolDetail:
+      description: Detailed information about an agent pool.
+      properties:
+        agents:
+          description: The agents
+          items:
+            $ref: '#/components/schemas/DeploymentAgentMetadata'
+          type: array
+          x-order: 5
+        created:
+          description: The creation timestamp
+          format: int64
+          type: integer
+          x-order: 1
+        description:
+          description: The description
+          type: string
+          x-order: 4
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 3
+      required:
+      - agents
+      - created
+      - description
+      - id
+      - name
+      type: object
+    AgentPool:
+      description: A pool of self-hosted deployment agents for running Pulumi Deployments.
+      properties:
+        created:
+          description: Unix epoch timestamp (seconds) when the agent pool was created.
+          format: int64
+          type: integer
+          x-order: 1
+        description:
+          description: User-provided description of the agent pool's purpose.
+          type: string
+          x-order: 4
+        id:
+          description: Unique identifier for this agent pool.
+          type: string
+          x-order: 2
+        isDefault:
+          description: Whether this pool is the organization's default workflow runner pool.
+          type: boolean
+          x-order: 8
+        lastDeployment:
+          description: Unix epoch timestamp (seconds) of the most recent deployment executed by this pool. Null if no deployments have run.
+          format: int64
+          type: integer
+          x-order: 7
+        lastSeen:
+          description: Unix epoch timestamp (seconds) when any agent in the pool last reported a heartbeat.
+          format: int64
+          type: integer
+          x-order: 5
+        name:
+          description: Human-readable name for this agent pool.
+          type: string
+          x-order: 3
+        status:
+          description: Aggregate status of agents in the pool (e.g. idle, busy, offline).
+          enum:
+          - online
+          - offline
+          type: string
+          x-order: 6
+          x-pulumi-model-property:
+            enumTypeName: DeploymentAgentStatus
+            enumComments: DeploymentAgentStatus is an enum representing the online/offline status of a deployment agent.
+      required:
+      - created
+      - description
+      - id
+      - isDefault
+      - lastSeen
+      - name
+      - status
+      type: object
+    CreateOrgAgentPoolRequest:
+      description: Request body for create org agent pool.
+      properties:
+        description:
+          description: The description
+          type: string
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 1
+      required:
+      - description
+      - name
+      type: object
+    DeploymentAgentMetadata:
+      description: DeploymentAgentMetadata contains metadata about a deployment agent, including version, platform, and connectivity information.
+      properties:
+        hostname:
+          description: The hostname of the machine running the agent.
+          type: string
+          x-order: 3
+        ip:
+          description: The IP address of the agent.
+          type: string
+          x-order: 4
+        lastSeen:
+          description: The Unix timestamp when the agent was last seen.
+          format: int64
+          type: integer
+          x-order: 6
+        pid:
+          description: The process ID of the agent.
+          type: string
+          x-order: 5
+        platform:
+          description: The platform the agent is running on.
+          type: string
+          x-order: 2
+        status:
+          description: The current status of the deployment agent.
+          enum:
+          - online
+          - offline
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: DeploymentAgentStatus
+            enumComments: DeploymentAgentStatus is an enum representing the online/offline status of a deployment agent.
+        version:
+          description: The version of the deployment agent.
+          type: string
+          x-order: 1
+      required:
+      - hostname
+      - ip
+      - lastSeen
+      - pid
+      - platform
+      - status
+      - version
+      type: object

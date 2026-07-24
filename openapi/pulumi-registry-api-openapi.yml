@@ -1,0 +1,1662 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Registry API
+  version: 1.0.0
+tags:
+- name: Registry
+paths:
+  /api/registry/packages:
+    get:
+      description: Retrieves all registry packages accessible to the caller, with support for filtering, sorting, and pagination. No authentication is required, but authenticated requests may include additional usage statistics per package. Results can be filtered by package name, publisher, owning organization, package type, usage, search query, and visibility level. The sort parameter controls the ordering of results, and the asc parameter toggles ascending vs. descending order. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the full package metadata including name, publisher, source, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, creation timestamp, and visibility.
+      operationId: ListPackages
+      parameters:
+      - description: When true, sort results in ascending order
+        in: query
+        name: asc
+        schema:
+          type: boolean
+      - description: Pagination token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: 'Results per page (default: 100)'
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      - description: Filter by specific package name
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      - description: Filter by package type
+        in: query
+        name: packageType
+        schema:
+          type: string
+      - description: Filter by publisher organization
+        in: query
+        name: publisher
+        schema:
+          type: string
+      - description: Search query string
+        in: query
+        name: search
+        schema:
+          type: string
+      - description: Sort field for results
+        in: query
+        name: sort
+        schema:
+          type: string
+      - description: Filter by usage type
+        in: query
+        name: usage
+        schema:
+          type: string
+      - description: Filter by visibility level
+        in: query
+        name: visibility
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPackagesResponse'
+          description: OK
+        '400':
+          description: Bad continuationToken
+      summary: ListPackages
+      tags:
+      - Registry
+  /api/registry/packages/{source}/{publisher}/{name}/versions:
+    post:
+      description: Initiates the first step of a two-phase package version publish workflow. This creates a publish transaction and returns an operationID along with pre-signed upload URLs for the package artifacts (schema, index, and installationConfiguration). The caller must upload all required artifacts to the provided URLs and then call the PostPublishPackageVersionComplete endpoint with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, 404 if the source does not exist, or 409 if the specified version already exists.
+      operationId: PostPublishPackageVersion
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartPackagePublishRequest'
+        x-originalParamName: body
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartPackagePublishResponse'
+          description: Accepted
+        '404':
+          description: Source
+        '409':
+          description: Version already exists
+      summary: PostPublishPackageVersion
+      tags:
+      - Registry
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      description: Removes a specific version of a package from the registry. The package is identified by its source (e.g. 'pulumi', 'opentofu', or 'private'), publisher organization, name, and semantic version. Requires the RegistryPublish permission on the publisher organization. Returns 204 No Content on success.
+      operationId: DeletePublishPackageVersion
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the package version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      summary: DeletePublishPackageVersion
+      tags:
+      - Registry
+    get:
+      description: Retrieves metadata for a specific version of a registry package. The package is identified by its source, publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the package's name, publisher, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, plugin download URL, creation timestamp, visibility, parameterization details, and usage statistics (when the caller is authenticated). Returns 404 if the specified package version does not exist.
+      operationId: GetPackageVersion
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageMetadata'
+          description: OK
+        '404':
+          description: package version
+      summary: GetPackageVersion
+      tags:
+      - Registry
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      description: Finalizes the second step of the two-phase package version publish workflow. After initiating a publish with PostPublishPackageVersion and uploading all required artifacts (schema, index, installationConfiguration) to the pre-signed URLs, call this endpoint with the operationID to complete the publish. The service validates that all artifacts were uploaded successfully before making the version available in the registry. Returns 201 Created on success, 400 for a bad request (e.g. missing artifacts), 404 if the publish operation is not found, or 409 if the version already exists.
+      operationId: PostPublishPackageVersionComplete
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the package version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishPackageVersionCompleteRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishPackageVersionCompleteResponse'
+          description: Created
+        '400':
+          description: Bad request
+        '404':
+          description: Publish Operation
+        '409':
+          description: Version already exists
+      summary: PostPublishPackageVersionComplete
+      tags:
+      - Registry
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}/docs/{token}:
+    get:
+      description: 'Returns structured API documentation for a single resource or function identified by its Pulumi token. The token must be URL-encoded (e.g. ''random:index%2FrandomPassword:RandomPassword''). The ''lang'' parameter is required and filters all property names, types, descriptions, and code examples to the specified language. Use the ''os'' parameter to collapse OS choosers in descriptions. Supports content negotiation via the Accept header: send ''text/markdown'' to receive a rendered markdown document with property tables instead of structured JSON. The version parameter accepts a specific semantic version string or ''latest''. Returns 404 if the package version or token does not exist.'
+      operationId: GetPackageDocs
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: URL-encoded Pulumi token identifying the resource or function
+        in: path
+        name: token
+        required: true
+        schema:
+          type: string
+      - description: 'Language for filtering property names, types, descriptions, and code examples. Values: typescript, python, go, csharp, java, yaml'
+        in: query
+        name: lang
+        required: true
+        schema:
+          type: string
+      - description: 'Filter OS choosers in descriptions to a single OS. Values: linux, macos, windows'
+        in: query
+        name: os
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPackageDocsResponse'
+            text/markdown:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: invalid query parameter
+        '404':
+          description: package version or token
+      summary: GetPackageDocs
+      tags:
+      - Registry
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}/installation:
+    get:
+      description: 'Returns installation configuration content for a registry package version, structured as an ordered list of content nodes. Not all packages include installation configuration; this endpoint returns 404 when absent. Use the ''lang'' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the ''os'' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: send ''text/markdown'' to receive a clean rendered markdown string instead of structured JSON. The version parameter accepts a specific semantic version string or ''latest''. Returns 404 if the specified package version does not exist or if the package does not include installation configuration.'
+      operationId: GetPackageInstallation
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: 'Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml'
+        in: query
+        name: lang
+        schema:
+          type: string
+      - description: 'Filter OS-specific content to a single OS. Values: linux, macos, windows'
+        in: query
+        name: os
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPackageInstallationResponse'
+            text/markdown:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: invalid query parameter
+        '404':
+          description: package version or installation configuration
+      summary: GetPackageInstallation
+      tags:
+      - Registry
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}/nav:
+    get:
+      description: 'Returns the module, resource, and function navigation tree for a registry package version. Names are resolved for the requested language (defaulting to Go when omitted). Use the ''q'' parameter for case-insensitive search: the tree is filtered to nodes whose name or token contains the query string, with ancestor module paths preserved. Modules with no matching children are omitted. Supports content negotiation via the Accept header: send ''text/markdown'' to receive a plain-text listing instead of structured JSON. The version parameter accepts a specific semantic version string or ''latest''. Returns 404 if the specified package version does not exist.'
+      operationId: GetPackageNav
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: 'Language for name resolution. Names are resolved for this language with a fallback chain: requested language, then Go, then first available. Values: typescript, python, go, csharp, java, yaml'
+        in: query
+        name: lang
+        schema:
+          type: string
+      - description: Search query for filtering the navigation tree. Case-insensitive matching against resource/function names and tokens
+        in: query
+        name: q
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPackageNavResponse'
+            text/markdown:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: invalid query parameter
+        '404':
+          description: package version
+      summary: GetPackageNav
+      tags:
+      - Registry
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/registry/packages/{source}/{publisher}/{name}/versions/{version}/readme:
+    get:
+      description: 'Returns README content for a registry package version, structured as an ordered list of content nodes. Each node has a ''kind'' and a ''markdown'' fallback for forward compatibility. Use the ''lang'' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the ''os'' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: send ''text/markdown'' to receive a clean rendered markdown string instead of structured JSON. The version parameter accepts a specific semantic version string or ''latest''. Returns 404 if the specified package version does not exist.'
+      operationId: GetPackageReadme
+      parameters:
+      - description: 'The package source: ''pulumi'', ''opentofu'', or ''private'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the package
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The package name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: 'Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml'
+        in: query
+        name: lang
+        schema:
+          type: string
+      - description: 'Filter OS-specific content to a single OS. Values: linux, macos, windows'
+        in: query
+        name: os
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPackageReadmeResponse'
+            text/markdown:
+              schema:
+                type: string
+          description: OK
+        '400':
+          description: invalid query parameter
+        '404':
+          description: package version
+      summary: GetPackageReadme
+      tags:
+      - Registry
+      x-pulumi-route-property:
+        Visibility: Preview
+  /api/registry/templates:
+    get:
+      description: Lists registry-backed templates with optional filtering, search, and pagination. This endpoint returns only registry-backed templates and does not include VCS-backed templates (those sourced from GitHub or GitLab repositories). No authentication is required. Results can be filtered by template name and owning organization (orgLogin). The search parameter performs case-insensitive partial matching against the template name, display name, description, metadata values, and runtime language. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response includes the template's name, publisher, source, display name, description, runtime, language, readme URL, download URL, visibility, and updated timestamp.
+      operationId: ListTemplates
+      parameters:
+      - description: Pagination token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: 'Maximum number of results to return (default: 100)'
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      - description: Filter by specific template name
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter by owning organization
+        in: query
+        name: orgLogin
+        schema:
+          type: string
+      - description: Search query matching template name, display name, description, metadata values, or runtime language. Multiple space-separated terms require all terms to match (AND semantics).
+        in: query
+        name: search
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTemplatesResponse'
+          description: OK
+        '400':
+          description: Bad continuationToken
+      summary: ListTemplates
+      tags:
+      - Registry
+  /api/registry/templates/{source}/{publisher}/{name}/versions:
+    get:
+      description: Lists all versions of a specific template, ordered by version descending (latest first). The template is identified by its source, publisher organization, and name. Results are paginated with a default limit of 100 per page. Use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the template version metadata. Returns 400 for an invalid continuationToken or 404 if the template does not exist.
+      operationId: ListTemplateVersions
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Pagination token for retrieving the next page of results
+        in: query
+        name: continuationToken
+        schema:
+          type: string
+      - description: 'Maximum number of results to return (default: 100)'
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTemplateVersionsResponse'
+          description: OK
+        '400':
+          description: Bad continuationToken
+        '404':
+          description: template
+      summary: ListTemplateVersions
+      tags:
+      - Registry
+    post:
+      description: Initiates the first step of a two-phase template version publish workflow. This creates a publish transaction and returns an operationID along with a pre-signed upload URL for the template archive. The source must be 'private'. The caller must upload the template archive (a gzip-compressed tar file containing a root-level Pulumi.yaml with a template section, and optionally a README.md) to the provided URL, then call PostPublishTemplateVersionComplete with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, or 404 if the source does not exist.
+      operationId: PostPublishTemplateVersion
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartTemplatePublishRequest'
+        x-originalParamName: body
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartTemplatePublishResponse'
+          description: Accepted
+        '404':
+          description: Source
+      summary: PostPublishTemplateVersion
+      tags:
+      - Registry
+  /api/registry/templates/{source}/{publisher}/{name}/versions/{version}:
+    delete:
+      description: Removes a specific version of a template from the registry. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, name, and semantic version. If this is the last remaining version of the template, the 'force' query parameter must be set to true; doing so will also delete the template itself. Returns 204 No Content on success, or 400 if an invalid query parameter is provided.
+      operationId: DeleteTemplateVersion
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the template version to delete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: When true, allows deletion of the final remaining template version
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: invalid query parameter
+      summary: DeleteTemplateVersion
+      tags:
+      - Registry
+    get:
+      description: Retrieves metadata for a specific version of a registry template. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recent version. The response includes the template's name, display name, description, runtime information, language, readme URL, download URL (a pre-signed URL valid for at least 5 minutes for retrieving the .tar.gz archive), repository slug (for VCS-backed templates), visibility, updated timestamp, metadata, and configuration values. Returns 400 if a specific version is provided for VCS-backed templates (which do not support versioning), or 404 if the template version does not exist.
+      operationId: GetTemplateVersion
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string or 'latest'
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTemplateResponse'
+          description: OK
+        '400':
+          description: version cannot be specified for VCS-backed templates
+        '404':
+          description: template version
+      summary: GetTemplateVersion
+      tags:
+      - Registry
+  /api/registry/templates/{source}/{publisher}/{name}/versions/{version}/complete:
+    post:
+      description: Finalizes the second step of the two-phase template version publish workflow. After initiating a publish with PostPublishTemplateVersion and uploading the template archive (.tar.gz) to the pre-signed URL, call this endpoint with the operationID to complete the publish. The service validates that the archive was uploaded successfully before making the version available in the registry. Once complete, the template becomes available to the publisher's organization. Returns 201 Created on success, 400 for invalid operation state, 404 if the publish operation is not found, or 409 if the version already exists.
+      operationId: PostPublishTemplateVersionComplete
+      parameters:
+      - description: 'The template source: ''private'', ''github'', or ''gitlab'''
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - description: Organization that owns the template
+        in: path
+        name: publisher
+        required: true
+        schema:
+          type: string
+      - description: The template name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Semantic version string of the template version to complete
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishTemplateVersionCompleteRequest'
+        x-originalParamName: body
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishTemplateVersionCompleteResponse'
+          description: Created
+        '400':
+          description: Operation
+        '404':
+          description: Publish Operation
+        '409':
+          description: Version already exists
+      summary: PostPublishTemplateVersionComplete
+      tags:
+      - Registry
+components:
+  schemas:
+    PublishTemplateVersionCompleteRequest:
+      description: PublishTemplateVersionCompleteRequest is a request to mark a template version publish operation as complete.
+      properties:
+        operationID:
+          description: The identifier of the publish operation to complete.
+          type: string
+          x-order: 1
+      required:
+      - operationID
+      type: object
+    RegistryDocsProperty:
+      description: A property of a Pulumi resource or function in the public API documentation. Name, type, and description are maps keyed by language. When a language filter is applied, each map contains exactly one entry matching the requested language.
+      properties:
+        deprecated:
+          description: Whether this property is deprecated.
+          type: boolean
+          x-order: 5
+        description:
+          additionalProperties:
+            type: string
+          description: The property description in markdown, keyed by language.
+          type: object
+          x-order: 6
+        name:
+          additionalProperties:
+            type: string
+          description: The property name, keyed by language.
+          type: object
+          x-order: 1
+        replaceOnChanges:
+          description: Whether changing this property forces resource replacement.
+          type: boolean
+          x-order: 4
+        required:
+          description: Whether the property is required.
+          type: boolean
+          x-order: 3
+        type:
+          additionalProperties:
+            type: string
+          description: The display type of the property, keyed by language.
+          type: object
+          x-order: 2
+        typeRef:
+          $ref: '#/components/schemas/RegistryDocsTypeRef'
+          description: Reference to the type this property links to, either a local supporting type token or a remote type in another package. Null for primitive types.
+          x-order: 7
+      required:
+      - description
+      - name
+      - replaceOnChanges
+      - required
+      - type
+      type: object
+    StartPackagePublishRequest:
+      description: Request to start publishing a package to the registry.
+      properties:
+        publishedAt:
+          description: Optional timestamp for when the package version was originally published. If not provided, defaults to current server time. Useful for backfilling historical versions with their original publish dates.
+          format: date-time
+          type: string
+          x-order: 2
+        version:
+          description: The semantic version of the package to publish.
+          type: string
+          x-order: 1
+      required:
+      - version
+      type: object
+    StartTemplatePublishRequest:
+      description: Request to start publishing a template to the registry.
+      properties:
+        version:
+          description: The semantic version of the template to publish.
+          type: string
+          x-order: 1
+      required:
+      - version
+      type: object
+    TemplateVersion:
+      allOf:
+      - $ref: '#/components/schemas/Template'
+      - description: 'TemplateVersion represents a specific version of a registry-backed template.
+
+          This extends the Template model with version information for listing template versions.'
+        properties:
+          version:
+            description: Version is the semantic version of this template.
+            type: string
+            x-order: 1
+        required:
+        - version
+        type: object
+    PackageMetadata:
+      description: PackageMetadata describes a Pulumi package and its associated metadata in the registry.
+      properties:
+        category:
+          description: The category of the package.
+          type: string
+          x-order: 10
+        createdAt:
+          description: The date and time the package version was created.
+          format: date-time
+          type: string
+          x-order: 17
+        description:
+          description: The description of the package.
+          type: string
+          x-order: 7
+        isFeatured:
+          description: Whether the package is featured.
+          type: boolean
+          x-order: 11
+        logoUrl:
+          description: The URL of the logo for the package.
+          type: string
+          x-order: 8
+        name:
+          description: The name of the package.
+          type: string
+          x-order: 1
+        packageStatus:
+          description: The maturity level of the package, e.g. "ga", "public_preview"
+          enum:
+          - ga
+          - public_preview
+          type: string
+          x-order: 13
+          x-pulumi-model-property:
+            enumTypeName: PackageStatus
+            enumComments: PackageStatus represents the maturity level of a registry package.
+            enumFieldNames:
+            - GA
+            - PublicPreview
+        packageTypes:
+          description: The package types, e.g. "native", "component", "bridged"
+          items:
+            enum:
+            - native
+            - component
+            - bridged
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: PackageType
+              enumComments: PackageType represents the type of a registry package.
+              enumFieldComments:
+              - A package that offers native resources.
+              - A package that offers component resources.
+              - A package that is bridged from a different ecosystem (e.g. OpenTofu).
+          type: array
+          x-order: 12
+        parameterization:
+          $ref: '#/components/schemas/PackageParameterization'
+          description: The parameterization of the provider, if any.
+          x-order: 19
+        pluginDownloadURL:
+          description: The URL to download the plugin at, as found in the schema.
+          type: string
+          x-order: 16
+        publisher:
+          description: The publisher of the package.
+          type: string
+          x-order: 2
+        publisherDisplayName:
+          description: The display name of the publisher.
+          type: string
+          x-order: 3
+        readmeURL:
+          description: The URL of the readme for the package.
+          type: string
+          x-order: 14
+        repoUrl:
+          description: The URL of the repository the package is hosted in.
+          type: string
+          x-order: 9
+        schemaURL:
+          description: The URL of the schema for the package.
+          type: string
+          x-order: 15
+        source:
+          description: The source of the package.
+          type: string
+          x-order: 4
+        title:
+          description: The title/display name of the package.
+          type: string
+          x-order: 6
+        usageStats:
+          $ref: '#/components/schemas/PackageUsageStats'
+          description: Usage statistics for this package within the requesting org. Only populated when the caller is authenticated.
+          x-order: 20
+        version:
+          description: The version of the package in semver format.
+          type: string
+          x-order: 5
+        visibility:
+          description: The visibility of the package.
+          enum:
+          - public
+          - private
+          type: string
+          x-order: 18
+          x-pulumi-model-property:
+            enumTypeName: Visibility
+            enumComments: Visibility indicates whether an entity is public or private.
+      required:
+      - createdAt
+      - isFeatured
+      - name
+      - packageStatus
+      - publisher
+      - readmeURL
+      - schemaURL
+      - source
+      - version
+      - visibility
+      type: object
+    StartPackagePublishResponse:
+      description: Response containing the operation ID and upload URLs for a package publish.
+      properties:
+        operationID:
+          description: The unique identifier for the publish operation.
+          type: string
+          x-order: 1
+        uploadURLs:
+          $ref: '#/components/schemas/PackageUploadURLs'
+          description: The URLs to upload package artifacts to.
+          x-order: 2
+      required:
+      - operationID
+      - uploadURLs
+      type: object
+    RegistryDocsTypeRef:
+      description: A reference to a type, either local (within the same package) or remote (in another package). For local types the token matches a supportingTypes entry. For remote types, package and version identify the external package.
+      properties:
+        package:
+          description: The package identifier for remote types (e.g. 'pulumi/pulumi/aws'). Absent for local types within the same package.
+          type: string
+          x-order: 2
+        token:
+          description: The Pulumi token of the referenced type.
+          type: string
+          x-order: 1
+        version:
+          description: The version of the remote package. Absent for local types.
+          type: string
+          x-order: 3
+      required:
+      - token
+      type: object
+    ArtifactVersionNameSpec:
+      description: ArtifactVersionNameSpec represents an arbitrary artifact version name for serialization.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        publisher:
+          description: The publisher
+          type: string
+          x-order: 2
+        source:
+          description: The source
+          type: string
+          x-order: 3
+        version:
+          description: The version number
+          type: string
+          x-order: 4
+      required:
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    RegistryContentNodeOption:
+      description: A single option within a chooser content node, representing one language or OS variant.
+      properties:
+        content:
+          description: The content for this option, typically a code snippet or instructions.
+          type: string
+          x-order: 3
+        language:
+          description: 'The language this option applies to (for ''language-chooser'' nodes). One of: typescript, python, go, csharp, java, yaml.'
+          type: string
+          x-order: 1
+        os:
+          description: 'The operating system this option applies to (for ''os-chooser'' nodes). One of: linux, macos, windows.'
+          type: string
+          x-order: 2
+      required:
+      - content
+      type: object
+    ListPackagesResponse:
+      description: Response containing a list of packages.
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        packages:
+          description: The list of packages
+          items:
+            $ref: '#/components/schemas/PackageMetadata'
+          type: array
+          x-order: 1
+      required:
+      - packages
+      type: object
+    GetPackageDocsResponse:
+      description: Structured API documentation for a single resource or function. Property names, types, and descriptions are keyed by language. When lang is provided, each map is guaranteed to contain exactly one entry matching the requested language. The description field is a content node array because it may contain structural elements like code choosers.
+      properties:
+        description:
+          description: Structured description as an array of content nodes. When a language filter is applied, chooser nodes are resolved and the array contains only text nodes.
+          items:
+            $ref: '#/components/schemas/RegistryContentNode'
+          type: array
+          x-order: 7
+        inputs:
+          description: Input properties for the resource or function.
+          items:
+            $ref: '#/components/schemas/RegistryDocsProperty'
+          type: array
+          x-order: 8
+        kind:
+          description: Whether this is a 'resource' or 'function'.
+          type: string
+          x-order: 4
+        language:
+          description: The language the content was filtered for.
+          type: string
+          x-order: 5
+        name:
+          additionalProperties:
+            type: string
+          description: The display name of the resource or function, keyed by language.
+          type: object
+          x-order: 6
+        navUrl:
+          description: Path to the package navigation endpoint for this version.
+          type: string
+          x-order: 2
+        outputs:
+          description: Output properties for the resource or function.
+          items:
+            $ref: '#/components/schemas/RegistryDocsProperty'
+          type: array
+          x-order: 9
+        supportingTypes:
+          description: Supporting types referenced by the input and output properties. These are inlined rather than referenced by index.
+          items:
+            $ref: '#/components/schemas/RegistryDocsSupportingType'
+          type: array
+          x-order: 10
+        token:
+          description: The Pulumi token identifying this resource or function.
+          type: string
+          x-order: 3
+        version:
+          description: The resolved semantic version of the package.
+          type: string
+          x-order: 1
+      required:
+      - description
+      - kind
+      - language
+      - name
+      - navUrl
+      - token
+      - version
+      type: object
+    PublishPackageVersionCompleteResponse:
+      description: PublishPackageVersionCompleteResponse is the response after completing a package version publish operation.
+      type: object
+    Template:
+      description: Template describes a Pulumi project template.
+      properties:
+        config:
+          additionalProperties:
+            $ref: '#/components/schemas/AppProjectTemplateConfigValue'
+          description: Configuration values for the template.
+          type: object
+          x-order: 14
+        description:
+          description: A free-form text description of the template's purpose.
+          type: string
+          x-order: 5
+        displayName:
+          description: The human-readable display name shown in the UI.
+          type: string
+          x-order: 4
+        downloadURL:
+          description: 'An URL, valid for at least 5 minutes that you can retrieve the full download
+
+            bundle for your template.
+
+
+            The bundle will be a .tar.gz.'
+          type: string
+          x-order: 9
+        language:
+          description: 'The language that the template is in, inferred from the runtime.
+
+            This may differ from the runtime (e.g., dotnet runtime with C# language,
+
+            nodejs runtime with TypeScript language) or be the same (e.g., python).'
+          enum:
+          - unknown
+          - python
+          - go
+          - dotnet
+          - java
+          - javascript
+          - typescript
+          - yaml
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: RuntimeLanguage
+            enumComments: The programming language runtime used by a Pulumi program.
+            enumFieldNames:
+            - Unknown
+            - Python
+            - Go
+            - DotNet
+            - Java
+            - JavaScript
+            - Typescript
+            - Yaml
+        metadata:
+          additionalProperties:
+            type: string
+          description: Key-value metadata associated with the template.
+          type: object
+          x-order: 13
+        name:
+          description: The unique identifier name of the template.
+          type: string
+          x-order: 1
+        publisher:
+          description: The organization or user that published the template.
+          type: string
+          x-order: 2
+        readmeURL:
+          description: ReadmeURL is just a pre-signed URL, derived from the artifact key.
+          type: string
+          x-order: 8
+        repoSlug:
+          description: A link to the hosting repository. Non-VCS backed templates do not have a repo slug as of now.
+          type: string
+          x-order: 10
+        runtime:
+          $ref: '#/components/schemas/TemplateRuntimeInfo'
+          description: The runtime that the template uses with optional configuration.
+          x-order: 6
+        source:
+          description: The source identifier indicating where the template originates from.
+          type: string
+          x-order: 3
+        updatedAt:
+          description: The timestamp when the template was last updated.
+          format: date-time
+          type: string
+          x-order: 12
+        url:
+          description: 'For registry-backed templates, the URL will be a registry:// URL. For
+
+            VCS-backed templates, this will be the VCS URL (e.g., GitHub, GitLab).'
+          type: string
+          x-order: 15
+        visibility:
+          description: The visibility of the template (public or private).
+          enum:
+          - public
+          - private
+          type: string
+          x-order: 11
+          x-pulumi-model-property:
+            enumTypeName: Visibility
+            enumComments: Visibility indicates whether an entity is public or private.
+      required:
+      - displayName
+      - downloadURL
+      - language
+      - name
+      - publisher
+      - source
+      - updatedAt
+      - url
+      - visibility
+      type: object
+    PublishPackageVersionCompleteRequest:
+      description: PublishPackageVersionCompleteRequest is a request to mark a package version publish operation as complete.
+      properties:
+        operationID:
+          description: The identifier of the publish operation to complete.
+          type: string
+          x-order: 1
+      required:
+      - operationID
+      type: object
+    TemplateRuntimeInfo:
+      description: TemplateRuntimeInfo describes the runtime used by a template.
+      properties:
+        name:
+          description: The runtime language or platform, e.g. 'nodejs', 'python', 'go', 'dotnet', 'java', 'yaml'.
+          type: string
+          x-order: 1
+        options:
+          additionalProperties:
+            type: object
+          description: Optional configuration options for the runtime.
+          type: object
+          x-order: 2
+      type: object
+    GetPackageNavItem:
+      description: A resource or function entry in the package navigation tree.
+      properties:
+        name:
+          description: The display name, resolved for the requested language.
+          type: string
+          x-order: 2
+        token:
+          description: The Pulumi token identifying this resource or function (e.g. 'random:index/randomPassword:RandomPassword').
+          type: string
+          x-order: 1
+      required:
+      - name
+      - token
+      type: object
+    PackageUploadURLs:
+      description: PackageUploadURLs contains pre-signed URLs for uploading package artifacts.
+      properties:
+        index:
+          description: The pre-signed URL for uploading the package index.
+          type: string
+          x-order: 2
+        installationConfiguration:
+          description: The pre-signed URL for uploading the package installation configuration.
+          type: string
+          x-order: 3
+        schema:
+          description: The pre-signed URL for uploading the package schema.
+          type: string
+          x-order: 1
+      required:
+      - index
+      - installationConfiguration
+      - schema
+      type: object
+    ListTemplatesResponse:
+      description: Response containing a paginated list of templates.
+      properties:
+        continuationToken:
+          description: An opaque token for fetching the next page of results
+          type: string
+          x-order: 2
+        diagnostics:
+          description: Diagnostic messages encountered during template listing
+          items:
+            type: string
+          type: array
+          x-order: 3
+        templates:
+          description: The list of templates
+          items:
+            $ref: '#/components/schemas/Template'
+          type: array
+          x-order: 1
+      required:
+      - templates
+      type: object
+    RegistryDocsSupportingType:
+      description: A supporting type (object or enum) referenced by resource or function properties. Inlined in the response rather than referenced by index.
+      properties:
+        kind:
+          description: Whether this is an 'object' or 'enum' type.
+          type: string
+          x-order: 3
+        name:
+          additionalProperties:
+            type: string
+          description: The display name of this type, keyed by language.
+          type: object
+          x-order: 2
+        properties:
+          description: Properties of this type (when kind is 'object').
+          items:
+            $ref: '#/components/schemas/RegistryDocsProperty'
+          type: array
+          x-order: 4
+        token:
+          description: The Pulumi token of this type.
+          type: string
+          x-order: 1
+        values:
+          description: Enum values (when kind is 'enum').
+          items:
+            $ref: '#/components/schemas/RegistryDocsEnumValue'
+          type: array
+          x-order: 5
+      required:
+      - kind
+      - name
+      - token
+      type: object
+    GetTemplateResponse:
+      allOf:
+      - $ref: '#/components/schemas/Template'
+      - description: Response body for retrieving a single template.
+        type: object
+    GetPackageReadmeResponse:
+      description: README content for a registry package, structured as an ordered list of content nodes. When a language or OS filter is applied, language- and OS-specific content is collapsed to the requested value.
+      properties:
+        content:
+          description: Ordered list of content nodes composing the README document.
+          items:
+            $ref: '#/components/schemas/RegistryContentNode'
+          type: array
+          x-order: 5
+        language:
+          description: The language the content was filtered for, if a language filter was applied.
+          type: string
+          x-order: 2
+        navUrl:
+          description: Path to the package navigation endpoint for this version.
+          type: string
+          x-order: 4
+        os:
+          description: The operating system the content was filtered for, if an OS filter was applied.
+          type: string
+          x-order: 3
+        version:
+          description: The resolved semantic version of the package.
+          type: string
+          x-order: 1
+      required:
+      - content
+      - navUrl
+      - version
+      type: object
+    GetPackageInstallationResponse:
+      description: Installation configuration content for a registry package, structured as an ordered list of content nodes. When a language or OS filter is applied, language- and OS-specific content is collapsed to the requested value. Returns 404 if the package does not include installation configuration.
+      properties:
+        content:
+          description: Ordered list of content nodes composing the installation configuration document.
+          items:
+            $ref: '#/components/schemas/RegistryContentNode'
+          type: array
+          x-order: 5
+        language:
+          description: The language the content was filtered for, if a language filter was applied.
+          type: string
+          x-order: 2
+        navUrl:
+          description: Path to the package navigation endpoint for this version.
+          type: string
+          x-order: 4
+        os:
+          description: The operating system the content was filtered for, if an OS filter was applied.
+          type: string
+          x-order: 3
+        version:
+          description: The resolved semantic version of the package.
+          type: string
+          x-order: 1
+      required:
+      - content
+      - navUrl
+      - version
+      type: object
+    PackageUsageStats:
+      description: PackageUsageStats contains usage statistics for a package within an organization.
+      properties:
+        onLatest:
+          description: Number of stacks on the latest version of this package.
+          format: int32
+          type: integer
+          x-order: 2
+        onOlder:
+          description: Number of stacks on an older version of this package.
+          format: int32
+          type: integer
+          x-order: 3
+        totalStacks:
+          description: Total number of stacks using this package.
+          format: int32
+          type: integer
+          x-order: 1
+        versionUnresolved:
+          description: Number of stacks where the version could not be resolved.
+          format: int32
+          type: integer
+          x-order: 4
+      type: object
+    ListTemplateVersionsResponse:
+      description: ListTemplateVersionsResponse contains all available versions for a template.
+      properties:
+        continuationToken:
+          description: Token to fetch the next page of results. If null or empty, there are no more results.
+          type: string
+          x-order: 2
+        templates:
+          description: Templates contains all versions of the specified template, sorted by version descending.
+          items:
+            $ref: '#/components/schemas/TemplateVersion'
+          type: array
+          x-order: 1
+      required:
+      - templates
+      type: object
+    GetPackageNavResponse:
+      description: Navigation structure for a registry package's modules, resources, and functions. Names are resolved for the requested language (defaulting to Go). When a search query is provided, the tree is filtered to matching nodes with ancestor paths preserved.
+      properties:
+        description:
+          description: A short description of what the package provides.
+          type: string
+          x-order: 6
+        docsUrlTemplate:
+          description: URL template for the documentation endpoint. Replace '{percent-encoded-token}' with a percent-encoded Pulumi token from a navigation item.
+          type: string
+          x-order: 11
+        installationUrl:
+          description: Path to the package installation configuration endpoint for this version. Absent when the package does not include installation configuration.
+          type: string
+          x-order: 10
+        language:
+          description: The language names were resolved for, if a language filter was applied.
+          type: string
+          x-order: 7
+        modules:
+          description: The modules in this package, each containing resources and functions.
+          items:
+            $ref: '#/components/schemas/GetPackageNavModule'
+          type: array
+          x-order: 12
+        name:
+          description: The package name (e.g. 'aws').
+          type: string
+          x-order: 3
+        packageVersionUrl:
+          description: Path to the full package version metadata endpoint.
+          type: string
+          x-order: 8
+        publisher:
+          description: The publisher of the package (e.g. 'pulumi').
+          type: string
+          x-order: 2
+        readmeUrl:
+          description: Path to the package README endpoint for this version.
+          type: string
+          x-order: 9
+        source:
+          description: The source of the package (e.g. 'pulumi').
+          type: string
+          x-order: 1
+        title:
+          description: The display title of the package.
+          type: string
+          x-order: 5
+        version:
+          description: The resolved semantic version of the package.
+          type: string
+          x-order: 4
+      required:
+      - docsUrlTemplate
+      - modules
+      - name
+      - packageVersionUrl
+      - publisher
+      - readmeUrl
+      - source
+      - title
+      - version
+      type: object
+    RegistryDocsEnumValue:
+      description: A value in an enum type definition.
+      properties:
+        description:
+          additionalProperties:
+            type: string
+          description: Description of this enum value, keyed by language.
+          type: object
+          x-order: 3
+        name:
+          additionalProperties:
+            type: string
+          description: The enum value name, keyed by language.
+          type: object
+          x-order: 1
+        value:
+          description: The wire value of this enum variant.
+          type: string
+          x-order: 2
+      required:
+      - name
+      - value
+      type: object
+    PackageParameterization:
+      description: PackageParameterization describes the parameterization of a provider package.
+      properties:
+        baseProvider:
+          $ref: '#/components/schemas/ArtifactVersionNameSpec'
+          description: The base provider that this package is parameterized from.
+          x-order: 1
+        parameter:
+          description: The opaque parameterization data passed to the base provider, base64-encoded.
+          items:
+            format: byte
+            type: string
+          type: array
+          x-order: 2
+      required:
+      - baseProvider
+      - parameter
+      type: object
+    GetPackageNavModule:
+      description: A module within a package navigation tree, containing its resources and functions.
+      properties:
+        functions:
+          description: Functions in this module.
+          items:
+            $ref: '#/components/schemas/GetPackageNavItem'
+          type: array
+          x-order: 3
+        name:
+          description: The display name of the module, resolved for the requested language.
+          type: string
+          x-order: 1
+        resources:
+          description: Resources in this module.
+          items:
+            $ref: '#/components/schemas/GetPackageNavItem'
+          type: array
+          x-order: 2
+      required:
+      - functions
+      - name
+      - resources
+      type: object
+    TemplateUploadURLs:
+      description: TemplateUploadURLs contains pre-signed URLs for uploading template artifacts.
+      properties:
+        archive:
+          description: The pre-signed URL for uploading the template archive.
+          type: string
+          x-order: 1
+      required:
+      - archive
+      type: object
+    PublishTemplateVersionCompleteResponse:
+      description: PublishTemplateVersionCompleteResponse is the response after completing a template version publish operation.
+      type: object
+    RegistryContentNode:
+      description: A structured content node in registry documentation. Every node has a 'kind' and a 'markdown' fallback string. Clients render 'markdown' for any 'kind' they do not recognize, ensuring forward compatibility as new node kinds are introduced.
+      properties:
+        kind:
+          description: 'The semantic kind of this content node. Known kinds: ''text'' (plain markdown), ''language-chooser'' (switchable code blocks per language), ''os-chooser'' (switchable content blocks per OS). Clients should render the ''markdown'' fallback for unrecognized kinds.'
+          type: string
+          x-order: 1
+        markdown:
+          description: Markdown representation of this node's content. For 'text' nodes this is the content itself. For chooser nodes this is a concatenation of all options, suitable as a fallback.
+          type: string
+          x-order: 2
+        options:
+          description: Options for chooser nodes ('language-chooser' or 'os-chooser'). Each option represents one selectable tab or variant. Absent for 'text' nodes.
+          items:
+            $ref: '#/components/schemas/RegistryContentNodeOption'
+          type: array
+          x-order: 3
+      required:
+      - kind
+      - markdown
+      type: object
+    AppProjectTemplateConfigValue:
+      description: ProjectTemplateConfigValue is a config value included in the project template manifest.
+      properties:
+        default:
+          description: Default is an optional default value for the config value.
+          type: string
+          x-order: 2
+        description:
+          description: Description is an optional description for the config value.
+          type: string
+          x-order: 1
+        secret:
+          description: Secret may be set to true to indicate that the config value should be encrypted.
+          type: boolean
+          x-order: 3
+      type: object
+    StartTemplatePublishResponse:
+      description: Response containing the operation ID and upload URLs for a template publish.
+      properties:
+        operationID:
+          description: The unique identifier for the publish operation.
+          type: string
+          x-order: 1
+        uploadURLs:
+          $ref: '#/components/schemas/TemplateUploadURLs'
+          description: The URLs to upload template artifacts to.
+          x-order: 2
+      required:
+      - operationID
+      - uploadURLs
+      type: object

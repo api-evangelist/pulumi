@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens Miscellaneous API
+  version: 1.0.0
+tags:
+- name: Miscellaneous
+paths:
+  /api/capabilities:
+    get:
+      description: Returns the set of capabilities that the service supports.
+      operationId: Capabilities
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppCapabilitiesResponse'
+          description: OK
+      summary: Capabilities
+      tags:
+      - Miscellaneous
+  /api/cli/version:
+    get:
+      description: Returns version information about the CLI.
+      operationId: Version
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppCLIVersionResponse'
+          description: OK
+      summary: Version
+      tags:
+      - Miscellaneous
+  /api/oauth/token:
+    post:
+      description: 'Exchanges an external identity provider token for a Pulumi access token using the OAuth 2.0 Token Exchange flow (RFC 8693).
+
+
+        The request body must include:
+
+        - `audience`: a URN identifying the target org (e.g., `urn:pulumi:org:{ORG_NAME}`)
+
+        - `grant_type`: must be `urn:ietf:params:oauth:grant-type:token-exchange`
+
+        - `subject_token`: the OIDC identity token from the external provider
+
+        - `subject_token_type`: must be `urn:ietf:params:oauth:token-type:id_token`
+
+        - `requested_token_type`: one of `urn:pulumi:token-type:access_token:organization`, `...team`, `...personal`, or `...runner`
+
+
+        Optional parameters:
+
+        - `scope`: depends on the requested token type. For `organization`, must be empty or `admin`. For `team`, must be `team:TEAM_NAME`. For `personal`, must be `user:USER_LOGIN`. For `runner`, must be `runner:RUNNER_NAME`.
+
+        - `expiration`: token lifetime in seconds
+
+
+        The response includes `access_token`, `issued_token_type`, `token_type`, `expires_in`, `scope`, and `refresh_token`.'
+      operationId: Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenExchangeGrantResponse'
+          description: OK
+      summary: Token
+      tags:
+      - Miscellaneous
+  /api/openapi/pulumi-spec.json:
+    get:
+      description: Returns the OpenAPI v3 specification for the service.
+      operationId: FetchRestSpecification
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  format: byte
+                  type: string
+                type: array
+          description: OK
+      summary: FetchRestSpecification
+      tags:
+      - Miscellaneous
+components:
+  schemas:
+    AppCLIVersionResponse:
+      description: CLIVersionResponse is the response from the server with information about CLI versions.
+      properties:
+        latestDevVersion:
+          description: The latest development/pre-release CLI version.
+          type: string
+          x-order: 3
+        latestVersion:
+          description: The latest stable CLI version (semver string, e.g. '3.100.0').
+          type: string
+          x-order: 1
+        oldestWithoutWarning:
+          description: The oldest CLI version that will not show an upgrade warning.
+          type: string
+          x-order: 2
+      required:
+      - latestDevVersion
+      - latestVersion
+      - oldestWithoutWarning
+      type: object
+    TokenExchangeGrantResponse:
+      description: https://datatracker.ietf.org/doc/html/rfc8693#section-2.2.1
+      properties:
+        access_token:
+          description: The security token issued by the authorization server.
+          type: string
+          x-order: 1
+        expires_in:
+          description: The lifetime in seconds of the access token.
+          format: int64
+          type: integer
+          x-order: 4
+        issued_token_type:
+          description: The type of the issued token.
+          type: string
+          x-order: 2
+        refresh_token:
+          description: The refresh token, if issued.
+          type: string
+          x-order: 6
+        scope:
+          description: The scope of the access token.
+          type: string
+          x-order: 5
+        token_type:
+          description: The token type (e.g., Bearer).
+          type: string
+          x-order: 3
+      required:
+      - access_token
+      - expires_in
+      - issued_token_type
+      - scope
+      - token_type
+      type: object
+    AppCapabilitiesResponse:
+      description: 'CapabilitiesResponse defines all feature sets that are available in the service
+
+        backend and are therefore available for the CLI to integrate against.'
+      properties:
+        capabilities:
+          description: List of capabilities
+          items:
+            $ref: '#/components/schemas/AppAPICapabilityConfig'
+          type: array
+          x-order: 1
+      required:
+      - capabilities
+      type: object
+    AppAPICapabilityConfig:
+      description: 'APICapabilityConfig captures a service backend capability and any associated
+
+        configuration that may be required for integration.'
+      properties:
+        capability:
+          description: The capability identifier for this configuration entry.
+          enum:
+          - delta-checkpoint-uploads
+          - delta-checkpoint-uploads-v2
+          - batch-encrypt
+          - copilot-summarize-error
+          - copilot-explain-preview
+          - deployment-schema-version
+          - stack-policy-packs
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppAPICapability
+            enumComments: An APICapability is the name of a capability or feature that a service backend may or may not support.
+            enumFieldNames:
+            - DeltaCheckpointUploads
+            - DeltaCheckpointUploadsV2
+            - BatchEncrypt
+            - CopilotSummarizeError
+            - CopilotExplainPreview
+            - DeploymentSchemaVersion
+            - StackPolicyPacks
+            enumFieldComments:
+            - Deprecated. Use DeltaCheckpointUploadsV2.
+            - 'DeltaCheckpointUploads is the feature that enables the CLI to upload checkpoints
+
+              via the PatchUpdateCheckpointDeltaRequest API to save on network bytes.'
+            - Indicates that the service backend supports batch encryption.
+            - Indicates whether the service supports summarizing errors via Copilot.
+            - Indicates whether the service supports the Copilot explainer.
+            - Indicates the maximum deployment schema version that the service supports.
+            - Indicates whether the service supports retrieving a stack's required policy packs.
+        configuration:
+          description: Additional configuration data required for client integration with this capability.
+          type: object
+          x-order: 3
+        version:
+          description: The version of this capability supported by the service.
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - capability
+      type: object

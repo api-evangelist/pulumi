@@ -1,0 +1,474 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens ResourceSearch API
+  version: 1.0.0
+tags:
+- name: ResourceSearch
+paths:
+  /api/orgs/{orgName}/search/resources:
+    get:
+      deprecated: true
+      description: 'Searches for resources within an organization. Deprecated: use GetOrgResourceSearchV2Query for improved search functionality.'
+      operationId: GetOrgResourceSearchQuery
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Collapse results to show one entry per stack instead of per resource
+        in: query
+        name: collapse
+        schema:
+          type: boolean
+      - description: Cursor for paginated results
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - description: Facet filters to apply
+        in: query
+        name: facet
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Group results by this field
+        in: query
+        name: groupBy
+        schema:
+          type: string
+      - description: Page number for pagination
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      - description: Include resource properties in search results (may increase response size)
+        in: query
+        name: properties
+        schema:
+          type: boolean
+      - description: Search query string
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Number of results to return
+        in: query
+        name: size
+        schema:
+          format: int64
+          type: integer
+      - description: Sort order for results
+        in: query
+        name: sort
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Number of top aggregation buckets to return
+        in: query
+        name: top
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSearchResult'
+          description: OK
+        '400':
+          description: invalid groupBy field
+        '422':
+          description: search cluster is unreachable
+      summary: GetOrgResourceSearchQuery
+      tags:
+      - ResourceSearch
+      x-pulumi-route-property:
+        Deprecated: true
+        SupersededBy: GetOrgResourceSearchV2Query
+        Visibility: Public
+  /api/orgs/{orgName}/search/resources/dashboard:
+    get:
+      description: GetResourceDashboardAggregations returns aggregated resource data for display on organization dashboard cards, including resource counts grouped by package and other dimensions.
+      operationId: GetResourceDashboardAggregations
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSearchResult'
+          description: OK
+        '404':
+          description: Organization not found
+        '422':
+          description: search cluster is unreachable
+      summary: GetResourceDashboardAggregations
+      tags:
+      - ResourceSearch
+  /api/orgs/{orgName}/search/resources/parse:
+    get:
+      description: GetNaturalLanguageQuery converts a natural language query into a structured Pulumi search query using AI. For example, converts 'show me all S3 buckets in production' into a proper search syntax.
+      operationId: GetNaturalLanguageQuery
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Search query string
+        in: query
+        name: query
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetNaturalLanguageQueryResponse'
+          description: OK
+        '400':
+          description: please provide a query
+        '402':
+          description: AI assist feature requires Enterprise subscription
+        '404':
+          description: NLP search feature not enabled
+        '503':
+          description: AI services are temporarily unavailable
+      summary: GetNaturalLanguageQuery
+      tags:
+      - ResourceSearch
+  /api/orgs/{orgName}/search/resourcesv2:
+    get:
+      description: 'Searches for resources within an organization with advanced filtering, sorting, and pagination capabilities.
+
+
+        **Pagination:** The `page` parameter supports up to 10,000 results. For larger result sets, use the `cursor` parameter instead (Enterprise plans only). Note that pagination is not transactional — result ordering may change if a stack update completes during pagination.
+
+
+        **Sorting:** The `sort` parameter accepts: `created`, `custom`, `delete`, `dependencies`, `id`, `modified`, `module`, `name`, `package`, `parentUrn`, `project`, `protected`, `providerUrn`, `stack`, `type`, `urn`, `managed`, `category`. If omitted, results are sorted by search relevance (or last modified time when no query is provided).
+
+
+        **Properties:** Set `properties=true` to include resource input/output values. Requires a supported subscription — returns 402 if not available.
+
+
+        **Collapse:** Set `collapse=true` to consolidate resources that exist in multiple sources (e.g., both IaC stacks and Insights scans) into a single result.'
+      operationId: GetOrgResourceSearchV2Query
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: Sort in ascending order when true, descending when false
+        in: query
+        name: asc
+        schema:
+          type: boolean
+      - description: Collapse results to show one entry per stack instead of per resource
+        in: query
+        name: collapse
+        schema:
+          type: boolean
+      - description: Cursor for paginated results
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - description: Facet filters to apply
+        in: query
+        name: facet
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Group results by this field
+        in: query
+        name: groupBy
+        schema:
+          type: string
+      - description: Page number for pagination
+        in: query
+        name: page
+        schema:
+          format: int64
+          type: integer
+      - description: Include resource properties in search results (may increase response size)
+        in: query
+        name: properties
+        schema:
+          type: boolean
+      - description: Search query string
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Number of results to return
+        in: query
+        name: size
+        schema:
+          format: int64
+          type: integer
+      - description: Sort order for results
+        in: query
+        name: sort
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Number of top aggregation buckets to return
+        in: query
+        name: top
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSearchResult'
+          description: OK
+        '400':
+          description: invalid groupBy field
+        '422':
+          description: search cluster is unreachable
+      summary: GetOrgResourceSearchV2Query
+      tags:
+      - ResourceSearch
+components:
+  schemas:
+    Aggregation:
+      description: Aggregation collects the top 5 aggregated values for the requested dimension.
+      properties:
+        others:
+          description: The others
+          format: int64
+          type: integer
+          x-order: 1
+        results:
+          description: List of results
+          items:
+            $ref: '#/components/schemas/AggregationBucket'
+          type: array
+          x-order: 2
+      type: object
+    ResourceSearchResult:
+      description: ResourceSearchResult is a collected of resource search results.
+      properties:
+        aggregations:
+          additionalProperties:
+            $ref: '#/components/schemas/Aggregation'
+          description: Aggregation buckets for faceted search.
+          type: object
+          x-order: 3
+        pagination:
+          $ref: '#/components/schemas/ResourceSearchPagination'
+          description: Pagination links for navigating through results.
+          x-order: 4
+        resources:
+          description: The list of matching resource results.
+          items:
+            $ref: '#/components/schemas/ResourceResult'
+          type: array
+          x-order: 2
+        total:
+          description: The total number of matching resources.
+          format: int64
+          type: integer
+          x-order: 1
+      type: object
+    ResourceSearchPagination:
+      description: ResourceSearchPagination provides links for paging through results.
+      properties:
+        cursor:
+          description: An opaque cursor for resuming pagination.
+          type: string
+          x-order: 3
+        next:
+          description: Link to the next page of results.
+          type: string
+          x-order: 2
+        previous:
+          description: Link to the previous page of results.
+          type: string
+          x-order: 1
+      type: object
+    AggregationBucket:
+      description: AggregationBucket represents how many resources share that value.
+      properties:
+        aggregations:
+          additionalProperties:
+            $ref: '#/components/schemas/Aggregation'
+          description: Map of aggregations
+          type: object
+          x-order: 3
+        count:
+          description: The count
+          format: int64
+          type: integer
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 1
+      type: object
+    ResourceResult:
+      description: 'ResourceResult is the user-facing type for our indexed resources.
+
+        If you add a property here, don''t forget to update fieldMappings to make it
+
+        queryable!'
+      properties:
+        account:
+          description: The Insights account name that discovered or manages this resource.
+          type: string
+          x-order: 24
+        category:
+          description: The category of the resource.
+          type: string
+          x-order: 23
+        created:
+          description: The ISO 8601 timestamp when the resource was first indexed.
+          type: string
+          x-order: 1
+        custom:
+          description: Whether this is a custom resource managed by a provider plugin.
+          type: boolean
+          x-order: 2
+        delete:
+          description: Whether this resource is pending deletion.
+          type: boolean
+          x-order: 3
+        dependencies:
+          description: URNs of resources that this resource depends on.
+          items:
+            type: string
+          type: array
+          x-order: 4
+        dependents:
+          description: URNs of resources that depend on this resource.
+          items:
+            type: string
+          type: array
+          x-order: 25
+        external:
+          description: Whether the lifecycle of this resource is not managed by Pulumi.
+          type: boolean
+          x-order: 5
+        fingerprint:
+          description: A fingerprint uniquely identifying this resource's state.
+          type: string
+          x-order: 27
+        id:
+          description: The provider-assigned resource ID.
+          type: string
+          x-order: 6
+        managed:
+          description: Whether this resource is managed by Pulumi IaC stacks or discovered by Insights scanning. One of 'managed' or 'discovered'.
+          type: string
+          x-order: 26
+        matches:
+          additionalProperties:
+            items:
+              type: object
+            type: array
+          description: Matched search terms mapped to their highlighted values.
+          type: object
+          x-order: 7
+        metadata:
+          description: Additional metadata associated with the resource.
+          type: object
+          x-order: 22
+        modified:
+          description: The ISO 8601 timestamp when the resource was last updated in the index.
+          type: string
+          x-order: 8
+        module:
+          description: The module that contains this resource.
+          type: string
+          x-order: 9
+        name:
+          description: The name of the resource.
+          type: string
+          x-order: 10
+        package:
+          description: The package that provides this resource.
+          type: string
+          x-order: 11
+        parent_urn:
+          description: The URN of the parent resource, if any.
+          type: string
+          x-order: 12
+        pending:
+          description: The pending operation on this resource, if any (e.g. creating, updating, deleting).
+          type: string
+          x-order: 13
+        project:
+          description: The project that contains this resource.
+          type: string
+          x-order: 14
+        properties:
+          description: The resource's input/output properties as a JSON object. Only populated when explicitly requested.
+          type: object
+          x-order: 21
+        protected:
+          description: Whether this resource is protected from deletion.
+          type: boolean
+          x-order: 15
+        provider_urn:
+          description: The URN of the provider for this resource.
+          type: string
+          x-order: 16
+        sourceCount:
+          description: The number of sources for this resource.
+          format: int64
+          type: integer
+          x-order: 28
+        stack:
+          description: The stack that contains this resource.
+          type: string
+          x-order: 17
+        teams:
+          description: The teams that have access to this resource.
+          items:
+            type: string
+          type: array
+          x-order: 20
+        type:
+          description: The full type token of the resource (e.g. aws:s3/bucket:Bucket).
+          type: string
+          x-order: 18
+        urn:
+          description: The URN uniquely identifying this resource within a stack.
+          type: string
+          x-order: 19
+      required:
+      - module
+      - package
+      type: object
+    GetNaturalLanguageQueryResponse:
+      description: Response body for a natural language query translation.
+      properties:
+        query:
+          description: The translated query string
+          type: string
+          x-order: 1
+      required:
+      - query
+      type: object

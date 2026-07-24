@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  description: APIs and Definitions for the Pulumi Cloud product.
+  title: Pulumi APIs AccessTokens StackTags API
+  version: 1.0.0
+tags:
+- name: StackTags
+paths:
+  /api/stacks/{orgName}/{projectName}/{stackName}/tags:
+    patch:
+      description: 'Replaces all tags on the specified stack with the tags provided in the request body. This is a wholesale replacement operation: any existing tags not included in the request will be removed. The request body is a JSON map of tag name-value pairs. Returns 400 if the operation would change the project name tag or if any tags are invalid.'
+      operationId: UpdateStackTags
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                type: string
+              type: object
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Cannot change project's name or tags are invalid
+      summary: UpdateStackTags
+      tags:
+      - StackTags
+    post:
+      description: Creates a new tag on the specified stack. Tags are key-value metadata pairs that can be used for organization, filtering, and storing additional information about stacks. The request body must include both a tag name and value. Returns 400 if the tag name is invalid or the tag already exists. Built-in tags (such as those automatically set by the Pulumi CLI) follow specific naming conventions.
+      operationId: AddStackTag
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackTag'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Invalid tag name or tag already exists.
+      summary: AddStackTag
+      tags:
+      - StackTags
+  /api/stacks/{orgName}/{projectName}/{stackName}/tags/{tagName}:
+    delete:
+      description: Removes a specific tag from the stack, identified by the tag name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI) cannot be deleted and will return a 400 error. Returns 404 if the specified tag does not exist on the stack. Returns 204 with no content on success.
+      operationId: DeleteStackTag
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The tag name
+        in: path
+        name: tagName
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: built-in tags cannot be deleted
+        '404':
+          description: Tag not found
+      summary: DeleteStackTag
+      tags:
+      - StackTags
+    patch:
+      description: Updates the value of an existing tag on the specified stack. The tag is identified by its name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI, such as project name tags) cannot be updated and will return a 400 error. Returns 404 if the specified tag does not exist on the stack.
+      operationId: UpdateStackTag
+      parameters:
+      - description: The organization name
+        in: path
+        name: orgName
+        required: true
+        schema:
+          type: string
+      - description: The project name
+        in: path
+        name: projectName
+        required: true
+        schema:
+          type: string
+      - description: The stack name
+        in: path
+        name: stackName
+        required: true
+        schema:
+          type: string
+      - description: The tag name
+        in: path
+        name: tagName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackTag'
+        x-originalParamName: body
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: built-in tags cannot be updated or invalid tag name
+        '404':
+          description: tag not found
+      summary: UpdateStackTag
+      tags:
+      - StackTags
+components:
+  schemas:
+    StackTag:
+      description: StackTag holds the name and value of a single stack tag.
+      properties:
+        name:
+          description: The tag key, which must conform to the stack tag naming rules.
+          enum:
+          - pulumi:project
+          - pulumi:runtime
+          - pulumi:description
+          - pulumi:template
+          - vcs:owner
+          - vcs:repo
+          - vcs:kind
+          - vcs:root
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: AppStackTagName
+            enumComments: 'StackTagName is the key for the tags bag in stack. This is just a string, but we use a type alias to provide a richer
+
+              description of how the string is used in our apitype definitions.'
+            enumFieldNames:
+            - ProjectNameTag
+            - ProjectRuntimeTag
+            - ProjectDescriptionTag
+            - ProjectTemplateTag
+            - VCSOwnerNameTag
+            - VCSRepositoryNameTag
+            - VCSRepositoryKindTag
+            - VCSRepositoryRootTag
+            enumFieldComments:
+            - ProjectNameTag is a tag that represents the name of a project (coresponds to the `name` property of Pulumi.yaml).
+            - ProjectRuntimeTag is a tag that represents the runtime of a project (the `runtime` property of Pulumi.yaml).
+            - ProjectDescriptionTag is a tag that represents the description of a project (Pulumi.yaml's `description`).
+            - ProjectTemplateTag is a tag that represents the template that was used to create a project.
+            - 'VCSOwnerNameTag is a tag that represents the name of the owner on the cloud VCS that this stack
+
+              may be associated with (inferred by the CLI based on git remote info).'
+            - 'VCSRepositoryNameTag is a tag that represents the name of a repository on the cloud VCS that this stack
+
+              may be associated with (inferred by the CLI based on git remote info).'
+            - 'VCSRepositoryKindTag is a tag that represents the kind of the cloud VCS that this stack
+
+              may be associated with (inferred by the CLI based on the git remote info).'
+            - 'VCSRepositoryRootTag is a tag that represents the root directory of the repository on the cloud VCS that
+
+              this stack may be associated with (pulled from git by the CLI)'
+        value:
+          description: The tag value associated with this key.
+          type: string
+          x-order: 2
+      required:
+      - name
+      - value
+      type: object
