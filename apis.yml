@@ -5,6 +5,18 @@ description: >-
   deploy, and manage cloud infrastructure. The Pulumi Cloud REST API enables programmatic access to manage
   organizations, stacks, deployments, environments, policy packs, webhooks, and other Pulumi Cloud resources.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
 image: https://www.pulumi.com/logos/brand/logo-on-white.png
@@ -22,45 +34,498 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: pulumi:pulumi-cloud
-    name: Pulumi Cloud REST API
-    description: >-
-      The Pulumi Cloud REST API exposes 446+ endpoints across 28 categories, including access tokens, AI/agents, audit
-      logs, change gates and requests, deployments, environments (ESC), insights, OIDC issuers, organizations, policy
-      groups and packs, registry, resource search, stacks, and webhooks. Authentication is via the `Authorization: token
-      {token}` header.
-    humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
-    baseURL: https://api.pulumi.com
-    tags:
-      - Cloud
-      - DevOps
-      - Infrastructure as Code
-      - Stacks
-      - Deployments
-    properties:
-      - type: Documentation
-        url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
-      - type: OpenAPI
-        url: https://api.pulumi.com/api/openapi/pulumi-spec.json
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/pulumi/refs/heads/main/openapi/pulumi-openapi.json
-      - type: Authentication
-        url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
-  - aid: pulumi:automation-api
-    name: Pulumi Automation API
-    description: >-
-      The Automation API enables you to build custom cloud interfaces for your technical end users. Build self-service
-      developer portals, CLIs, frameworks, and more, programmatically driving Pulumi from Go, Node.js, Python, .NET, and
-      Java.
-    humanURL: https://www.pulumi.com/automation/
-    tags:
-      - Automation
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://www.pulumi.com/automation/
-      - type: GitHub
-        url: https://github.com/pulumi/pulumi
+- aid: pulumi:automation-api
+  name: Pulumi Automation API
+  description: >-
+    The Automation API enables you to build custom cloud interfaces for your technical end users. Build
+    self-service developer portals, CLIs, frameworks, and more, programmatically driving Pulumi from Go,
+    Node.js, Python, .NET, and Java.
+  humanURL: https://www.pulumi.com/automation/
+  tags:
+  - Automation
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://www.pulumi.com/automation/
+  - type: GitHub
+    url: https://github.com/pulumi/pulumi
+- aid: pulumi:pulumi-accesstokens-api
+  name: Pulumi AccessTokens API
+  description: The AccessTokens API from Pulumi — 4 operation(s) for accesstokens.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - AccessTokens
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-accesstokens-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-ai-agents-api
+  name: Pulumi AI Agents API
+  description: The AI Agents API from Pulumi — 5 operation(s) for ai agents.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-ai-agents-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-ai-api
+  name: Pulumi AI API
+  description: The AI API from Pulumi — 1 operation(s) for ai.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - AI
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-ai-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-auditlogs-api
+  name: Pulumi AuditLogs API
+  description: The AuditLogs API from Pulumi — 8 operation(s) for auditlogs.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - AuditLogs
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-auditlogs-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-cloudsetup-api
+  name: Pulumi CloudSetup API
+  description: The CloudSetup API from Pulumi — 10 operation(s) for cloudsetup.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - CloudSetup
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-cloudsetup-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-dataexport-api
+  name: Pulumi DataExport API
+  description: The DataExport API from Pulumi — 1 operation(s) for dataexport.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - DataExport
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-dataexport-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-deploymentrunners-api
+  name: Pulumi DeploymentRunners API
+  description: The DeploymentRunners API from Pulumi — 2 operation(s) for deploymentrunners.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - DeploymentRunners
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-deploymentrunners-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-deployments-api
+  name: Pulumi Deployments API
+  description: The Deployments API from Pulumi — 33 operation(s) for deployments.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-deployments-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-environments-api
+  name: Pulumi Environments API
+  description: The Environments API from Pulumi — 86 operation(s) for environments.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-environments-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-insights-api
+  name: Pulumi Insights API
+  description: The Insights API from Pulumi — 36 operation(s) for insights.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-insights-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-insightsaccounts-api
+  name: Pulumi InsightsAccounts API
+  description: The InsightsAccounts API from Pulumi — 35 operation(s) for insightsaccounts.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - InsightsAccounts
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-insightsaccounts-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-miscellaneous-api
+  name: Pulumi Miscellaneous API
+  description: The Miscellaneous API from Pulumi — 4 operation(s) for miscellaneous.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Miscellaneous
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-miscellaneous-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-neo-api
+  name: Pulumi Neo API
+  description: The Neo API from Pulumi — 4 operation(s) for neo.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Neo
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-neo-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-oauthtokenexchange-api
+  name: Pulumi OAuthTokenExchange API
+  description: The OAuthTokenExchange API from Pulumi — 1 operation(s) for oauthtokenexchange.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - OAuthTokenExchange
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-oauthtokenexchange-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-oidcissuers-api
+  name: Pulumi OidcIssuers API
+  description: The OidcIssuers API from Pulumi — 4 operation(s) for oidcissuers.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - OidcIssuers
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-oidcissuers-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-organizations-api
+  name: Pulumi Organizations API
+  description: The Organizations API from Pulumi — 107 operation(s) for organizations.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-policygroups-api
+  name: Pulumi PolicyGroups API
+  description: The PolicyGroups API from Pulumi — 4 operation(s) for policygroups.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - PolicyGroups
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-policygroups-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-policypacks-api
+  name: Pulumi PolicyPacks API
+  description: The PolicyPacks API from Pulumi — 11 operation(s) for policypacks.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - PolicyPacks
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-policypacks-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-policyresults-api
+  name: Pulumi PolicyResults API
+  description: The PolicyResults API from Pulumi — 8 operation(s) for policyresults.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - PolicyResults
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-policyresults-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-registry-api
+  name: Pulumi Registry API
+  description: The Registry API from Pulumi — 12 operation(s) for registry.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Registry
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-registry-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-registrypreview-api
+  name: Pulumi RegistryPreview API
+  description: The RegistryPreview API from Pulumi — 13 operation(s) for registrypreview.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - RegistryPreview
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-registrypreview-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-resourcesearch-api
+  name: Pulumi ResourceSearch API
+  description: The ResourceSearch API from Pulumi — 4 operation(s) for resourcesearch.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - ResourceSearch
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-resourcesearch-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-resourcesundermanagement-api
+  name: Pulumi ResourcesUnderManagement API
+  description: >-
+    The ResourcesUnderManagement API from Pulumi — 2 operation(s) for resourcesundermanagement.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - ResourcesUnderManagement
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-resourcesundermanagement-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-schedules-api
+  name: Pulumi Schedules API
+  description: The Schedules API from Pulumi — 9 operation(s) for schedules.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-services-api
+  name: Pulumi Services API
+  description: The Services API from Pulumi — 4 operation(s) for services.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Services
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-services-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-stackconfig-api
+  name: Pulumi StackConfig API
+  description: The StackConfig API from Pulumi — 1 operation(s) for stackconfig.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - StackConfig
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-stackconfig-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-stackpolicy-api
+  name: Pulumi StackPolicy API
+  description: The StackPolicy API from Pulumi — 2 operation(s) for stackpolicy.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - StackPolicy
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-stackpolicy-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-stacks-api
+  name: Pulumi Stacks API
+  description: The Stacks API from Pulumi — 98 operation(s) for stacks.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Stacks
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-stacks-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-stacktags-api
+  name: Pulumi StackTags API
+  description: The StackTags API from Pulumi — 2 operation(s) for stacktags.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - StackTags
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-stacktags-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-stackupdates-api
+  name: Pulumi StackUpdates API
+  description: The StackUpdates API from Pulumi — 4 operation(s) for stackupdates.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - StackUpdates
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-stackupdates-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-users-api
+  name: Pulumi Users API
+  description: The Users API from Pulumi — 14 operation(s) for users.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-vcs-integrations-api
+  name: Pulumi VCS Integrations API
+  description: The VCS Integrations API from Pulumi — 25 operation(s) for vcs integrations.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - VCS Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-vcs-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-webhooks-api
+  name: Pulumi Webhooks API
+  description: The Webhooks API from Pulumi — 10 operation(s) for webhooks.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
+- aid: pulumi:pulumi-workflows-api
+  name: Pulumi Workflows API
+  description: The Workflows API from Pulumi — 2 operation(s) for workflows.
+  humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  baseURL: https://api.pulumi.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/pulumi-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
+  - type: Authentication
+    url: https://www.pulumi.com/docs/pulumi-cloud/access-management/access-tokens/
 integrations:
   - name: Pulumi
   - name: AWS
