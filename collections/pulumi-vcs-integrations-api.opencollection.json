@@ -1,0 +1,1065 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens VCS Integrations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VCS Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListAllVCSIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a summary of all VCS integrations across all providers (GitHub, GitLab, Azure DevOps, Custom) for an organization. Each integration includes a hasIndividualAccess flag indicating whether the current user has an OAuth token for that provider."
+        },
+        {
+          "info": {
+            "name": "ListAzureDevOpsIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all Azure DevOps integrations configured for an organization."
+        },
+        {
+          "info": {
+            "name": "CreateAzureDevOpsSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Azure DevOps integration for an organization. Requires an Azure DevOps organization and project to be specified in the request body. Returns 409 if an integration already exists for the specified project."
+        },
+        {
+          "info": {
+            "name": "GetAzureDevOpsAccessStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/access-status",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns information about a user's Azure DevOps access status for an organization, including whether the user has a valid OAuth token."
+        },
+        {
+          "info": {
+            "name": "CompleteAzureDevOpsOAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/oauth/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes the OAuth authorization flow for Azure DevOps VCS integration by exchanging the authorization code for access and refresh tokens."
+        },
+        {
+          "info": {
+            "name": "InitiateAzureDevOpsOAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/oauth/initiate",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the OAuth authorization flow for Azure DevOps VCS integration. Returns a redirect URL that the user should be directed to for authorization."
+        },
+        {
+          "info": {
+            "name": "ListAzureDevOpsOrganizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/setup/organizations",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists Azure DevOps organizations available to the current user. Requires an active Azure DevOps OAuth token."
+        },
+        {
+          "info": {
+            "name": "ListAzureDevOpsProjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/setup/organizations/:adoOrgName/projects",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "adoOrgName",
+                "value": "",
+                "type": "path",
+                "description": "The Azure DevOps organization name"
+              }
+            ]
+          },
+          "docs": "Lists Azure DevOps projects within a specified Azure DevOps organization that are available to the current user."
+        },
+        {
+          "info": {
+            "name": "GetAzureDevOpsIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The Azure DevOps integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific Azure DevOps integration by its integration ID. Returns the integration details including organization, project, and authentication configuration."
+        },
+        {
+          "info": {
+            "name": "UpdateAzureDevOpsIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The Azure DevOps integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing Azure DevOps integration's settings. Can modify the Azure DevOps organization, project, or authentication configuration."
+        },
+        {
+          "info": {
+            "name": "DeleteAzureDevOpsIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/azure-devops/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The Azure DevOps integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a specific Azure DevOps integration from the organization."
+        },
+        {
+          "info": {
+            "name": "ListBitBucketIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all BitBucket integrations configured for an organization, including their validity status and linked workspace metadata."
+        },
+        {
+          "info": {
+            "name": "CreateBitBucketSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new BitBucket integration for an organization. Requires a BitBucket workspace UUID and optionally configures authentication via the user's BitBucket OAuth token or a workspace access token / PAT. Returns 409 if an integration already exists for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "GetBitBucketAccessStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket/access-status",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns information about a user's BitBucket access status for an organization, including whether they have a valid OAuth token and available BitBucket workspaces for new integrations."
+        },
+        {
+          "info": {
+            "name": "GetBitBucketIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The BitBucket integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific BitBucket integration by its integration ID. Returns the integration details including the linked BitBucket workspace, authentication configuration, and validity status."
+        },
+        {
+          "info": {
+            "name": "UpdateBitBucketIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The BitBucket integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing BitBucket integration's settings, such as PR comment preferences and AI summary options."
+        },
+        {
+          "info": {
+            "name": "DeleteBitBucketIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/bitbucket/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The BitBucket integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a specific BitBucket integration from the organization. Cleans up associated webhooks and access tokens."
+        },
+        {
+          "info": {
+            "name": "ListCustomVCSIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all custom VCS integrations configured for an organization. Returns each integration's configuration, webhook URL, and configured repositories. Webhook secrets are not included in list responses."
+        },
+        {
+          "info": {
+            "name": "CreateCustomVCSIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom VCS integration for an organization. Custom VCS integrations allow connecting self-hosted or third-party version control systems (e.g. Gitea, Forgejo, Bitbucket Server) to Pulumi Deployments. Credentials are managed via ESC environments, and deployments are triggered by inbound webhooks. Returns the created integration including its webhook URL and HMAC secret for signature verification."
+        },
+        {
+          "info": {
+            "name": "GetCustomVCSIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The custom VCS integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific custom VCS integration by its integration ID. Returns the integration details including its configuration, webhook URL, and configured repositories. The webhook secret is not included; it is only returned at creation time or when regenerated via update."
+        },
+        {
+          "info": {
+            "name": "UpdateCustomVCSIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The custom VCS integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing custom VCS integration's settings. All fields are optional; only provided fields are modified. Set regenerateWebhookSecret to true to rotate the webhook HMAC secret, which invalidates the previous secret immediately."
+        },
+        {
+          "info": {
+            "name": "DeleteCustomVCSIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The custom VCS integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a specific custom VCS integration from the organization. This permanently deletes the integration, its webhook endpoint, and all configured repository associations."
+        },
+        {
+          "info": {
+            "name": "AddCustomVCSRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom/:integrationId/repos",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The custom VCS integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a repository to a custom VCS integration. The repository name must be unique within the integration. Returns 409 Conflict if a repository with the same name is already configured."
+        },
+        {
+          "info": {
+            "name": "RemoveCustomVCSRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/custom/:integrationId/repos",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The custom VCS integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a repository from a custom VCS integration. The repository is identified by its name, as provided in the request. Returns 404 if the integration or repository is not found."
+        },
+        {
+          "info": {
+            "name": "ListGitHubIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all GitHub App integrations for an organization."
+        },
+        {
+          "info": {
+            "name": "StartGitHubSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Initiates GitHub App setup, returns installation URL with state."
+        },
+        {
+          "info": {
+            "name": "ListGitHubEnterpriseIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github-enterprise",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all GitHub Enterprise Server integrations for an organization. Returns only self-hosted GitHub App installations."
+        },
+        {
+          "info": {
+            "name": "GetGitHubEnterpriseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github-enterprise/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub Enterprise integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific GitHub Enterprise Server integration."
+        },
+        {
+          "info": {
+            "name": "UpdateGitHubEnterpriseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github-enterprise/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub Enterprise integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates GitHub Enterprise Server integration settings."
+        },
+        {
+          "info": {
+            "name": "DeleteGitHubEnterpriseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github-enterprise/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub Enterprise integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a GitHub Enterprise Server integration."
+        },
+        {
+          "info": {
+            "name": "GetGitHubAccess",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github/access-status",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns information about a user's GitHub OAuth status."
+        },
+        {
+          "info": {
+            "name": "GetGitHubIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub App integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific GitHub App integration by its integration ID. Returns the integration details including installation ID, account info, PR comment settings, and permission status. Returns 404 if the integration is not found."
+        },
+        {
+          "info": {
+            "name": "UpdateGitHubIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub App integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates GitHub App integration settings."
+        },
+        {
+          "info": {
+            "name": "DeleteGitHubIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/github/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub App integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a GitHub App integration."
+        },
+        {
+          "info": {
+            "name": "ListGitLabIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Lists all GitLab integrations configured for an organization, including their validity status and linked group metadata."
+        },
+        {
+          "info": {
+            "name": "CreateGitLabSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GitLab integration for an organization. Requires a GitLab group ID and optionally configures authentication via the user's GitLab OAuth token or a group access token. Returns 409 if an integration already exists for the specified group."
+        },
+        {
+          "info": {
+            "name": "GetGitLabAccessStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab/access-status",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns information about a user's GitLab access status for an organization, including whether they have a valid OAuth token, existing integrations, and available GitLab groups for new integrations."
+        },
+        {
+          "info": {
+            "name": "GetGitLabIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitLab integration identifier"
+              }
+            ]
+          },
+          "docs": "Gets a specific GitLab integration by its integration ID. Returns the integration details including the linked GitLab group, authentication configuration, and validity status."
+        },
+        {
+          "info": {
+            "name": "UpdateGitLabIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitLab integration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing GitLab integration's settings, such as PR comment preferences and AI summary options."
+        },
+        {
+          "info": {
+            "name": "DeleteGitLabIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/gitlab/:integrationId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The GitLab integration identifier"
+              }
+            ]
+          },
+          "docs": "Removes a specific GitLab integration from the organization. Cleans up associated webhooks, access tokens, and group tokens."
+        },
+        {
+          "info": {
+            "name": "ListVCSRepos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/:provider/:integrationId/repos",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The VCS provider (e.g., 'github')"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The VCS integration identifier"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              }
+            ]
+          },
+          "docs": "Lists repositories available through the integration."
+        },
+        {
+          "info": {
+            "name": "ListVCSRepoDestinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/:provider/:integrationId/repos/destinations",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The VCS provider (e.g., 'github')"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The VCS integration identifier"
+              }
+            ]
+          },
+          "docs": "Lists repositories where the authenticated user can create new repos from templates via the integration."
+        },
+        {
+          "info": {
+            "name": "ListVCSBranches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/integrations/:provider/:integrationId/repos/:repoId/branches",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The VCS provider (e.g., 'github')"
+              },
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path",
+                "description": "The VCS integration identifier"
+              },
+              {
+                "name": "repoId",
+                "value": "",
+                "type": "path",
+                "description": "The repository identifier"
+              }
+            ]
+          },
+          "docs": "Lists branches for a repository."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

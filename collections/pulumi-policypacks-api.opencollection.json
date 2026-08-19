@@ -1,0 +1,490 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens PolicyPacks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PolicyPacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policypack",
+                "value": "",
+                "type": "query",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "ListPolicyPacks returns a list of all complete Policy Packs for the organization.\nIf the `policypack` query parameter is set, it will only list the policy\npacks with the specified name."
+        },
+        {
+          "info": {
+            "name": "CreatePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Policy Pack for an organization. A Policy Pack is a versioned collection of related policies that validate infrastructure configuration during deployments. Policies can enforce rules such as requiring encryption on storage buckets or prohibiting public access to databases. The pack must contain at least one policy. Once created, the pack can be applied to Policy Groups to enforce rules on specific stacks with configurable enforcement levels (advisory, mandatory, or disabled)."
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "DeletePolicyPack deletes all versions of a Policy Pack, the associated\npacks stored in S3, and any applied versions of the Policy Packs."
+        },
+        {
+          "info": {
+            "name": "GetPolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Returns the metadata and list of individual policies for a specific version of a Policy Pack. Each policy includes its name, description, enforcement level (advisory, mandatory, or disabled), and configuration schema. Returns 400 if the Policy Pack version is not yet complete (still being uploaded), or 404 if the organization or pack is not found."
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPackVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "DeletePolicyPackVersion deletes a specific version of a Policy Pack and deletes\nthe associated pack stored in S3. A Policy Pack must be unapplied to be deleted."
+        },
+        {
+          "info": {
+            "name": "CompletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Transitions the publish status of a specific Policy Pack version to 'complete', making it available for enforcement. Policy Packs go through a multi-step publish process: first the pack content is uploaded, then this endpoint is called to finalize publication. Returns 400 if the pack is already complete."
+        },
+        {
+          "info": {
+            "name": "GetPolicyPackConfigSchema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version/schema",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Returns the JSON configuration schema for a specific version of a Policy Pack. The schema defines the configurable parameters for each policy in the pack, including allowed values, defaults, and validation rules. Policy Groups use this schema to configure policy behavior when assigning packs to stacks."
+        },
+        {
+          "info": {
+            "name": "GetOrgRegistryPolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/registry/policypacks/:policyPackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Version tag to retrieve (e.g., 'latest')"
+              }
+            ]
+          },
+          "docs": "Retrieves lightweight registry metadata for a policy pack (source/publisher/name) without loading detailed policy definitions."
+        },
+        {
+          "info": {
+            "name": "ListPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks",
+            "params": [
+              {
+                "name": "access",
+                "value": "",
+                "type": "query",
+                "description": "Filter by access level"
+              },
+              {
+                "name": "orgLogin",
+                "value": "",
+                "type": "query",
+                "description": "Required. Filter by owning organization"
+              }
+            ]
+          },
+          "docs": "Lists all policy packs accessible to the calling user for a given organization. The orgLogin query parameter is required and restricts results to policy packs owned by that organization. Results can optionally be filtered by access level. No authentication is required. Returns 400 if the policy pack access filter value is invalid. This is the deprecated GET variant; prefer the POST ListPolicyPacks endpoint instead."
+        },
+        {
+          "info": {
+            "name": "ListPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists all policy packs accessible to the calling user, with support for filtering by access level, organization, and specific policy pack IDs. The request body accepts an optional orgLogin to scope results to a specific organization, an optional access level filter (defaults to 'enabled'), and an optional list of policy pack IDs to restrict the results to specific packs. No authentication is required. Returns 400 if the access filter value is invalid."
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "Deletes a policy pack and all of its versions from the registry. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This is a destructive operation that permanently removes the policy pack and all associated version data. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack does not exist."
+        },
+        {
+          "info": {
+            "name": "ListPolicyPackVersions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name/versions",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "Lists all versions of a specific policy pack. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The response includes a list of policy pack version metadata and an optional continuationToken for pagination. Returns 404 if the policy pack does not exist."
+        },
+        {
+          "info": {
+            "name": "PostPublishPolicyPackVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name/versions",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "Initiates the first step of a two-phase policy pack version publish workflow. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This creates a publish transaction that must be completed by calling PostPublishPolicyPackVersionComplete. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack is not found."
+        },
+        {
+          "info": {
+            "name": "GetPolicyPackVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific version of a policy pack, including the individual policy definitions. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the policy pack metadata and an optional list of policies, where each policy includes its configuratio"
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the policy pack version to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a specific version of a policy pack from the registry. The policy pack version is identified by its source (currently only 'private'), publisher organization, name, and semantic version string. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the specified policy pack version does not exist."
+        },
+        {
+          "info": {
+            "name": "PostPublishPolicyPackVersionComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/registry/policypacks/:source/:publisher/:name/versions/:version/complete",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack source: 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the policy pack"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the policy pack version to complete"
+              }
+            ]
+          },
+          "docs": "Finalizes the second step of the two-phase policy pack version publish workflow. After initiating a publish with PostPublishPolicyPackVersion, call this endpoint with the policy pack source, publisher, name, and version to complete the publish and make the version available in the registry. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the publish operation is not found."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

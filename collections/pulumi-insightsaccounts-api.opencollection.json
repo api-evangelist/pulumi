@@ -1,0 +1,1390 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens InsightsAccounts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "InsightsAccounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SearchStacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/stacks/search",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a combined view of IaC-managed stacks and discovered stacks."
+        },
+        {
+          "info": {
+            "name": "GetUsageSummaryInsightsScans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/insights-scans/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for grouping usage data. Valid values: 'hourly', 'daily', 'weekly', 'monthly', 'yearly'. Hourly granularity is limited to a 2-day lookback."
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back for usage data. Mutually exclusive with lookbackStart; exactly one must be provided."
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Start of the lookback period as a Unix timestamp (seconds since epoch). Must be within the last year and in the past. Mutually exclusive with lookbackDays; exactly one must be provided."
+              }
+            ]
+          },
+          "docs": "Returns a summary of Insights scan usage for an organization, grouped by the specified time granularity."
+        },
+        {
+          "info": {
+            "name": "ListAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (default: 100, max: 1000)"
+              },
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to child accounts of the specified parent account name (e.g., an AWS organization management account)"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to accounts accessible by the specified role"
+              }
+            ]
+          },
+          "docs": "Lists Insights accounts available to the authenticated user within the specified organization."
+        },
+        {
+          "info": {
+            "name": "BulkCreateAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple Insights accounts in a single operation. Each account is created independently, so a failure to create one account does not prevent other accounts from being created. Returns the list of successfully created accounts and details about any failures. Accounts are created with the same permissions as the single CreateAccount endpoint. For AWS accounts, regional child accounts are created automatically based on the provider configuration."
+        },
+        {
+          "info": {
+            "name": "ReadAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Gets detailed information for a specific Insights account."
+        },
+        {
+          "info": {
+            "name": "CreateAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Insights account. An Insights account represents a cloud provider account (e.g., AWS, Azure, OCI) configured for resource discovery."
+        },
+        {
+          "info": {
+            "name": "UpdateAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing Insights account. Supports partial updates to the ESC environment reference, scan schedule ('none' or 'daily'), and provider-specific configuration such as the list of regions to scan. All request body fields are optional; only provided fields are updated."
+        },
+        {
+          "info": {
+            "name": "DeleteAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Deletes an Insights account and its associated configuration. This operation is irreversible."
+        },
+        {
+          "info": {
+            "name": "HeadAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Checks whether an Insights account exists. Returns 204 if found, 404 otherwise."
+        },
+        {
+          "info": {
+            "name": "ListPolicyPacksForAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/policy/packs",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the policy packs configured to analyze resources in the specified Insights account."
+        },
+        {
+          "info": {
+            "name": "UpsertResources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates discovered resources in an Insights account. Used by scanners to report resource state."
+        },
+        {
+          "info": {
+            "name": "ListResourcesWithReferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/references",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns discovered resources along with their referenced resources for a batch of resource identifiers."
+        },
+        {
+          "info": {
+            "name": "ReadResource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              }
+            ]
+          },
+          "docs": "Returns a discovered resource with its current version details."
+        },
+        {
+          "info": {
+            "name": "ListResourceVersionEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/edges",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (default: 100, max: 500)"
+              }
+            ]
+          },
+          "docs": "Returns the relationships (edges) between a discovered resource and other resources in the account."
+        },
+        {
+          "info": {
+            "name": "ReadResourceWithReferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/references",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              }
+            ]
+          },
+          "docs": "Returns a discovered resource along with its referenced (related) resources."
+        },
+        {
+          "info": {
+            "name": "ListResourceStackEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/stack_edges",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id' (e.g., 'aws:ec2/instance:Instance::i-1234567890abcdef0')"
+              }
+            ]
+          },
+          "docs": "Returns the Pulumi stacks that manage the specified discovered resource."
+        },
+        {
+          "info": {
+            "name": "ListResourceVersions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/versions",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (default: 100, max: 500)"
+              }
+            ]
+          },
+          "docs": "Returns the version history for a discovered resource, showing how its configuration has changed over time."
+        },
+        {
+          "info": {
+            "name": "ReadResource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/versions/:resourceVersion",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              },
+              {
+                "name": "resourceVersion",
+                "value": "",
+                "type": "path",
+                "description": "The specific version number of the discovered resource to retrieve"
+              }
+            ]
+          },
+          "docs": "Returns a discovered resource with its current or specified version details."
+        },
+        {
+          "info": {
+            "name": "ListResourceVersionEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/versions/:resourceVersion/edges",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              },
+              {
+                "name": "resourceVersion",
+                "value": "",
+                "type": "path",
+                "description": "The specific version number of the resource to list edges for"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (default: 100, max: 500)"
+              }
+            ]
+          },
+          "docs": "Returns the relationships (edges) between a discovered resource and other resources in the account."
+        },
+        {
+          "info": {
+            "name": "UpdateResourceVersionPolicyResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/resources/:resourceTypeAndId/versions/:resourceVersion/policy/results",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "resourceTypeAndId",
+                "value": "",
+                "type": "path",
+                "description": "The resource type and cloud provider ID, double-URL-encoded, in the format 'type::id'"
+              },
+              {
+                "name": "resourceVersion",
+                "value": "",
+                "type": "path",
+                "description": "The specific version number of the discovered resource to update policy results for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the policy evaluation results for a specific version of a discovered resource."
+        },
+        {
+          "info": {
+            "name": "ReadScanStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Returns the status of the most recent scan for an Insights account."
+        },
+        {
+          "info": {
+            "name": "ScanAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a resource discovery scan for an Insights account. For parent accounts, triggers scans across all child accounts."
+        },
+        {
+          "info": {
+            "name": "CancelScan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan/cancel",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Cancels a running resource discovery scan for an Insights account."
+        },
+        {
+          "info": {
+            "name": "PauseScheduledScans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan/pause",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "PauseScheduledScans pauses execution of future scheduled scans for an Insights account."
+        },
+        {
+          "info": {
+            "name": "ResumeScheduledScans",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan/resume",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "ResumeScheduledScans resumes execution of future scheduled scans for an Insights account."
+        },
+        {
+          "info": {
+            "name": "ReadScheduledScanSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan/settings",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Returns the scheduled scan configuration for an Insights account, including scan frequency and schedule details."
+        },
+        {
+          "info": {
+            "name": "UpdateScheduledScanSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scan/settings",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the scheduled scan configuration for an Insights account, such as scan frequency and schedule."
+        },
+        {
+          "info": {
+            "name": "ListScanStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scans",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (default: 100, max: 1000)"
+              }
+            ]
+          },
+          "docs": "Returns the scan history for an Insights account, including child accounts for parent accounts."
+        },
+        {
+          "info": {
+            "name": "GetScan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scans/:scanId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "scanId",
+                "value": "",
+                "type": "path",
+                "description": "The scan identifier"
+              }
+            ]
+          },
+          "docs": "Returns details for a specific Insights scan, including its status, timestamps, and resource counts."
+        },
+        {
+          "info": {
+            "name": "GetScanLogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/scans/:scanId/logs",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "scanId",
+                "value": "",
+                "type": "path",
+                "description": "The scan identifier"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results. Used when the 'job' parameter is not provided."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of log entries to return (must be between 1 and 500). Used when the 'job' parameter is not provided."
+              },
+              {
+                "name": "job",
+                "value": "",
+                "type": "query",
+                "description": "When provided, switches to step-based log retrieval. Specifies the job number whose step logs to fetch."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Byte offset within the step's log output. Used with the 'job' and 'step' parameters."
+              },
+              {
+                "name": "step",
+                "value": "",
+                "type": "query",
+                "description": "Step number within the specified job. Used with the 'job' parameter."
+              }
+            ]
+          },
+          "docs": "Returns log output for a specific Insights scan. Supports two modes: when the 'job' parameter is provided, returns step-level logs with job/step offsets; otherwise, uses continuationToken and count for paginated log retrieval."
+        },
+        {
+          "info": {
+            "name": "GetInsightAccountTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Returns all tags for an Insights account as a key-value map."
+        },
+        {
+          "info": {
+            "name": "SetInsightAccountTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Atomically replaces all tags for an Insights account with the provided key-value pairs. For AWS parent accounts, tag changes cascade to all child accounts."
+        },
+        {
+          "info": {
+            "name": "ListInsightsAccountTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/teams",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              }
+            ]
+          },
+          "docs": "Returns the teams that have been granted access to an Insights account."
+        },
+        {
+          "info": {
+            "name": "UpdateTeamInsightsAccountPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/accounts/:accountName/teams/:teamName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "accountName",
+                "value": "",
+                "type": "path",
+                "description": "The Insights account name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the permissions that a team has on an Insights account."
+        },
+        {
+          "info": {
+            "name": "GetDiscoveredProject",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/discovered-stacks/:projectName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered project name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Opaque token for fetching the next page of stacks"
+              }
+            ]
+          },
+          "docs": "Returns details for a discovered project, including its discovered stacks. Results are paginated; use the continuationToken from the response to fetch subsequent pages."
+        },
+        {
+          "info": {
+            "name": "GetDiscoveredStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/discovered-stacks/:projectName/:stackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered stack name"
+              }
+            ]
+          },
+          "docs": "Returns details for a single discovered stack."
+        },
+        {
+          "info": {
+            "name": "UpsertResourceMigrationAnnotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/discovered-stacks/:projectName/:stackName/migration",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a migration annotation on a discovered resource. The resource is identified by its URN in the request body. At least one of note or statusOverride must be non-empty; requests with both empty are rejected with 400. The statusOverride, if provided, must be Migrated or NotApplicable."
+        },
+        {
+          "info": {
+            "name": "DeleteResourceMigrationAnnotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/discovered-stacks/:projectName/:stackName/migration",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered stack name"
+              },
+              {
+                "name": "resourceUrn",
+                "value": "",
+                "type": "query",
+                "description": "URN of the resource to remove the annotation from"
+              }
+            ]
+          },
+          "docs": "Removes a migration annotation from a discovered resource. The resource is identified by its URN passed as a query parameter."
+        },
+        {
+          "info": {
+            "name": "ListDiscoveredStackResources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/discovered-stacks/:projectName/:stackName/resources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The discovered stack name"
+              },
+              {
+                "name": "compareTo",
+                "value": "",
+                "type": "query",
+                "description": "Pulumi stack to compare against in project/stack format. Must be in the same org."
+              }
+            ]
+          },
+          "docs": "Returns the list of resources in a discovered stack, each annotated with a migrationStatus. When compareTo is provided, resource identities are matched against the target Pulumi stack."
+        },
+        {
+          "info": {
+            "name": "GenerateImportCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/import/code/generate",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates Pulumi code in the specified language to import discovered resources into a Pulumi stack."
+        },
+        {
+          "info": {
+            "name": "AcceptInsightsBilling",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/insightstrial/accept",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Accepts Insights billing charges for the specified organization, enabling metered billing for resource discovery."
+        },
+        {
+          "info": {
+            "name": "TerminateInsightsTrial",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/insightstrial/deny",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Terminates the Insights trial for the organization and removes all associated accounts."
+        },
+        {
+          "info": {
+            "name": "GetInsightsTrialSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/insightstrial/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a summary of the organization's Insights trial usage, including resource counts and remaining trial capacity."
+        },
+        {
+          "info": {
+            "name": "UpdateStackPolicyResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/preview/insights/:orgName/policy/stacks/:projectName/:stackName/updates/:version/results",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number identifying a specific Pulumi update operation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the policy evaluation results for a specific stack update version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

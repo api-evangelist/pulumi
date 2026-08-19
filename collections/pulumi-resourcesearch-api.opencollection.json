@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens ResourceSearch API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ResourceSearch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetOrgResourceSearchQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Group results by this field"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "Searches for resources within an organization. Deprecated: use GetOrgResourceSearchV2Query for improved search functionality."
+        },
+        {
+          "info": {
+            "name": "GetResourceDashboardAggregations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/dashboard",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetResourceDashboardAggregations returns aggregated resource data for display on organization dashboard cards, including resource counts grouped by package and other dimensions."
+        },
+        {
+          "info": {
+            "name": "GetNaturalLanguageQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/parse",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              }
+            ]
+          },
+          "docs": "GetNaturalLanguageQuery converts a natural language query into a structured Pulumi search query using AI. For example, converts 'show me all S3 buckets in production' into a proper search syntax."
+        },
+        {
+          "info": {
+            "name": "GetOrgResourceSearchV2Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resourcesv2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in ascending order when true, descending when false"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Group results by this field"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "Searches for resources within an organization with advanced filtering, sorting, and pagination capabilities.\n\n**Pagination:** The `page` parameter supports up to 10,000 results. For larger result sets, use the `cursor` parameter instead (Enterprise plans only). Note that pagination is not transactional — result ordering may change if a stack update completes during pagination.\n\n**Sorting:** The `sort` parameter accepts: `created`, `custom`, `delete`, `dependencies`, `id`, `modified`, `module`, `"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

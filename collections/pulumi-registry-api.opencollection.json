@@ -1,0 +1,691 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Registry API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListPackages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages",
+            "params": [
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "When true, sort results in ascending order"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for retrieving the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Results per page (default: 100)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific package name"
+              },
+              {
+                "name": "orgLogin",
+                "value": "",
+                "type": "query",
+                "description": "Filter by owning organization"
+              },
+              {
+                "name": "packageType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by package type"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "query",
+                "description": "Filter by publisher organization"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field for results"
+              },
+              {
+                "name": "usage",
+                "value": "",
+                "type": "query",
+                "description": "Filter by usage type"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Filter by visibility level"
+              }
+            ]
+          },
+          "docs": "Retrieves all registry packages accessible to the caller, with support for filtering, sorting, and pagination. No authentication is required, but authenticated requests may include additional usage statistics per package. Results can be filtered by package name, publisher, owning organization, package type, usage, search query, and visibility level. The sort parameter controls the ordering of results, and the asc parameter toggles ascending vs. descending order. Results are paginated with a defa"
+        },
+        {
+          "info": {
+            "name": "PostPublishPackageVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the first step of a two-phase package version publish workflow. This creates a publish transaction and returns an operationID along with pre-signed upload URLs for the package artifacts (schema, index, and installationConfiguration). The caller must upload all required artifacts to the provided URLs and then call the PostPublishPackageVersionComplete endpoint with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepte"
+        },
+        {
+          "info": {
+            "name": "GetPackageVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata for a specific version of a registry package. The package is identified by its source, publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the package's name, publisher, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, plugin download URL, creatio"
+        },
+        {
+          "info": {
+            "name": "DeletePublishPackageVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the package version to delete"
+              }
+            ]
+          },
+          "docs": "Removes a specific version of a package from the registry. The package is identified by its source (e.g. 'pulumi', 'opentofu', or 'private'), publisher organization, name, and semantic version. Requires the RegistryPublish permission on the publisher organization. Returns 204 No Content on success."
+        },
+        {
+          "info": {
+            "name": "PostPublishPackageVersionComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version/complete",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the package version to complete"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finalizes the second step of the two-phase package version publish workflow. After initiating a publish with PostPublishPackageVersion and uploading all required artifacts (schema, index, installationConfiguration) to the pre-signed URLs, call this endpoint with the operationID to complete the publish. The service validates that all artifacts were uploaded successfully before making the version available in the registry. Returns 201 Created on success, 400 for a bad request (e.g. missing artifac"
+        },
+        {
+          "info": {
+            "name": "GetPackageDocs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version/docs/:token",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "URL-encoded Pulumi token identifying the resource or function"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Language for filtering property names, types, descriptions, and code examples. Values: typescript, python, go, csharp, java, yaml"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Filter OS choosers in descriptions to a single OS. Values: linux, macos, windows"
+              }
+            ]
+          },
+          "docs": "Returns structured API documentation for a single resource or function identified by its Pulumi token. The token must be URL-encoded (e.g. 'random:index%2FrandomPassword:RandomPassword'). The 'lang' parameter is required and filters all property names, types, descriptions, and code examples to the specified language. Use the 'os' parameter to collapse OS choosers in descriptions. Supports content negotiation via the Accept header: send 'text/markdown' to receive a rendered markdown document with"
+        },
+        {
+          "info": {
+            "name": "GetPackageInstallation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version/installation",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Filter OS-specific content to a single OS. Values: linux, macos, windows"
+              }
+            ]
+          },
+          "docs": "Returns installation configuration content for a registry package version, structured as an ordered list of content nodes. Not all packages include installation configuration; this endpoint returns 404 when absent. Use the 'lang' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the 'os' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: "
+        },
+        {
+          "info": {
+            "name": "GetPackageNav",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version/nav",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Language for name resolution. Names are resolved for this language with a fallback chain: requested language, then Go, then first available. Values: typescript, python, go, csharp, java, yaml"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query for filtering the navigation tree. Case-insensitive matching against resource/function names and tokens"
+              }
+            ]
+          },
+          "docs": "Returns the module, resource, and function navigation tree for a registry package version. Names are resolved for the requested language (defaulting to Go when omitted). Use the 'q' parameter for case-insensitive search: the tree is filtered to nodes whose name or token contains the query string, with ancestor module paths preserved. Modules with no matching children are omitted. Supports content negotiation via the Accept header: send 'text/markdown' to receive a plain-text listing instead of s"
+        },
+        {
+          "info": {
+            "name": "GetPackageReadme",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/packages/:source/:publisher/:name/versions/:version/readme",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The package source: 'pulumi', 'opentofu', or 'private'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Filter OS-specific content to a single OS. Values: linux, macos, windows"
+              }
+            ]
+          },
+          "docs": "Returns README content for a registry package version, structured as an ordered list of content nodes. Each node has a 'kind' and a 'markdown' fallback for forward compatibility. Use the 'lang' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the 'os' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: send 'text/markdown' to receive a cl"
+        },
+        {
+          "info": {
+            "name": "ListTemplates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/templates",
+            "params": [
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for retrieving the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default: 100)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific template name"
+              },
+              {
+                "name": "orgLogin",
+                "value": "",
+                "type": "query",
+                "description": "Filter by owning organization"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query matching template name, display name, description, metadata values, or runtime language. Multiple space-separated terms require all terms to match (AND semantics)."
+              }
+            ]
+          },
+          "docs": "Lists registry-backed templates with optional filtering, search, and pagination. This endpoint returns only registry-backed templates and does not include VCS-backed templates (those sourced from GitHub or GitLab repositories). No authentication is required. Results can be filtered by template name and owning organization (orgLogin). The search parameter performs case-insensitive partial matching against the template name, display name, description, metadata values, and runtime language. Results"
+        },
+        {
+          "info": {
+            "name": "ListTemplateVersions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/templates/:source/:publisher/:name/versions",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The template source: 'private', 'github', or 'gitlab'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the template"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for retrieving the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default: 100)"
+              }
+            ]
+          },
+          "docs": "Lists all versions of a specific template, ordered by version descending (latest first). The template is identified by its source, publisher organization, and name. Results are paginated with a default limit of 100 per page. Use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the template version metadata. Returns 400 for an invalid continuationToken or 404 if the template does not exist."
+        },
+        {
+          "info": {
+            "name": "PostPublishTemplateVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/registry/templates/:source/:publisher/:name/versions",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The template source: 'private', 'github', or 'gitlab'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the template"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the first step of a two-phase template version publish workflow. This creates a publish transaction and returns an operationID along with a pre-signed upload URL for the template archive. The source must be 'private'. The caller must upload the template archive (a gzip-compressed tar file containing a root-level Pulumi.yaml with a template section, and optionally a README.md) to the provided URL, then call PostPublishTemplateVersionComplete with the operationID to finalize the publish."
+        },
+        {
+          "info": {
+            "name": "GetTemplateVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/registry/templates/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The template source: 'private', 'github', or 'gitlab'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the template"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string or 'latest'"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata for a specific version of a registry template. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recent version. The response includes the template's name, display name, description, runtime information, language, readme URL, download URL (a pre-signed URL valid for at least 5 minutes for re"
+        },
+        {
+          "info": {
+            "name": "DeleteTemplateVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/registry/templates/:source/:publisher/:name/versions/:version",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The template source: 'private', 'github', or 'gitlab'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the template"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the template version to delete"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "When true, allows deletion of the final remaining template version"
+              }
+            ]
+          },
+          "docs": "Removes a specific version of a template from the registry. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, name, and semantic version. If this is the last remaining version of the template, the 'force' query parameter must be set to true; doing so will also delete the template itself. Returns 204 No Content on success, or 400 if an invalid query parameter is provided."
+        },
+        {
+          "info": {
+            "name": "PostPublishTemplateVersionComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/registry/templates/:source/:publisher/:name/versions/:version/complete",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "The template source: 'private', 'github', or 'gitlab'"
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "path",
+                "description": "Organization that owns the template"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version string of the template version to complete"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finalizes the second step of the two-phase template version publish workflow. After initiating a publish with PostPublishTemplateVersion and uploading the template archive (.tar.gz) to the pre-signed URL, call this endpoint with the operationID to complete the publish. The service validates that the archive was uploaded successfully before making the version available in the registry. Once complete, the template becomes available to the publisher's organization. Returns 201 Created on success, 4"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

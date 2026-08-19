@@ -1,0 +1,298 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Users API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetCurrentUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user"
+          },
+          "docs": "Returns the authenticated user's profile information, including login name, display name, email, avatar URL, and organization memberships."
+        },
+        {
+          "info": {
+            "name": "ListGitHubOrganizationTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/github/:ghOrgName/teams",
+            "params": [
+              {
+                "name": "ghOrgName",
+                "value": "",
+                "type": "path",
+                "description": "The GitHub organization name"
+              }
+            ]
+          },
+          "docs": "ListGitHubOrganizationTeams returns all GitHub teams the requesting user has access to see."
+        },
+        {
+          "info": {
+            "name": "GetGroupsForGitLabApp",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/gitlab-app/organizations"
+          },
+          "docs": "Gets a list of GitLab groups available to be used with the Pulumi GitLab app.\nThis endpoint explicitly denotes which groups can be used based on the\nuser's permissions within each group."
+        },
+        {
+          "info": {
+            "name": "GetDefaultOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/organizations/default"
+          },
+          "docs": "GetDefaultOrganization returns the default organization for the current user."
+        },
+        {
+          "info": {
+            "name": "UpdateDefaultOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user/organizations/:orgName/default",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "UpdateDefaultOrganization sets the default organization for the current user."
+        },
+        {
+          "info": {
+            "name": "GetLatestPendingEmailChange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/pending-emails"
+          },
+          "docs": "GetLatestPendingEmailChange returns only the latest email change,\nthat is pending. Returns a 204 if no pending email change requests exist."
+        },
+        {
+          "info": {
+            "name": "DeletePendingEmailChange",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/user/pending-emails"
+          },
+          "docs": "DeletePendingEmailChange removes the pending email change for the currently logged-in user.\nDeletes the pending verification only if it isn't a verification record for the current primary email itself."
+        },
+        {
+          "info": {
+            "name": "ListUserOrgInvites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/pending-invites"
+          },
+          "docs": "ListUserOrgInvites lists the pending invites for the requesting user."
+        },
+        {
+          "info": {
+            "name": "ListUserStacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/stacks",
+            "params": [
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token from a previous response to fetch the next page of results"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of stacks to return per page"
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query",
+                "description": "Filter stacks to those owned by this organization"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "Filter stacks to those in this project"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "query",
+                "description": "List stacks only using this custom role"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "query",
+                "description": "Filter stacks by tag name (use with tagValue for exact match)"
+              },
+              {
+                "name": "tagValue",
+                "value": "",
+                "type": "query",
+                "description": "Filter stacks by tag value (requires tagName)"
+              }
+            ]
+          },
+          "docs": "Lists all stacks accessible to the authenticated user. Results can be filtered by organization, project, and stack tags (tagName/tagValue). Supports pagination via continuationToken and maxResults parameters. Returns stack summary information including name, project, last update status, and resource count."
+        },
+        {
+          "info": {
+            "name": "ListPersonalTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/tokens",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter tokens by name or description"
+              }
+            ]
+          },
+          "docs": "Returns all personal access tokens for the authenticated user. Web-session generated tokens (type 'web') are excluded from the results. Each token in the response includes its ID, description, and lastUsed timestamp. Use the filter query parameter to search tokens by name or description."
+        },
+        {
+          "info": {
+            "name": "CreatePersonalToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user/tokens",
+            "params": [
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query",
+                "description": "Tracks the context that triggered token creation (e.g., redirect URL or referral source)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new personal access token for the authenticated user. The request body includes a description for the token and an optional expiration time. The response includes the token ID and the tokenValue (prefixed with 'pul-'). The token value is only returned once at creation time and cannot be retrieved later."
+        },
+        {
+          "info": {
+            "name": "DeletePersonalToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/user/tokens/:tokenId",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The access token identifier"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a personal access token by its identifier. The token is immediately invalidated and can no longer be used for authentication. Returns 204 on success or 404 if the token does not exist."
+        },
+        {
+          "info": {
+            "name": "DeleteIdentityProvider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/user/vcs",
+            "params": [
+              {
+                "name": "identity",
+                "value": "",
+                "type": "query",
+                "description": "The VCS identity provider to disconnect (e.g., github, gitlab, bitbucket)"
+              }
+            ]
+          },
+          "docs": "DeleteIdentityProvider removes a VCS identity provider from the current user's account."
+        },
+        {
+          "info": {
+            "name": "ListIdentityProviderOrganizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/vcs/organizations"
+          },
+          "docs": "ListIdentityProviderOrganizations lists all of the organizations from a backing VCS visible to the Pulumi Service\nfor the requesting user. Ignores errors if this user doesn't have a specific backing identity."
+        },
+        {
+          "info": {
+            "name": "SyncWithIdentityProvider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user/vcs/sync",
+            "params": [
+              {
+                "name": "identity",
+                "value": "",
+                "type": "query",
+                "description": "The VCS identity provider to sync profile data from (e.g., github, gitlab)"
+              }
+            ]
+          },
+          "docs": "SyncWithIdentityProvider contacts the requesting user's identity provider,\nand updates their profile information (display name, avatar URL, etc.)\nThis is required since we don't get update events from the identity provider\nwhen changes are made in the identity provider's system."
+        },
+        {
+          "info": {
+            "name": "GetUserHasVerifiedEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user/verified-email"
+          },
+          "docs": "GetUserHasVerifiedEmail returns a success response if the user has a verified email,\n404 not found if they are not verified"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

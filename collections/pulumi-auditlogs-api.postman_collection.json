@@ -1,0 +1,2075 @@
+{
+  "item": [
+    {
+      "id": "ddb83f75-77ee-4644-bc06-2c1872b7752d",
+      "name": "AuditLogs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc2cac6c-12a4-49bb-98ce-2fd1931c503c",
+          "name": "ListAuditLogEventsHandlerV1",
+          "request": {
+            "name": "ListAuditLogEventsHandlerV1",
+            "description": {
+              "content": "Lists audit log events for an organization. Either continuationToken or startTime is required. Supports filtering by event type and user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for paginated result retrieval"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "Upper bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format: 'json' (default)"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Returns entries older than this timestamp (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by username"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f70e8e06-4299-42fd-a8ea-96f379c14581",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"auditLogEvents\": [\n    {\n      \"description\": \"string\",\n      \"event\": \"string\",\n      \"sourceIP\": \"string\",\n      \"timestamp\": 6161,\n      \"user\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"actorName\": \"string\",\n      \"actorUrn\": \"string\",\n      \"authFailure\": false,\n      \"reqOrgAdmin\": true,\n      \"reqStackAdmin\": false,\n      \"tokenID\": \"string\",\n      \"tokenName\": \"string\"\n    },\n    {\n      \"description\": \"string\",\n      \"event\": \"string\",\n      \"sourceIP\": \"string\",\n      \"timestamp\": 2965,\n      \"user\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"actorName\": \"string\",\n      \"actorUrn\": \"string\",\n      \"authFailure\": true,\n      \"reqOrgAdmin\": true,\n      \"reqStackAdmin\": false,\n      \"tokenID\": \"string\",\n      \"tokenName\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c26195d-0c48-4b8e-8e26-2393885e6b96",
+              "name": "invalid query params",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94bafb36-b27d-416c-8d86-ee98afce8130",
+              "name": "user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38781292-8b9f-4608-a104-7459cbb34c90",
+          "name": "ExportAuditLogEventsHandlerV1",
+          "request": {
+            "name": "ExportAuditLogEventsHandlerV1",
+            "description": {
+              "content": "Exports audit log events for an organization in a downloadable format. Audit logs provide an immutable record of all user activity within the organization, including stack operations, member changes, and policy modifications. Results can be filtered by time range, event type, and user. Supported export formats are CSV and CEF (Common Event Format for SIEM integration). Pagination is supported via the continuationToken parameter.\n\n**Important:** This endpoint differs from other API endpoints:\n- The response is always **gzip compressed**. Use `--compressed` with curl or handle gzip decompression in your client.\n- The `Content-Type: application/json` response header is omitted.\n\nNote: In V1, startTime specifies the upper bound of the query range. Use the V2 endpoint for more intuitive time range semantics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for paginated result retrieval"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "Upper bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Returns entries older than this timestamp (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by username"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37b3c9c8-2643-4211-9a0b-7c274b60dd5f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0891ff2-086c-46b7-b5c6-eba346645a6c",
+              "name": "Audit Logs is available only to organizations with an Enterprise subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5808274b-87f2-45b4-887f-b05039e7a95b",
+              "name": "user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1100342-035d-4854-8b20-0957b2af284b",
+          "name": "DeleteAuditLogExportConfiguration",
+          "request": {
+            "name": "DeleteAuditLogExportConfiguration",
+            "description": {
+              "content": "DeleteAuditLogExportConfiguration removes an organization's audit log export settings.\nSkip feature validation so removal can happen if org no longer has access to feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fea29ab-91fa-46ff-80ec-485092884c9e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1bf63327-f91d-45ec-9396-5d98fac22096",
+              "name": "Organization has not configured audit log export.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de30f94e-00bf-4260-ba66-6e68ca5b640a",
+          "name": "GetAuditLogExportConfiguration",
+          "request": {
+            "name": "GetAuditLogExportConfiguration",
+            "description": {
+              "content": "GetAuditLogExportConfiguration returns the organization's current audit log export configuration.\nIf the organization has not configured its audit logs for export, returns a 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5255c212-9c65-4649-9c84-af30b516fb5f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enabled\": false,\n  \"lastResult\": {\n    \"message\": \"string\",\n    \"timestamp\": 5373\n  },\n  \"s3Config\": {\n    \"iamRoleArn\": \"string\",\n    \"s3BucketName\": \"string\",\n    \"s3PathPrefix\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c095ea7-ba04-45ba-a7a0-6d71aab2984b",
+              "name": "Audit log export configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe15c740-84f6-49bf-9044-36d5c13f7c25",
+          "name": "UpdateAuditLogExportConfiguration",
+          "request": {
+            "name": "UpdateAuditLogExportConfiguration",
+            "description": {
+              "content": "Creates or updates the organization's automated audit log export configuration. Audit log export enables automatic delivery of audit events to an S3 bucket for long-term retention and SIEM integration. The configuration includes the S3 bucket details and IAM role for authentication. This feature is available on Business Critical edition.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newEnabled\": \"<boolean>\",\n  \"newS3Configuration\": {\n    \"iamRoleArn\": \"<string>\",\n    \"s3BucketName\": \"<string>\",\n    \"s3PathPrefix\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33b13245-6060-47a7-9dba-f909fae65fc9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newEnabled\": \"<boolean>\",\n  \"newS3Configuration\": {\n    \"iamRoleArn\": \"<string>\",\n    \"s3BucketName\": \"<string>\",\n    \"s3PathPrefix\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "228b3380-18b0-41c2-bf83-2f63e2b63771",
+              "name": "Audit log export is not available for this organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newEnabled\": \"<boolean>\",\n  \"newS3Configuration\": {\n    \"iamRoleArn\": \"<string>\",\n    \"s3BucketName\": \"<string>\",\n    \"s3PathPrefix\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "844f2b34-5b8f-4f4d-89f3-2a32d283d4a0",
+          "name": "ForceAuditLogExport",
+          "request": {
+            "name": "ForceAuditLogExport",
+            "description": {
+              "content": "ForceAuditLogExport exports the audit logs for the organization for a user-supplied timestamp.\nThis can be used to backfill data that may have been missed due to an outage or permissions issue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export",
+                "config",
+                "force"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "Unix timestamp to export audit logs for (used for backfilling missed data)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2a93c39-0365-464f-b167-32e3ec18e74e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config",
+                    "force"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": 8615\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a49b327-2ac3-4459-8a55-5870c237ba57",
+              "name": "Audit log export is not available for this organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config",
+                    "force"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a1cb6543-2a3b-45ff-bc55-cd3cd95f9768",
+              "name": "Audit log export configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config",
+                    "force"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "931edbe9-af34-4a2e-bd88-95f9e9172ae3",
+          "name": "TestAuditLogExportConfiguration",
+          "request": {
+            "name": "TestAuditLogExportConfiguration",
+            "description": {
+              "content": "TestAuditLogExportConfiguration uses the provided audit log configuration and\nchecks if we are able to successfully write some data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "export",
+                "config",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"iamRoleArn\": \"<string>\",\n  \"s3BucketName\": \"<string>\",\n  \"s3PathPrefix\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ea889b75-c2fe-43ff-a1d6-506cbdad928d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"iamRoleArn\": \"<string>\",\n  \"s3BucketName\": \"<string>\",\n  \"s3PathPrefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": 8615\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ab8ccc2-e799-40c6-bc19-c81376fface6",
+              "name": "Audit log export is not available for this organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "export",
+                    "config",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"iamRoleArn\": \"<string>\",\n  \"s3BucketName\": \"<string>\",\n  \"s3PathPrefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "327df181-06f9-4013-ad29-d18680282943",
+          "name": "GetAuditLogsReaderKind",
+          "request": {
+            "name": "GetAuditLogsReaderKind",
+            "description": {
+              "content": "GetAuditLogsReaderKind returns whether the audit log is being read\nfrom MySQL or DynamoDB to control the event filtering UI on the front end.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "reader-kind"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "927d3f53-6d17-427f-84bc-4aa6ebcf5fda",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "reader-kind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a94b72a-305c-4fed-bb6d-14477b146488",
+          "name": "ListAuditLogEventsHandlerV2",
+          "request": {
+            "name": "ListAuditLogEventsHandlerV2",
+            "description": {
+              "content": "Lists audit log events for an organization. Uses startTime as the lower bound and endTime as the upper bound of the query range. Supports filtering by event type and user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "v2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for paginated result retrieval"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "Upper bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format: 'json' (default)"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Lower bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by username"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f170ea84-3fe0-489a-a397-9daac06461da",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"auditLogEvents\": [\n    {\n      \"description\": \"string\",\n      \"event\": \"string\",\n      \"sourceIP\": \"string\",\n      \"timestamp\": 8395,\n      \"user\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"actorName\": \"string\",\n      \"actorUrn\": \"string\",\n      \"authFailure\": true,\n      \"reqOrgAdmin\": true,\n      \"reqStackAdmin\": true,\n      \"tokenID\": \"string\",\n      \"tokenName\": \"string\"\n    },\n    {\n      \"description\": \"string\",\n      \"event\": \"string\",\n      \"sourceIP\": \"string\",\n      \"timestamp\": 5300,\n      \"user\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"actorName\": \"string\",\n      \"actorUrn\": \"string\",\n      \"authFailure\": false,\n      \"reqOrgAdmin\": false,\n      \"reqStackAdmin\": false,\n      \"tokenID\": \"string\",\n      \"tokenName\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0862b1e5-dbe5-4fd9-ad2f-57179636809c",
+              "name": "invalid query params",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e8e1736-3234-4c67-b76a-a2e896b56518",
+              "name": "user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2511478d-d026-4981-a372-141d43c661eb",
+          "name": "ExportAuditLogEventsHandlerV2",
+          "request": {
+            "name": "ExportAuditLogEventsHandlerV2",
+            "description": {
+              "content": "Exports audit log events in a downloadable format (CSV or CEF). Supports filtering by time range using startTime (lower bound) and endTime (upper bound), as well as filtering by event type and user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "auditlogs",
+                "v2",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for paginated result retrieval"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "Upper bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Lower bound of the query range (unix timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userFilter",
+                  "value": "<string>",
+                  "description": "Filter audit logs by username"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09b3cf21-9f5c-4c32-8507-f0a1d360ab5f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f861352c-f209-47de-9cb6-4e951876e3c2",
+              "name": "Audit Logs is available only to organizations with an Enterprise subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa6a5ee2-06ae-4168-8c85-1f22dae739fd",
+              "name": "user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "auditlogs",
+                    "v2",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "eventFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "userFilter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "41d02ea4-0187-44e0-ab2c-2c9eb2e79768",
+    "name": "Pulumi APIs AccessTokens AuditLogs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

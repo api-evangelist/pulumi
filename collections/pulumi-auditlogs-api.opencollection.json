@@ -1,0 +1,366 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens AuditLogs API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AuditLogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListAuditLogEventsHandlerV1",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json' (default)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Returns entries older than this timestamp (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Lists audit log events for an organization. Either continuationToken or startTime is required. Supports filtering by event type and user."
+        },
+        {
+          "info": {
+            "name": "ExportAuditLogEventsHandlerV1",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Returns entries older than this timestamp (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Exports audit log events for an organization in a downloadable format. Audit logs provide an immutable record of all user activity within the organization, including stack operations, member changes, and policy modifications. Results can be filtered by time range, event type, and user. Supported export formats are CSV and CEF (Common Event Format for SIEM integration). Pagination is supported via the continuationToken parameter.\n\n**Important:** This endpoint differs from other API endpoints:\n- T"
+        },
+        {
+          "info": {
+            "name": "GetAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetAuditLogExportConfiguration returns the organization's current audit log export configuration.\nIf the organization has not configured its audit logs for export, returns a 404."
+        },
+        {
+          "info": {
+            "name": "UpdateAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the organization's automated audit log export configuration. Audit log export enables automatic delivery of audit events to an S3 bucket for long-term retention and SIEM integration. The configuration includes the S3 bucket details and IAM role for authentication. This feature is available on Business Critical edition."
+        },
+        {
+          "info": {
+            "name": "DeleteAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "DeleteAuditLogExportConfiguration removes an organization's audit log export settings.\nSkip feature validation so removal can happen if org no longer has access to feature."
+        },
+        {
+          "info": {
+            "name": "ForceAuditLogExport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config/force",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp to export audit logs for (used for backfilling missed data)"
+              }
+            ]
+          },
+          "docs": "ForceAuditLogExport exports the audit logs for the organization for a user-supplied timestamp.\nThis can be used to backfill data that may have been missed due to an outage or permissions issue."
+        },
+        {
+          "info": {
+            "name": "TestAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config/test",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TestAuditLogExportConfiguration uses the provided audit log configuration and\nchecks if we are able to successfully write some data."
+        },
+        {
+          "info": {
+            "name": "GetAuditLogsReaderKind",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/reader-kind",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetAuditLogsReaderKind returns whether the audit log is being read\nfrom MySQL or DynamoDB to control the event filtering UI on the front end."
+        },
+        {
+          "info": {
+            "name": "ListAuditLogEventsHandlerV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/v2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json' (default)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Lists audit log events for an organization. Uses startTime as the lower bound and endTime as the upper bound of the query range. Supports filtering by event type and user."
+        },
+        {
+          "info": {
+            "name": "ExportAuditLogEventsHandlerV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/v2/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Exports audit log events in a downloadable format (CSV or CEF). Supports filtering by time range using startTime (lower bound) and endTime (upper bound), as well as filtering by event type and user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

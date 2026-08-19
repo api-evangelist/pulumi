@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens StackUpdates API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StackUpdates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetEngineEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events matching these engine event type codes"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events for the specified resource URN"
+              }
+            ]
+          },
+          "docs": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included."
+        },
+        {
+          "info": {
+            "name": "GetUpdateStatusForUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the current status and results of a standard (pulumi up) update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter."
+        },
+        {
+          "info": {
+            "name": "GetStackUpdates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "output-type",
+                "value": "",
+                "type": "query",
+                "description": "Controls the response format; when unset returns the legacy format, otherwise returns the paginated format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns the update history for a stack. Each update includes its kind (update, preview, refresh, destroy, import), start and end times, result status, resource changes summary, and resource count. Supports pagination via 'page' and 'pageSize' query parameters (page 0 returns all results, pageSize=1 with page=1 returns only the most recent update). The 'output-type' parameter controls the response format: when unset, returns a legacy format; when set, returns a paginated response."
+        },
+        {
+          "info": {
+            "name": "GetLatestStackPreviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/latest/previews",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "When true, sorts results in ascending chronological order; when false or omitted, sorts in descending order"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns all preview operations associated with the latest stack update version. Previews are dry-run operations that show what changes would be made. Supports pagination via page and pageSize parameters (page 0 returns all results). The asc parameter controls sort order (ascending or descending by chronological order)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

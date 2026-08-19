@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens OidcIssuers API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OidcIssuers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetAuthPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auth/policies/oidcissuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Returns the authentication policy associated with a specific OIDC issuer registration. Authentication policies define rules for how OIDC tokens from the issuer are validated and what access they grant, including claim mappings and trust conditions."
+        },
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all OIDC issuer registrations for an organization. OIDC issuer registrations establish trust relationships with external identity providers (such as AWS, Azure, Google Cloud, or GitHub Actions) to enable token exchange for temporary Pulumi Cloud credentials. This eliminates the need for long-lived access tokens in CI/CD pipelines and deployment automation."
+        },
+        {
+          "info": {
+            "name": "RegisterOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new OIDC issuer for an organization, establishing a trust relationship with an external identity provider. Once registered, the identity provider can issue signed, short-lived tokens that are exchanged for temporary Pulumi Cloud credentials during deployments. This eliminates the need to store long-lived access tokens. Supported providers include AWS, Azure, Google Cloud, GitHub Actions, and any OIDC-compliant identity provider. The request must include the issuer URL, and the servic"
+        },
+        {
+          "info": {
+            "name": "GetOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific OIDC issuer registration, including the issuer URL, audience restrictions, TLS thumbprints, and trust policy configuration. OIDC issuer registrations establish trust relationships between the organization and external identity providers, enabling token exchange for temporary Pulumi Cloud credentials without storing long-lived secrets."
+        },
+        {
+          "info": {
+            "name": "UpdateOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing OIDC issuer registration for an organization. This can be used to modify the issuer name, audience restrictions, trust policies, or other configuration. The issuer URL itself cannot be changed after creation. The issuer name is required in the update request."
+        },
+        {
+          "info": {
+            "name": "DeleteOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Deletes an OIDC issuer registration from an organization, removing the trust relationship between the organization and the identity provider. After deletion, tokens issued by this provider can no longer be exchanged for temporary Pulumi Cloud credentials. Any deployments or automation relying on this OIDC issuer for authentication will stop working."
+        },
+        {
+          "info": {
+            "name": "RegenerateThumbprints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId/regenerate-thumbprints",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Regenerates the TLS certificate thumbprints for an OIDC issuer by re-fetching the issuer's public keys. This is needed when the identity provider rotates its TLS certificates. Cannot be used if the issuer's JWKS are statically configured."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

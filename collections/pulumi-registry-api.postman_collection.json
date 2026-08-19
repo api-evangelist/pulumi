@@ -1,0 +1,4132 @@
+{
+  "item": [
+    {
+      "id": "a9b11b1d-fc7a-43f9-9f5b-881a32bc5c33",
+      "name": "Registry",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2eab2988-a301-4522-bba9-c725b724f35f",
+          "name": "ListPackages",
+          "request": {
+            "name": "ListPackages",
+            "description": {
+              "content": "Retrieves all registry packages accessible to the caller, with support for filtering, sorting, and pagination. No authentication is required, but authenticated requests may include additional usage statistics per package. Results can be filtered by package name, publisher, owning organization, package type, usage, search query, and visibility level. The sort parameter controls the ordering of results, and the asc parameter toggles ascending vs. descending order. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the full package metadata including name, publisher, source, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, creation timestamp, and visibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asc",
+                  "value": "<boolean>",
+                  "description": "When true, sort results in ascending order"
+                },
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Pagination token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<long>",
+                  "description": "Results per page (default: 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by specific package name"
+                },
+                {
+                  "disabled": false,
+                  "key": "orgLogin",
+                  "value": "<string>",
+                  "description": "Filter by owning organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "packageType",
+                  "value": "<string>",
+                  "description": "Filter by package type"
+                },
+                {
+                  "disabled": false,
+                  "key": "publisher",
+                  "value": "<string>",
+                  "description": "Filter by publisher organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "usage",
+                  "value": "<string>",
+                  "description": "Filter by usage type"
+                },
+                {
+                  "disabled": false,
+                  "key": "visibility",
+                  "value": "<string>",
+                  "description": "Filter by visibility level"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad832b3a-dfa4-4038-968c-3d0cf0b64f7c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "packageType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisher",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usage",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"packages\": [\n    {\n      \"createdAt\": \"1949-03-01T19:55:54.746Z\",\n      \"isFeatured\": true,\n      \"name\": \"string\",\n      \"packageStatus\": \"public_preview\",\n      \"publisher\": \"string\",\n      \"readmeURL\": \"string\",\n      \"schemaURL\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\",\n      \"visibility\": \"public\",\n      \"category\": \"string\",\n      \"description\": \"string\",\n      \"logoUrl\": \"string\",\n      \"packageTypes\": [\n        \"bridged\",\n        \"bridged\"\n      ],\n      \"parameterization\": {\n        \"baseProvider\": {\n          \"name\": \"string\",\n          \"publisher\": \"string\",\n          \"source\": \"string\",\n          \"version\": \"string\"\n        },\n        \"parameter\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"pluginDownloadURL\": \"string\",\n      \"publisherDisplayName\": \"string\",\n      \"repoUrl\": \"string\",\n      \"title\": \"string\",\n      \"usageStats\": {\n        \"onLatest\": 4888,\n        \"onOlder\": 816,\n        \"totalStacks\": 5747,\n        \"versionUnresolved\": 800\n      }\n    },\n    {\n      \"createdAt\": \"2018-11-28T19:19:45.201Z\",\n      \"isFeatured\": false,\n      \"name\": \"string\",\n      \"packageStatus\": \"public_preview\",\n      \"publisher\": \"string\",\n      \"readmeURL\": \"string\",\n      \"schemaURL\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\",\n      \"visibility\": \"private\",\n      \"category\": \"string\",\n      \"description\": \"string\",\n      \"logoUrl\": \"string\",\n      \"packageTypes\": [\n        \"native\",\n        \"component\"\n      ],\n      \"parameterization\": {\n        \"baseProvider\": {\n          \"name\": \"string\",\n          \"publisher\": \"string\",\n          \"source\": \"string\",\n          \"version\": \"string\"\n        },\n        \"parameter\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"pluginDownloadURL\": \"string\",\n      \"publisherDisplayName\": \"string\",\n      \"repoUrl\": \"string\",\n      \"title\": \"string\",\n      \"usageStats\": {\n        \"onLatest\": 3325,\n        \"onOlder\": 6356,\n        \"totalStacks\": 2930,\n        \"versionUnresolved\": 2217\n      }\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a73dc25-292f-4c39-8640-ff47d47ad639",
+              "name": "Bad continuationToken",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "packageType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisher",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usage",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60f30356-5742-40c4-b1ac-df68fa57475e",
+          "name": "PostPublishPackageVersion",
+          "request": {
+            "name": "PostPublishPackageVersion",
+            "description": {
+              "content": "Initiates the first step of a two-phase package version publish workflow. This creates a publish transaction and returns an operationID along with pre-signed upload URLs for the package artifacts (schema, index, and installationConfiguration). The caller must upload all required artifacts to the provided URLs and then call the PostPublishPackageVersionComplete endpoint with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, 404 if the source does not exist, or 409 if the specified version already exists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string>\",\n  \"publishedAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3366d5f-66fc-4c69-9166-de137738b906",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"publishedAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operationID\": \"string\",\n  \"uploadURLs\": {\n    \"index\": \"string\",\n    \"installationConfiguration\": \"string\",\n    \"schema\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bc5a2de-f414-4368-a0c7-bb11bfa141d2",
+              "name": "Source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"publishedAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36dcb92d-95ce-47ff-a7d6-85def745acd8",
+              "name": "Version already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"publishedAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1515635a-5165-41fd-9a03-f9b02dd55d7e",
+          "name": "DeletePublishPackageVersion",
+          "request": {
+            "name": "DeletePublishPackageVersion",
+            "description": {
+              "content": "Removes a specific version of a package from the registry. The package is identified by its source (e.g. 'pulumi', 'opentofu', or 'private'), publisher organization, name, and semantic version. Requires the RegistryPublish permission on the publisher organization. Returns 204 No Content on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the package version to delete"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eca53629-9d57-4640-91c9-8dda7ae041f1",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the package version to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "172f70d9-7591-47eb-b9b1-34b688d01f70",
+          "name": "GetPackageVersion",
+          "request": {
+            "name": "GetPackageVersion",
+            "description": {
+              "content": "Retrieves metadata for a specific version of a registry package. The package is identified by its source, publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the package's name, publisher, version, title, description, repository URL, category, featured status, package types, maturity status, readme URL, schema URL, plugin download URL, creation timestamp, visibility, parameterization details, and usage statistics (when the caller is authenticated). Returns 404 if the specified package version does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b42f1a72-d2d6-4191-a5ac-3baf9babcd93",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"1952-12-21T17:06:23.904Z\",\n  \"isFeatured\": false,\n  \"name\": \"string\",\n  \"packageStatus\": \"ga\",\n  \"publisher\": \"string\",\n  \"readmeURL\": \"string\",\n  \"schemaURL\": \"string\",\n  \"source\": \"string\",\n  \"version\": \"string\",\n  \"visibility\": \"private\",\n  \"category\": \"string\",\n  \"description\": \"string\",\n  \"logoUrl\": \"string\",\n  \"packageTypes\": [\n    \"native\",\n    \"native\"\n  ],\n  \"parameterization\": {\n    \"baseProvider\": {\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    },\n    \"parameter\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"pluginDownloadURL\": \"string\",\n  \"publisherDisplayName\": \"string\",\n  \"repoUrl\": \"string\",\n  \"title\": \"string\",\n  \"usageStats\": {\n    \"onLatest\": 2569,\n    \"onOlder\": 6381,\n    \"totalStacks\": 1088,\n    \"versionUnresolved\": 8954\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59bab188-b390-4fe7-b548-197bf2f82f3f",
+              "name": "package version",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "495cdfa6-cb13-42ef-ac2e-250b436ed1e7",
+          "name": "PostPublishPackageVersionComplete",
+          "request": {
+            "name": "PostPublishPackageVersionComplete",
+            "description": {
+              "content": "Finalizes the second step of the two-phase package version publish workflow. After initiating a publish with PostPublishPackageVersion and uploading all required artifacts (schema, index, installationConfiguration) to the pre-signed URLs, call this endpoint with the operationID to complete the publish. The service validates that all artifacts were uploaded successfully before making the version available in the registry. Returns 201 Created on success, 400 for a bad request (e.g. missing artifacts), 404 if the publish operation is not found, or 409 if the version already exists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the package version to complete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operationID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db29b770-67e4-44a8-944a-a1328b9e53fe",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the package version to complete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eff3cc02-5b8e-4325-bc69-8761f13aa724",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the package version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c96719a-6393-4aaa-9211-68c4f87bb063",
+              "name": "Publish Operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the package version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "12a8dee7-2a8b-4801-92da-06c736350216",
+              "name": "Version already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the package version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2203a40d-718c-4c1e-8d51-b5ad5d735f6a",
+          "name": "GetPackageDocs",
+          "request": {
+            "name": "GetPackageDocs",
+            "description": {
+              "content": "Returns structured API documentation for a single resource or function identified by its Pulumi token. The token must be URL-encoded (e.g. 'random:index%2FrandomPassword:RandomPassword'). The 'lang' parameter is required and filters all property names, types, descriptions, and code examples to the specified language. Use the 'os' parameter to collapse OS choosers in descriptions. Supports content negotiation via the Accept header: send 'text/markdown' to receive a rendered markdown document with property tables instead of structured JSON. The version parameter accepts a specific semantic version string or 'latest'. Returns 404 if the package version or token does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "docs",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "(Required) Language for filtering property names, types, descriptions, and code examples. Values: typescript, python, go, csharp, java, yaml"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Filter OS choosers in descriptions to a single OS. Values: linux, macos, windows"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) URL-encoded Pulumi token identifying the resource or function"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ed746e7-8e0c-4014-84c6-160860393c41",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "docs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) URL-encoded Pulumi token identifying the resource or function"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"description\": [\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    },\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"kind\": \"string\",\n  \"language\": \"string\",\n  \"name\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"navUrl\": \"string\",\n  \"token\": \"string\",\n  \"version\": \"string\",\n  \"inputs\": [\n    {\n      \"description\": {\n        \"key_0\": \"string\"\n      },\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"replaceOnChanges\": false,\n      \"required\": false,\n      \"type\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"deprecated\": false,\n      \"typeRef\": {\n        \"token\": \"string\",\n        \"package\": \"string\",\n        \"version\": \"string\"\n      }\n    },\n    {\n      \"description\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"replaceOnChanges\": true,\n      \"required\": false,\n      \"type\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"deprecated\": false,\n      \"typeRef\": {\n        \"token\": \"string\",\n        \"package\": \"string\",\n        \"version\": \"string\"\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"description\": {\n        \"key_0\": \"string\"\n      },\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"replaceOnChanges\": false,\n      \"required\": true,\n      \"type\": {\n        \"key_0\": \"string\"\n      },\n      \"deprecated\": true,\n      \"typeRef\": {\n        \"token\": \"string\",\n        \"package\": \"string\",\n        \"version\": \"string\"\n      }\n    },\n    {\n      \"description\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"replaceOnChanges\": false,\n      \"required\": false,\n      \"type\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"deprecated\": true,\n      \"typeRef\": {\n        \"token\": \"string\",\n        \"package\": \"string\",\n        \"version\": \"string\"\n      }\n    }\n  ],\n  \"supportingTypes\": [\n    {\n      \"kind\": \"string\",\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"token\": \"string\",\n      \"properties\": [\n        {\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"name\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"replaceOnChanges\": true,\n          \"required\": false,\n          \"type\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"deprecated\": true,\n          \"typeRef\": {\n            \"token\": \"string\",\n            \"package\": \"string\",\n            \"version\": \"string\"\n          }\n        },\n        {\n          \"description\": {\n            \"key_0\": \"string\"\n          },\n          \"name\": {\n            \"key_0\": \"string\"\n          },\n          \"replaceOnChanges\": true,\n          \"required\": true,\n          \"type\": {\n            \"key_0\": \"string\"\n          },\n          \"deprecated\": false,\n          \"typeRef\": {\n            \"token\": \"string\",\n            \"package\": \"string\",\n            \"version\": \"string\"\n          }\n        }\n      ],\n      \"values\": [\n        {\n          \"name\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"value\": \"string\",\n          \"description\": {\n            \"key_0\": \"string\"\n          }\n        },\n        {\n          \"name\": {\n            \"key_0\": \"string\"\n          },\n          \"value\": \"string\",\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        }\n      ]\n    },\n    {\n      \"kind\": \"string\",\n      \"name\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"token\": \"string\",\n      \"properties\": [\n        {\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"name\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"replaceOnChanges\": true,\n          \"required\": true,\n          \"type\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"deprecated\": false,\n          \"typeRef\": {\n            \"token\": \"string\",\n            \"package\": \"string\",\n            \"version\": \"string\"\n          }\n        },\n        {\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"name\": {\n            \"key_0\": \"string\"\n          },\n          \"replaceOnChanges\": true,\n          \"required\": false,\n          \"type\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"deprecated\": false,\n          \"typeRef\": {\n            \"token\": \"string\",\n            \"package\": \"string\",\n            \"version\": \"string\"\n          }\n        }\n      ],\n      \"values\": [\n        {\n          \"name\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"value\": \"string\",\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"value\": \"string\",\n          \"description\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a32897-a71e-4dba-ade2-657d246be095",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "docs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) URL-encoded Pulumi token identifying the resource or function"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "29e9ac4a-80ec-42a9-bd93-2d9adbb7b6d4",
+              "name": "package version or token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "docs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) URL-encoded Pulumi token identifying the resource or function"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83adbf1f-6476-4539-962c-323968381f25",
+          "name": "GetPackageInstallation",
+          "request": {
+            "name": "GetPackageInstallation",
+            "description": {
+              "content": "Returns installation configuration content for a registry package version, structured as an ordered list of content nodes. Not all packages include installation configuration; this endpoint returns 404 when absent. Use the 'lang' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the 'os' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: send 'text/markdown' to receive a clean rendered markdown string instead of structured JSON. The version parameter accepts a specific semantic version string or 'latest'. Returns 404 if the specified package version does not exist or if the package does not include installation configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "installation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Filter OS-specific content to a single OS. Values: linux, macos, windows"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84abfb7a-871d-4901-b8d9-7e0042e6ce21",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "installation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    },\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"navUrl\": \"string\",\n  \"version\": \"string\",\n  \"language\": \"string\",\n  \"os\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f8ae3f3-32c6-4b62-b189-05d2ad52ede8",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "installation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "529961a3-db6b-4bd4-bce0-4723a11a5725",
+              "name": "package version or installation configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "installation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc10d1df-4a96-437f-a5c5-f2ba323a0886",
+          "name": "GetPackageNav",
+          "request": {
+            "name": "GetPackageNav",
+            "description": {
+              "content": "Returns the module, resource, and function navigation tree for a registry package version. Names are resolved for the requested language (defaulting to Go when omitted). Use the 'q' parameter for case-insensitive search: the tree is filtered to nodes whose name or token contains the query string, with ancestor module paths preserved. Modules with no matching children are omitted. Supports content negotiation via the Accept header: send 'text/markdown' to receive a plain-text listing instead of structured JSON. The version parameter accepts a specific semantic version string or 'latest'. Returns 404 if the specified package version does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "nav"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Language for name resolution. Names are resolved for this language with a fallback chain: requested language, then Go, then first available. Values: typescript, python, go, csharp, java, yaml"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search query for filtering the navigation tree. Case-insensitive matching against resource/function names and tokens"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59c8760c-9ea0-4650-b20b-6d0a28f6d26e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "nav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"docsUrlTemplate\": \"string\",\n  \"modules\": [\n    {\n      \"functions\": [\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"resources\": [\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        }\n      ]\n    },\n    {\n      \"functions\": [\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"resources\": [\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"token\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"name\": \"string\",\n  \"packageVersionUrl\": \"string\",\n  \"publisher\": \"string\",\n  \"readmeUrl\": \"string\",\n  \"source\": \"string\",\n  \"title\": \"string\",\n  \"version\": \"string\",\n  \"description\": \"string\",\n  \"installationUrl\": \"string\",\n  \"language\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78ba7750-40a1-4fc1-a9a7-89c948427252",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "nav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75f432ff-bfdc-42c4-857d-ff5bd1e8ea66",
+              "name": "package version",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "nav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcfa321f-a6d1-4418-bdbb-2ea2749cc26d",
+          "name": "GetPackageReadme",
+          "request": {
+            "name": "GetPackageReadme",
+            "description": {
+              "content": "Returns README content for a registry package version, structured as an ordered list of content nodes. Each node has a 'kind' and a 'markdown' fallback for forward compatibility. Use the 'lang' parameter to filter language-specific content to a single language (fallback chain: requested language, then Go, then first available). Use the 'os' parameter to filter OS-specific content similarly (fallback: Linux). Supports content negotiation via the Accept header: send 'text/markdown' to receive a clean rendered markdown string instead of structured JSON. The version parameter accepts a specific semantic version string or 'latest'. Returns 404 if the specified package version does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "packages",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "readme"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Filter language-specific content to a single language. Values: typescript, python, go, csharp, java, yaml"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Filter OS-specific content to a single OS. Values: linux, macos, windows"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the package"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The package name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd932533-ca29-460a-b23f-9f66ef850a05",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "readme"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    },\n    {\n      \"kind\": \"string\",\n      \"markdown\": \"string\",\n      \"options\": [\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        },\n        {\n          \"content\": \"string\",\n          \"language\": \"string\",\n          \"os\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"navUrl\": \"string\",\n  \"version\": \"string\",\n  \"language\": \"string\",\n  \"os\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac4967d8-8825-4dab-aeae-582bb5007fe2",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "readme"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c7467c4-0b53-45b3-aacf-1f5f856a9732",
+              "name": "package version",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "packages",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "readme"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The package source: 'pulumi', 'opentofu', or 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the package"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The package name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "813584d4-cf35-488f-b1fb-ce1f77e54d09",
+          "name": "ListTemplates",
+          "request": {
+            "name": "ListTemplates",
+            "description": {
+              "content": "Lists registry-backed templates with optional filtering, search, and pagination. This endpoint returns only registry-backed templates and does not include VCS-backed templates (those sourced from GitHub or GitLab repositories). No authentication is required. Results can be filtered by template name and owning organization (orgLogin). The search parameter performs case-insensitive partial matching against the template name, display name, description, metadata values, and runtime language. Results are paginated with a default limit of 100 per page; use the continuationToken from the response to retrieve subsequent pages. Each entry in the response includes the template's name, publisher, source, display name, description, runtime, language, readme URL, download URL, visibility, and updated timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Pagination token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<long>",
+                  "description": "Maximum number of results to return (default: 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by specific template name"
+                },
+                {
+                  "disabled": false,
+                  "key": "orgLogin",
+                  "value": "<string>",
+                  "description": "Filter by owning organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search query matching template name, display name, description, metadata values, or runtime language. Multiple space-separated terms require all terms to match (AND semantics)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d81c7ce5-a6a7-473a-a91d-2bacf8c09247",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"displayName\": \"string\",\n      \"downloadURL\": \"string\",\n      \"language\": \"python\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"updatedAt\": \"1956-10-06T02:22:32.626Z\",\n      \"url\": \"string\",\n      \"visibility\": \"public\",\n      \"config\": {\n        \"key_0\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": false\n        },\n        \"key_1\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": true\n        },\n        \"key_2\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": false\n        }\n      },\n      \"description\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"readmeURL\": \"string\",\n      \"repoSlug\": \"string\",\n      \"runtime\": {\n        \"name\": \"string\",\n        \"options\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {},\n          \"key_3\": {},\n          \"key_4\": {}\n        }\n      }\n    },\n    {\n      \"displayName\": \"string\",\n      \"downloadURL\": \"string\",\n      \"language\": \"go\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"updatedAt\": \"2014-02-03T02:03:15.391Z\",\n      \"url\": \"string\",\n      \"visibility\": \"private\",\n      \"config\": {\n        \"key_0\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": true\n        }\n      },\n      \"description\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"readmeURL\": \"string\",\n      \"repoSlug\": \"string\",\n      \"runtime\": {\n        \"name\": \"string\",\n        \"options\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {},\n          \"key_3\": {}\n        }\n      }\n    }\n  ],\n  \"continuationToken\": \"string\",\n  \"diagnostics\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b275542e-f91b-4cf9-bebe-b9e8582216b6",
+              "name": "Bad continuationToken",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4123f57e-9739-43a1-8be7-b03d7699d715",
+          "name": "ListTemplateVersions",
+          "request": {
+            "name": "ListTemplateVersions",
+            "description": {
+              "content": "Lists all versions of a specific template, ordered by version descending (latest first). The template is identified by its source, publisher organization, and name. Results are paginated with a default limit of 100 per page. Use the continuationToken from the response to retrieve subsequent pages. Each entry in the response contains the template version metadata. Returns 400 for an invalid continuationToken or 404 if the template does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Pagination token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<long>",
+                  "description": "Maximum number of results to return (default: 100)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the template"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The template name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52c451f7-b011-4d99-baa7-97b9728ddad7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"displayName\": \"string\",\n      \"downloadURL\": \"string\",\n      \"language\": \"javascript\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"updatedAt\": \"2012-08-06T09:23:42.796Z\",\n      \"url\": \"string\",\n      \"version\": \"string\",\n      \"visibility\": \"public\",\n      \"config\": {\n        \"key_0\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": true\n        },\n        \"key_1\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": false\n        },\n        \"key_2\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": true\n        }\n      },\n      \"description\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"readmeURL\": \"string\",\n      \"repoSlug\": \"string\",\n      \"runtime\": {\n        \"name\": \"string\",\n        \"options\": {\n          \"key_0\": {}\n        }\n      }\n    },\n    {\n      \"displayName\": \"string\",\n      \"downloadURL\": \"string\",\n      \"language\": \"unknown\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"updatedAt\": \"2011-09-23T22:15:18.702Z\",\n      \"url\": \"string\",\n      \"version\": \"string\",\n      \"visibility\": \"private\",\n      \"config\": {\n        \"key_0\": {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"secret\": false\n        }\n      },\n      \"description\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\"\n      },\n      \"readmeURL\": \"string\",\n      \"repoSlug\": \"string\",\n      \"runtime\": {\n        \"name\": \"string\",\n        \"options\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        }\n      }\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94d8f072-c2c5-453e-aced-7bf0c39fc663",
+              "name": "Bad continuationToken",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53550912-bd54-43c2-8ac5-36f5f71d115c",
+              "name": "template",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e627b389-f91c-42b4-b7d0-f0f3be86eee1",
+          "name": "PostPublishTemplateVersion",
+          "request": {
+            "name": "PostPublishTemplateVersion",
+            "description": {
+              "content": "Initiates the first step of a two-phase template version publish workflow. This creates a publish transaction and returns an operationID along with a pre-signed upload URL for the template archive. The source must be 'private'. The caller must upload the template archive (a gzip-compressed tar file containing a root-level Pulumi.yaml with a template section, and optionally a README.md) to the provided URL, then call PostPublishTemplateVersionComplete with the operationID to finalize the publish. The request body must include the semantic version to publish. Returns 202 Accepted with the operation details, or 404 if the source does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the template"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The template name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c79921a4-7a5f-4979-b1e1-199e922f773e",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operationID\": \"string\",\n  \"uploadURLs\": {\n    \"archive\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cf9214e-4db6-418e-af6b-945a7586d8f5",
+              "name": "Source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12c74e96-5f7b-4fc4-8618-febd53d14626",
+          "name": "DeleteTemplateVersion",
+          "request": {
+            "name": "DeleteTemplateVersion",
+            "description": {
+              "content": "Removes a specific version of a template from the registry. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, name, and semantic version. If this is the last remaining version of the template, the 'force' query parameter must be set to true; doing so will also delete the template itself. Returns 204 No Content on success, or 400 if an invalid query parameter is provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "<boolean>",
+                  "description": "When true, allows deletion of the final remaining template version"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the template"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The template name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the template version to delete"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae69fe35-7c01-469b-a742-b497b561fac5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3c17fc7-ded9-4a82-aaa4-5c28d9a0e0ac",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14cd8657-e28f-40a8-95c6-6a2ed9512eda",
+          "name": "GetTemplateVersion",
+          "request": {
+            "name": "GetTemplateVersion",
+            "description": {
+              "content": "Retrieves metadata for a specific version of a registry template. The template is identified by its source (e.g. 'private', 'github', or 'gitlab'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recent version. The response includes the template's name, display name, description, runtime information, language, readme URL, download URL (a pre-signed URL valid for at least 5 minutes for retrieving the .tar.gz archive), repository slug (for VCS-backed templates), visibility, updated timestamp, metadata, and configuration values. Returns 400 if a specific version is provided for VCS-backed templates (which do not support versioning), or 404 if the template version does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the template"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The template name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3cbe9f7-8210-49b3-a061-0b6ad232175c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"displayName\": \"string\",\n  \"downloadURL\": \"string\",\n  \"language\": \"java\",\n  \"name\": \"string\",\n  \"publisher\": \"string\",\n  \"source\": \"string\",\n  \"updatedAt\": \"2018-11-01T19:16:59.657Z\",\n  \"url\": \"string\",\n  \"visibility\": \"public\",\n  \"config\": {\n    \"key_0\": {\n      \"default\": \"string\",\n      \"description\": \"string\",\n      \"secret\": true\n    }\n  },\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"readmeURL\": \"string\",\n  \"repoSlug\": \"string\",\n  \"runtime\": {\n    \"name\": \"string\",\n    \"options\": {\n      \"key_0\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b0b6eb7-b779-4d2d-9a12-c5e9d3a15a3e",
+              "name": "version cannot be specified for VCS-backed templates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b39d3876-60be-4b58-a3eb-4335de400ed7",
+              "name": "template version",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f55c47f-40f5-4a2e-b0f6-b30beb7967f9",
+          "name": "PostPublishTemplateVersionComplete",
+          "request": {
+            "name": "PostPublishTemplateVersionComplete",
+            "description": {
+              "content": "Finalizes the second step of the two-phase template version publish workflow. After initiating a publish with PostPublishTemplateVersion and uploading the template archive (.tar.gz) to the pre-signed URL, call this endpoint with the operationID to complete the publish. The service validates that the archive was uploaded successfully before making the version available in the registry. Once complete, the template becomes available to the publisher's organization. Returns 201 Created on success, 400 for invalid operation state, 404 if the publish operation is not found, or 409 if the version already exists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "registry",
+                "templates",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the template"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The template name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the template version to complete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operationID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13a244d6-55a0-4661-8f1d-98a380b2cc9e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to complete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad4bedfd-b1e7-4295-bd70-31cb46147446",
+              "name": "Operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cee57867-0509-48d0-ac5e-ee1f2f349ce9",
+              "name": "Publish Operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f9b056e-40dd-4478-abfe-d582f6ec7c66",
+              "name": "Version already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "registry",
+                    "templates",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The template source: 'private', 'github', or 'gitlab'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the template"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The template name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the template version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ade7bc35-9fc7-4620-a38d-f79d1d6061e1",
+    "name": "Pulumi APIs AccessTokens Registry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

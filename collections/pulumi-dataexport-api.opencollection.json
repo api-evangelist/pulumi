@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens DataExport API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataExport",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ExportOrgResourceSearchQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "ExportOrgResourceSearchQuery exports resource search results as a CSV file download. Supports the same query parameters as the standard resource search to filter results."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

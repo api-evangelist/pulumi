@@ -1,0 +1,347 @@
+{
+  "item": [
+    {
+      "id": "790a5649-fe64-4f74-831f-fd2ce0b7f7df",
+      "name": "Miscellaneous",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b60c128f-7702-48a0-a87c-6971d8ff0664",
+          "name": "Capabilities",
+          "request": {
+            "name": "Capabilities",
+            "description": {
+              "content": "Returns the set of capabilities that the service supports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "capabilities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5bbbd4f-4e22-48d5-911d-a9aefdafacf8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "capabilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"capabilities\": [\n    {\n      \"capability\": \"deployment-schema-version\",\n      \"configuration\": {},\n      \"version\": 5520\n    },\n    {\n      \"capability\": \"batch-encrypt\",\n      \"configuration\": {},\n      \"version\": 8737\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2841e8b4-2cc3-4f5b-83c3-3e92d3f446bc",
+          "name": "Version",
+          "request": {
+            "name": "Version",
+            "description": {
+              "content": "Returns version information about the CLI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "cli",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0aac133-de4f-4809-8a28-02265c40a8cd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "cli",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"latestDevVersion\": \"string\",\n  \"latestVersion\": \"string\",\n  \"oldestWithoutWarning\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05364f18-eda9-4234-8eb8-44a5745511d6",
+          "name": "Token",
+          "request": {
+            "name": "Token",
+            "description": {
+              "content": "Exchanges an external identity provider token for a Pulumi access token using the OAuth 2.0 Token Exchange flow (RFC 8693).\n\nThe request body must include:\n- `audience`: a URN identifying the target org (e.g., `urn:pulumi:org:{ORG_NAME}`)\n- `grant_type`: must be `urn:ietf:params:oauth:grant-type:token-exchange`\n- `subject_token`: the OIDC identity token from the external provider\n- `subject_token_type`: must be `urn:ietf:params:oauth:token-type:id_token`\n- `requested_token_type`: one of `urn:pulumi:token-type:access_token:organization`, `...team`, `...personal`, or `...runner`\n\nOptional parameters:\n- `scope`: depends on the requested token type. For `organization`, must be empty or `admin`. For `team`, must be `team:TEAM_NAME`. For `personal`, must be `user:USER_LOGIN`. For `runner`, must be `runner:RUNNER_NAME`.\n- `expiration`: token lifetime in seconds\n\nThe response includes `access_token`, `issued_token_type`, `token_type`, `expires_in`, `scope`, and `refresh_token`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c65352e-6133-4b6d-a9e8-1809b5419752",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"expires_in\": 1274,\n  \"issued_token_type\": \"string\",\n  \"scope\": \"string\",\n  \"token_type\": \"string\",\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93ed12b2-fcf4-4e73-ad7a-bdf5e7cd6c7c",
+          "name": "FetchRestSpecification",
+          "request": {
+            "name": "FetchRestSpecification",
+            "description": {
+              "content": "Returns the OpenAPI v3 specification for the service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "openapi",
+                "pulumi-spec.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34f40db0-ca32-491d-9737-d566f9e51b94",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "openapi",
+                    "pulumi-spec.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "72e0d180-3750-40f3-b9cf-dee897aed465",
+    "name": "Pulumi APIs AccessTokens Miscellaneous API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

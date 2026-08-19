@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens DeploymentRunners API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DeploymentRunners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListOrgAgentPool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/agent-pools",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all agent pools configured for an organization. Agent pools enable self-hosted deployment agents, allowing organizations to run Pulumi Deployments on their own infrastructure for accessing private networks, meeting compliance requirements, or using custom execution environments. Each pool in the response includes its ID, name, and configuration details."
+        },
+        {
+          "info": {
+            "name": "CreateOrgAgentPool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/agent-pools",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new agent pool for an organization. Agent pools enable self-hosted deployment agents, allowing organizations to run Pulumi Deployments on their own infrastructure rather than Pulumi-managed infrastructure. This is useful for accessing private networks, meeting compliance requirements, or using custom execution environments. The response includes an access token (agent pool secret) that self-hosted agents use to authenticate when polling for deployment work. This token is only returned "
+        },
+        {
+          "info": {
+            "name": "GetAgentPool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/agent-pools/:poolId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "poolId",
+                "value": "",
+                "type": "path",
+                "description": "The agent pool identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific agent pool, including its name, ID, creation timestamp, and configuration. Agent pools enable self-hosted deployment agents that run Pulumi Deployments on organization-managed infrastructure. The pool ID can be referenced in stack deployment settings to route deployments to self-hosted agents instead of Pulumi-managed infrastructure."
+        },
+        {
+          "info": {
+            "name": "PatchOrgAgentPool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/agent-pools/:poolId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "poolId",
+                "value": "",
+                "type": "path",
+                "description": "The agent pool identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing agent pool's configuration for an organization. This can be used to modify the pool's name or other configurable properties. The request body uses the same format as CreateOrgAgentPool. Only provided fields are updated; omitted fields remain unchanged."
+        },
+        {
+          "info": {
+            "name": "DeleteOrgAgentPool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/agent-pools/:poolId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "poolId",
+                "value": "",
+                "type": "path",
+                "description": "The agent pool identifier"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force the operation even if the pool is in use"
+              }
+            ]
+          },
+          "docs": "Deletes an agent pool from an organization. If the agent pool is currently referenced by any stack's deployment settings, the deletion will fail with a 400 error unless the 'force' query parameter is set to true. Force-deleting a pool that is in use will cause affected stacks to fall back to Pulumi-managed infrastructure for future deployments. Returns 204 No Content on success."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

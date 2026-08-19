@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens PolicyResults API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PolicyResults",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetPolicyComplianceResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/compliance",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns compliance results for policy issues grouped by entity. The grouping can be by stack, cloud account, or severity, providing different views of the organization's policy compliance posture. This powers the compliance dashboard in the Pulumi Cloud console."
+        },
+        {
+          "info": {
+            "name": "ListPolicyIssues",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns all policy issues for an organization with support for pagination and advanced filtering via the grid request format. Policy issues represent violations detected by Policy Packs during stack updates or continuous compliance scans. Each issue includes the violating resource, policy details, enforcement level (advisory or mandatory), severity, and triage status."
+        },
+        {
+          "info": {
+            "name": "ExportPolicyIssues",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exports policy issues for an organization to CSV format for offline analysis or reporting. Policy issues represent violations detected by Policy Packs during stack updates or continuous compliance scans. The export includes issue details such as the violating resource, policy name, enforcement level, and severity."
+        },
+        {
+          "info": {
+            "name": "GetPolicyIssuesFilters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/filters",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the available filter options for listing policy issues, such as policy pack names, enforcement levels, severity values, and resource types. This is used to populate filter dropdowns in the policy issues UI."
+        },
+        {
+          "info": {
+            "name": "GetPolicyIssue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/:issueId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issueId",
+                "value": "",
+                "type": "path",
+                "description": "The issue identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific policy issue, including the violating resource, the policy pack and policy name that flagged the violation, the enforcement level (advisory or mandatory), severity, and the current triage status of the issue."
+        },
+        {
+          "info": {
+            "name": "UpdatePolicyIssue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/:issueId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issueId",
+                "value": "",
+                "type": "path",
+                "description": "The issue identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a policy issue's triage status and other mutable fields. All body fields are optional — only provide the fields you want to update.\n\n- `status`: `open`, `in_progress`, `by_design`, `fixed`, or `ignored`\n- `priority`: `p0`, `p1`, `p2`, `p3`, or `p4`\n- `assignedTo`: username to assign the issue to, or `null` to unassign"
+        },
+        {
+          "info": {
+            "name": "GetPolicyResultsMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns high-level policy compliance statistics for an organization, including total violation counts, breakdown by severity and enforcement level, and trends over time. This provides an overview of the organization's policy compliance posture."
+        },
+        {
+          "info": {
+            "name": "ListPoliciesCompliance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/policies",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns policy compliance data grouped by policy pack and policy name, showing how many stacks are in compliance or violation for each individual policy rule. Supports pagination and filtering via the grid request format."
+        },
+        {
+          "info": {
+            "name": "ListPolicyViolationsV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/violationsv2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "ListPolicyViolationsV2Handler gets all the policy violations for an org.\nDeprecated: Use /policyresults/issues"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

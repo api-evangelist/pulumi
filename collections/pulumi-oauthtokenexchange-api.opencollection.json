@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens OAuthTokenExchange API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuthTokenExchange",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges an external identity provider token for a Pulumi access token using the OAuth 2.0 Token Exchange flow (RFC 8693).\n\nThe request body must include:\n- `audience`: a URN identifying the target org (e.g., `urn:pulumi:org:{ORG_NAME}`)\n- `grant_type`: must be `urn:ietf:params:oauth:grant-type:token-exchange`\n- `subject_token`: the OIDC identity token from the external provider\n- `subject_token_type`: must be `urn:ietf:params:oauth:token-type:id_token`\n- `requested_token_type`: one of `urn:pul"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

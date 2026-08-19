@@ -1,0 +1,4116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Organizations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListChangeGates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/change-gates/:orgName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query",
+                "description": "The entity type to filter by"
+              },
+              {
+                "name": "qualifiedName",
+                "value": "",
+                "type": "query",
+                "description": "The fully qualified entity name"
+              }
+            ]
+          },
+          "docs": "Lists change gates for an entity within the organization. Change gates define approval requirements that must be satisfied before changes can be applied to infrastructure resources. Currently supports listing gates for a single entity specified by entityType and qualifiedName query parameters."
+        },
+        {
+          "info": {
+            "name": "CreateChangeGate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-gates/:orgName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new change gate for an entity in the organization. Change gates enforce approval workflows by requiring one or more approvals before infrastructure changes can be applied to the protected resource."
+        },
+        {
+          "info": {
+            "name": "ReadChangeGate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/change-gates/:orgName/:gateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "gateID",
+                "value": "",
+                "type": "path",
+                "description": "The change gate identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration and status of a specific change gate, including its approval requirements and the entity it protects."
+        },
+        {
+          "info": {
+            "name": "UpdateChangeGate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/change-gates/:orgName/:gateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "gateID",
+                "value": "",
+                "type": "path",
+                "description": "The change gate identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing change gate, such as modifying its approval requirements or protected entity."
+        },
+        {
+          "info": {
+            "name": "DeleteChangeGate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/change-gates/:orgName/:gateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "gateID",
+                "value": "",
+                "type": "path",
+                "description": "The change gate identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a change gate, removing the approval requirement from the protected entity. Changes to the entity will no longer require approval."
+        },
+        {
+          "info": {
+            "name": "ListChangeRequests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/change-requests/:orgName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "The entity identifier to filter by"
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query",
+                "description": "The entity type to filter by"
+              }
+            ]
+          },
+          "docs": "Lists change requests for an organization with support for pagination and filtering by entity type and entity ID. Change requests represent proposed infrastructure modifications that require approval before being applied."
+        },
+        {
+          "info": {
+            "name": "ReadChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific change request, including its current status, description, approvals, and the proposed infrastructure changes."
+        },
+        {
+          "info": {
+            "name": "UpdateChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a change request's metadata. Currently only the description field can be modified after creation."
+        },
+        {
+          "info": {
+            "name": "ApplyChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/apply",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ]
+          },
+          "docs": "Applies an approved change request, triggering the execution of the proposed infrastructure changes. The change request must have received the required number of approvals before it can be applied. Returns 409 if there is a conflict preventing application."
+        },
+        {
+          "info": {
+            "name": "ApproveChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/approve",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records an approval for a change request from the authenticated user. Once the required number of approvals is met, the change request can be applied."
+        },
+        {
+          "info": {
+            "name": "UnapproveChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/approve",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Withdraws a previously given approval for a change request. If the change request no longer has the required number of approvals after withdrawal, it cannot be applied until additional approvals are granted."
+        },
+        {
+          "info": {
+            "name": "CloseChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/close",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Closes a change request without applying it. The proposed infrastructure changes are discarded and the request is marked as closed."
+        },
+        {
+          "info": {
+            "name": "AddChangeRequestComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/comments",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a comment to a change request without approving or closing it. This allows reviewers to provide feedback or ask questions before making a decision."
+        },
+        {
+          "info": {
+            "name": "ListChangeRequestEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Lists the event log for a change request, including approvals, status changes, and other lifecycle events. Supports pagination via continuation token."
+        },
+        {
+          "info": {
+            "name": "SubmitChangeRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/change-requests/:orgName/:changeRequestID/submit",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "changeRequestID",
+                "value": "",
+                "type": "path",
+                "description": "The change request identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a draft change request for approval. Once submitted, the request enters the review workflow and requires the configured number of approvals before it can be applied."
+        },
+        {
+          "info": {
+            "name": "GetOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about the specified organization, including its name, display name, avatar URL, enabled features, subscription tier, and access control settings. The response includes member count, team availability, and other configuration relevant to the caller's role within the organization."
+        },
+        {
+          "info": {
+            "name": "UpdateOrganizationSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an organization's settings, such as the default stack permission level for new members, whether members can create teams, and other organization-wide configuration options. Returns the updated organization metadata."
+        },
+        {
+          "info": {
+            "name": "ListAuditLogEventsHandlerV1",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json' (default)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Returns entries older than this timestamp (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Lists audit log events for an organization. Either continuationToken or startTime is required. Supports filtering by event type and user."
+        },
+        {
+          "info": {
+            "name": "ExportAuditLogEventsHandlerV1",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Returns entries older than this timestamp (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Exports audit log events for an organization in a downloadable format. Audit logs provide an immutable record of all user activity within the organization, including stack operations, member changes, and policy modifications. Results can be filtered by time range, event type, and user. Supported export formats are CSV and CEF (Common Event Format for SIEM integration). Pagination is supported via the continuationToken parameter.\n\n**Important:** This endpoint differs from other API endpoints:\n- T"
+        },
+        {
+          "info": {
+            "name": "GetAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetAuditLogExportConfiguration returns the organization's current audit log export configuration.\nIf the organization has not configured its audit logs for export, returns a 404."
+        },
+        {
+          "info": {
+            "name": "UpdateAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the organization's automated audit log export configuration. Audit log export enables automatic delivery of audit events to an S3 bucket for long-term retention and SIEM integration. The configuration includes the S3 bucket details and IAM role for authentication. This feature is available on Business Critical edition."
+        },
+        {
+          "info": {
+            "name": "DeleteAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "DeleteAuditLogExportConfiguration removes an organization's audit log export settings.\nSkip feature validation so removal can happen if org no longer has access to feature."
+        },
+        {
+          "info": {
+            "name": "ForceAuditLogExport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config/force",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp to export audit logs for (used for backfilling missed data)"
+              }
+            ]
+          },
+          "docs": "ForceAuditLogExport exports the audit logs for the organization for a user-supplied timestamp.\nThis can be used to backfill data that may have been missed due to an outage or permissions issue."
+        },
+        {
+          "info": {
+            "name": "TestAuditLogExportConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/export/config/test",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TestAuditLogExportConfiguration uses the provided audit log configuration and\nchecks if we are able to successfully write some data."
+        },
+        {
+          "info": {
+            "name": "GetAuditLogsReaderKind",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/reader-kind",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetAuditLogsReaderKind returns whether the audit log is being read\nfrom MySQL or DynamoDB to control the event filtering UI on the front end."
+        },
+        {
+          "info": {
+            "name": "ListAuditLogEventsHandlerV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/v2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json' (default)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Lists audit log events for an organization. Uses startTime as the lower bound and endTime as the upper bound of the query range. Supports filtering by event type and user."
+        },
+        {
+          "info": {
+            "name": "ExportAuditLogEventsHandlerV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auditlogs/v2/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "eventFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by event type"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'cef' or 'csv' (defaults to csv)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the query range (unix timestamp)"
+              },
+              {
+                "name": "userFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter audit logs by username"
+              }
+            ]
+          },
+          "docs": "Exports audit log events in a downloadable format (CSV or CEF). Supports filtering by time range using startTime (lower bound) and endTime (upper bound), as well as filtering by event type and user."
+        },
+        {
+          "info": {
+            "name": "GetAuthPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auth/policies/oidcissuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Returns the authentication policy associated with a specific OIDC issuer registration. Authentication policies define rules for how OIDC tokens from the issuer are validated and what access they grant, including claim mappings and trust conditions."
+        },
+        {
+          "info": {
+            "name": "UpdateAuthPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/auth/policies/:policyId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyId",
+                "value": "",
+                "type": "path",
+                "description": "The policy identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an authentication policy for an organization. Authentication policies define rules for how OIDC tokens are validated and what access they grant, including claim mappings, trust conditions, and role assignments. The policy definition cannot be empty.\n\nThe request body contains a `policies` array where each policy object includes:\n- `decision`: `allow` or `deny`\n- `tokenType`: `organization`, `team`, `personal`, or `runner`\n- `teamName`: required when tokenType is `team`\n- `userLogin`: req"
+        },
+        {
+          "info": {
+            "name": "TransferAllStacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/bulk-transfer/stacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TransferAllStacks transfers all active stacks from one org to another, where deleted stacks\nwill be skipped/ignored. We are currently constraining usage of this function to organizations\nwith less than or equal to TransferAllStacksMax stacks.\n\nNOTE: This operation will lock the organization while the transfer is in-progress, to\nrewrite all checkpoint files that use service-managed secrets. This means that the\norganization will be read-only and no stack updates can begin until the rename process\n"
+        },
+        {
+          "info": {
+            "name": "ListOrganizationKeys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all customer managed keys (CMK) configured for an organization, including their key identifiers, cloud provider details, enabled status, and which key is set as the default for new stacks."
+        },
+        {
+          "info": {
+            "name": "CreateOrganizationKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer managed key (CMK) for an organization, allowing the organization to use their own encryption keys for securing secrets stored in Pulumi Cloud. The key must be a valid cloud provider key (e.g., AWS KMS). Once created, the key can be set as the default encryption key for all new stacks in the organization."
+        },
+        {
+          "info": {
+            "name": "DisableAllOrganizationKeys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk/disable",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Disables all customer managed keys (CMK) for an organization, reverting to Pulumi-managed encryption for secrets. After disabling, new stacks will use the default Pulumi-managed encryption rather than customer-provided keys."
+        },
+        {
+          "info": {
+            "name": "ListOrganizationKeyMigrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk/migration",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all key encryption key (KEK) migrations for an organization. KEK migrations track the process of re-encrypting secrets when rotating customer managed keys. Each migration record includes the source and destination keys, status, and any errors encountered during the migration process."
+        },
+        {
+          "info": {
+            "name": "RetryOrganizationKeyMigrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk/migration/retry",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Retries any failed key encryption key (KEK) migrations for an organization. KEK migrations can fail due to transient errors when re-encrypting secrets during customer managed key rotation. This endpoint re-attempts the failed migrations without restarting the entire process."
+        },
+        {
+          "info": {
+            "name": "SetDefaultOrganizationKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk/:keyID/default",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "keyID",
+                "value": "",
+                "type": "path",
+                "description": "The key identifier"
+              }
+            ]
+          },
+          "docs": "Sets a customer managed key as the default encryption key for the organization. New stacks created in the organization will use this key for encrypting secrets by default. The key must already be created and enabled for the organization."
+        },
+        {
+          "info": {
+            "name": "DisableOrganizationKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/cmk/:keyID/disable",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "keyID",
+                "value": "",
+                "type": "path",
+                "description": "The key identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disables a specific customer managed key (CMK) for an organization. The key can no longer be used for encrypting new secrets, but existing secrets encrypted with this key remain accessible."
+        },
+        {
+          "info": {
+            "name": "GetUsageSummaryDiscoveredResourceHours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/discovered-resources/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back from the current time or lookbackStart"
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+              }
+            ]
+          },
+          "docs": "GetUsageSummaryDiscoveredResourceHours handles request to fetch the summary\nof discovered resources for an organization."
+        },
+        {
+          "info": {
+            "name": "ListOrganizationWebhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured at the organization level. Each webhook in the response includes its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, and subscribed event filters. Organization-level webhooks can fire on stack lifecycle events, deployment events, drift detection events, and policy violation events."
+        },
+        {
+          "info": {
+            "name": "CreateOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for an organization to notify external services when events occur. Webhooks can be configured to fire on stack events (created, deleted, update succeeded/failed), deployment events (queued, started, succeeded, failed), drift detection events, and policy violation events (mandatory, advisory).\n\nThe `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.\n\nThe `filters` field accepts a list of event types to subscribe to. See the [webhook event f"
+        },
+        {
+          "info": {
+            "name": "GetOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Returns the configuration of a specific organization-level webhook, including its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, event filter subscriptions, and whether a shared secret is configured for HMAC signature verification."
+        },
+        {
+          "info": {
+            "name": "UpdateOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing organization-level webhook's configuration, including its destination URL, format, active status, event filter subscriptions, and shared secret. The 'pulumi_deployments' format can only be used on stack or environment webhooks, not organization-level ones."
+        },
+        {
+          "info": {
+            "name": "DeleteOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an organization-level webhook. The webhook will no longer receive event notifications for stack updates, deployments, drift detection, or policy violations. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "GetOrganizationWebhookDeliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/deliveries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Returns the recent delivery history for a specific webhook, including the HTTP status code, response time, request payload, and delivery timestamp for each attempt. This allows monitoring webhook health and diagnosing delivery failures. Each delivery includes a unique Pulumi-Webhook-ID."
+        },
+        {
+          "info": {
+            "name": "RedeliverOrganizationWebhookEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/deliveries/:event/redeliver",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "path",
+                "description": "The event identifier to redeliver"
+              }
+            ]
+          },
+          "docs": "Triggers the Pulumi Service to redeliver\na specific event to a webhook. For example, to resend an event that the\nhook failed to process the first time."
+        },
+        {
+          "info": {
+            "name": "PingOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/ping",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Sends a test ping to an organization webhook to validate that it is working.\nThis function bypasses the message queue machinery and issues the request directly to the webhook."
+        },
+        {
+          "info": {
+            "name": "ListOrganizationMembers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/members",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for paginated result retrieval"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Member type to list: 'frontend' for Pulumi Service members or 'backend' for organization backend members"
+              }
+            ]
+          },
+          "docs": "ListOrganizationMembers lists the members of an organization. This API unfortunately has two different\n\"modes\", returning either the organization's \"frontend members\" or \"backend members\".\n\n  - A \"frontend member\" is data stored in the Pulumi Service's database. For organizations billed\n    per-member, this is the set of members that are counted against the organization's seat cap.\n  - A \"backend member\" is data stored in the organization's backend. (e.g. GitHub, GitLab, or for SAML\n    orgs, al"
+        },
+        {
+          "info": {
+            "name": "AddOrganizationMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/members/:userLogin",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an existing Pulumi user to an organization with a built-in role. **Important:** The user must have already signed up for a Pulumi account before they can be added to an organization.\n\nThis endpoint only assigns built-in roles. To onboard a user with a custom role, use the organization invite flow (`BatchCreateOrgInviteEmail`) and set `roleId` on the invite — the custom role is applied when the user accepts. Alternatively, add the user here with a built-in role and then call `UpdateOrganizat"
+        },
+        {
+          "info": {
+            "name": "UpdateOrganizationMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/members/:userLogin",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies a user's role within an organization. Set `role` to assign a built-in role (`member`, `admin`, or `billingManager`), or set `fgaRoleId` to assign a custom role. If both are provided, `fgaRoleId` takes precedence."
+        },
+        {
+          "info": {
+            "name": "DeleteOrganizationMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/members/:userLogin",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login name"
+              }
+            ]
+          },
+          "docs": "Removes a user from an organization. The removed user loses access to all organization resources including stacks, teams, and projects. The caller cannot remove themselves from the organization. The user is also removed from all teams they belong to within the organization."
+        },
+        {
+          "info": {
+            "name": "SetSoleOrganizationAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/members/:userLogin/set-admin",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login name"
+              }
+            ]
+          },
+          "docs": "Promotes a member to administrator on organizations that are limited to a single admin. This endpoint is only valid for Team subscriptions (Team Starter and Team Growth) — it returns 400 on any other plan. On these plans, `UpdateOrganizationMember` cannot promote a member to admin, because doing so would require simultaneously demoting the current admin. This endpoint performs both changes atomically: the caller (who must be the current sole admin) is demoted to member and the target user is pro"
+        },
+        {
+          "info": {
+            "name": "GetOrganizationMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetOrganizationMetadata returns metadata about the given organization. This is\ndesigned to be an inexpensive call."
+        },
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all OIDC issuer registrations for an organization. OIDC issuer registrations establish trust relationships with external identity providers (such as AWS, Azure, Google Cloud, or GitHub Actions) to enable token exchange for temporary Pulumi Cloud credentials. This eliminates the need for long-lived access tokens in CI/CD pipelines and deployment automation."
+        },
+        {
+          "info": {
+            "name": "RegisterOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new OIDC issuer for an organization, establishing a trust relationship with an external identity provider. Once registered, the identity provider can issue signed, short-lived tokens that are exchanged for temporary Pulumi Cloud credentials during deployments. This eliminates the need to store long-lived access tokens. Supported providers include AWS, Azure, Google Cloud, GitHub Actions, and any OIDC-compliant identity provider. The request must include the issuer URL, and the servic"
+        },
+        {
+          "info": {
+            "name": "GetOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific OIDC issuer registration, including the issuer URL, audience restrictions, TLS thumbprints, and trust policy configuration. OIDC issuer registrations establish trust relationships between the organization and external identity providers, enabling token exchange for temporary Pulumi Cloud credentials without storing long-lived secrets."
+        },
+        {
+          "info": {
+            "name": "UpdateOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing OIDC issuer registration for an organization. This can be used to modify the issuer name, audience restrictions, trust policies, or other configuration. The issuer URL itself cannot be changed after creation. The issuer name is required in the update request."
+        },
+        {
+          "info": {
+            "name": "DeleteOidcIssuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Deletes an OIDC issuer registration from an organization, removing the trust relationship between the organization and the identity provider. After deletion, tokens issued by this provider can no longer be exchanged for temporary Pulumi Cloud credentials. Any deployments or automation relying on this OIDC issuer for authentication will stop working."
+        },
+        {
+          "info": {
+            "name": "RegenerateThumbprints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/oidc/issuers/:issuerId/regenerate-thumbprints",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issuerId",
+                "value": "",
+                "type": "path",
+                "description": "The OIDC issuer identifier"
+              }
+            ]
+          },
+          "docs": "Regenerates the TLS certificate thumbprints for an OIDC issuer by re-fetching the issuer's public keys. This is needed when the identity provider rotates its TLS certificates. Cannot be used if the issuer's JWKS are statically configured."
+        },
+        {
+          "info": {
+            "name": "GetPackageUsedByStacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/packages/usage",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "The continuation token"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per page. Defaults to 100, maximum 500."
+              },
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "query",
+                "description": "The package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Filter to stacks using this specific version. If omitted, returns stacks using any version."
+              }
+            ]
+          },
+          "docs": "Returns the stacks within an organization that use a specific Pulumi package, helping track package adoption and identify affected stacks when planning package upgrades or deprecations."
+        },
+        {
+          "info": {
+            "name": "ListPolicyGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Policy Groups for the organization. Policy Groups define which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. Every organization has a default Policy Group, and additional groups can be created to apply different policy sets to different environments (e.g., stricter enforcement in production)."
+        },
+        {
+          "info": {
+            "name": "NewPolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Policy Group for an organization. Policy Groups define which Policy Packs are enforced on which stacks or cloud accounts, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. This allows different policy strictness for different environments, such as advisory-only in development and mandatory in production."
+        },
+        {
+          "info": {
+            "name": "GetPolicyGroupMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns high-level policy protection metrics for an organization, including the number of stacks protected by policy enforcement, the total number of Policy Groups, and overall policy coverage statistics."
+        },
+        {
+          "info": {
+            "name": "GetPolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific Policy Group, including the list of Policy Packs applied to it and their enforcement levels (advisory, mandatory, or disabled), as well as the stacks or cloud accounts assigned to the group. Policy Groups enable targeted policy enforcement by associating sets of policies with specific infrastructure resources."
+        },
+        {
+          "info": {
+            "name": "UpdatePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Policy Group's configuration. This multi-purpose endpoint supports several operations in a single request via different body fields:\n\n- `newName`: rename the policy group\n- `addStack` / `removeStack`: add or remove stacks (with `name` and `routingProject` fields)\n- `addPolicyPack` / `removePolicyPack`: add or remove policy packs (with `name`, `version`, `versionTag`, and optional `config`)\n- `addInsightsAccount` / `removeInsightsAccount`: add or remove Insights accounts\n\nEnforcement le"
+        },
+        {
+          "info": {
+            "name": "DeletePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ]
+          },
+          "docs": "Deletes a Policy Group from an organization. A Policy Group defines which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. The organization's default Policy Group cannot be deleted. Deleting a Policy Group removes all policy enforcement associations for the stacks that were assigned to it."
+        },
+        {
+          "info": {
+            "name": "BatchUpdatePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "BatchUpdatePolicyGroup applies multiple update operations to the Policy Group efficiently. Each operation in the list uses the same fields as UpdatePolicyGroupRequest. Operations are grouped by type (adds, removes) and processed in batches for efficiency."
+        },
+        {
+          "info": {
+            "name": "ListPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policypack",
+                "value": "",
+                "type": "query",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "ListPolicyPacks returns a list of all complete Policy Packs for the organization.\nIf the `policypack` query parameter is set, it will only list the policy\npacks with the specified name."
+        },
+        {
+          "info": {
+            "name": "CreatePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Policy Pack for an organization. A Policy Pack is a versioned collection of related policies that validate infrastructure configuration during deployments. Policies can enforce rules such as requiring encryption on storage buckets or prohibiting public access to databases. The pack must contain at least one policy. Once created, the pack can be applied to Policy Groups to enforce rules on specific stacks with configurable enforcement levels (advisory, mandatory, or disabled)."
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              }
+            ]
+          },
+          "docs": "DeletePolicyPack deletes all versions of a Policy Pack, the associated\npacks stored in S3, and any applied versions of the Policy Packs."
+        },
+        {
+          "info": {
+            "name": "GetPolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Returns the metadata and list of individual policies for a specific version of a Policy Pack. Each policy includes its name, description, enforcement level (advisory, mandatory, or disabled), and configuration schema. Returns 400 if the Policy Pack version is not yet complete (still being uploaded), or 404 if the organization or pack is not found."
+        },
+        {
+          "info": {
+            "name": "DeletePolicyPackVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "DeletePolicyPackVersion deletes a specific version of a Policy Pack and deletes\nthe associated pack stored in S3. A Policy Pack must be unapplied to be deleted."
+        },
+        {
+          "info": {
+            "name": "CompletePolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Transitions the publish status of a specific Policy Pack version to 'complete', making it available for enforcement. Policy Packs go through a multi-step publish process: first the pack content is uploaded, then this endpoint is called to finalize publication. Returns 400 if the pack is already complete."
+        },
+        {
+          "info": {
+            "name": "GetPolicyPackConfigSchema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policypacks/:policyPackName/versions/:version/schema",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Returns the JSON configuration schema for a specific version of a Policy Pack. The schema defines the configurable parameters for each policy in the pack, including allowed values, defaults, and validation rules. Policy Groups use this schema to configure policy behavior when assigning packs to stacks."
+        },
+        {
+          "info": {
+            "name": "GetPolicyComplianceResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/compliance",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns compliance results for policy issues grouped by entity. The grouping can be by stack, cloud account, or severity, providing different views of the organization's policy compliance posture. This powers the compliance dashboard in the Pulumi Cloud console."
+        },
+        {
+          "info": {
+            "name": "ListPolicyIssues",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns all policy issues for an organization with support for pagination and advanced filtering via the grid request format. Policy issues represent violations detected by Policy Packs during stack updates or continuous compliance scans. Each issue includes the violating resource, policy details, enforcement level (advisory or mandatory), severity, and triage status."
+        },
+        {
+          "info": {
+            "name": "ExportPolicyIssues",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exports policy issues for an organization to CSV format for offline analysis or reporting. Policy issues represent violations detected by Policy Packs during stack updates or continuous compliance scans. The export includes issue details such as the violating resource, policy name, enforcement level, and severity."
+        },
+        {
+          "info": {
+            "name": "GetPolicyIssuesFilters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/filters",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the available filter options for listing policy issues, such as policy pack names, enforcement levels, severity values, and resource types. This is used to populate filter dropdowns in the policy issues UI."
+        },
+        {
+          "info": {
+            "name": "GetPolicyIssue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/:issueId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issueId",
+                "value": "",
+                "type": "path",
+                "description": "The issue identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific policy issue, including the violating resource, the policy pack and policy name that flagged the violation, the enforcement level (advisory or mandatory), severity, and the current triage status of the issue."
+        },
+        {
+          "info": {
+            "name": "UpdatePolicyIssue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/issues/:issueId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "issueId",
+                "value": "",
+                "type": "path",
+                "description": "The issue identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a policy issue's triage status and other mutable fields. All body fields are optional — only provide the fields you want to update.\n\n- `status`: `open`, `in_progress`, `by_design`, `fixed`, or `ignored`\n- `priority`: `p0`, `p1`, `p2`, `p3`, or `p4`\n- `assignedTo`: username to assign the issue to, or `null` to unassign"
+        },
+        {
+          "info": {
+            "name": "GetPolicyResultsMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns high-level policy compliance statistics for an organization, including total violation counts, breakdown by severity and enforcement level, and trends over time. This provides an overview of the organization's policy compliance posture."
+        },
+        {
+          "info": {
+            "name": "ListPoliciesCompliance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/policies",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns policy compliance data grouped by policy pack and policy name, showing how many stacks are in compliance or violation for each individual policy rule. Supports pagination and filtering via the grid request format."
+        },
+        {
+          "info": {
+            "name": "ListPolicyViolationsV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policyresults/violationsv2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "ListPolicyViolationsV2Handler gets all the policy violations for an org.\nDeprecated: Use /policyresults/issues"
+        },
+        {
+          "info": {
+            "name": "GetOrgRegistryPolicyPack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/registry/policypacks/:policyPackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyPackName",
+                "value": "",
+                "type": "path",
+                "description": "The policy pack name"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Version tag to retrieve (e.g., 'latest')"
+              }
+            ]
+          },
+          "docs": "Retrieves lightweight registry metadata for a policy pack (source/publisher/name) without loading detailed policy definitions."
+        },
+        {
+          "info": {
+            "name": "GetUsageSummaryResourceHours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/resources/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back from the current time or lookbackStart"
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+              }
+            ]
+          },
+          "docs": "GetUsageSummaryResourceHours handles request to fetch the summary\nof resources under management (RUM) and resource hours under management\n(RHUM) for an organization."
+        },
+        {
+          "info": {
+            "name": "ListDeletedStacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/restore-stack",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "ListDeletedStacks returns the last 25 deleted stacks for a given org. It would be incredible to one day\nmerge this function with `ListOrganizationProjects` -- but that function is very bloated and not performant, so implementing\na lighter-weight handler focusing only on the most recently deleted stacks."
+        },
+        {
+          "info": {
+            "name": "RestoreDeletedStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/restore-stack/:programID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "programID",
+                "value": "",
+                "type": "path",
+                "description": "The program identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "RestoreDeletedStack un-deletes a soft-deleted stack for the given programID\nif the organization has the restore stacks feature enabled."
+        },
+        {
+          "info": {
+            "name": "ListRolesByOrgIDAndUXPurpose",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "uxPurpose",
+                "value": "",
+                "type": "query",
+                "description": "Filter roles by their UX purpose (e.g., 'organization', 'team', 'token')"
+              }
+            ]
+          },
+          "docs": "Returns custom roles for an organization filtered by their UX purpose (e.g., 'organization', 'team', or 'token'). This allows the UI to display only the roles relevant to the current context, such as showing only organization-level roles when managing member access."
+        },
+        {
+          "info": {
+            "name": "CreateRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "createPolicyAndRole",
+                "value": "",
+                "type": "query",
+                "description": "Also create an associated policy and role binding alongside the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom role for an organization. Custom roles define fine-grained permission sets that can be assigned to organization members and teams, enabling precise access control beyond the built-in admin and member roles. Optionally, an associated policy and role binding can be created alongside the role."
+        },
+        {
+          "info": {
+            "name": "ListAvailableScopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/scopes",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all available permission scopes that can be assigned to custom roles, organized by category (e.g., stacks, teams, organization settings). Each scope represents a specific action or capability that can be granted or denied."
+        },
+        {
+          "info": {
+            "name": "GetRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific custom role, including its name, description, and the set of permission scopes it grants. Custom roles enable fine-grained access control beyond the built-in admin and member roles."
+        },
+        {
+          "info": {
+            "name": "UpdateRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing custom role's name, description, or permission scopes. Changes take effect immediately for all members and teams assigned to the role."
+        },
+        {
+          "info": {
+            "name": "DeleteRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force deletion even if the role is currently assigned to members or teams"
+              }
+            ]
+          },
+          "docs": "Deletes a custom role from an organization. If the role is currently assigned to members or teams, deletion requires the force parameter. Deleting a role revokes the permissions it granted to any assigned members or teams."
+        },
+        {
+          "info": {
+            "name": "UpdateOrganizationDefaultRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID/default",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "Sets the default custom role for the organization. New members who join the organization will be automatically assigned this role unless a different role is specified during the invitation process."
+        },
+        {
+          "info": {
+            "name": "ListTeamsWithRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID/teams",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "ListTeamsWithRole"
+        },
+        {
+          "info": {
+            "name": "ListOrgTokensWithRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID/tokens",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "Returns all organization tokens that have been assigned to a specific custom role. This helps administrators audit which tokens have particular permission levels and manage token-to-role assignments for least-privilege access."
+        },
+        {
+          "info": {
+            "name": "ListUsersWithRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/roles/:roleID/users",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "ListUsersWithRole"
+        },
+        {
+          "info": {
+            "name": "GetSAMLOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/saml",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns the SAML configuration data for an organization, including the SSO endpoint URL, identity provider metadata, and SAML attribute mappings. SAML-backed organizations use an external identity provider for user authentication and can enforce single sign-on for all members."
+        },
+        {
+          "info": {
+            "name": "UpdateSAMLOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/saml",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the SAML configuration for a SAML-backed organization, including the identity provider SSO descriptor, attribute mappings, and other SAML settings. The new IDP SSO descriptor is required in the update request."
+        },
+        {
+          "info": {
+            "name": "ListSAMLOrganizationAdmins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/saml/admins",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "ListSAMLOrganizationAdmins returns the list of SAML admins for an organization.\nWe currently only support one SAML admin per organization, where the SAML admin is\nthe user who onboarded the organization to SAML."
+        },
+        {
+          "info": {
+            "name": "UpdateSAMLOrganizationAdmins",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/saml/admins/:userLogin",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login name"
+              }
+            ]
+          },
+          "docs": "Updates the SAML admin for an organization. The SAML admin is the user who manages the SAML SSO configuration. Currently, each organization supports only one SAML admin (typically the user who onboarded the organization to SAML). The new admin must not belong to other organizations."
+        },
+        {
+          "info": {
+            "name": "SearchClusterAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a 200 response if the search cluster is available and healthy, 404 otherwise. This is a lightweight health check used to determine whether resource search functionality is operational for the organization."
+        },
+        {
+          "info": {
+            "name": "GetResourceColumnFilterSet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/column-set",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "field",
+                "value": "",
+                "type": "query",
+                "description": "The resource field to aggregate (e.g., 'type', 'package', 'project')"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              }
+            ]
+          },
+          "docs": "Returns aggregation results for a given field in resource search, providing the unique values and counts for a specific field like 'type', 'package', or 'project'. This is used to populate filter dropdowns and faceted navigation in the resource search UI."
+        },
+        {
+          "info": {
+            "name": "GetOrgResourceSearchQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Group results by this field"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "Searches for resources within an organization. Deprecated: use GetOrgResourceSearchV2Query for improved search functionality."
+        },
+        {
+          "info": {
+            "name": "GetResourceDashboardAggregations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/dashboard",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetResourceDashboardAggregations returns aggregated resource data for display on organization dashboard cards, including resource counts grouped by package and other dimensions."
+        },
+        {
+          "info": {
+            "name": "ExportOrgResourceSearchQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "ExportOrgResourceSearchQuery exports resource search results as a CSV file download. Supports the same query parameters as the standard resource search to filter results."
+        },
+        {
+          "info": {
+            "name": "GetNaturalLanguageQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resources/parse",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              }
+            ]
+          },
+          "docs": "GetNaturalLanguageQuery converts a natural language query into a structured Pulumi search query using AI. For example, converts 'show me all S3 buckets in production' into a proper search syntax."
+        },
+        {
+          "info": {
+            "name": "GetOrgResourceSearchV2Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/search/resourcesv2",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in ascending order when true, descending when false"
+              },
+              {
+                "name": "collapse",
+                "value": "",
+                "type": "query",
+                "description": "Collapse results to show one entry per stack instead of per resource"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for paginated results"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query",
+                "description": "Facet filters to apply"
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Group results by this field"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Include resource properties in search results (may increase response size)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "Number of top aggregation buckets to return"
+              }
+            ]
+          },
+          "docs": "Searches for resources within an organization with advanced filtering, sorting, and pagination capabilities.\n\n**Pagination:** The `page` parameter supports up to 10,000 results. For larger result sets, use the `cursor` parameter instead (Enterprise plans only). Note that pagination is not transactional — result ordering may change if a stack update completes during pagination.\n\n**Sorting:** The `sort` parameter accepts: `created`, `custom`, `delete`, `dependencies`, `id`, `modified`, `module`, `"
+        },
+        {
+          "info": {
+            "name": "GetUsageSummaryEnvironmentSecrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/secrets/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back from the current time or lookbackStart"
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+              }
+            ]
+          },
+          "docs": "GetUsageSummaryEnvironmentSecrets handles request to fetch the summary\nof ESC secret hours for an organization."
+        },
+        {
+          "info": {
+            "name": "ListServices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all service accounts in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They can hold access tokens, belong to teams, and have stack permissions, making them suitable for CI/CD pipelines, automation tools, and other machine-to-machine integrations."
+        },
+        {
+          "info": {
+            "name": "CreateService",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new service account in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They are scoped to an organization and can hold access tokens, belong to teams, and have stack permissions. The service name must be unique within the organization."
+        },
+        {
+          "info": {
+            "name": "GetService",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific service account, including its name, owner, description, team memberships, access tokens, and stack permissions. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are identified by their owner type, owner name, and service name."
+        },
+        {
+          "info": {
+            "name": "UpdateService",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the metadata and configuration of an existing service account, such as its description, team memberships, and access settings. Service accounts provide programmatic, non-human access to Pulumi Cloud resources."
+        },
+        {
+          "info": {
+            "name": "DeleteService",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force deletion even if the service has other members"
+              }
+            ]
+          },
+          "docs": "Deletes a service account from an organization. Service accounts provide programmatic, non-human access to Pulumi Cloud resources. If the service has other members, deletion requires explicit confirmation via the force parameter. All access tokens and permissions associated with the service are revoked."
+        },
+        {
+          "info": {
+            "name": "HeadService",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ]
+          },
+          "docs": "Checks whether a service account exists in the organization without returning its full details. Returns 204 No Content if the service exists, or an error if not found. This is a lightweight check useful for validating service account references."
+        },
+        {
+          "info": {
+            "name": "AddServiceItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName/items",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds items (such as access tokens, team memberships, or stack permissions) to an existing service account. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are scoped to an organization. Items define what the service account can access and what credentials it holds. Returns the updated service details."
+        },
+        {
+          "info": {
+            "name": "RemoveServiceItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName/items/:itemType/:itemName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              },
+              {
+                "name": "itemType",
+                "value": "",
+                "type": "path",
+                "description": "The item type"
+              },
+              {
+                "name": "itemName",
+                "value": "",
+                "type": "path",
+                "description": "The item name"
+              }
+            ]
+          },
+          "docs": "Removes a specific item (such as a team membership, access token, or stack permission) from a service account. Returns the updated service details after the item has been removed."
+        },
+        {
+          "info": {
+            "name": "ListTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Retrieves all teams within an organization. Teams provide a centralized way to manage stack access permissions for groups of users. The response includes each team's name, type (Pulumi-managed, GitHub-backed, or GitLab-backed), member count, and summary of stack permissions. Teams are available to organizations on Enterprise and Business Critical editions."
+        },
+        {
+          "info": {
+            "name": "CreateGitHubTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/github",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Pulumi team backed by a GitHub team. When an organization is backed by GitHub, existing GitHub teams can be imported into Pulumi to manage stack permissions. Membership is managed through GitHub while stack access permissions are controlled within Pulumi Cloud. The request must include the GitHub team ID. Returns 409 if a team with the same name already exists."
+        },
+        {
+          "info": {
+            "name": "CreatePulumiTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/pulumi",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CreatePulumiTeam creates a \"Pulumi\" team, i.e. one whose membership is managed by Pulumi.\n(As opposed to a GitHub or GitLab-based team.)"
+        },
+        {
+          "info": {
+            "name": "GetTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific team within an organization. The response includes the team name, display name, description, team type (Pulumi-managed, GitHub-backed, or GitLab-backed), list of members with their roles (team admin or team member), and the stack permissions granted to the team. Teams provide a centralized way to manage stack access for groups of users."
+        },
+        {
+          "info": {
+            "name": "UpdateTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a team's membership and configuration. This multi-purpose endpoint supports several operations:\n\n**Update membership:** Use `member` (username) and `memberAction` (`add` or `remove`) to manage team members.\n\n**Grant stack access:** Use `addStackPermission` with `projectName`, `stackName`, and `permission` (integer: `101` = read, `102` = edit, `103` = admin).\n\n**Remove stack access:** Use `removeStack` with `projectName` and `stackName`.\n\nMembers added to a team inherit the team's stack p"
+        },
+        {
+          "info": {
+            "name": "DeleteTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ]
+          },
+          "docs": "Permanently removes a team from an organization. All stack permission grants assigned to the team are revoked, and team members lose any access that was granted solely through team membership. Team tokens associated with the team are also invalidated. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "EnableTeamRoles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/enable-team-roles",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ]
+          },
+          "docs": "Enables custom role-based access control for a team. Once enabled, the team can be assigned custom roles that define fine-grained permissions beyond the default team admin and team member roles. Returns the created role descriptor."
+        },
+        {
+          "info": {
+            "name": "ListTeamRoles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/roles",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ]
+          },
+          "docs": "ListTeamRoles will list the roles for a team. For now, this will always be a\nlist of one, since we currently only support one role per team."
+        },
+        {
+          "info": {
+            "name": "UpdateTeamRoles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/roles/:roleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "UpdateTeamRoles upserts the role assigned to a team since we currently only support\na 1:1 mapping of teams to roles."
+        },
+        {
+          "info": {
+            "name": "DeleteTeamRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/roles/:roleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              },
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "The role identifier"
+              }
+            ]
+          },
+          "docs": "Removes a custom role assignment from a team. This revokes the permissions that were granted to team members through the role. Currently only one role can be assigned per team."
+        },
+        {
+          "info": {
+            "name": "ListTeamTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/tokens",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter tokens by status (e.g., include expired tokens)"
+              }
+            ]
+          },
+          "docs": "Retrieves all access tokens for a specific team. Team tokens inherit the stack permissions assigned to the team, providing scoped CI/CD automation access. The response includes token metadata such as name, description, creation date, last used date, and expiration status. The actual token values are never returned after initial creation. An optional filter parameter can include expired tokens."
+        },
+        {
+          "info": {
+            "name": "CreateTeamToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/tokens",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query",
+                "description": "Audit log reason for creating this token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a new access token scoped to a specific team within an organization. Team tokens inherit the stack permissions assigned to the team, making them suitable for CI/CD pipelines that need access limited to a specific set of stacks.\n\nThe `name` field must be unique across the organization (including deleted tokens) and cannot exceed 40 characters. The `expires` field accepts a unix epoch timestamp up to two years from the present, or `0` for no expiry (default).\n\n**Important:** The token va"
+        },
+        {
+          "info": {
+            "name": "DeleteTeamToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/teams/:teamName/tokens/:tokenId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The access token identifier"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query",
+                "description": "Audit log reason for deleting this token"
+              }
+            ]
+          },
+          "docs": "Permanently revokes and deletes a team access token. Any CI/CD pipelines or automation using this token will immediately lose access to the stacks assigned to the team. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "GetProjectTemplate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/template",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetProjectTemplate attempts to fetch Pulumi.yaml from a template\nrepository. If the repository represents a valid template, we return a\nresponse identical to the format we use for the public pulumi/templates\nrepo.\n\nThis API accepts either a `url` or `project` query param to denote\neither where to fetch the project template from or which project's\npre-configured template to use respectively. If both are passed in `project`\ntake precedence, falling back to `url` if there is no source configured on"
+        },
+        {
+          "info": {
+            "name": "GetProjectTemplateConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/template/configuration",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "GetProjectTemplateConfiguration attempts to lookup any config we store\nfor the template using the template query parameter passed in as a key\ninto the org's template sources."
+        },
+        {
+          "info": {
+            "name": "GetOrgTemplateDownload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/template/download",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Downloads a template archive for an organization as an application/x-tar binary stream. The template is identified by a URL query parameter pointing to the template source. Returns the tar archive containing the template's project files and configuration."
+        },
+        {
+          "info": {
+            "name": "GetOrgTemplateReadme",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/template/readme",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns the README content for an organization template as Markdown text. The template is identified by a URL query parameter. Returns 404 if the template does not contain a README.md file, or 422 if the README content is invalid."
+        },
+        {
+          "info": {
+            "name": "GetOrgTemplates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/templates",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a combined list of all templates available to the organization and the current user. This includes templates from the organization's configured template collections as well as Pulumi's built-in public templates. Each template includes its name, description, language, and source URL."
+        },
+        {
+          "info": {
+            "name": "GetOrgTemplateCollections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/templates/sources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all template collections (sources) configured for an organization. Template collections define where project templates are sourced from, such as Git repositories. Each collection includes its name, URL, and the templates it provides."
+        },
+        {
+          "info": {
+            "name": "CreateOrgTemplateCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/templates/sources",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new template collection (source) for an organization. Template collections define where project templates are sourced from, such as a Git repository. Organization members can use these templates to create new stacks with pre-configured infrastructure code."
+        },
+        {
+          "info": {
+            "name": "UpdateOrgTemplateCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/templates/sources/:templateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path",
+                "description": "The template identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing template collection for an organization, allowing modification of the template source URL, name, or other configuration. Template collections define where project templates are sourced from."
+        },
+        {
+          "info": {
+            "name": "DeleteOrgTemplateCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/templates/sources/:templateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path",
+                "description": "The template identifier"
+              }
+            ]
+          },
+          "docs": "Removes a template collection (source) from an organization. Templates sourced from this collection will no longer be available to organization members when creating new stacks. Returns 400 if the template ID is invalid, or 404 if the template source does not exist."
+        },
+        {
+          "info": {
+            "name": "ListOrgTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/tokens",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter tokens by status (e.g., include expired tokens)"
+              }
+            ]
+          },
+          "docs": "Retrieves all access tokens created for an organization. Organization tokens provide CI/CD automation access scoped to the organization rather than tied to individual user accounts. The response includes token metadata such as name, description, creation date, last used date, and expiration status. The actual token values are never returned after initial creation. An optional filter parameter can include expired tokens in the results."
+        },
+        {
+          "info": {
+            "name": "CreateOrgToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/tokens",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query",
+                "description": "Audit log reason for creating this token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a new access token scoped to the organization for use in CI/CD pipelines and automated workflows. Organization tokens belong to the organization rather than individual users, ensuring that access is not disrupted when team members leave.\n\nThe `name` field must be unique across the organization (including deleted tokens) and cannot exceed 40 characters. The `expires` field accepts a unix epoch timestamp up to two years from the present, or `0` for no expiry (default).\n\n**Important:** Th"
+        },
+        {
+          "info": {
+            "name": "DeleteOrgToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/tokens/:tokenId",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The access token identifier"
+              }
+            ]
+          },
+          "docs": "Permanently revokes and deletes an organization access token. Any CI/CD pipelines or automation using this token will immediately lose access to the organization's resources. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "BatchDecryptProjectValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/projects/:orgName/:projectName/batch-decrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "BatchDecryptProjectValue works just like BatchDecryptValueHandler, but using the project's encryption key instead of the stack's"
+        },
+        {
+          "info": {
+            "name": "DecryptProjectValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/projects/:orgName/:projectName/decrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "DecryptProjectValue works just like DecryptValueHandler, but using the project's encryption key instead of the stack's"
+        },
+        {
+          "info": {
+            "name": "EncryptProjectValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/projects/:orgName/:projectName/encrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "EncryptProjectValue encrypts a value using the project's key. The request body contains the base64\nencoded value to be encrypted."
+        },
+        {
+          "info": {
+            "name": "CreateStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new stack within a project in the organization. If the project does not exist, it will be created. A stack is an isolated, independently configurable instance of a Pulumi program, typically representing a deployment environment (e.g., development, staging, production). The stack name must be unique within the project.\n\nThe optional `config` object supports:\n- `environment`: reference to an ESC environment for storing stack configuration (must not already exist)\n- `secretsProvider`: the"
+        },
+        {
+          "info": {
+            "name": "ProjectExists",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              }
+            ]
+          },
+          "docs": "Checks whether a project exists within an organization. Returns 200 with the project name if it exists, or 404 if not found. This is a lightweight existence check useful for validating project names before creating stacks or performing other operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

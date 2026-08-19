@@ -1,0 +1,392 @@
+{
+  "item": [
+    {
+      "id": "b209f751-715f-453d-a304-42ed3081dcb3",
+      "name": "ResourcesUnderManagement",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7677966a-b45f-440f-b6e3-2a19f1c8b2e6",
+          "name": "GetUsageSummaryDiscoveredResourceHours",
+          "request": {
+            "name": "GetUsageSummaryDiscoveredResourceHours",
+            "description": {
+              "content": "GetUsageSummaryDiscoveredResourceHours handles request to fetch the summary\nof discovered resources for an organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "discovered-resources",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookbackDays",
+                  "value": "<long>",
+                  "description": "Number of days to look back from the current time or lookbackStart"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookbackStart",
+                  "value": "<long>",
+                  "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d4d0f82-5ff8-451e-9b75-3f4412a12a35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "discovered-resources",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookbackDays",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "lookbackStart",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summary\": [\n    {\n      \"resourceHours\": 911,\n      \"resources\": 4142,\n      \"year\": 5265,\n      \"day\": 2534,\n      \"hour\": 9570,\n      \"month\": 7497,\n      \"weekNumber\": 1261\n    },\n    {\n      \"resourceHours\": 2438,\n      \"resources\": 2308,\n      \"year\": 6035,\n      \"day\": 1423,\n      \"hour\": 2306,\n      \"month\": 3288,\n      \"weekNumber\": 8444\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d5cad0-0a44-45ee-ab66-7c82e1c7c213",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "discovered-resources",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookbackDays",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "lookbackStart",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2af689a-31f0-4fa9-a136-3becd743884e",
+          "name": "GetUsageSummaryResourceHours",
+          "request": {
+            "name": "GetUsageSummaryResourceHours",
+            "description": {
+              "content": "GetUsageSummaryResourceHours handles request to fetch the summary\nof resources under management (RUM) and resource hours under management\n(RHUM) for an organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "resources",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookbackDays",
+                  "value": "<long>",
+                  "description": "Number of days to look back from the current time or lookbackStart"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookbackStart",
+                  "value": "<long>",
+                  "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ded79792-aea5-49ab-8afd-f1953ee8cbc3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "resources",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookbackDays",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "lookbackStart",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summary\": [\n    {\n      \"resourceHours\": 5830,\n      \"resources\": 235,\n      \"year\": 9978,\n      \"day\": 8494,\n      \"hour\": 7255,\n      \"month\": 4981,\n      \"weekNumber\": 9899\n    },\n    {\n      \"resourceHours\": 5078,\n      \"resources\": 9094,\n      \"year\": 2184,\n      \"day\": 9484,\n      \"hour\": 3855,\n      \"month\": 9166,\n      \"weekNumber\": 4187\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e833001-b2aa-4d4e-8129-75c7fdb047b9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "resources",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookbackDays",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "lookbackStart",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "05206805-846c-44a8-bd25-8c5562bba24a",
+    "name": "Pulumi APIs AccessTokens ResourcesUnderManagement API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

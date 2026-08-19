@@ -1,0 +1,1770 @@
+{
+  "item": [
+    {
+      "id": "578381f1-1621-4c94-9ef8-821f84bf0408",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ae94a2d-4fd4-4e37-aed9-bcf4fad43a8f",
+          "name": "GetCurrentUser",
+          "request": {
+            "name": "GetCurrentUser",
+            "description": {
+              "content": "Returns the authenticated user's profile information, including login name, display name, email, avatar URL, and organization memberships.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4320bb55-e530-41d2-9f5a-d669bda7227d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avatarUrl\": \"string\",\n  \"email\": \"string\",\n  \"githubLogin\": \"string\",\n  \"hasMFA\": false,\n  \"id\": \"string\",\n  \"identities\": [\n    \"SAML\",\n    \"google.com\"\n  ],\n  \"isManagedByMultiOrg\": false,\n  \"isOrgManaged\": false,\n  \"name\": \"string\",\n  \"organizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"billing-manager\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"billing-manager\",\n      \"email\": \"string\"\n    }\n  ],\n  \"potentialOrganizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"member\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"member\",\n      \"email\": \"string\"\n    }\n  ],\n  \"registryAdmin\": true,\n  \"siteAdmin\": false,\n  \"tokenInfo\": {\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"team\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cea22aaf-1bf5-4851-a062-16d60128828a",
+          "name": "ListGitHubOrganizationTeams",
+          "request": {
+            "name": "ListGitHubOrganizationTeams",
+            "description": {
+              "content": "ListGitHubOrganizationTeams returns all GitHub teams the requesting user has access to see.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "github",
+                ":ghOrgName",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ghOrgName",
+                  "description": "(Required) The GitHub organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "789ce8ee-d1a1-4b59-bdf9-5d6ee7baa641",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "github",
+                    ":ghOrgName",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ghOrgName",
+                      "description": "(Required) The GitHub organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"teams\": [\n    {\n      \"description\": \"string\",\n      \"id\": 1081,\n      \"knownToPulumi\": true,\n      \"name\": \"string\",\n      \"slug\": \"string\"\n    },\n    {\n      \"description\": \"string\",\n      \"id\": 9212,\n      \"knownToPulumi\": true,\n      \"name\": \"string\",\n      \"slug\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3fcbbf0-75da-413b-bc0e-b7c5b171c4e8",
+              "name": "operation only supported for GitHub-backed users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "github",
+                    ":ghOrgName",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ghOrgName",
+                      "description": "(Required) The GitHub organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8bc5635-dbd0-4d19-9384-6fcadd3da68f",
+              "name": "Organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "github",
+                    ":ghOrgName",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ghOrgName",
+                      "description": "(Required) The GitHub organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a88d4598-76cc-4e4f-b130-effe662ee43a",
+          "name": "GetGroupsForGitLabApp",
+          "request": {
+            "name": "GetGroupsForGitLabApp",
+            "description": {
+              "content": "Gets a list of GitLab groups available to be used with the Pulumi GitLab app.\nThis endpoint explicitly denotes which groups can be used based on the\nuser's permissions within each group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "gitlab-app",
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d66b6b12-dc31-4f7e-b5b5-3a2c331f47de",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "gitlab-app",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"avatarURL\": \"string\",\n    \"hasRequiredPermissions\": false,\n    \"id\": 375,\n    \"name\": \"string\"\n  },\n  {\n    \"avatarURL\": \"string\",\n    \"hasRequiredPermissions\": true,\n    \"id\": 9510,\n    \"name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf00c056-29dc-4066-b4fd-08f87ffa80ff",
+          "name": "GetDefaultOrganization",
+          "request": {
+            "name": "GetDefaultOrganization",
+            "description": {
+              "content": "GetDefaultOrganization returns the default organization for the current user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "organizations",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "272d2ecc-d849-4963-8fd2-c3dac5fa326e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "organizations",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"GitHubLogin\": \"string\",\n  \"Messages\": [\n    {\n      \"message\": \"string\",\n      \"severity\": \"warning\"\n    },\n    {\n      \"message\": \"string\",\n      \"severity\": \"warning\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7fbb415-9728-427d-876a-51079ab9c23b",
+              "name": "User is not a member of any organizations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "organizations",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6bf95ef-1527-4b34-8c68-c8fbb3b07063",
+          "name": "UpdateDefaultOrganization",
+          "request": {
+            "name": "UpdateDefaultOrganization",
+            "description": {
+              "content": "UpdateDefaultOrganization sets the default organization for the current user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "organizations",
+                ":orgName",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35d512cc-6fa6-4c41-b4f0-e39c3b05957d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "organizations",
+                    ":orgName",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f40aced2-14ec-4a44-ac22-32c07b72e8aa",
+          "name": "DeletePendingEmailChange",
+          "request": {
+            "name": "DeletePendingEmailChange",
+            "description": {
+              "content": "DeletePendingEmailChange removes the pending email change for the currently logged-in user.\nDeletes the pending verification only if it isn't a verification record for the current primary email itself.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "pending-emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c1f9bb7-ad21-45d7-a821-caa3bfdd9a5a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "pending-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94e84d7a-a156-4f87-8a07-a80762a9aaae",
+              "name": "Cannot delete the pending verification for primary email.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "pending-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbf15c27-1eff-40c5-89a9-fee55301d978",
+          "name": "GetLatestPendingEmailChange",
+          "request": {
+            "name": "GetLatestPendingEmailChange",
+            "description": {
+              "content": "GetLatestPendingEmailChange returns only the latest email change,\nthat is pending. Returns a 204 if no pending email change requests exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "pending-emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a6ab53f-1061-4efe-b2ff-bb1b4c024038",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "pending-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "822e0052-1966-469f-ab83-ace66ce68d59",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "pending-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "230af813-8963-4ab8-940d-0b3b7bea50b2",
+          "name": "ListUserOrgInvites",
+          "request": {
+            "name": "ListUserOrgInvites",
+            "description": {
+              "content": "ListUserOrgInvites lists the pending invites for the requesting user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "pending-invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f516b2c-3dd3-4e42-a41d-fea32c15b4a8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "pending-invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invites\": [\n    {\n      \"acceptInviteUrl\": \"string\",\n      \"email\": \"string\",\n      \"id\": \"string\",\n      \"role\": \"stack-collaborator\",\n      \"sentAt\": 6626,\n      \"sentBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"status\": \"string\",\n      \"acceptError\": \"string\",\n      \"roleId\": \"string\"\n    },\n    {\n      \"acceptInviteUrl\": \"string\",\n      \"email\": \"string\",\n      \"id\": \"string\",\n      \"role\": \"potential-member\",\n      \"sentAt\": 4989,\n      \"sentBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"status\": \"string\",\n      \"acceptError\": \"string\",\n      \"roleId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e946856-1b8b-4a8f-a9a3-533bcb0e8776",
+          "name": "ListUserStacks",
+          "request": {
+            "name": "ListUserStacks",
+            "description": {
+              "content": "Lists all stacks accessible to the authenticated user. Results can be filtered by organization, project, and stack tags (tagName/tagValue). Supports pagination via continuationToken and maxResults parameters. Returns stack summary information including name, project, last update status, and resource count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "stacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token from a previous response to fetch the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "<long>",
+                  "description": "Maximum number of stacks to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization",
+                  "value": "<string>",
+                  "description": "Filter stacks to those owned by this organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter stacks to those in this project"
+                },
+                {
+                  "disabled": false,
+                  "key": "roleID",
+                  "value": "<string>",
+                  "description": "List stacks only using this custom role"
+                },
+                {
+                  "disabled": false,
+                  "key": "tagName",
+                  "value": "<string>",
+                  "description": "Filter stacks by tag name (use with tagValue for exact match)"
+                },
+                {
+                  "disabled": false,
+                  "key": "tagValue",
+                  "value": "<string>",
+                  "description": "Filter stacks by tag value (requires tagName)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d28271e5-279c-4546-bc6e-a14a8f339ebe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "stacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "roleID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagValue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stacks\": [\n    {\n      \"id\": \"string\",\n      \"orgName\": \"string\",\n      \"projectName\": \"string\",\n      \"stackName\": \"string\",\n      \"lastUpdate\": 7811,\n      \"links\": {\n        \"self\": \"string\"\n      },\n      \"resourceCount\": 944\n    },\n    {\n      \"id\": \"string\",\n      \"orgName\": \"string\",\n      \"projectName\": \"string\",\n      \"stackName\": \"string\",\n      \"lastUpdate\": 2058,\n      \"links\": {\n        \"self\": \"string\"\n      },\n      \"resourceCount\": 1554\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5decb165-15f3-4f84-b270-8489d47eeda7",
+              "name": "Invalid continuation token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "stacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "roleID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagValue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16afb25b-f451-4978-9d1a-080d6514d66e",
+          "name": "ListPersonalTokens",
+          "request": {
+            "name": "ListPersonalTokens",
+            "description": {
+              "content": "Returns all personal access tokens for the authenticated user. Web-session generated tokens (type 'web') are excluded from the results. Each token in the response includes its ID, description, and lastUsed timestamp. Use the filter query parameter to search tokens by name or description.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter tokens by name or description"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ab9f999-bb7e-407f-b93c-640e9bdb733c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    {\n      \"admin\": true,\n      \"created\": \"string\",\n      \"createdBy\": \"string\",\n      \"description\": \"string\",\n      \"expires\": 7233,\n      \"id\": \"string\",\n      \"lastUsed\": 7087,\n      \"name\": \"string\",\n      \"role\": {\n        \"defaultIdentifier\": \"admin\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"admin\": false,\n      \"created\": \"string\",\n      \"createdBy\": \"string\",\n      \"description\": \"string\",\n      \"expires\": 591,\n      \"id\": \"string\",\n      \"lastUsed\": 7026,\n      \"name\": \"string\",\n      \"role\": {\n        \"defaultIdentifier\": \"member\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58f1b47d-a6bc-4cda-8d19-00fb904810a5",
+          "name": "CreatePersonalToken",
+          "request": {
+            "name": "CreatePersonalToken",
+            "description": {
+              "content": "Creates a new personal access token for the authenticated user. The request body includes a description for the token and an optional expiration time. The response includes the token ID and the tokenValue (prefixed with 'pul-'). The token value is only returned once at creation time and cannot be retrieved later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reason",
+                  "value": "<string>",
+                  "description": "Tracks the context that triggered token creation (e.g., redirect URL or referral source)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ffb2dd4-56f8-4c10-b745-58c0828798c0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"tokenValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40174dcf-2bbd-4f80-9412-422d5c9bfa2f",
+          "name": "DeletePersonalToken",
+          "request": {
+            "name": "DeletePersonalToken",
+            "description": {
+              "content": "Permanently deletes a personal access token by its identifier. The token is immediately invalidated and can no longer be used for authentication. Returns 204 on success or 404 if the token does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "tokens",
+                ":tokenId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) The access token identifier"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22e4eb25-fcf8-4098-9dd3-fde7c944ca5e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "tokens",
+                    ":tokenId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) The access token identifier"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fbccfce8-9a34-4ed8-bab9-e58667d4dd64",
+              "name": "Token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "tokens",
+                    ":tokenId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) The access token identifier"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cf3a0ed-276e-4006-9b6e-4a8a083b77e2",
+          "name": "DeleteIdentityProvider",
+          "request": {
+            "name": "DeleteIdentityProvider",
+            "description": {
+              "content": "DeleteIdentityProvider removes a VCS identity provider from the current user's account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "vcs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "identity",
+                  "value": "<string>",
+                  "description": "The VCS identity provider to disconnect (e.g., github, gitlab, bitbucket)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50f03772-481a-4b23-b251-13eea9822eb6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avatarUrl\": \"string\",\n  \"email\": \"string\",\n  \"githubLogin\": \"string\",\n  \"hasMFA\": true,\n  \"id\": \"string\",\n  \"identities\": [\n    \"bitbucket.org\",\n    \"dev.azure.com\"\n  ],\n  \"isManagedByMultiOrg\": true,\n  \"isOrgManaged\": false,\n  \"name\": \"string\",\n  \"organizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"billing-manager\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"stack-collaborator\",\n      \"email\": \"string\"\n    }\n  ],\n  \"potentialOrganizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"none\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"admin\",\n      \"email\": \"string\"\n    }\n  ],\n  \"registryAdmin\": true,\n  \"siteAdmin\": false,\n  \"tokenInfo\": {\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"team\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0eb530fc-218b-4c7e-b759-7393b7d1713c",
+              "name": "must have more than one identity provider",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b2c474f-2a60-4fd1-823f-78d758617c7c",
+              "name": "organizations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db457189-5df0-4f66-822d-e2a08856e436",
+          "name": "ListIdentityProviderOrganizations",
+          "request": {
+            "name": "ListIdentityProviderOrganizations",
+            "description": {
+              "content": "ListIdentityProviderOrganizations lists all of the organizations from a backing VCS visible to the Pulumi Service\nfor the requesting user. Ignores errors if this user doesn't have a specific backing identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "vcs",
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65f47145-7109-46a9-bac6-35aed83f8f48",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"organizations\": [\n    {\n      \"knownToPulumi\": false,\n      \"organization\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"vcsKind\": \"Pulumi\"\n    },\n    {\n      \"knownToPulumi\": false,\n      \"organization\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"vcsKind\": \"SAML\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "385c2e5c-d7c5-4634-a9f6-76df2501c0e2",
+          "name": "SyncWithIdentityProvider",
+          "request": {
+            "name": "SyncWithIdentityProvider",
+            "description": {
+              "content": "SyncWithIdentityProvider contacts the requesting user's identity provider,\nand updates their profile information (display name, avatar URL, etc.)\nThis is required since we don't get update events from the identity provider\nwhen changes are made in the identity provider's system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "vcs",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "identity",
+                  "value": "<string>",
+                  "description": "The VCS identity provider to sync profile data from (e.g., github, gitlab)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d30eec8-d0ed-4ee0-bcc2-62d5e2e74359",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avatarUrl\": \"string\",\n  \"email\": \"string\",\n  \"githubLogin\": \"string\",\n  \"hasMFA\": true,\n  \"id\": \"string\",\n  \"identities\": [\n    \"bitbucket.org\",\n    \"dev.azure.com\"\n  ],\n  \"isManagedByMultiOrg\": true,\n  \"isOrgManaged\": false,\n  \"name\": \"string\",\n  \"organizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"billing-manager\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"stack-collaborator\",\n      \"email\": \"string\"\n    }\n  ],\n  \"potentialOrganizations\": [\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"none\",\n      \"email\": \"string\"\n    },\n    {\n      \"avatarUrl\": \"string\",\n      \"githubLogin\": \"string\",\n      \"name\": \"string\",\n      \"role\": \"admin\",\n      \"email\": \"string\"\n    }\n  ],\n  \"registryAdmin\": true,\n  \"siteAdmin\": false,\n  \"tokenInfo\": {\n    \"name\": \"string\",\n    \"organization\": \"string\",\n    \"team\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da2efe4e-f101-43df-b7d5-82880e0504d9",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "vcs",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c88193f9-5e6c-4f26-860d-b0d91679f3f2",
+          "name": "GetUserHasVerifiedEmail",
+          "request": {
+            "name": "GetUserHasVerifiedEmail",
+            "description": {
+              "content": "GetUserHasVerifiedEmail returns a success response if the user has a verified email,\n404 not found if they are not verified",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user",
+                "verified-email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53432d52-c8ab-4212-bbb7-ba0b364be10f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user",
+                    "verified-email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "false",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0c7e2b29-e4d1-4117-9043-d2d59a278835",
+    "name": "Pulumi APIs AccessTokens Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2879 @@
+{
+  "item": [
+    {
+      "id": "a8783b9b-37e9-4f30-b597-f8832239743d",
+      "name": "PolicyPacks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ec4bb13-4d9e-4e6a-8839-d8b94d83e08d",
+          "name": "ListPolicyPacks",
+          "request": {
+            "name": "ListPolicyPacks",
+            "description": {
+              "content": "ListPolicyPacks returns a list of all complete Policy Packs for the organization.\nIf the `policypack` query parameter is set, it will only list the policy\npacks with the specified name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "policypack",
+                  "value": "<string>",
+                  "description": "The policy pack name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38bf8e44-ce99-460e-8840-523277c45ce2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "policypack",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPacks\": [\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"versionTags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"versions\": [\n        2025,\n        2958\n      ]\n    },\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"versionTags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"versions\": [\n        1416,\n        7699\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5beb8fb8-79f0-4c05-b3c2-a5a27afbebdb",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "policypack",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59d52d8f-c8e6-4b45-aaec-0365ec3bb547",
+          "name": "CreatePolicyPack",
+          "request": {
+            "name": "CreatePolicyPack",
+            "description": {
+              "content": "Creates a new Policy Pack for an organization. A Policy Pack is a versioned collection of related policies that validate infrastructure configuration during deployments. Policies can enforce rules such as requiring encryption on storage buckets or prohibiting public access to databases. The pack must contain at least one policy. Once created, the pack can be applied to Policy Groups to enforce rules on specific stacks with configurable enforcement levels (advisory, mandatory, or disabled).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"<string>\",\n  \"name\": \"<string>\",\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"provider\": \"<string>\",\n  \"readme\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"versionTag\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbf2aa3a-51ff-4a64-9a13-25f4d405a273",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"name\": \"<string>\",\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\",\n          \"key_2\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"provider\": \"<string>\",\n  \"readme\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"versionTag\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uploadURI\": \"string\",\n  \"version\": 5543,\n  \"requiredHeaders\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3079f8d9-92b6-4663-89d9-fcc57e257d1a",
+              "name": "Policy Pack must have at least one policy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"name\": \"<string>\",\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\",\n          \"key_2\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"provider\": \"<string>\",\n  \"readme\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"versionTag\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "196c5bdc-0123-41bb-a568-281717e917c8",
+          "name": "DeletePolicyPack",
+          "request": {
+            "name": "DeletePolicyPack",
+            "description": {
+              "content": "DeletePolicyPack deletes all versions of a Policy Pack, the associated\npacks stored in S3, and any applied versions of the Policy Packs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks",
+                ":policyPackName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f6fe480-797a-4e08-90bf-1befcb916b2d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7870d64e-69e1-4567-904c-7c8240856659",
+              "name": "Cannot delete an enabled Policy Pack",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b5b1f2e-63db-4b7c-9137-a5b72ac9591e",
+              "name": "Policy Pack",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd6e8d1c-436a-4586-a56f-c9ccf167e4f9",
+          "name": "DeletePolicyPackVersion",
+          "request": {
+            "name": "DeletePolicyPackVersion",
+            "description": {
+              "content": "DeletePolicyPackVersion deletes a specific version of a Policy Pack and deletes\nthe associated pack stored in S3. A Policy Pack must be unapplied to be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks",
+                ":policyPackName",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) The version number"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87f5653b-a515-4261-89e4-22ba04564f5a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e9b2105-1c62-49bf-a14c-94afb1ebc3b4",
+              "name": "Cannot delete external policy packs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "54cad92f-94a4-4af3-b93a-24834d6f9e59",
+              "name": "Organization or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82077964-644f-4a64-8d32-ec2dd303753e",
+              "name": "Cannot delete a Policy Pack that is applied to Policy Groups",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fea14b25-2328-4b83-906d-0cd8cf98dc41",
+          "name": "GetPolicyPack",
+          "request": {
+            "name": "GetPolicyPack",
+            "description": {
+              "content": "Returns the metadata and list of individual policies for a specific version of a Policy Pack. Each policy includes its name, description, enforcement level (advisory, mandatory, or disabled), and configuration schema. Returns 400 if the Policy Pack version is not yet complete (still being uploaded), or 404 if the organization or pack is not found.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks",
+                ":policyPackName",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) The version number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72e934f8-af71-4c7d-b970-b21130c65938",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applied\": true,\n  \"displayName\": \"string\",\n  \"name\": \"string\",\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ],\n  \"version\": 529,\n  \"versionTag\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "464e1352-ffb7-4ab5-9d10-55bbf2151b9d",
+              "name": "Cannot get incomplete Policy Pack",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2125c137-fb30-4bb8-85ff-8827c4f628e3",
+              "name": "Organization or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c858daf-e05c-4ebd-ab26-9fbd575de790",
+          "name": "CompletePolicyPack",
+          "request": {
+            "name": "CompletePolicyPack",
+            "description": {
+              "content": "Transitions the publish status of a specific Policy Pack version to 'complete', making it available for enforcement. Policy Packs go through a multi-step publish process: first the pack content is uploaded, then this endpoint is called to finalize publication. Returns 400 if the pack is already complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks",
+                ":policyPackName",
+                "versions",
+                ":version",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) The version number"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bfeafff6-4a61-4738-b8cc-e4fa73293951",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab148d4c-0738-481d-8f0c-614c2dcd7481",
+              "name": "Policy Pack is already complete",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "689c0835-950d-4d2f-9f65-fa09f1693703",
+              "name": "Organization or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59e8cb14-79b6-4b26-833f-4650f7b61c2e",
+          "name": "GetPolicyPackConfigSchema",
+          "request": {
+            "name": "GetPolicyPackConfigSchema",
+            "description": {
+              "content": "Returns the JSON configuration schema for a specific version of a Policy Pack. The schema defines the configurable parameters for each policy in the pack, including allowed values, defaults, and validation rules. Policy Groups use this schema to configure policy behavior when assigning packs to stacks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policypacks",
+                ":policyPackName",
+                "versions",
+                ":version",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) The version number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16913422-f209-4709-9233-5c0d8b865fe9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"configSchema\": {\n    \"key_0\": {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<object>\"\n      },\n      \"required\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"key_1\": {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<object>\"\n      },\n      \"required\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d924fd21-1de4-4322-93a1-16c539c9bfba",
+              "name": "Policy as code feature not enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "068df296-e0b7-497b-9580-1b0355255f65",
+              "name": "Organization or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policypacks",
+                    ":policyPackName",
+                    "versions",
+                    ":version",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) The version number"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c311f07c-36ca-4753-8d08-b0db7e5e22c2",
+          "name": "GetOrgRegistryPolicyPack",
+          "request": {
+            "name": "GetOrgRegistryPolicyPack",
+            "description": {
+              "content": "Retrieves lightweight registry metadata for a policy pack (source/publisher/name) without loading detailed policy definitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "registry",
+                "policypacks",
+                ":policyPackName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Version tag to retrieve (e.g., 'latest')"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyPackName",
+                  "description": "(Required) The policy pack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92861b0e-1b0f-4045-9279-b3969480a745",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "registry",
+                    "policypacks",
+                    ":policyPackName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPack\": {\n    \"accessLevel\": \"full\",\n    \"displayName\": \"string\",\n    \"enforcementLevels\": [\n      \"advisory\",\n      \"advisory\"\n    ],\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"publisher\": \"string\",\n    \"source\": \"string\",\n    \"version\": \"string\"\n  },\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\",\n          \"key_2\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59d52954-164c-48c2-93b2-b6caacbecfb8",
+              "name": "Organization or Policy pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "registry",
+                    "policypacks",
+                    ":policyPackName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyPackName",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a175c05-803a-4054-a44c-b566bd665b02",
+          "name": "ListPolicyPacks",
+          "request": {
+            "name": "ListPolicyPacks",
+            "description": {
+              "content": "Lists all policy packs accessible to the calling user for a given organization. The orgLogin query parameter is required and restricts results to policy packs owned by that organization. Results can optionally be filtered by access level. No authentication is required. Returns 400 if the policy pack access filter value is invalid. This is the deprecated GET variant; prefer the POST ListPolicyPacks endpoint instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "access",
+                  "value": "<string>",
+                  "description": "Filter by access level"
+                },
+                {
+                  "disabled": false,
+                  "key": "orgLogin",
+                  "value": "<string>",
+                  "description": "Required. Filter by owning organization"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c0cd01d-ae69-4770-a89b-1831a642e4dd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "access",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPacks\": [\n    {\n      \"accessLevel\": \"view-only\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"remediate\",\n        \"disabled\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"accessLevel\": \"view-only\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"mandatory\",\n        \"advisory\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abb1d950-0dfb-47cd-8122-7ab43c891243",
+              "name": "Policy pack access is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "access",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgLogin",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be390e7f-5e95-4a09-be0c-fbfe51b794fa",
+          "name": "ListPolicyPacks",
+          "request": {
+            "name": "ListPolicyPacks",
+            "description": {
+              "content": "Lists all policy packs accessible to the calling user, with support for filtering by access level, organization, and specific policy pack IDs. The request body accepts an optional orgLogin to scope results to a specific organization, an optional access level filter (defaults to 'enabled'), and an optional list of policy pack IDs to restrict the results to specific packs. No authentication is required. Returns 400 if the access filter value is invalid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access\": \"<string>\",\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orgLogin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d7d1742d-716e-448e-9b80-43c350b3e7a9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access\": \"<string>\",\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orgLogin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPacks\": [\n    {\n      \"accessLevel\": \"deny\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"remediate\",\n        \"disabled\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"accessLevel\": \"view-only\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"advisory\",\n        \"disabled\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1e4f005-02b0-4fb2-9119-1198c7cc1115",
+              "name": "Policy pack access is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access\": \"<string>\",\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orgLogin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b297d50-72e1-4a29-aa1d-c9841b99ee6a",
+          "name": "DeletePolicyPack",
+          "request": {
+            "name": "DeletePolicyPack",
+            "description": {
+              "content": "Deletes a policy pack and all of its versions from the registry. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This is a destructive operation that permanently removes the policy pack and all associated version data. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2ec3484-1196-413b-9d95-b270dee6953e",
+              "name": "Policy pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37dd49ca-c38c-48f0-ab38-b05ea6ca3fa9",
+          "name": "ListPolicyPackVersions",
+          "request": {
+            "name": "ListPolicyPackVersions",
+            "description": {
+              "content": "Lists all versions of a specific policy pack. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The response includes a list of policy pack version metadata and an optional continuationToken for pagination. Returns 404 if the policy pack does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af3cfa03-e1d6-427e-ba7d-a8dda25381af",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPacks\": [\n    {\n      \"accessLevel\": \"deny\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"remediate\",\n        \"disabled\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"accessLevel\": \"view-only\",\n      \"displayName\": \"string\",\n      \"enforcementLevels\": [\n        \"advisory\",\n        \"disabled\"\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"publisher\": \"string\",\n      \"source\": \"string\",\n      \"version\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ceda9b4-7001-43bf-8d0e-9ec16f2276d8",
+              "name": "error getting Registry Policy Pack",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b99b15a-6eae-433e-9044-2a4efddb5d44",
+          "name": "PostPublishPolicyPackVersion",
+          "request": {
+            "name": "PostPublishPolicyPackVersion",
+            "description": {
+              "content": "Initiates the first step of a two-phase policy pack version publish workflow. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. This creates a publish transaction that must be completed by calling PostPublishPolicyPackVersionComplete. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the policy pack is not found.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca713c29-dc0a-4a57-8611-6502d83b8dcf",
+              "name": "Policy pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48a76650-6f62-428d-a48f-c5e505c7a751",
+          "name": "DeletePolicyPack",
+          "request": {
+            "name": "DeletePolicyPack",
+            "description": {
+              "content": "Deletes a specific version of a policy pack from the registry. The policy pack version is identified by its source (currently only 'private'), publisher organization, name, and semantic version string. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the specified policy pack version does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the policy pack version to delete"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c823367c-f8b0-4e9f-a6fc-b46e067aaadd",
+              "name": "Policy pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the policy pack version to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdd3d1bc-b038-46e8-8be3-9e5ea03cf0f2",
+          "name": "GetPolicyPackVersion",
+          "request": {
+            "name": "GetPolicyPackVersion",
+            "description": {
+              "content": "Retrieves detailed information about a specific version of a policy pack, including the individual policy definitions. The policy pack is identified by its source (currently only 'private'), publisher organization, and name. The version parameter accepts either a specific semantic version string or the special value 'latest' to retrieve the most recently published version. The response includes the policy pack metadata and an optional list of policies, where each policy includes its configuration schema and enforcement rules. Returns 404 if the specified policy pack does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string or 'latest'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da39f652-e587-4f59-a132-8a212d8a5d4f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyPack\": {\n    \"accessLevel\": \"full\",\n    \"displayName\": \"string\",\n    \"enforcementLevels\": [\n      \"disabled\",\n      \"disabled\"\n    ],\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"publisher\": \"string\",\n    \"source\": \"string\",\n    \"version\": \"string\"\n  },\n  \"policies\": [\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"enforcementLevel\": \"<string>\",\n      \"message\": \"<string>\",\n      \"name\": \"<string>\",\n      \"configSchema\": {\n        \"type\": \"<string>\",\n        \"properties\": {\n          \"key_0\": \"<object>\"\n        },\n        \"required\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"framework\": {\n        \"name\": \"<string>\",\n        \"reference\": \"<string>\",\n        \"specification\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"remediationSteps\": \"<string>\",\n      \"severity\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "519e6e44-9586-4cae-a59a-ee87be0faa48",
+              "name": "Policy Pack",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string or 'latest'"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afa7b640-23d5-4ba3-aa37-67df0fcb9b77",
+          "name": "PostPublishPolicyPackVersionComplete",
+          "request": {
+            "name": "PostPublishPolicyPackVersionComplete",
+            "description": {
+              "content": "Finalizes the second step of the two-phase policy pack version publish workflow. After initiating a publish with PostPublishPolicyPackVersion, call this endpoint with the policy pack source, publisher, name, and version to complete the publish and make the version available in the registry. Requires the RegistryPublish permission on the publisher organization. Returns 404 if the publish operation is not found.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "registry",
+                "policypacks",
+                ":source",
+                ":publisher",
+                ":name",
+                "versions",
+                ":version",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) The policy pack source: 'private'"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisher",
+                  "description": "(Required) Organization that owns the policy pack"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The policy pack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version string of the policy pack version to complete"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e420512e-1b7c-44e8-afd0-a1241bed4102",
+              "name": "Publish operation not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "registry",
+                    "policypacks",
+                    ":source",
+                    ":publisher",
+                    ":name",
+                    "versions",
+                    ":version",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) The policy pack source: 'private'"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisher",
+                      "description": "(Required) Organization that owns the policy pack"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The policy pack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version string of the policy pack version to complete"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "630f961b-1692-4662-8c46-838a9355ae34",
+    "name": "Pulumi APIs AccessTokens PolicyPacks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "item": [
+    {
+      "id": "97079a3e-f2c0-4926-8fa0-6387ec25fbbd",
+      "name": "OAuthTokenExchange",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f4373d16-bc57-46a9-95bb-3847dafd2834",
+          "name": "Token",
+          "request": {
+            "name": "Token",
+            "description": {
+              "content": "Exchanges an external identity provider token for a Pulumi access token using the OAuth 2.0 Token Exchange flow (RFC 8693).\n\nThe request body must include:\n- `audience`: a URN identifying the target org (e.g., `urn:pulumi:org:{ORG_NAME}`)\n- `grant_type`: must be `urn:ietf:params:oauth:grant-type:token-exchange`\n- `subject_token`: the OIDC identity token from the external provider\n- `subject_token_type`: must be `urn:ietf:params:oauth:token-type:id_token`\n- `requested_token_type`: one of `urn:pulumi:token-type:access_token:organization`, `...team`, `...personal`, or `...runner`\n\nOptional parameters:\n- `scope`: depends on the requested token type. For `organization`, must be empty or `admin`. For `team`, must be `team:TEAM_NAME`. For `personal`, must be `user:USER_LOGIN`. For `runner`, must be `runner:RUNNER_NAME`.\n- `expiration`: token lifetime in seconds\n\nThe response includes `access_token`, `issued_token_type`, `token_type`, `expires_in`, `scope`, and `refresh_token`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"<object>\",\n  \"key_1\": \"<object>\",\n  \"key_2\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64a13429-5803-4f47-b99d-85021ba1452f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"<object>\",\n  \"key_1\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"expires_in\": 4759,\n  \"issued_token_type\": \"string\",\n  \"scope\": \"string\",\n  \"token_type\": \"string\",\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "818507a6-a6ed-4568-8a68-f559ce277401",
+    "name": "Pulumi APIs AccessTokens OAuthTokenExchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

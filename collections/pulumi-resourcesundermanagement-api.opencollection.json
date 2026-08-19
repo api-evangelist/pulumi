@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens ResourcesUnderManagement API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ResourcesUnderManagement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetUsageSummaryDiscoveredResourceHours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/discovered-resources/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back from the current time or lookbackStart"
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+              }
+            ]
+          },
+          "docs": "GetUsageSummaryDiscoveredResourceHours handles request to fetch the summary\nof discovered resources for an organization."
+        },
+        {
+          "info": {
+            "name": "GetUsageSummaryResourceHours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/resources/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for aggregation (e.g., 'hourly', 'daily', 'monthly')"
+              },
+              {
+                "name": "lookbackDays",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back from the current time or lookbackStart"
+              },
+              {
+                "name": "lookbackStart",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for the start of the lookback period (defaults to current time if omitted)"
+              }
+            ]
+          },
+          "docs": "GetUsageSummaryResourceHours handles request to fetch the summary\nof resources under management (RUM) and resource hours under management\n(RHUM) for an organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

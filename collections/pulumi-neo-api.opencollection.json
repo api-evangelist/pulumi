@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Neo API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Neo",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListTasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort the results by. Defaults to lastEvent."
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "Direction to sort the results in. Defaults to desc."
+              },
+              {
+                "name": "taskType",
+                "value": "",
+                "type": "query",
+                "description": "Task type to filter by"
+              }
+            ]
+          },
+          "docs": "Lists all agent tasks for the specified organization. Supports pagination via continuationToken with a configurable pageSize (1-1000, default 100). Returns task metadata including ID, name, status, and creation timestamp."
+        },
+        {
+          "info": {
+            "name": "CreateTasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new agent task for the specified organization. The request must include a prompt (the user event message) that initiates the task. Set the 'permissionMode' field in the request body to restrict the agent to read-only operations. Returns the created task details including task ID, name, status, and timestamp."
+        },
+        {
+          "info": {
+            "name": "GetTask",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks/:taskID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "The agent task identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata for a specific agent task, including its ID, name, status, creation timestamp, and associated entities. Returns 404 if the task does not exist."
+        },
+        {
+          "info": {
+            "name": "RespondToTask",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks/:taskID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "The agent task identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a response to an ongoing agent task. Supported event types include user_message, user_confirmation, and user_cancel. Returns 409 if the task already has a pending request that has not completed."
+        },
+        {
+          "info": {
+            "name": "UpdateTask",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks/:taskID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "The agent task identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the settings or metadata of an agent task. Only the user who created the task can modify it."
+        },
+        {
+          "info": {
+            "name": "GetTaskEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks/:taskID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "The agent task identifier"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieves the event stream for a specific agent task. Events include agent messages, tool calls, status changes, and user interactions. Supports pagination via continuationToken with a configurable pageSize (1-1000)."
+        },
+        {
+          "info": {
+            "name": "StreamTaskEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/preview/agents/:orgName/tasks/:taskID/events/stream",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "The agent task identifier"
+              }
+            ]
+          },
+          "docs": "Streams events for a specific agent task as Server-Sent Events. Each SSE data frame contains a JSON-encoded AgentConsoleEvent. The stream delivers existing events immediately, then keeps the connection open to deliver new events in real time until the task completes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

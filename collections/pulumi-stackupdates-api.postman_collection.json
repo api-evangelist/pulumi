@@ -1,0 +1,989 @@
+{
+  "item": [
+    {
+      "id": "43ef3910-56ac-4f85-baae-411f82cebad6",
+      "name": "StackUpdates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04168c49-afa7-4990-9ae0-c79c5484da55",
+          "name": "GetEngineEvents",
+          "request": {
+            "name": "GetEngineEvents",
+            "description": {
+              "content": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "destroy",
+                ":updateID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Continuation token for paginated results"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_non_activated",
+                  "value": "<boolean>",
+                  "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<long>",
+                  "description": "Filter results to only include events matching these engine event type codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<long>",
+                  "description": "Filter results to only include events matching these engine event type codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "urn",
+                  "value": "<string>",
+                  "description": "Filter results to only include events for the specified resource URN"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "updateID",
+                  "description": "(Required) The update ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f96d032-6b58-4582-b02d-612a5ab4cc19",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "destroy",
+                    ":updateID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_non_activated",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "urn",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "updateID",
+                      "description": "(Required) The update ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"continuationToken\": \"string\",\n  \"events\": [\n    {\n      \"timestamp\": 3820,\n      \"type\": \"string\",\n      \"cancelEvent\": {},\n      \"diagnosticEvent\": {\n        \"color\": \"string\",\n        \"message\": \"string\",\n        \"severity\": \"string\",\n        \"ephemeral\": false,\n        \"prefix\": \"string\",\n        \"streamID\": 9752,\n        \"urn\": \"string\"\n      },\n      \"errorEvent\": {\n        \"error\": \"string\"\n      },\n      \"policyAnalyzeStackSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyAnalyzeSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyEvent\": {\n        \"color\": \"string\",\n        \"enforcementLevel\": \"string\",\n        \"message\": \"string\",\n        \"policyName\": \"string\",\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"severity\": \"string\"\n      },\n      \"policyLoadEvent\": {},\n      \"policyRemediateSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyRemediationEvent\": {\n        \"color\": \"string\",\n        \"policyName\": \"string\",\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"after\": {\n          \"key_0\": {}\n        },\n        \"before\": {\n          \"key_0\": {}\n        },\n        \"resourceUrn\": \"string\"\n      },\n      \"preludeEvent\": {\n        \"config\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"progressEvent\": {\n        \"done\": false,\n        \"id\": \"string\",\n        \"message\": \"string\",\n        \"received\": 6000,\n        \"total\": 1710,\n        \"type\": \"plugin-download\"\n      },\n      \"resOpFailedEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"import-replacement\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": false\n        },\n        \"status\": 4607,\n        \"steps\": 3576\n      },\n      \"resOutputsEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"create\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": false\n        },\n        \"planning\": false\n      },\n      \"resourcePreEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"read\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": true\n        },\n        \"planning\": false\n      },\n      \"startDebuggingEvent\": {\n        \"config\": {\n          \"key_0\": {}\n        }\n      },\n      \"stdoutEvent\": {\n        \"color\": \"string\",\n        \"message\": \"string\"\n      },\n      \"summaryEvent\": {\n        \"PolicyPacks\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"durationSeconds\": 2701,\n        \"isPreview\": false,\n        \"maybeCorrupt\": false,\n        \"resourceChanges\": {\n          \"key_0\": 6217\n        }\n      }\n    },\n    {\n      \"timestamp\": 6886,\n      \"type\": \"string\",\n      \"cancelEvent\": {},\n      \"diagnosticEvent\": {\n        \"color\": \"string\",\n        \"message\": \"string\",\n        \"severity\": \"string\",\n        \"ephemeral\": true,\n        \"prefix\": \"string\",\n        \"streamID\": 4536,\n        \"urn\": \"string\"\n      },\n      \"errorEvent\": {\n        \"error\": \"string\"\n      },\n      \"policyAnalyzeStackSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyAnalyzeSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyEvent\": {\n        \"color\": \"string\",\n        \"enforcementLevel\": \"string\",\n        \"message\": \"string\",\n        \"policyName\": \"string\",\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"severity\": \"string\"\n      },\n      \"policyLoadEvent\": {},\n      \"policyRemediateSummaryEvent\": {\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"resourceUrn\": \"string\",\n        \"failed\": [\n          \"string\",\n          \"string\"\n        ],\n        \"passed\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"policyRemediationEvent\": {\n        \"color\": \"string\",\n        \"policyName\": \"string\",\n        \"policyPackName\": \"string\",\n        \"policyPackVersion\": \"string\",\n        \"policyPackVersionTag\": \"string\",\n        \"after\": {\n          \"key_0\": {}\n        },\n        \"before\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"resourceUrn\": \"string\"\n      },\n      \"preludeEvent\": {\n        \"config\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"progressEvent\": {\n        \"done\": false,\n        \"id\": \"string\",\n        \"message\": \"string\",\n        \"received\": 1298,\n        \"total\": 6402,\n        \"type\": \"plugin-install\"\n      },\n      \"resOpFailedEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"replace\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": false\n        },\n        \"status\": 6948,\n        \"steps\": 4461\n      },\n      \"resOutputsEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"delete\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": true\n        },\n        \"planning\": true\n      },\n      \"resourcePreEvent\": {\n        \"metadata\": {\n          \"detailedDiff\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"new\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"old\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"urn\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"custom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hideDiffs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initErrors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protect\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retainOnDelete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"op\": \"update\",\n          \"provider\": \"string\",\n          \"type\": \"string\",\n          \"urn\": \"string\",\n          \"diffs\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keys\": [\n            \"string\",\n            \"string\"\n          ],\n          \"logical\": true\n        },\n        \"planning\": false\n      },\n      \"startDebuggingEvent\": {\n        \"config\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        }\n      },\n      \"stdoutEvent\": {\n        \"color\": \"string\",\n        \"message\": \"string\"\n      },\n      \"summaryEvent\": {\n        \"PolicyPacks\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"durationSeconds\": 9458,\n        \"isPreview\": false,\n        \"maybeCorrupt\": false,\n        \"resourceChanges\": {\n          \"key_0\": 1433,\n          \"key_1\": 4837\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "686b86ac-00d7-4149-a4b2-852f569ad297",
+              "name": "Invalid continuation token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "destroy",
+                    ":updateID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_non_activated",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "urn",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "updateID",
+                      "description": "(Required) The update ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e12ccdf1-20cb-445a-9b99-587495f9a812",
+          "name": "GetUpdateStatusForUpdate",
+          "request": {
+            "name": "GetUpdateStatusForUpdate",
+            "description": {
+              "content": "Returns the current status and results of a standard (pulumi up) update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "update",
+                ":updateID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Continuation token for paginated results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "updateID",
+                  "description": "(Required) The update ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7faef37f-b0f5-47b0-acd1-0732697e3547",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "update",
+                    ":updateID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "updateID",
+                      "description": "(Required) The update ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"fields\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"index\": \"string\",\n      \"kind\": \"stdout\"\n    },\n    {\n      \"fields\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"index\": \"string\",\n      \"kind\": \"stderr\"\n    }\n  ],\n  \"status\": \"running\",\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09ee7ce5-9966-4d14-97bc-5f7378b8277c",
+              "name": "invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "update",
+                    ":updateID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "updateID",
+                      "description": "(Required) The update ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3557b4c9-3840-4768-a29e-d25eb3c7e2e9",
+          "name": "GetStackUpdates",
+          "request": {
+            "name": "GetStackUpdates",
+            "description": {
+              "content": "Returns the update history for a stack. Each update includes its kind (update, preview, refresh, destroy, import), start and end times, result status, resource changes summary, and resource count. Supports pagination via 'page' and 'pageSize' query parameters (page 0 returns all results, pageSize=1 with page=1 returns only the most recent update). The 'output-type' parameter controls the response format: when unset, returns a legacy format; when set, returns a paginated response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "output-type",
+                  "value": "<string>",
+                  "description": "Controls the response format; when unset returns the legacy format, otherwise returns the paginated format"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<long>",
+                  "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<long>",
+                  "description": "Number of results per page (must be >= 1 when page > 0)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b95a1c61-4d7d-47cc-a8e8-9eb715bc89ae",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "output-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d7f59f6-bc29-40ea-a029-95d18b2e1031",
+              "name": "Invalid 'page' value. or Invalid 'pageSize' value.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "output-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ce7cc38-7fd1-4020-acff-f4649030adc2",
+          "name": "GetLatestStackPreviews",
+          "request": {
+            "name": "GetLatestStackPreviews",
+            "description": {
+              "content": "Returns all preview operations associated with the latest stack update version. Previews are dry-run operations that show what changes would be made. Supports pagination via page and pageSize parameters (page 0 returns all results). The asc parameter controls sort order (ascending or descending by chronological order).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "updates",
+                "latest",
+                "previews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asc",
+                  "value": "<boolean>",
+                  "description": "When true, sorts results in ascending chronological order; when false or omitted, sorts in descending order"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<long>",
+                  "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<long>",
+                  "description": "Number of results per page (must be >= 1 when page > 0)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f204338-b4b1-4cb3-b323-a52745045c50",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "updates",
+                    "latest",
+                    "previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"itemsPerPage\": 1058,\n  \"total\": 3251,\n  \"updates\": [\n    {\n      \"info\": {\n        \"config\": {\n          \"key_0\": {\n            \"object\": true,\n            \"secret\": true,\n            \"string\": \"string\"\n          }\n        },\n        \"endTime\": 4156,\n        \"environment\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"kind\": \"refresh\",\n        \"message\": \"string\",\n        \"result\": \"failed\",\n        \"startTime\": 5125,\n        \"version\": 1000,\n        \"deployment\": {},\n        \"resourceChanges\": {\n          \"key_0\": 9553,\n          \"key_1\": 9715\n        },\n        \"resourceCount\": 1359\n      },\n      \"latestVersion\": 6290,\n      \"requestedBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"updateID\": \"string\",\n      \"version\": 6163,\n      \"githubCommitInfo\": {\n        \"author\": {\n          \"avatarUrl\": \"string\",\n          \"githubLogin\": \"string\",\n          \"name\": \"string\",\n          \"email\": \"string\"\n        },\n        \"committer\": {\n          \"avatarUrl\": \"string\",\n          \"githubLogin\": \"string\",\n          \"name\": \"string\",\n          \"email\": \"string\"\n        },\n        \"message\": \"string\",\n        \"sha\": \"string\",\n        \"slug\": \"string\",\n        \"url\": \"string\"\n      },\n      \"policyPacks\": [\n        {\n          \"displayName\": \"string\",\n          \"name\": \"string\",\n          \"version\": 4346,\n          \"versionTag\": \"string\",\n          \"config\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"environments\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"displayName\": \"string\",\n          \"name\": \"string\",\n          \"version\": 7826,\n          \"versionTag\": \"string\",\n          \"config\": {\n            \"key_0\": {}\n          },\n          \"environments\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"requestedByToken\": \"string\"\n    },\n    {\n      \"info\": {\n        \"config\": {\n          \"key_0\": {\n            \"object\": true,\n            \"secret\": true,\n            \"string\": \"string\"\n          },\n          \"key_1\": {\n            \"object\": true,\n            \"secret\": true,\n            \"string\": \"string\"\n          }\n        },\n        \"endTime\": 4256,\n        \"environment\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"kind\": \"Prename\",\n        \"message\": \"string\",\n        \"result\": \"in-progress\",\n        \"startTime\": 5212,\n        \"version\": 3881,\n        \"deployment\": {},\n        \"resourceChanges\": {\n          \"key_0\": 7081,\n          \"key_1\": 7374,\n          \"key_2\": 8795,\n          \"key_3\": 621\n        },\n        \"resourceCount\": 1727\n      },\n      \"latestVersion\": 486,\n      \"requestedBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"updateID\": \"string\",\n      \"version\": 4823,\n      \"githubCommitInfo\": {\n        \"author\": {\n          \"avatarUrl\": \"string\",\n          \"githubLogin\": \"string\",\n          \"name\": \"string\",\n          \"email\": \"string\"\n        },\n        \"committer\": {\n          \"avatarUrl\": \"string\",\n          \"githubLogin\": \"string\",\n          \"name\": \"string\",\n          \"email\": \"string\"\n        },\n        \"message\": \"string\",\n        \"sha\": \"string\",\n        \"slug\": \"string\",\n        \"url\": \"string\"\n      },\n      \"policyPacks\": [\n        {\n          \"displayName\": \"string\",\n          \"name\": \"string\",\n          \"version\": 9092,\n          \"versionTag\": \"string\",\n          \"config\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"environments\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"displayName\": \"string\",\n          \"name\": \"string\",\n          \"version\": 6284,\n          \"versionTag\": \"string\",\n          \"config\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"environments\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"requestedByToken\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9052de3-f3a9-4a18-be3e-1e9148ab358e",
+              "name": "Invalid 'page' value. Must be >= 0. or Invalid 'pageSize' value. Must be >= 1. or Invalid 'pageSize' value. Must be 0 or unset when 'page' is 0.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "updates",
+                    "latest",
+                    "previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1402af7c-9f5a-419b-8e20-5ae4c2e45bfc",
+    "name": "Pulumi APIs AccessTokens StackUpdates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

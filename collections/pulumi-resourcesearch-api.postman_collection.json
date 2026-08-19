@@ -1,0 +1,1318 @@
+{
+  "item": [
+    {
+      "id": "3fd05387-20d5-4b88-b293-6259a4e3b920",
+      "name": "ResourceSearch",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "46fde283-1da1-4841-9d91-b97090375330",
+          "name": "GetOrgResourceSearchQuery",
+          "request": {
+            "name": "GetOrgResourceSearchQuery",
+            "description": {
+              "content": "Searches for resources within an organization. Deprecated: use GetOrgResourceSearchV2Query for improved search functionality.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "search",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "collapse",
+                  "value": "<boolean>",
+                  "description": "Collapse results to show one entry per stack instead of per resource"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for paginated results"
+                },
+                {
+                  "disabled": false,
+                  "key": "facet",
+                  "value": "<string>",
+                  "description": "Facet filters to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "facet",
+                  "value": "<string>",
+                  "description": "Facet filters to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "Group results by this field"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<long>",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<boolean>",
+                  "description": "Include resource properties in search results (may increase response size)"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<long>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "top",
+                  "value": "<long>",
+                  "description": "Number of top aggregation buckets to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "107cf0b1-41a9-48ff-9c78-8624037e33c1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aggregations\": {\n    \"key_0\": {\n      \"others\": 9381,\n      \"results\": [\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 5733,\n          \"name\": \"string\"\n        },\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 209,\n          \"name\": \"string\"\n        }\n      ]\n    }\n  },\n  \"pagination\": {\n    \"cursor\": \"string\",\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  },\n  \"resources\": [\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": true,\n      \"delete\": true,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": false,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": false,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 9835,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    },\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": false,\n      \"delete\": false,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": true,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": false,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 1753,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    }\n  ],\n  \"total\": 1418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52396023-c6a4-4203-8b91-0cbd6a49087c",
+              "name": "invalid groupBy field",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27e072af-294c-45d3-978c-f028bad7c213",
+              "name": "search cluster is unreachable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e456b39f-0d14-433a-a856-fa6e6e18c288",
+          "name": "GetResourceDashboardAggregations",
+          "request": {
+            "name": "GetResourceDashboardAggregations",
+            "description": {
+              "content": "GetResourceDashboardAggregations returns aggregated resource data for display on organization dashboard cards, including resource counts grouped by package and other dimensions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "search",
+                "resources",
+                "dashboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "feb62a53-4ff6-486a-93c6-c2ec005c0bef",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aggregations\": {\n    \"key_0\": {\n      \"others\": 6572,\n      \"results\": [\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 7852,\n          \"name\": \"string\"\n        },\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 4634,\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"key_1\": {\n      \"others\": 8272,\n      \"results\": [\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 923,\n          \"name\": \"string\"\n        },\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 4328,\n          \"name\": \"string\"\n        }\n      ]\n    }\n  },\n  \"pagination\": {\n    \"cursor\": \"string\",\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  },\n  \"resources\": [\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": false,\n      \"delete\": false,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": true,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": false,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 6791,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    },\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": true,\n      \"delete\": false,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": false,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": true,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 2510,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    }\n  ],\n  \"total\": 9932\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3de163c-ceb2-411d-b98f-b6111d236bb0",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "55fdadbd-17ff-4b80-8532-ebb05c5dcc9e",
+              "name": "search cluster is unreachable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29295ecb-7b06-48e8-bcdf-b9e77d8dfd6d",
+          "name": "GetNaturalLanguageQuery",
+          "request": {
+            "name": "GetNaturalLanguageQuery",
+            "description": {
+              "content": "GetNaturalLanguageQuery converts a natural language query into a structured Pulumi search query using AI. For example, converts 'show me all S3 buckets in production' into a proper search syntax.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "search",
+                "resources",
+                "parse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search query string"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f30eba49-f938-4420-890c-fae4003cabaa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e6b2b20-2907-4722-b3c7-01f8f59b328b",
+              "name": "please provide a query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "637d5a3f-3e33-4cf9-99c6-5e87c097a37e",
+              "name": "AI assist feature requires Enterprise subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39f6eb09-b457-4c56-b6dc-917e5321b38a",
+              "name": "NLP search feature not enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8acaec3-a780-45ad-88a8-93090ee5ea62",
+              "name": "AI services are temporarily unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resources",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f215cf06-dff1-48bf-a921-cf92b1f87218",
+          "name": "GetOrgResourceSearchV2Query",
+          "request": {
+            "name": "GetOrgResourceSearchV2Query",
+            "description": {
+              "content": "Searches for resources within an organization with advanced filtering, sorting, and pagination capabilities.\n\n**Pagination:** The `page` parameter supports up to 10,000 results. For larger result sets, use the `cursor` parameter instead (Enterprise plans only). Note that pagination is not transactional — result ordering may change if a stack update completes during pagination.\n\n**Sorting:** The `sort` parameter accepts: `created`, `custom`, `delete`, `dependencies`, `id`, `modified`, `module`, `name`, `package`, `parentUrn`, `project`, `protected`, `providerUrn`, `stack`, `type`, `urn`, `managed`, `category`. If omitted, results are sorted by search relevance (or last modified time when no query is provided).\n\n**Properties:** Set `properties=true` to include resource input/output values. Requires a supported subscription — returns 402 if not available.\n\n**Collapse:** Set `collapse=true` to consolidate resources that exist in multiple sources (e.g., both IaC stacks and Insights scans) into a single result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "search",
+                "resourcesv2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asc",
+                  "value": "<boolean>",
+                  "description": "Sort in ascending order when true, descending when false"
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse",
+                  "value": "<boolean>",
+                  "description": "Collapse results to show one entry per stack instead of per resource"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for paginated results"
+                },
+                {
+                  "disabled": false,
+                  "key": "facet",
+                  "value": "<string>",
+                  "description": "Facet filters to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "facet",
+                  "value": "<string>",
+                  "description": "Facet filters to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "groupBy",
+                  "value": "<string>",
+                  "description": "Group results by this field"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<long>",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<boolean>",
+                  "description": "Include resource properties in search results (may increase response size)"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<long>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "top",
+                  "value": "<long>",
+                  "description": "Number of top aggregation buckets to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b49d49c-79d8-4657-bf27-7e9a837ad36f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resourcesv2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aggregations\": {\n    \"key_0\": {\n      \"others\": 6572,\n      \"results\": [\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 7852,\n          \"name\": \"string\"\n        },\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 4634,\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"key_1\": {\n      \"others\": 8272,\n      \"results\": [\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 923,\n          \"name\": \"string\"\n        },\n        {\n          \"aggregations\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Circular reference to #/components/schemas/Aggregation detected>\"\n            }\n          },\n          \"count\": 4328,\n          \"name\": \"string\"\n        }\n      ]\n    }\n  },\n  \"pagination\": {\n    \"cursor\": \"string\",\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  },\n  \"resources\": [\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": false,\n      \"delete\": false,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": true,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": false,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 6791,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    },\n    {\n      \"module\": \"string\",\n      \"package\": \"string\",\n      \"account\": \"string\",\n      \"category\": \"string\",\n      \"created\": \"string\",\n      \"custom\": true,\n      \"delete\": false,\n      \"dependencies\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dependents\": [\n        \"string\",\n        \"string\"\n      ],\n      \"external\": false,\n      \"fingerprint\": \"string\",\n      \"id\": \"string\",\n      \"managed\": \"string\",\n      \"matches\": {},\n      \"metadata\": {},\n      \"modified\": \"string\",\n      \"name\": \"string\",\n      \"parent_urn\": \"string\",\n      \"pending\": \"string\",\n      \"project\": \"string\",\n      \"properties\": {},\n      \"protected\": true,\n      \"provider_urn\": \"string\",\n      \"sourceCount\": 2510,\n      \"stack\": \"string\",\n      \"teams\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\",\n      \"urn\": \"string\"\n    }\n  ],\n  \"total\": 9932\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5945bc8f-9279-48ea-add5-d91fb732e29e",
+              "name": "invalid groupBy field",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resourcesv2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c4d2780-ce3b-4e3d-ac99-2075601b4189",
+              "name": "search cluster is unreachable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "search",
+                    "resourcesv2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asc",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "collapse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "top",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ea61917e-9e90-4cea-a4cc-b20b63721f10",
+    "name": "Pulumi APIs AccessTokens ResourceSearch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

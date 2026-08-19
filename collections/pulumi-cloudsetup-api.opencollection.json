@@ -1,0 +1,260 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens CloudSetup API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CloudSetup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AWSSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/aws/setup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets up AWS infrastructure using provided static credentials"
+        },
+        {
+          "info": {
+            "name": "AWSSSOListAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/aws/sso/accounts",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "The AWS region"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "The SSO session identifier"
+              }
+            ]
+          },
+          "docs": "Lists AWS accounts accessible with the provided session"
+        },
+        {
+          "info": {
+            "name": "AWSSSOInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/aws/sso/initiate",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the AWS SSO flow"
+        },
+        {
+          "info": {
+            "name": "AWSSSOSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/aws/sso/setup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets up AWS infrastructure and ESC environments using AWS SSO"
+        },
+        {
+          "info": {
+            "name": "AzureListAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/azure/accounts",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "armSessionId",
+                "value": "",
+                "type": "query",
+                "description": "The Azure ARM session identifier"
+              }
+            ]
+          },
+          "docs": "Lists Azure subscriptions accessible with the provided ARM session"
+        },
+        {
+          "info": {
+            "name": "AzureSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/azure/setup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets up Azure infrastructure and ESC environments using OAuth credentials"
+        },
+        {
+          "info": {
+            "name": "CompleteOAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes OAuth flow by exchanging authorization code for access token"
+        },
+        {
+          "info": {
+            "name": "GCPListAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/gcp/accounts",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "oauthSessionId",
+                "value": "",
+                "type": "query",
+                "description": "The OAuth session identifier"
+              }
+            ]
+          },
+          "docs": "Lists GCP projects accessible with the provided oauth session"
+        },
+        {
+          "info": {
+            "name": "GCPSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/gcp/setup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets up GCP infrastructure using OAuth credentials"
+        },
+        {
+          "info": {
+            "name": "InitiateOAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/esc/cloudsetup/:orgName/oauth/initiate",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates OAuth flow for a given cloud provider"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

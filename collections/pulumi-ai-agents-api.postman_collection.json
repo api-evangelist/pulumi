@@ -1,0 +1,1814 @@
+{
+  "item": [
+    {
+      "id": "2956fbc6-2ba2-4264-8645-397b549b8e7a",
+      "name": "AI Agents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe5ad151-5032-4da9-8410-a04bcdf994c6",
+          "name": "ListTasks",
+          "request": {
+            "name": "ListTasks",
+            "description": {
+              "content": "Lists all agent tasks for the specified organization. Supports pagination via continuationToken with a configurable pageSize (1-1000, default 100). Returns task metadata including ID, name, status, and creation timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<long>",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Field to sort the results by. Defaults to lastEvent."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "<string>",
+                  "description": "Direction to sort the results in. Defaults to desc."
+                },
+                {
+                  "disabled": false,
+                  "key": "taskType",
+                  "value": "<string>",
+                  "description": "Task type to filter by"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1557d265-3947-45a6-bda5-dd45a90acf5c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taskType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tasks\": [\n    {\n      \"approvalMode\": \"manual\",\n      \"createdAt\": \"1991-06-22T07:55:26.976Z\",\n      \"createdBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"entities\": [\n        {\n          \"type\": \"string\"\n        },\n        {\n          \"type\": \"string\"\n        }\n      ],\n      \"id\": \"string\",\n      \"isShared\": true,\n      \"name\": \"string\",\n      \"planMode\": false,\n      \"status\": \"running\",\n      \"taskType\": \"sync\",\n      \"asyncTriggerType\": \"scheduled\",\n      \"contextUsedTokens\": 331,\n      \"contextWindowTokens\": 9961,\n      \"lastHeartbeat\": \"1953-11-27T09:12:50.738Z\",\n      \"permissionMode\": \"default\",\n      \"runtimePhase\": \"booting\",\n      \"sharedAt\": \"1967-11-20T07:19:58.351Z\",\n      \"source\": \"cli\",\n      \"sourceAutomationID\": \"string\",\n      \"toolExecutionMode\": \"cli\"\n    },\n    {\n      \"approvalMode\": \"balanced\",\n      \"createdAt\": \"1965-08-01T11:35:45.985Z\",\n      \"createdBy\": {\n        \"avatarUrl\": \"string\",\n        \"githubLogin\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\"\n      },\n      \"entities\": [\n        {\n          \"type\": \"string\"\n        },\n        {\n          \"type\": \"string\"\n        }\n      ],\n      \"id\": \"string\",\n      \"isShared\": false,\n      \"name\": \"string\",\n      \"planMode\": true,\n      \"status\": \"idle\",\n      \"taskType\": \"async\",\n      \"asyncTriggerType\": \"external_signal\",\n      \"contextUsedTokens\": 1583,\n      \"contextWindowTokens\": 8324,\n      \"lastHeartbeat\": \"1973-07-23T18:06:46.702Z\",\n      \"permissionMode\": \"default\",\n      \"runtimePhase\": \"booting\",\n      \"sharedAt\": \"1957-04-14T20:54:47.012Z\",\n      \"source\": \"console\",\n      \"sourceAutomationID\": \"string\",\n      \"toolExecutionMode\": \"cli\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eca10ef8-1102-4951-844a-15f6257e6daa",
+              "name": "pageSize must be between 1 and 1000",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taskType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc3ac0f3-97f9-4aec-8253-00f725248aa1",
+          "name": "CreateTasks",
+          "request": {
+            "name": "CreateTasks",
+            "description": {
+              "content": "Creates a new agent task for the specified organization. The request must include a prompt (the user event message) that initiates the task. Set the 'permissionMode' field in the request body to restrict the agent to read-only operations. Returns the created task details including task ID, name, status, and timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"enabledIntegrations\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ],\n  \"message\": {\n    \"content\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"commands\": {\n      \"key_0\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      },\n      \"key_1\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  },\n  \"permissionMode\": \"<string>\",\n  \"planMode\": \"<boolean>\",\n  \"source\": \"<string>\",\n  \"toolExecutionMode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45796cb1-1cfd-418a-8e30-56fc623845ce",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"enabledIntegrations\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ],\n  \"message\": {\n    \"content\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"commands\": {\n      \"key_0\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      },\n      \"key_1\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  },\n  \"permissionMode\": \"<string>\",\n  \"planMode\": \"<boolean>\",\n  \"source\": \"<string>\",\n  \"toolExecutionMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66dc50d8-5b3e-423b-9f42-4bde4e1c6639",
+              "name": "prompt is required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"enabledIntegrations\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ],\n  \"message\": {\n    \"content\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"commands\": {\n      \"key_0\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      },\n      \"key_1\": {\n        \"builtIn\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"modifiedAt\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"prompt\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  },\n  \"permissionMode\": \"<string>\",\n  \"planMode\": \"<boolean>\",\n  \"source\": \"<string>\",\n  \"toolExecutionMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91179e52-5893-4606-912b-ae14c1d04d95",
+          "name": "GetTask",
+          "request": {
+            "name": "GetTask",
+            "description": {
+              "content": "Retrieves metadata for a specific agent task, including its ID, name, status, creation timestamp, and associated entities. Returns 404 if the task does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dd5f432-ee66-4add-8596-d46b102d3624",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"approvalMode\": \"auto\",\n  \"createdAt\": \"1947-05-09T21:23:07.053Z\",\n  \"createdBy\": {\n    \"avatarUrl\": \"string\",\n    \"githubLogin\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\"\n  },\n  \"entities\": [\n    {\n      \"type\": \"string\"\n    },\n    {\n      \"type\": \"string\"\n    }\n  ],\n  \"id\": \"string\",\n  \"isShared\": true,\n  \"name\": \"string\",\n  \"planMode\": true,\n  \"status\": \"running\",\n  \"taskType\": \"sync\",\n  \"asyncTriggerType\": \"scheduled\",\n  \"contextUsedTokens\": 4979,\n  \"contextWindowTokens\": 7617,\n  \"lastHeartbeat\": \"1994-11-02T10:45:35.726Z\",\n  \"permissionMode\": \"default\",\n  \"runtimePhase\": \"running\",\n  \"sharedAt\": \"1952-09-24T16:28:40.745Z\",\n  \"source\": \"cli\",\n  \"sourceAutomationID\": \"string\",\n  \"toolExecutionMode\": \"cloud\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "816910a0-b890-4922-8f6b-0b0282269c50",
+              "name": "task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "583f5ecd-303e-4623-b08b-32fbd78f9b58",
+          "name": "UpdateTask",
+          "request": {
+            "name": "UpdateTask",
+            "description": {
+              "content": "Updates the settings or metadata of an agent task. Only the user who created the task can modify it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"isShared\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"permissionMode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "599749ed-2af4-42f6-820a-060fba7b94e0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"isShared\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"permissionMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"approvalMode\": \"auto\",\n  \"createdAt\": \"1947-05-09T21:23:07.053Z\",\n  \"createdBy\": {\n    \"avatarUrl\": \"string\",\n    \"githubLogin\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\"\n  },\n  \"entities\": [\n    {\n      \"type\": \"string\"\n    },\n    {\n      \"type\": \"string\"\n    }\n  ],\n  \"id\": \"string\",\n  \"isShared\": true,\n  \"name\": \"string\",\n  \"planMode\": true,\n  \"status\": \"running\",\n  \"taskType\": \"sync\",\n  \"asyncTriggerType\": \"scheduled\",\n  \"contextUsedTokens\": 4979,\n  \"contextWindowTokens\": 7617,\n  \"lastHeartbeat\": \"1994-11-02T10:45:35.726Z\",\n  \"permissionMode\": \"default\",\n  \"runtimePhase\": \"running\",\n  \"sharedAt\": \"1952-09-24T16:28:40.745Z\",\n  \"source\": \"cli\",\n  \"sourceAutomationID\": \"string\",\n  \"toolExecutionMode\": \"cloud\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e5cf54c-e008-4c2c-9d8d-26391a358f68",
+              "name": "feature not enabled for organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"isShared\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"permissionMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4a882be0-f6b2-4263-8692-31f9d266066c",
+              "name": "task not found or not owned by user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approvalMode\": \"<string>\",\n  \"isShared\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"permissionMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9b40900-fb37-4643-9d11-62873bbb6150",
+          "name": "RespondToTask",
+          "request": {
+            "name": "RespondToTask",
+            "description": {
+              "content": "Sends a response to an ongoing agent task. Supported event types include user_message, user_confirmation, and user_cancel. Returns 409 if the task already has a pending request that has not completed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f5661ba-c02c-4c51-8d49-7e8f82ce7b6d",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6d9877f-f52a-404d-8d48-347dd37a2e7d",
+              "name": "event field is required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40791c35-ff38-44f7-936a-3f522333c129",
+              "name": "task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88bfda30-2121-4587-981f-d1b0c3414bca",
+              "name": "cannot respond while a request is still ongoing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"timestamp\": \"<dateTime>\",\n    \"type\": \"<string>\",\n    \"entity_diff\": {\n      \"add\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da0e8a1e-ce43-449d-aef6-24917012c205",
+          "name": "CancelTask",
+          "request": {
+            "name": "CancelTask",
+            "description": {
+              "content": "Cancels an agent task. When force is true, immediately terminates the runtime session and resets the task to idle. This is the escalation path when a graceful cancel (via the user_cancel event in RespondToTask) is insufficient or the task is stuck. Unlike graceful cancel, force-cancel does not attempt to notify the agent runtime — it kills the session directly and resets the task state. Currently only force cancellation is supported; the force field must be set to true. Returns 409 if the session was stopped but the task status could not be reset to idle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eedb3370-707b-49e2-a0bb-ffe88e66882a",
+              "name": "Task cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ad35a88-30b8-4a50-ab68-cde37ab8dc03",
+              "name": "force must be true (graceful cancel not yet supported via this endpoint)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0a81107-34c5-4abc-a599-6e76303d50a5",
+              "name": "task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbd2e08e-b31b-4215-a604-90287830665b",
+              "name": "session stopped but task status could not be reset to idle",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7715a32d-85b8-4d0d-91fd-87146e5e870c",
+          "name": "GetTaskEvents",
+          "request": {
+            "name": "GetTaskEvents",
+            "description": {
+              "content": "Retrieves the event stream for a specific agent task. Events include agent messages, tool calls, status changes, and user interactions. Supports pagination via continuationToken with a configurable pageSize (1-1000).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<long>",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fec71234-41ff-40bb-8578-de05e317bf53",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"id\": \"string\",\n      \"isSynthetic\": false,\n      \"type\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"isSynthetic\": true,\n      \"type\": \"string\"\n    }\n  ],\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e376e84-d1d6-43d8-86e6-1f07994d51d1",
+              "name": "pageSize must be between 1 and 1000",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7bada88-4ec5-4aa3-9cad-12b5f82cf176",
+              "name": "task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7585eb2a-1147-48be-b787-93178c5064ed",
+          "name": "StreamTaskEvents",
+          "request": {
+            "name": "StreamTaskEvents",
+            "description": {
+              "content": "Streams events for a specific agent task as Server-Sent Events. Each SSE data frame contains a JSON-encoded AgentConsoleEvent. The stream delivers existing events immediately, then keeps the connection open to deliver new events in real time until the task completes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "preview",
+                "agents",
+                ":orgName",
+                "tasks",
+                ":taskID",
+                "events",
+                "stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskID",
+                  "description": "(Required) The agent task identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57e7ff01-0355-4904-a953-ebe4ce9dbc1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "events",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e9a1ef7-4efb-42b0-b392-f8bddf565975",
+              "name": "task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "preview",
+                    "agents",
+                    ":orgName",
+                    "tasks",
+                    ":taskID",
+                    "events",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskID",
+                      "description": "(Required) The agent task identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dc8a50f3-5d47-4f0c-9321-c886fc7358df",
+    "name": "Pulumi APIs AccessTokens AI Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

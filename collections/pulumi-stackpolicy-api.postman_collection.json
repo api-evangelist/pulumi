@@ -1,0 +1,353 @@
+{
+  "item": [
+    {
+      "id": "d7974967-2e47-4062-b2d7-d2ff3574dd25",
+      "name": "StackPolicy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8f01b74-4964-4385-be3c-a5f86603c06e",
+          "name": "GetStackPolicyGroups",
+          "request": {
+            "name": "GetStackPolicyGroups",
+            "description": {
+              "content": "Returns the list of policy groups that include the specified stack. Policy groups define which policy packs are enforced on a set of stacks. The response includes each group's name, the stacks it applies to, and the policy packs configured within it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "policygroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2732306b-190c-4c9a-8049-554a76d79608",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyGroups\": [\n    {\n      \"entityType\": \"accounts\",\n      \"isOrgDefault\": false,\n      \"mode\": \"preventative\",\n      \"name\": \"string\",\n      \"numEnabledPolicyPacks\": 9097,\n      \"numStacks\": 4523,\n      \"numAccounts\": 7282\n    },\n    {\n      \"entityType\": \"stacks\",\n      \"isOrgDefault\": false,\n      \"mode\": \"preventative\",\n      \"name\": \"string\",\n      \"numEnabledPolicyPacks\": 5507,\n      \"numStacks\": 8682,\n      \"numAccounts\": 8895\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb0f2053-1ebd-4509-a8d7-5a7c5f1bede9",
+          "name": "GetStackPolicyPacks",
+          "request": {
+            "name": "GetStackPolicyPacks",
+            "description": {
+              "content": "Returns the policy packs currently enforced on the specified stack through its policy group memberships. The optional 'mode' query parameter filters results by enforcement mode: 'audit' (violations are logged but allowed) or 'preventative' (violations block the update). Returns 400 if the mode parameter is invalid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "policypacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mode",
+                  "value": "<string>",
+                  "description": "Filter by policy group enforcement mode ('audit' or 'preventative')"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3240750-26f0-463f-9d88-1a7cf9394eca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requiredPolicies\": [\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"version\": 3052,\n      \"versionTag\": \"string\",\n      \"config\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"environments\": [\n        \"string\",\n        \"string\"\n      ],\n      \"packLocation\": \"string\"\n    },\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"version\": 6699,\n      \"versionTag\": \"string\",\n      \"config\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      \"environments\": [\n        \"string\",\n        \"string\"\n      ],\n      \"packLocation\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0134301-5db7-4354-96f9-be890e68b562",
+              "name": "Invalid mode parameter value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "policypacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "12c8a7b9-ffe7-4b4c-9499-9aef05d23e01",
+    "name": "Pulumi APIs AccessTokens StackPolicy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens PolicyGroups API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PolicyGroups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListPolicyGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Policy Groups for the organization. Policy Groups define which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. Every organization has a default Policy Group, and additional groups can be created to apply different policy sets to different environments (e.g., stricter enforcement in production)."
+        },
+        {
+          "info": {
+            "name": "NewPolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Policy Group for an organization. Policy Groups define which Policy Packs are enforced on which stacks or cloud accounts, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. This allows different policy strictness for different environments, such as advisory-only in development and mandatory in production."
+        },
+        {
+          "info": {
+            "name": "GetPolicyGroupMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns high-level policy protection metrics for an organization, including the number of stacks protected by policy enforcement, the total number of Policy Groups, and overall policy coverage statistics."
+        },
+        {
+          "info": {
+            "name": "GetPolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific Policy Group, including the list of Policy Packs applied to it and their enforcement levels (advisory, mandatory, or disabled), as well as the stacks or cloud accounts assigned to the group. Policy Groups enable targeted policy enforcement by associating sets of policies with specific infrastructure resources."
+        },
+        {
+          "info": {
+            "name": "UpdatePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Policy Group's configuration. This multi-purpose endpoint supports several operations in a single request via different body fields:\n\n- `newName`: rename the policy group\n- `addStack` / `removeStack`: add or remove stacks (with `name` and `routingProject` fields)\n- `addPolicyPack` / `removePolicyPack`: add or remove policy packs (with `name`, `version`, `versionTag`, and optional `config`)\n- `addInsightsAccount` / `removeInsightsAccount`: add or remove Insights accounts\n\nEnforcement le"
+        },
+        {
+          "info": {
+            "name": "DeletePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ]
+          },
+          "docs": "Deletes a Policy Group from an organization. A Policy Group defines which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. The organization's default Policy Group cannot be deleted. Deleting a Policy Group removes all policy enforcement associations for the stacks that were assigned to it."
+        },
+        {
+          "info": {
+            "name": "BatchUpdatePolicyGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/policygroups/:policyGroup/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "policyGroup",
+                "value": "",
+                "type": "path",
+                "description": "The policy group name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "BatchUpdatePolicyGroup applies multiple update operations to the Policy Group efficiently. Each operation in the list uses the same fields as UpdatePolicyGroupRequest. Operations are grouped by type (adds, removes) and processed in batches for efficiency."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1360 @@
+{
+  "item": [
+    {
+      "id": "1da5a43e-32c9-47bf-aa2b-a7e379e3427f",
+      "name": "PolicyGroups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be8fe93d-9c77-4ece-93c6-c998c3ba078c",
+          "name": "ListPolicyGroups",
+          "request": {
+            "name": "ListPolicyGroups",
+            "description": {
+              "content": "Returns a list of all Policy Groups for the organization. Policy Groups define which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. Every organization has a default Policy Group, and additional groups can be created to apply different policy sets to different environments (e.g., stricter enforcement in production).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "448127e4-ec05-4096-bff1-b4081e55f862",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyGroups\": [\n    {\n      \"entityType\": \"accounts\",\n      \"isOrgDefault\": true,\n      \"mode\": \"preventative\",\n      \"name\": \"string\",\n      \"numEnabledPolicyPacks\": 4010,\n      \"numStacks\": 5871,\n      \"numAccounts\": 9769\n    },\n    {\n      \"entityType\": \"accounts\",\n      \"isOrgDefault\": false,\n      \"mode\": \"preventative\",\n      \"name\": \"string\",\n      \"numEnabledPolicyPacks\": 4376,\n      \"numStacks\": 4431,\n      \"numAccounts\": 8235\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd789c63-9654-4102-b410-6b170093cc0b",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bd22591-7142-452c-ae37-eac9b8bc9e3f",
+          "name": "NewPolicyGroup",
+          "request": {
+            "name": "NewPolicyGroup",
+            "description": {
+              "content": "Creates a new Policy Group for an organization. Policy Groups define which Policy Packs are enforced on which stacks or cloud accounts, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. This allows different policy strictness for different environments, such as advisory-only in development and mandatory in production.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityType\": \"<string>\",\n  \"name\": \"<string>\",\n  \"agentPoolId\": \"<string>\",\n  \"mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a186191-25fe-47d1-aa7e-60a0d6caaaaf",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"<string>\",\n  \"name\": \"<string>\",\n  \"agentPoolId\": \"<string>\",\n  \"mode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b42c930e-4e11-4184-b5b9-bb8f346f71bc",
+              "name": "Invalid entity type or invalid Policy Group name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"<string>\",\n  \"name\": \"<string>\",\n  \"agentPoolId\": \"<string>\",\n  \"mode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f03a5265-4d10-4c27-96eb-0c8fa60e80d6",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"<string>\",\n  \"name\": \"<string>\",\n  \"agentPoolId\": \"<string>\",\n  \"mode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66d0780c-ade4-455c-99a5-55f43a9f5ee2",
+              "name": "Policy Group already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"<string>\",\n  \"name\": \"<string>\",\n  \"agentPoolId\": \"<string>\",\n  \"mode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8217a7b9-9491-47ee-b8ea-a848d48c065e",
+          "name": "GetPolicyGroupMetadata",
+          "request": {
+            "name": "GetPolicyGroupMetadata",
+            "description": {
+              "content": "Returns high-level policy protection metrics for an organization, including the number of stacks protected by policy enforcement, the total number of Policy Groups, and overall policy coverage statistics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f1f0dd47-3854-49ff-865a-efcfbcfa85a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"AuditStackResources\": 5879,\n  \"AuditStacks\": 5224,\n  \"PreventativeStackResources\": 4306,\n  \"PreventativeStacks\": 2549,\n  \"ProtectedAccountResources\": 2984,\n  \"ProtectedAccounts\": 1729,\n  \"ProtectedStackResources\": 9337,\n  \"ProtectedStacks\": 6864,\n  \"TotalAccountResources\": 178,\n  \"TotalAccounts\": 9911,\n  \"TotalStackResources\": 4115,\n  \"TotalStacks\": 7346\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c627f942-7f09-4e9c-a7fb-02d971d3537f",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24d7da75-46e9-4caa-a618-22f996b7e81b",
+          "name": "DeletePolicyGroup",
+          "request": {
+            "name": "DeletePolicyGroup",
+            "description": {
+              "content": "Deletes a Policy Group from an organization. A Policy Group defines which Policy Packs are enforced on which stacks, with configurable enforcement levels (advisory, mandatory, or disabled) per pack. The organization's default Policy Group cannot be deleted. Deleting a Policy Group removes all policy enforcement associations for the stacks that were assigned to it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups",
+                ":policyGroup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyGroup",
+                  "description": "(Required) The policy group name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2a1cd41-03f8-48d5-a313-bdc12c235556",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b1a9fe9-ce48-4662-8327-226a447ea1b1",
+              "name": "Cannot delete the default Policy Group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca756aff-4ae6-46b0-af9f-8644155bf9cb",
+              "name": "Organization or Policy Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c654b415-53f9-4dd8-b515-b18ded0ac302",
+          "name": "GetPolicyGroup",
+          "request": {
+            "name": "GetPolicyGroup",
+            "description": {
+              "content": "Returns the details of a specific Policy Group, including the list of Policy Packs applied to it and their enforcement levels (advisory, mandatory, or disabled), as well as the stacks or cloud accounts assigned to the group. Policy Groups enable targeted policy enforcement by associating sets of policies with specific infrastructure resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups",
+                ":policyGroup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyGroup",
+                  "description": "(Required) The policy group name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23a2c567-a39c-4b78-b507-75a92e74322f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    \"string\",\n    \"string\"\n  ],\n  \"appliedPolicyPacks\": [\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"version\": 5844,\n      \"versionTag\": \"string\",\n      \"config\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"environments\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"displayName\": \"string\",\n      \"name\": \"string\",\n      \"version\": 8051,\n      \"versionTag\": \"string\",\n      \"config\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"environments\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"entityType\": \"accounts\",\n  \"isOrgDefault\": true,\n  \"mode\": \"audit\",\n  \"name\": \"string\",\n  \"stacks\": [\n    {\n      \"name\": \"string\",\n      \"routingProject\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"routingProject\": \"string\"\n    }\n  ],\n  \"agentPoolId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb0f9ccd-2e61-40c4-9ec7-20c0afefd817",
+              "name": "Organization or Policy Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd08432b-a31c-4bc3-9eff-b1194d3f470f",
+          "name": "UpdatePolicyGroup",
+          "request": {
+            "name": "UpdatePolicyGroup",
+            "description": {
+              "content": "Updates a Policy Group's configuration. This multi-purpose endpoint supports several operations in a single request via different body fields:\n\n- `newName`: rename the policy group\n- `addStack` / `removeStack`: add or remove stacks (with `name` and `routingProject` fields)\n- `addPolicyPack` / `removePolicyPack`: add or remove policy packs (with `name`, `version`, `versionTag`, and optional `config`)\n- `addInsightsAccount` / `removeInsightsAccount`: add or remove Insights accounts\n\nEnforcement levels for policy packs are `advisory`, `mandatory`, or `disabled`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups",
+                ":policyGroup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyGroup",
+                  "description": "(Required) The policy group name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addPolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\",\n      \"key_3\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"addStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"newName\": \"<string>\",\n  \"removePolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"removeStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"addInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  },\n  \"agentPoolId\": \"<string>\",\n  \"removeInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5457843-072b-4f47-8313-15361b324453",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addPolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"addStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"newName\": \"<string>\",\n  \"removePolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"removeStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"addInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  },\n  \"agentPoolId\": \"<string>\",\n  \"removeInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce819dec-b67b-4ac3-bb71-e0dac1cf6269",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addPolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"addStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"newName\": \"<string>\",\n  \"removePolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"removeStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"addInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  },\n  \"agentPoolId\": \"<string>\",\n  \"removeInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ded6afe-8f67-4ced-b9eb-ea68d93e17c8",
+              "name": "Organization, Policy Group, Stack, Account, or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addPolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"addStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"newName\": \"<string>\",\n  \"removePolicyPack\": {\n    \"displayName\": \"<string>\",\n    \"name\": \"<string>\",\n    \"version\": \"<long>\",\n    \"versionTag\": \"<string>\",\n    \"config\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\",\n      \"key_2\": \"<object>\"\n    },\n    \"environments\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"removeStack\": {\n    \"name\": \"<string>\",\n    \"routingProject\": \"<string>\"\n  },\n  \"addInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  },\n  \"agentPoolId\": \"<string>\",\n  \"removeInsightsAccount\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ownedBy\": {\n      \"avatarUrl\": \"<string>\",\n      \"githubLogin\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"provider\": \"<string>\",\n    \"scheduledScanEnabled\": \"<boolean>\",\n    \"agentPoolID\": \"<string>\",\n    \"providerConfig\": \"<object>\",\n    \"providerEnvRef\": \"<string>\",\n    \"providerVersion\": \"<string>\",\n    \"scanStatus\": {\n      \"finishedAt\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"jobTimeout\": \"<dateTime>\",\n      \"lastUpdatedAt\": \"<dateTime>\",\n      \"orgId\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"jobs\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"accountName\": \"<string>\",\n      \"resourceCount\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a303e2c-15db-4a1e-8d30-fc8271d8649e",
+          "name": "BatchUpdatePolicyGroup",
+          "request": {
+            "name": "BatchUpdatePolicyGroup",
+            "description": {
+              "content": "BatchUpdatePolicyGroup applies multiple update operations to the Policy Group efficiently. Each operation in the list uses the same fields as UpdatePolicyGroupRequest. Operations are grouped by type (adds, removes) and processed in batches for efficiency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "orgs",
+                ":orgName",
+                "policygroups",
+                ":policyGroup",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyGroup",
+                  "description": "(Required) The policy group name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\",\n        \"key_2\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  },\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\",\n        \"key_2\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09f86dd6-21ef-42e8-87ab-291329d84b0a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  },\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "09046fb5-d5b4-42cb-a707-a148a44c36e8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  },\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2be49e09-fcf7-4d1a-923e-8b77c3fe91e7",
+              "name": "Organization, Policy Group, Stack, Account, or Policy Pack not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "orgs",
+                    ":orgName",
+                    "policygroups",
+                    ":policyGroup",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyGroup",
+                      "description": "(Required) The policy group name"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  },\n  {\n    \"addPolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"addStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"newName\": \"<string>\",\n    \"removePolicyPack\": {\n      \"displayName\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<long>\",\n      \"versionTag\": \"<string>\",\n      \"config\": {\n        \"key_0\": \"<object>\"\n      },\n      \"environments\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"removeStack\": {\n      \"name\": \"<string>\",\n      \"routingProject\": \"<string>\"\n    },\n    \"addInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    },\n    \"agentPoolId\": \"<string>\",\n    \"removeInsightsAccount\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ownedBy\": {\n        \"avatarUrl\": \"<string>\",\n        \"githubLogin\": \"<string>\",\n        \"name\": \"<string>\",\n        \"email\": \"<string>\"\n      },\n      \"provider\": \"<string>\",\n      \"scheduledScanEnabled\": \"<boolean>\",\n      \"agentPoolID\": \"<string>\",\n      \"providerConfig\": \"<object>\",\n      \"providerEnvRef\": \"<string>\",\n      \"providerVersion\": \"<string>\",\n      \"scanStatus\": {\n        \"finishedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobTimeout\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lastUpdatedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"orgId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"startedAt\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"userId\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"jobs\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"accountName\": \"<string>\",\n        \"resourceCount\": \"<long>\"\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "27fd3ed1-a74f-408a-b64d-a7ed814babd8",
+    "name": "Pulumi APIs AccessTokens PolicyGroups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

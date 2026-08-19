@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens StackTags API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StackTags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AddStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new tag on the specified stack. Tags are key-value metadata pairs that can be used for organization, filtering, and storing additional information about stacks. The request body must include both a tag name and value. Returns 400 if the tag name is invalid or the tag already exists. Built-in tags (such as those automatically set by the Pulumi CLI) follow specific naming conventions."
+        },
+        {
+          "info": {
+            "name": "UpdateStackTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all tags on the specified stack with the tags provided in the request body. This is a wholesale replacement operation: any existing tags not included in the request will be removed. The request body is a JSON map of tag name-value pairs. Returns 400 if the operation would change the project name tag or if any tags are invalid."
+        },
+        {
+          "info": {
+            "name": "UpdateStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags/:tagName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path",
+                "description": "The tag name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the value of an existing tag on the specified stack. The tag is identified by its name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI, such as project name tags) cannot be updated and will return a 400 error. Returns 404 if the specified tag does not exist on the stack."
+        },
+        {
+          "info": {
+            "name": "DeleteStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags/:tagName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path",
+                "description": "The tag name"
+              }
+            ]
+          },
+          "docs": "Removes a specific tag from the stack, identified by the tag name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI) cannot be deleted and will return a 400 error. Returns 404 if the specified tag does not exist on the stack. Returns 204 with no content on success."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

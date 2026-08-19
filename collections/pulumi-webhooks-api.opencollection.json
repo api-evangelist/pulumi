@@ -1,0 +1,518 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Webhooks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListOrganizationWebhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured at the organization level. Each webhook in the response includes its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, and subscribed event filters. Organization-level webhooks can fire on stack lifecycle events, deployment events, drift detection events, and policy violation events."
+        },
+        {
+          "info": {
+            "name": "CreateOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for an organization to notify external services when events occur. Webhooks can be configured to fire on stack events (created, deleted, update succeeded/failed), deployment events (queued, started, succeeded, failed), drift detection events, and policy violation events (mandatory, advisory).\n\nThe `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.\n\nThe `filters` field accepts a list of event types to subscribe to. See the [webhook event f"
+        },
+        {
+          "info": {
+            "name": "GetOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Returns the configuration of a specific organization-level webhook, including its name, destination URL, format (generic JSON, Slack, or Microsoft Teams), active status, event filter subscriptions, and whether a shared secret is configured for HMAC signature verification."
+        },
+        {
+          "info": {
+            "name": "UpdateOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing organization-level webhook's configuration, including its destination URL, format, active status, event filter subscriptions, and shared secret. The 'pulumi_deployments' format can only be used on stack or environment webhooks, not organization-level ones."
+        },
+        {
+          "info": {
+            "name": "DeleteOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an organization-level webhook. The webhook will no longer receive event notifications for stack updates, deployments, drift detection, or policy violations. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "GetOrganizationWebhookDeliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/deliveries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Returns the recent delivery history for a specific webhook, including the HTTP status code, response time, request payload, and delivery timestamp for each attempt. This allows monitoring webhook health and diagnosing delivery failures. Each delivery includes a unique Pulumi-Webhook-ID."
+        },
+        {
+          "info": {
+            "name": "RedeliverOrganizationWebhookEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/deliveries/:event/redeliver",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "path",
+                "description": "The event identifier to redeliver"
+              }
+            ]
+          },
+          "docs": "Triggers the Pulumi Service to redeliver\na specific event to a webhook. For example, to resend an event that the\nhook failed to process the first time."
+        },
+        {
+          "info": {
+            "name": "PingOrganizationWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/hooks/:hookName/ping",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name identifier"
+              }
+            ]
+          },
+          "docs": "Sends a test ping to an organization webhook to validate that it is working.\nThis function bypasses the message queue machinery and issues the request directly to the webhook."
+        },
+        {
+          "info": {
+            "name": "ListStackWebhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured for the specified stack. Each webhook in the response includes its name, display name, payload URL, format, filters, and active status."
+        },
+        {
+          "info": {
+            "name": "CreateStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for the specified stack. The request body must include the webhook name, payload URL, and format.\n\nThe `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.\n\nThe `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.\n\nThe optional `secret` field sets the HMAC key for signature verification. See th"
+        },
+        {
+          "info": {
+            "name": "GetStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a single webhook identified by its name, including its configuration, filters, groups, and active status. Returns 404 if the webhook does not exist."
+        },
+        {
+          "info": {
+            "name": "UpdateStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook's configuration. Supports modifying the display name, payload URL, format, groups, filters, and active status. The 'pulumi_deployments' format can only be used on stack or environment webhooks. Returns 404 if the webhook does not exist."
+        },
+        {
+          "info": {
+            "name": "DeleteStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Deletes a webhook from the specified stack. Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "GetStackWebhookDeliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/deliveries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Returns the recent delivery history for a specific webhook. Each delivery includes the timestamp, HTTP status code, request and response details, and whether the delivery was successful."
+        },
+        {
+          "info": {
+            "name": "RedeliverStackWebhookEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/deliveries/:event/redeliver",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "path",
+                "description": "The webhook delivery event identifier to redeliver"
+              }
+            ]
+          },
+          "docs": "Triggers the Pulumi Service to redeliver a specific event to a webhook. This is useful for resending an event that the webhook endpoint failed to process on the initial delivery attempt. Returns the delivery result with HTTP status and response details. Returns 404 if the webhook or event does not exist."
+        },
+        {
+          "info": {
+            "name": "PingStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/ping",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Issues a test ping event to the specified webhook to verify it is properly configured and reachable. Unlike normal webhook deliveries, this bypasses the message queue and sends the request directly to the webhook endpoint. The response includes the delivery result with HTTP status and response details. Returns 404 if the webhook does not exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

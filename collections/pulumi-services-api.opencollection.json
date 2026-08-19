@@ -1,0 +1,308 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Services API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListServices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ]
+          },
+          "docs": "Returns all service accounts in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They can hold access tokens, belong to teams, and have stack permissions, making them suitable for CI/CD pipelines, automation tools, and other machine-to-machine integrations."
+        },
+        {
+          "info": {
+            "name": "CreateService",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new service account in an organization. Service accounts provide programmatic, non-human identities for accessing Pulumi Cloud resources. They are scoped to an organization and can hold access tokens, belong to teams, and have stack permissions. The service name must be unique within the organization."
+        },
+        {
+          "info": {
+            "name": "GetService",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific service account, including its name, owner, description, team memberships, access tokens, and stack permissions. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are identified by their owner type, owner name, and service name."
+        },
+        {
+          "info": {
+            "name": "UpdateService",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the metadata and configuration of an existing service account, such as its description, team memberships, and access settings. Service accounts provide programmatic, non-human access to Pulumi Cloud resources."
+        },
+        {
+          "info": {
+            "name": "DeleteService",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force deletion even if the service has other members"
+              }
+            ]
+          },
+          "docs": "Deletes a service account from an organization. Service accounts provide programmatic, non-human access to Pulumi Cloud resources. If the service has other members, deletion requires explicit confirmation via the force parameter. All access tokens and permissions associated with the service are revoked."
+        },
+        {
+          "info": {
+            "name": "HeadService",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ]
+          },
+          "docs": "Checks whether a service account exists in the organization without returning its full details. Returns 204 No Content if the service exists, or an error if not found. This is a lightweight check useful for validating service account references."
+        },
+        {
+          "info": {
+            "name": "AddServiceItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName/items",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds items (such as access tokens, team memberships, or stack permissions) to an existing service account. Service accounts provide programmatic, non-human access to Pulumi Cloud resources and are scoped to an organization. Items define what the service account can access and what credentials it holds. Returns the updated service details."
+        },
+        {
+          "info": {
+            "name": "RemoveServiceItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/orgs/:orgName/services/:ownerType/:ownerName/:serviceName/items/:itemType/:itemName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "ownerType",
+                "value": "",
+                "type": "path",
+                "description": "The owner type"
+              },
+              {
+                "name": "ownerName",
+                "value": "",
+                "type": "path",
+                "description": "The owner name"
+              },
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "The service name"
+              },
+              {
+                "name": "itemType",
+                "value": "",
+                "type": "path",
+                "description": "The item type"
+              },
+              {
+                "name": "itemName",
+                "value": "",
+                "type": "path",
+                "description": "The item name"
+              }
+            ]
+          },
+          "docs": "Removes a specific item (such as a team membership, access token, or stack permission) from a service account. Returns the updated service details after the item has been removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

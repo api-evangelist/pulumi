@@ -1,0 +1,2054 @@
+{
+  "item": [
+    {
+      "id": "03731698-4ba6-4846-9dd8-863425d2ede0",
+      "name": "CloudSetup",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82f8cf53-6b36-400f-a114-e520144be619",
+          "name": "AWSSetup",
+          "request": {
+            "name": "AWSSetup",
+            "description": {
+              "content": "Sets up AWS infrastructure using provided static credentials",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "aws",
+                "setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessKeyId\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"secretAccessKey\": \"<string>\",\n  \"sessionToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fbe9dc80-1ffc-412c-aaab-38ab0d5a0e8b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessKeyId\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"secretAccessKey\": \"<string>\",\n  \"sessionToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resources\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cb7d0ab-48dc-4139-b80d-63a2a4677ba3",
+              "name": "Failed to setup infrastructure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessKeyId\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"secretAccessKey\": \"<string>\",\n  \"sessionToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b93ffed1-7786-4cb1-9fe3-c9f14cf23da0",
+          "name": "AWSSSOListAccounts",
+          "request": {
+            "name": "AWSSSOListAccounts",
+            "description": {
+              "content": "Lists AWS accounts accessible with the provided session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "aws",
+                "sso",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "The AWS region"
+                },
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "The SSO session identifier"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74206bec-bbdf-496e-81a3-d1b3f39bccbd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 9888,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 343,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24d0bf4a-10f3-40a7-ad7a-b2dbbe623ee6",
+              "name": "Failed to list accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5adfa7af-d377-4cbc-8693-61534e4fd2d0",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "687cbbd4-7d63-4d64-bf60-f5cf2c30f895",
+              "name": "Session not yet authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b448128-805b-4e26-b800-acc061a5f1a8",
+          "name": "AWSSSOInitiate",
+          "request": {
+            "name": "AWSSSOInitiate",
+            "description": {
+              "content": "Initiates the AWS SSO flow",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "aws",
+                "sso",
+                "initiate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"region\": \"<string>\",\n  \"startUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbffcedb-16c1-4c13-a664-914713a51790",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "initiate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"region\": \"<string>\",\n  \"startUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sessionId\": \"string\",\n  \"url\": \"string\",\n  \"userCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ce7d0e-8b00-482b-a624-680a4b16915d",
+              "name": "Failed to initiate AWS SSO flow",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "initiate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"region\": \"<string>\",\n  \"startUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c427e7df-30df-44e3-8bf4-5b8e2b56c1b3",
+          "name": "AWSSSOSetup",
+          "request": {
+            "name": "AWSSSOSetup",
+            "description": {
+              "content": "Sets up AWS infrastructure and ESC environments using AWS SSO",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "aws",
+                "sso",
+                "setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountRoleName\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"region\": \"<string>\",\n  \"sessionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5cc57316-4480-4f45-bea5-0e3edbac6df6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountRoleName\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"region\": \"<string>\",\n  \"sessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resources\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"success\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a008e3f-483f-4b33-b90a-e1e9d8608e61",
+              "name": "Failed to setup infrastructure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountRoleName\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"region\": \"<string>\",\n  \"sessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41efb10b-cd1e-4edd-a34e-510e7761c52f",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "aws",
+                    "sso",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountRoleName\": \"<string>\",\n  \"oidcRoleName\": \"<string>\",\n  \"policyArn\": \"<string>\",\n  \"region\": \"<string>\",\n  \"sessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd2da061-8b44-4e2f-80a5-d5e13624126f",
+          "name": "AzureListAccounts",
+          "request": {
+            "name": "AzureListAccounts",
+            "description": {
+              "content": "Lists Azure subscriptions accessible with the provided ARM session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "azure",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "armSessionId",
+                  "value": "<string>",
+                  "description": "The Azure ARM session identifier"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c98b063-fdf1-49d3-a208-489fd712327f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "armSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 2708,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 2773,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94e7adb3-90e7-4c26-a542-245c8a99c6ea",
+              "name": "Failed to list azure subscriptions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "armSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "436c2260-55f0-4650-a659-db40a8df99e2",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "armSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffc94eae-57ea-45c1-80f9-1711cce9f083",
+          "name": "AzureSetup",
+          "request": {
+            "name": "AzureSetup",
+            "description": {
+              "content": "Sets up Azure infrastructure and ESC environments using OAuth credentials",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "azure",
+                "setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"armSessionId\": \"<string>\",\n  \"azureEnvironmentInfos\": [\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    },\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    }\n  ],\n  \"graphSessionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31d9918f-d3db-4c09-bc71-91232942fdc7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"armSessionId\": \"<string>\",\n  \"azureEnvironmentInfos\": [\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    },\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    }\n  ],\n  \"graphSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resources\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"success\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93b21614-d41f-4da3-852f-883691b9b723",
+              "name": "Failed to setup infrastructure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"armSessionId\": \"<string>\",\n  \"azureEnvironmentInfos\": [\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    },\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    }\n  ],\n  \"graphSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c943a7a9-2f54-41ff-83ba-d25a4d22f1c7",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "azure",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"armSessionId\": \"<string>\",\n  \"azureEnvironmentInfos\": [\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    },\n    {\n      \"environmentName\": \"<string>\",\n      \"projectName\": \"<string>\",\n      \"roleID\": \"<string>\",\n      \"subscriptionID\": \"<string>\"\n    }\n  ],\n  \"graphSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9045d8a-d73c-401d-9c4c-08fca24883ef",
+          "name": "CompleteOAuth",
+          "request": {
+            "name": "CompleteOAuth",
+            "description": {
+              "content": "Completes OAuth flow by exchanging authorization code for access token",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\",\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  },\n  \"sessionID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a29716bd-18dc-480a-9aba-101636db0272",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  },\n  \"sessionID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3e38d60-2168-407d-b44e-b0f1da2a4334",
+              "name": "Failed to complete OAuth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  },\n  \"sessionID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50a2c280-9a26-425d-9da9-ae831b66d48b",
+          "name": "GCPListAccounts",
+          "request": {
+            "name": "GCPListAccounts",
+            "description": {
+              "content": "Lists GCP projects accessible with the provided oauth session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "gcp",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "oauthSessionId",
+                  "value": "<string>",
+                  "description": "The OAuth session identifier"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51c6f29c-0725-4ce1-99bc-6dcc78eb7644",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "oauthSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 2708,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"number\": 2773,\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54704e69-166d-4444-9770-c72caa624290",
+              "name": "Failed to list gcp projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "oauthSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acc9c31d-fce3-4898-bb34-35c90e1807ec",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "oauthSessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57d2a7e1-08e4-4546-9277-ba6f52f972be",
+          "name": "GCPSetup",
+          "request": {
+            "name": "GCPSetup",
+            "description": {
+              "content": "Sets up GCP infrastructure using OAuth credentials",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "gcp",
+                "setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gcpEnvironmentInfo\": {\n    \"environmentName\": \"<string>\",\n    \"gcpProjectID\": \"<string>\",\n    \"gcpRoleID\": \"<string>\",\n    \"gcpServiceAccountName\": \"<string>\",\n    \"projectName\": \"<string>\"\n  },\n  \"oauthSessionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c643822e-910f-4024-aff1-b92589f9ae63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"gcpEnvironmentInfo\": {\n    \"environmentName\": \"<string>\",\n    \"gcpProjectID\": \"<string>\",\n    \"gcpRoleID\": \"<string>\",\n    \"gcpServiceAccountName\": \"<string>\",\n    \"projectName\": \"<string>\"\n  },\n  \"oauthSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resources\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"error\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"success\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1293b828-fb5e-4016-9ada-62a09b259746",
+              "name": "Failed to setup infrastructure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"gcpEnvironmentInfo\": {\n    \"environmentName\": \"<string>\",\n    \"gcpProjectID\": \"<string>\",\n    \"gcpRoleID\": \"<string>\",\n    \"gcpServiceAccountName\": \"<string>\",\n    \"projectName\": \"<string>\"\n  },\n  \"oauthSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08896897-5d67-4b5f-b5b4-0803389557b9",
+              "name": "Organization or Session not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "gcp",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"gcpEnvironmentInfo\": {\n    \"environmentName\": \"<string>\",\n    \"gcpProjectID\": \"<string>\",\n    \"gcpRoleID\": \"<string>\",\n    \"gcpServiceAccountName\": \"<string>\",\n    \"projectName\": \"<string>\"\n  },\n  \"oauthSessionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e4387e5-be45-4c68-9eda-d5e36d9a936b",
+          "name": "InitiateOAuth",
+          "request": {
+            "name": "InitiateOAuth",
+            "description": {
+              "content": "Initiates OAuth flow for a given cloud provider",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "esc",
+                "cloudsetup",
+                ":orgName",
+                "oauth",
+                "initiate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1c48164-40c1-4c56-b542-87f866956dc4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "initiate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sessionID\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d75d750-e3df-4198-b012-b97f9af9407c",
+              "name": "Failed to initiate oauth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "esc",
+                    "cloudsetup",
+                    ":orgName",
+                    "oauth",
+                    "initiate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": {\n    \"name\": \"<string>\",\n    \"azure\": {\n      \"apiName\": \"<string>\",\n      \"tenantId\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0c312044-7e61-48d8-9e5f-b41ee3a4df0e",
+    "name": "Pulumi APIs AccessTokens CloudSetup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

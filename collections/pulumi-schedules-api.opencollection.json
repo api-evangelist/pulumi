@@ -1,0 +1,462 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Schedules API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CreateScheduledDriftDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/drift/schedules",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a drift detection schedule for a stack using Pulumi Deployments. Drift detection identifies divergence between the declared infrastructure state in your Pulumi program and the actual state of resources in the cloud provider. The 'scheduleCron' field accepts a cron expression defining when drift detection should run (e.g. '0 */4 * * *' for every 4 hours). When 'autoRemediate' is set to true, a remediation update is automatically triggered to bring resources back into alignment with the de"
+        },
+        {
+          "info": {
+            "name": "UpdateScheduledDriftDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/drift/schedules/:scheduleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing drift detection schedule. The request body can modify the cron expression controlling when drift detection runs and the autoRemediate flag that determines whether detected drift is automatically corrected by running an update operation. Auto-remediation requires a Business Critical subscription. Only future executions are affected; past drift detection runs are not modified."
+        },
+        {
+          "info": {
+            "name": "ListScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns all scheduled deployment actions configured for a stack. The response includes all schedule types: custom deployment schedules (cron-based recurring or one-time), drift detection schedules, and TTL (time-to-live) schedules. Each schedule in the response contains its ID, type, configuration (cron expression or timestamp), current status (active or paused), and the deployment request that will be executed on each run."
+        },
+        {
+          "info": {
+            "name": "CreateScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a custom deployment schedule for a stack using Pulumi Deployments. Custom schedules allow you to automate recurring or one-time Pulumi operations on a stack. The request must include exactly one of 'scheduleCron' (a cron expression for recurring executions, e.g. '0 */4 * * *' for every 4 hours) or 'scheduleOnce' (an ISO 8601 timestamp for a one-time execution). The 'request' field contains the deployment configuration that will be executed on each scheduled run, including the Pulumi oper"
+        },
+        {
+          "info": {
+            "name": "ReadScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration and metadata for a specific scheduled deployment action. The response includes the schedule's ID, type (custom, drift, or TTL), timing configuration (cron expression or one-time timestamp), current status (active or paused), the deployment request that will be executed, and any type-specific fields such as autoRemediate for drift schedules or deleteAfterDestroy for TTL schedules."
+        },
+        {
+          "info": {
+            "name": "UpdateScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing custom deployment schedule. The request body can modify the timing (cron expression for recurring schedules or ISO 8601 timestamp for one-time schedules) and the deployment request that will be executed on each future run, including the Pulumi operation type and settings overrides. Only future executions are affected; past executions are not modified. The stack must have deployment settings configured."
+        },
+        {
+          "info": {
+            "name": "DeleteScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a scheduled deployment action from a stack. This removes the schedule configuration entirely and cannot be undone. The schedule will no longer execute any future runs. This endpoint is used for all schedule types (custom, drift detection, and TTL). To temporarily stop a schedule without deleting it, use the pause endpoint instead."
+        },
+        {
+          "info": {
+            "name": "ListScheduledDeploymentHistory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID/history",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ]
+          },
+          "docs": "Returns the execution history for a specific scheduled deployment action. The response includes a chronological list of past schedule invocations and their outcomes, such as whether the triggered deployment succeeded, failed, or was skipped. This is useful for monitoring the reliability and results of recurring deployments, drift detection runs, or TTL schedule executions."
+        },
+        {
+          "info": {
+            "name": "PauseScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID/pause",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ]
+          },
+          "docs": "Temporarily suspends future executions of a scheduled deployment action without deleting the schedule configuration. The schedule remains configured and can be reactivated at any time using the ResumeScheduledDeployment endpoint. This is useful for temporarily halting recurring schedules (drift detection, TTL, or custom) during maintenance periods or when troubleshooting issues."
+        },
+        {
+          "info": {
+            "name": "ResumeScheduledDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/schedules/:scheduleID/resume",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ]
+          },
+          "docs": "Reactivates a previously paused scheduled deployment action. After resuming, the schedule will continue executing according to its configured timing (cron expression for recurring schedules, or at the scheduled timestamp for one-time schedules). This works for all schedule types: custom deployment schedules, drift detection schedules, and TTL schedules."
+        },
+        {
+          "info": {
+            "name": "CreateScheduledTTLDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/ttl/schedules",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a TTL (time-to-live) schedule for a stack using Pulumi Deployments. TTL schedules automatically destroy a stack's cloud resources at a specified expiration time, which is useful for temporary or ephemeral infrastructure that should be cleaned up after a defined period. The 'timestamp' field must be an ISO 8601 formatted date-time (e.g. '2024-12-31T00:00:00.000Z') specifying when the destroy operation should execute. When 'deleteAfterDestroy' is set to true, the stack itself is also remov"
+        },
+        {
+          "info": {
+            "name": "UpdateScheduledTTLDeployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/deployments/ttl/schedules/:scheduleID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "scheduleID",
+                "value": "",
+                "type": "path",
+                "description": "The schedule identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing TTL (time-to-live) schedule. The request body can modify the destruction timestamp (ISO 8601 format) and the deleteAfterDestroy flag that controls whether the stack is also removed from Pulumi Cloud after its resources are successfully destroyed. The timestamp field is required and must be set to a valid future date-time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

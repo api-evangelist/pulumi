@@ -1,0 +1,3072 @@
+{
+  "item": [
+    {
+      "id": "9feceddb-c830-414e-9785-f8f9e59aa75e",
+      "name": "Schedules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2279e691-45d8-4148-912d-2f492937fde5",
+          "name": "CreateScheduledDriftDeployment",
+          "request": {
+            "name": "CreateScheduledDriftDeployment",
+            "description": {
+              "content": "Creates a drift detection schedule for a stack using Pulumi Deployments. Drift detection identifies divergence between the declared infrastructure state in your Pulumi program and the actual state of resources in the cloud provider. The 'scheduleCron' field accepts a cron expression defining when drift detection should run (e.g. '0 */4 * * *' for every 4 hours). When 'autoRemediate' is set to true, a remediation update is automatically triggered to bring resources back into alignment with the declared state whenever drift is detected. Auto-remediation requires a Business Critical subscription. The stack must have deployment settings configured before a drift schedule can be created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "drift",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1df38a3d-83e9-401c-a7fa-bb5143a485bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b8e84df-31f7-4209-98b1-9cea613355aa",
+              "name": "Stack does not have deployment settings configured",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c620e745-bca4-4bfc-89f4-c9d846d1a88e",
+              "name": "Drift remediation requires Business Critical subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4cb46177-5c72-4496-b510-b34eba2bb4a3",
+              "name": "ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c9babe1-310b-4508-8e66-ce378d37cb35",
+          "name": "UpdateScheduledDriftDeployment",
+          "request": {
+            "name": "UpdateScheduledDriftDeployment",
+            "description": {
+              "content": "Updates the configuration of an existing drift detection schedule. The request body can modify the cron expression controlling when drift detection runs and the autoRemediate flag that determines whether detected drift is automatically corrected by running an update operation. Auto-remediation requires a Business Critical subscription. Only future executions are affected; past drift detection runs are not modified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "drift",
+                "schedules",
+                ":scheduleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8204c692-6e6f-4f0e-ad9b-4eab83f87d36",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ed8c61-c39f-448b-bd5f-685ecbcd8d30",
+              "name": "Invalid schedule",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f7b1e5b-d861-4c4f-a8ef-cebd87f74a90",
+              "name": "Drift remediation requires Business Critical subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6788af53-2439-4855-9b68-2e85cb4dfa02",
+              "name": "ScheduledAction or ScheduledDeployment",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "drift",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"autoRemediate\": \"<boolean>\",\n  \"scheduleCron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8948a4b1-83a8-431f-92c5-4df5b48eaf6a",
+          "name": "ListScheduledDeployment",
+          "request": {
+            "name": "ListScheduledDeployment",
+            "description": {
+              "content": "Returns all scheduled deployment actions configured for a stack. The response includes all schedule types: custom deployment schedules (cron-based recurring or one-time), drift detection schedules, and TTL (time-to-live) schedules. Each schedule in the response contains its ID, type, configuration (cron expression or timestamp), current status (active or paused), and the deployment request that will be executed on each run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88c12c05-c47e-486d-bea9-5ff9f6e59d3c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schedules\": [\n    {\n      \"created\": \"string\",\n      \"definition\": {\n        \"key_0\": {}\n      },\n      \"id\": \"string\",\n      \"kind\": \"environment_rotation\",\n      \"lastExecuted\": \"string\",\n      \"modified\": \"string\",\n      \"nextExecution\": \"string\",\n      \"orgID\": \"string\",\n      \"paused\": true,\n      \"scheduleCron\": \"string\",\n      \"scheduleOnce\": \"string\"\n    },\n    {\n      \"created\": \"string\",\n      \"definition\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"id\": \"string\",\n      \"kind\": \"deployment\",\n      \"lastExecuted\": \"string\",\n      \"modified\": \"string\",\n      \"nextExecution\": \"string\",\n      \"orgID\": \"string\",\n      \"paused\": false,\n      \"scheduleCron\": \"string\",\n      \"scheduleOnce\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "497ad3f3-39a7-45e5-82c5-45fe3e202afc",
+              "name": "Organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41fadd94-e97d-44c6-8c36-1586eb0ad183",
+          "name": "CreateScheduledDeployment",
+          "request": {
+            "name": "CreateScheduledDeployment",
+            "description": {
+              "content": "Creates a custom deployment schedule for a stack using Pulumi Deployments. Custom schedules allow you to automate recurring or one-time Pulumi operations on a stack. The request must include exactly one of 'scheduleCron' (a cron expression for recurring executions, e.g. '0 */4 * * *' for every 4 hours) or 'scheduleOnce' (an ISO 8601 timestamp for a one-time execution). The 'request' field contains the deployment configuration that will be executed on each scheduled run, including the Pulumi operation type and any settings overrides. The stack must have deployment settings configured before a schedule can be created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"key_1\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "05b73a37-202a-4735-ba9e-c07ebe96e9c6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78be48df-3b22-414b-b6ff-bc97bfc436e6",
+              "name": "Invalid definition for scheduled deployment or stack does not have deployment settings configured",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91d8e16b-2c89-41bb-9d1c-3a66cf48df01",
+          "name": "DeleteScheduledDeployment",
+          "request": {
+            "name": "DeleteScheduledDeployment",
+            "description": {
+              "content": "Permanently deletes a scheduled deployment action from a stack. This removes the schedule configuration entirely and cannot be undone. The schedule will no longer execute any future runs. This endpoint is used for all schedule types (custom, drift detection, and TTL). To temporarily stop a schedule without deleting it, use the pause endpoint instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60b33fbb-f047-4a3d-8f35-5ed7cd23bb6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13274c3d-03d6-4e56-a6a9-9459bcf59fcd",
+              "name": "ScheduledDeployment",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f979c7d-1c31-4d11-9325-d6f795d17e67",
+          "name": "ReadScheduledDeployment",
+          "request": {
+            "name": "ReadScheduledDeployment",
+            "description": {
+              "content": "Retrieves the full configuration and metadata for a specific scheduled deployment action. The response includes the schedule's ID, type (custom, drift, or TTL), timing configuration (cron expression or one-time timestamp), current status (active or paused), the deployment request that will be executed, and any type-specific fields such as autoRemediate for drift schedules or deleteAfterDestroy for TTL schedules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40428329-aa10-43ce-a941-1914f06739a1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9dfda4d-e70f-482b-a20f-901be835bebe",
+              "name": "ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dad82fa6-a6da-49a9-bc6f-87cc86349196",
+          "name": "UpdateScheduledDeployment",
+          "request": {
+            "name": "UpdateScheduledDeployment",
+            "description": {
+              "content": "Updates the configuration of an existing custom deployment schedule. The request body can modify the timing (cron expression for recurring schedules or ISO 8601 timestamp for one-time schedules) and the deployment request that will be executed on each future run, including the Pulumi operation type and settings overrides. Only future executions are affected; past executions are not modified. The stack must have deployment settings configured.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"key_1\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0762c44-4ad1-4d7d-98bc-a83248560f08",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4defda2d-9361-49b2-b984-4bfd551e33b9",
+              "name": "Stack does not have deployment settings configured",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8dbe035-5e23-4ad1-88d4-e3db54871513",
+              "name": "ScheduledDeployment or ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"agentPoolID\": \"<string>\",\n    \"cacheOptions\": {\n      \"enable\": \"<boolean>\"\n    },\n    \"executorContext\": {\n      \"executorImage\": {\n        \"credentials\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reference\": \"<string>\"\n      },\n      \"executorRootPath\": \"<string>\"\n    },\n    \"gitHub\": {\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"repository\": \"<string>\",\n      \"reviewStackLabels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"operationContext\": {\n      \"environmentVariables\": {\n        \"key_0\": {\n          \"secret\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ciphertext\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"oidc\": {\n        \"aws\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"azure\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"gcp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"operation\": \"<string>\",\n      \"options\": {\n        \"deleteAfterDestroy\": \"<boolean>\",\n        \"remediateIfDriftDetected\": \"<boolean>\",\n        \"shell\": \"<string>\",\n        \"skipInstallDependencies\": \"<boolean>\",\n        \"skipIntermediateDeployments\": \"<boolean>\"\n      },\n      \"preRunCommands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"role\": {\n        \"defaultIdentifier\": \"<string>\",\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"sourceContext\": {\n      \"git\": {\n        \"branch\": \"<string>\",\n        \"commit\": \"<string>\",\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\"\n      },\n      \"hg\": {\n        \"branch\": \"<string>\",\n        \"hgAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"repoDir\": \"<string>\",\n        \"repoUrl\": \"<string>\",\n        \"revision\": \"<string>\"\n      },\n      \"template\": {\n        \"gitAuth\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"sourceUrl\": \"<string>\"\n      }\n    },\n    \"tag\": \"<string>\",\n    \"vcs\": {\n      \"provider\": \"<string>\",\n      \"deployCommits\": \"<boolean>\",\n      \"deployPullRequest\": \"<long>\",\n      \"installationId\": \"<string>\",\n      \"paths\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"previewPullRequests\": \"<boolean>\",\n      \"pullRequestTemplate\": \"<boolean>\",\n      \"repository\": \"<string>\"\n    },\n    \"inheritSettings\": \"<boolean>\",\n    \"operation\": \"<string>\"\n  },\n  \"scheduleCron\": \"<string>\",\n  \"scheduleOnce\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "228e7dbf-8d13-4fdf-a1f1-89c93a4f6030",
+          "name": "ListScheduledDeploymentHistory",
+          "request": {
+            "name": "ListScheduledDeploymentHistory",
+            "description": {
+              "content": "Returns the execution history for a specific scheduled deployment action. The response includes a chronological list of past schedule invocations and their outcomes, such as whether the triggered deployment succeeded, failed, or was skipped. This is useful for monitoring the reliability and results of recurring deployments, drift detection runs, or TTL schedule executions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31e61aeb-8faa-46c0-8c93-a6e793bccf62",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduleHistoryEvents\": [\n    {\n      \"executed\": \"string\",\n      \"id\": \"string\",\n      \"result\": \"string\",\n      \"scheduledActionID\": \"string\",\n      \"version\": 2399\n    },\n    {\n      \"executed\": \"string\",\n      \"id\": \"string\",\n      \"result\": \"string\",\n      \"scheduledActionID\": \"string\",\n      \"version\": 2859\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84886f55-b1f2-4a4f-9e37-74181f70a104",
+              "name": "ScheduledDeployment or ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e069e53-3776-42de-9e1e-b38d7ceff6da",
+          "name": "PauseScheduledDeployment",
+          "request": {
+            "name": "PauseScheduledDeployment",
+            "description": {
+              "content": "Temporarily suspends future executions of a scheduled deployment action without deleting the schedule configuration. The schedule remains configured and can be reactivated at any time using the ResumeScheduledDeployment endpoint. This is useful for temporarily halting recurring schedules (drift detection, TTL, or custom) during maintenance periods or when troubleshooting issues.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c99740e7-c25d-41ac-8e8a-f94ad30ec397",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a0147be-5f71-4d00-a47d-7b780ef11089",
+              "name": "ScheduledDeployment or ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69084871-f745-41cd-9811-44d5dfce376a",
+          "name": "ResumeScheduledDeployment",
+          "request": {
+            "name": "ResumeScheduledDeployment",
+            "description": {
+              "content": "Reactivates a previously paused scheduled deployment action. After resuming, the schedule will continue executing according to its configured timing (cron expression for recurring schedules, or at the scheduled timestamp for one-time schedules). This works for all schedule types: custom deployment schedules, drift detection schedules, and TTL schedules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "schedules",
+                ":scheduleID",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb5a9d58-0491-4483-a463-2f6e8fd121ae",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e46ba64-7fa8-4895-9243-010b402711a5",
+              "name": "ScheduledDeployment or ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "schedules",
+                    ":scheduleID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d8ce9e2-fd21-4982-8dbc-ea484ba89274",
+          "name": "CreateScheduledTTLDeployment",
+          "request": {
+            "name": "CreateScheduledTTLDeployment",
+            "description": {
+              "content": "Creates a TTL (time-to-live) schedule for a stack using Pulumi Deployments. TTL schedules automatically destroy a stack's cloud resources at a specified expiration time, which is useful for temporary or ephemeral infrastructure that should be cleaned up after a defined period. The 'timestamp' field must be an ISO 8601 formatted date-time (e.g. '2024-12-31T00:00:00.000Z') specifying when the destroy operation should execute. When 'deleteAfterDestroy' is set to true, the stack itself is also removed from Pulumi Cloud after its resources have been successfully destroyed. The stack must have deployment settings configured before a TTL schedule can be created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "ttl",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7fd7cb6-1823-4f53-b269-6256d235efa8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1adec057-04f3-4f00-b35e-7610d13f5787",
+              "name": "Stack does not have deployment settings configured or timestamp needs to be set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7af5562-98a3-43a4-9210-c8410de82cf3",
+              "name": "ScheduledAction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7523c3a-2b0f-48b3-a28e-d95f211399bb",
+          "name": "UpdateScheduledTTLDeployment",
+          "request": {
+            "name": "UpdateScheduledTTLDeployment",
+            "description": {
+              "content": "Updates the configuration of an existing TTL (time-to-live) schedule. The request body can modify the destruction timestamp (ISO 8601 format) and the deleteAfterDestroy flag that controls whether the stack is also removed from Pulumi Cloud after its resources are successfully destroyed. The timestamp field is required and must be set to a valid future date-time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "stacks",
+                ":orgName",
+                ":projectName",
+                ":stackName",
+                "deployments",
+                "ttl",
+                "schedules",
+                ":scheduleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orgName",
+                  "description": "(Required) The organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectName",
+                  "description": "(Required) The project name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stackName",
+                  "description": "(Required) The stack name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleID",
+                  "description": "(Required) The schedule identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a491d47c-3dd6-4715-ad66-c3c1306aa32f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"string\",\n  \"definition\": {\n    \"key_0\": {}\n  },\n  \"id\": \"string\",\n  \"kind\": \"environment_rotation\",\n  \"lastExecuted\": \"string\",\n  \"modified\": \"string\",\n  \"nextExecution\": \"string\",\n  \"orgID\": \"string\",\n  \"paused\": true,\n  \"scheduleCron\": \"string\",\n  \"scheduleOnce\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a39e41d5-8ded-4384-94c0-67a4d0869663",
+              "name": "Timestamp needs to be set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67948a39-47b9-4e0a-aea9-76edeacb4674",
+              "name": "ScheduledAction or ScheduledDeployment",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "stacks",
+                    ":orgName",
+                    ":projectName",
+                    ":stackName",
+                    "deployments",
+                    "ttl",
+                    "schedules",
+                    ":scheduleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orgName",
+                      "description": "(Required) The organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectName",
+                      "description": "(Required) The project name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stackName",
+                      "description": "(Required) The stack name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleID",
+                      "description": "(Required) The schedule identifier"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deleteAfterDestroy\": \"<boolean>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f6a1f852-b42a-4a1c-924f-01f71efad5fd",
+    "name": "Pulumi APIs AccessTokens Schedules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs and Definitions for the Pulumi Cloud product.",
+      "type": "text/plain"
+    }
+  }
+}

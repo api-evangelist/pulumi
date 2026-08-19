@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens StackPolicy API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StackPolicy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetStackPolicyGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns the list of policy groups that include the specified stack. Policy groups define which policy packs are enforced on a set of stacks. The response includes each group's name, the stacks it applies to, and the policy packs configured within it."
+        },
+        {
+          "info": {
+            "name": "GetStackPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy group enforcement mode ('audit' or 'preventative')"
+              }
+            ]
+          },
+          "docs": "Returns the policy packs currently enforced on the specified stack through its policy group memberships. The optional 'mode' query parameter filters results by enforcement mode: 'audit' (violations are logged but allowed) or 'preventative' (violations block the update). Returns 400 if the mode parameter is invalid."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

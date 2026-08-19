@@ -1,0 +1,4523 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pulumi APIs AccessTokens Stacks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListMemberStackPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/orgs/:orgName/members/:userLogin/stacks/:projectName/:stackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "userLogin",
+                "value": "",
+                "type": "path",
+                "description": "The user login"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Lists all permissions granted to a specific organization member for a given stack. The response provides a comprehensive view of the user's access, including permissions inherited from the organization's default role, permissions granted through team memberships, and permissions explicitly assigned to the user. Returns 404 if the user does not exist."
+        },
+        {
+          "info": {
+            "name": "GetStackOverview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/stacks/:orgName/:projectName/:stackName/overview",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns aggregated stack overview data optimized for display in the Pulumi Cloud web console. The response combines information from multiple sources including the stack's current state, recent activity, resource counts, and configuration into a single response to minimize round trips."
+        },
+        {
+          "info": {
+            "name": "UpdateTeamStackPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/console/stacks/:orgName/:projectName/:stackName/teams/:teamName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "teamName",
+                "value": "",
+                "type": "path",
+                "description": "The team name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies the permissions that a specific team has for the referenced stack. This allows setting the team's permission level (read, write, admin) for a single stack without affecting the team's permissions on other stacks. Returns 400 if the permission level is invalid or the team does not have the required base permissions. Returns 403 if the caller lacks permission to update the team. Returns 404 if the team does not exist."
+        },
+        {
+          "info": {
+            "name": "UpdateSummaryHandlerLatest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/stacks/:orgName/:projectName/:stackName/updates/latest/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns a human-readable summary of the most recent update to the stack, without requiring a specific update ID. The summary is formatted identically to the UpdateSummary endpoint, including a tree view of resource changes. This is a convenience endpoint that automatically resolves the latest update version. Returns 404 if the stack has no updates."
+        },
+        {
+          "info": {
+            "name": "UpdateSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/console/stacks/:orgName/:projectName/:stackName/updates/:updateID/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Returns a human-readable summary of a specific update, identified by its update ID. The summary is formatted in the same manner as generated by the CLI on 'pulumi up', including a tree view of resource changes, create/update/delete counts, and the overall result. This endpoint is optimized for display in the Pulumi Cloud web console. Returns 404 if the update does not exist."
+        },
+        {
+          "info": {
+            "name": "GetStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific stack, including its organization, project, and stack name, the current version number, all associated tags, any active update operations (with the operation kind, author, and start time), and the active update UUID. This is the primary endpoint for inspecting the current state and metadata of a stack."
+        },
+        {
+          "info": {
+            "name": "DeleteStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "When true, forces deletion even if the stack still has resources"
+              }
+            ]
+          },
+          "docs": "Removes a stack from Pulumi Cloud. By default, the stack must have no resources remaining; attempting to delete a stack that still manages resources will fail. Use the 'force' query parameter set to true to override this check and force deletion even when resources remain. The deletion is a soft-delete that hides the stack from normal queries. Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "GetStackActivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/activity",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns the activity history for a stack, including updates, configuration changes, and other operations. Supports pagination via page and pageSize parameters (page 0 returns all results). Returns 400 if the page parameter is invalid."
+        },
+        {
+          "info": {
+            "name": "GetStacksAnnotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/annotations/:kind",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path",
+                "description": "The annotation kind"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The annotation source"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The annotation version number, used for filtering by a specific version"
+              }
+            ]
+          },
+          "docs": "Retrieves an annotation for a stack, identified by the annotation kind. Annotations are structured metadata that can be attached to stacks for purposes such as compliance tracking, custom metadata, or integration data. The optional 'source' and 'version' query parameters allow filtering by annotation source and specific version. Returns 404 if the annotation does not exist."
+        },
+        {
+          "info": {
+            "name": "UpsertStacksAnnotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/annotations/:kind",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path",
+                "description": "The annotation kind"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The annotation source"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The expected annotation version for optimistic concurrency control"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates an annotation for a stack, identified by the annotation kind. Annotations are structured metadata that can be attached to stacks. The 'version' query parameter supports optimistic concurrency control: if provided, the update only succeeds if the current annotation version matches. Returns 409 if the annotation has changed since it was read (version conflict)."
+        },
+        {
+          "info": {
+            "name": "BatchDecryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/batch-decrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Decrypts a set of secret values in a single request using the stack's encryption key. The request body contains an array of base64-encoded ciphertexts. The response maps each ciphertext to its decrypted plaintext value. This is a more efficient alternative to calling the single-value decrypt endpoint multiple times. Returns 400 if the request body is invalid or if message authentication fails. Returns 413 if the request body exceeds the maximum allowed content size."
+        },
+        {
+          "info": {
+            "name": "BatchEncryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/batch-encrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Encrypts a set of plaintext values in a single request using the stack's encryption key. This is a more efficient alternative to calling the single-value encrypt endpoint multiple times. The response contains a map of the original plaintext values to their corresponding base64-encoded ciphertexts. Returns 413 if the request body exceeds the maximum allowed content size."
+        },
+        {
+          "info": {
+            "name": "ListStackPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/collaborators",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Lists all collaborators for a stack, including their permission levels. This includes collaborators who have been invited but have not yet accepted their invitations. The response includes each collaborator's username and their permission level for the stack. This endpoint is deprecated."
+        },
+        {
+          "info": {
+            "name": "DeleteStackPermission",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/collaborators/:userName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "userName",
+                "value": "",
+                "type": "path",
+                "description": "The user name"
+              }
+            ]
+          },
+          "docs": "Removes a specific user's direct permission to access a stack. This only removes permissions explicitly granted to the user; permissions inherited from team membership or organization-level defaults are not affected. Returns 404 if the user does not exist."
+        },
+        {
+          "info": {
+            "name": "GetStackConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Retrieves the service-managed configuration for a stack. The response includes the ESC environment reference, secrets provider type, encrypted key, and encryption salt. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Returns 404 if no service-managed configuration exists for the stack."
+        },
+        {
+          "info": {
+            "name": "UpdateStackConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the service-managed configuration for a stack. The request body may include the ESC environment reference, secrets provider type, encrypted key, and encryption salt. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Returns the updated configuration object. Returns 400 if the environment reference is invalid or not found."
+        },
+        {
+          "info": {
+            "name": "DeleteStackConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/config",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Removes the service-managed configuration for a stack, including the secrets provider settings, encrypted key, encryption salt, and ESC environment reference. If stack configuration is returned by the API, it is used in place of the local stack config file (e.g. Pulumi.[stack].yaml). Deleting the config causes the CLI to fall back to the local config file. Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "DecryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/decrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Decrypts a single secret value using the stack's encryption key. The request body contains the base64-encoded ciphertext. The response contains the decrypted plaintext value. For decrypting multiple values in a single request, use the BatchDecryptValue endpoint instead. Returns 413 if the request body exceeds the maximum allowed content size."
+        },
+        {
+          "info": {
+            "name": "LogOnlyBatchDecryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/decrypt/log-batch-decryption",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records an audit log entry for a batch decryption event performed by a third-party secrets provider. When stacks use external secrets providers (such as AWS KMS, Azure Key Vault, or HashiCorp Vault), decryption happens client-side; this endpoint allows the CLI to report that decryption occurred for audit tracking purposes."
+        },
+        {
+          "info": {
+            "name": "LogOnlyDecryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/decrypt/log-decryption",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records an audit log entry for a single-value decryption event performed by a third-party secrets provider. When stacks use external secrets providers (such as AWS KMS, Azure Key Vault, or HashiCorp Vault), decryption happens client-side; this endpoint allows the CLI to report that decryption occurred for audit tracking."
+        },
+        {
+          "info": {
+            "name": "CreateUpdateForDestroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new destroy update for the given stack. A destroy update tears down all resources managed by the stack. This only creates the update record; the update must subsequently be started via the StartUpdateForDestroy endpoint. Enforces stack update concurrency checks to prevent conflicting simultaneous operations."
+        },
+        {
+          "info": {
+            "name": "GetUpdateStatusForDestroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the current status and results of a destroy update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter."
+        },
+        {
+          "info": {
+            "name": "StartUpdateForDestroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a previously created destroy update. The update must have been created via CreateUpdateForDestroy first. Returns a lease token and version number for tracking the update. Returns 404 if the update does not exist, or 409 if another update is already in progress on the stack."
+        },
+        {
+          "info": {
+            "name": "CancelUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/cancel",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Requests cancellation of a service-managed update that is currently in progress. The update must have been started (returns 409 if it has not). Returns 404 if the specified update does not exist. The cancellation is processed asynchronously and the update will transition to a cancelled state."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/checkpoint",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new checkpoint (deployment state snapshot) for a service-managed update that is currently in progress. The checkpoint contains the complete current state of all resources. The request must contain a valid checkpoint object. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed out, or already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpointDelta",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/checkpointdelta",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint delta for a service-managed update that is currently in progress. Rather than uploading the complete checkpoint state, this endpoint accepts an incremental delta that is applied to the existing checkpoint, reducing the payload size. The delta is persisted in the format as provided. Supports checksum validation for data integrity. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed "
+        },
+        {
+          "info": {
+            "name": "PatchUpdateVerbatimCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/checkpointverbatim",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint for a service-managed update as a verbatim byte array, bypassing JSON marshalling. Unlike PatchUpdateCheckpoint which accepts a structured deployment object and re-serializes it (which may compact data), this endpoint preserves the exact bytes provided by the client and uploads them directly to blob storage. This maintains byte-level fidelity of the checkpoint data. Returns 403 for preview operations. Returns 409 if the update has not started, has been cancelled, timed out, "
+        },
+        {
+          "info": {
+            "name": "CompleteUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks a service-managed update as complete. The request body must include the final status of the update. Returns 400 if the status is unrecognized. Returns 409 if the update has not started, has been cancelled, has already timed out, or has already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "GetEngineEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events matching these engine event type codes"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events for the specified resource URN"
+              }
+            ]
+          },
+          "docs": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a single engine event sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations or diagnostic messages. For better performance, consider using RecordEngineEventBatch to send multiple events in a single request. Returns 400 if no event data is provided, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEventBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/events/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a batch of engine events sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations (create, update, delete, etc.) and diagnostic messages. Batching events reduces the number of API calls during an update. Returns 400 if no events are provided in the batch, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "CreateJournalEntries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/journalentries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new journal entries for the specified update. Journal entries record the progression of resource operations during an update, tracking state transitions for each resource. The include_non_activated query parameter controls whether non-activated events are included. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "AppendUpdateLogEntry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/log",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a log entry to the specified update's log stream. Log entries are used to record diagnostic messages, status information, and other output generated during a stack update operation. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RenewUpdateLease",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/destroy/:updateID/renew_lease",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews the lease for a service-managed update that is currently in progress. Leases prevent concurrent operations on the same stack and must be periodically renewed to indicate the update is still active. The renewal duration must be between 0 and 300 seconds. Returns 409 if the update is not currently in progress."
+        },
+        {
+          "info": {
+            "name": "ListDownstreamStackReferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/downstreamreferences",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns all stacks that reference the specified stack as a dependency in their Pulumi programs (via StackReference). This is useful for understanding the impact of changes to a stack, as downstream stacks may consume outputs from this stack. The response includes each referencing stack's organization, project, name, and version."
+        },
+        {
+          "info": {
+            "name": "EncryptValue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/encrypt",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Encrypts a single plaintext value using the stack's encryption key. The request body contains the plaintext value to encrypt. The response contains the base64-encoded ciphertext. For encrypting multiple values in a single request, use the BatchEncryptValue endpoint instead. Returns 413 if the request body exceeds the maximum allowed content size."
+        },
+        {
+          "info": {
+            "name": "ExportStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/export",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Exports the current, complete state of the stack as an untyped deployment object. The response includes the deployment version, manifest (containing timestamps and plugin information), secrets providers configuration, and the full array of resources with their URNs, types, inputs, outputs, and dependency information. This endpoint is commonly used for stack state backup, migration between backends, or programmatic inspection of resource states."
+        },
+        {
+          "info": {
+            "name": "ExportStackAtVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/export/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              }
+            ]
+          },
+          "docs": "Exports the complete stack state at a specific historical update version, rather than the current version. This allows retrieving the deployment snapshot as it existed after a particular update completed. The response format is identical to the ExportStack endpoint. Returns 400 if the version parameter is invalid, or 404 if the specified version does not exist for this stack."
+        },
+        {
+          "info": {
+            "name": "ListStackWebhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured for the specified stack. Each webhook in the response includes its name, display name, payload URL, format, filters, and active status."
+        },
+        {
+          "info": {
+            "name": "CreateStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for the specified stack. The request body must include the webhook name, payload URL, and format.\n\nThe `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.\n\nThe `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.\n\nThe optional `secret` field sets the HMAC key for signature verification. See th"
+        },
+        {
+          "info": {
+            "name": "GetStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Returns the details of a single webhook identified by its name, including its configuration, filters, groups, and active status. Returns 404 if the webhook does not exist."
+        },
+        {
+          "info": {
+            "name": "UpdateStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook's configuration. Supports modifying the display name, payload URL, format, groups, filters, and active status. The 'pulumi_deployments' format can only be used on stack or environment webhooks. Returns 404 if the webhook does not exist."
+        },
+        {
+          "info": {
+            "name": "DeleteStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Deletes a webhook from the specified stack. Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "GetStackWebhookDeliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/deliveries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Returns the recent delivery history for a specific webhook. Each delivery includes the timestamp, HTTP status code, request and response details, and whether the delivery was successful."
+        },
+        {
+          "info": {
+            "name": "RedeliverStackWebhookEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/deliveries/:event/redeliver",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "path",
+                "description": "The webhook delivery event identifier to redeliver"
+              }
+            ]
+          },
+          "docs": "Triggers the Pulumi Service to redeliver a specific event to a webhook. This is useful for resending an event that the webhook endpoint failed to process on the initial delivery attempt. Returns the delivery result with HTTP status and response details. Returns 404 if the webhook or event does not exist."
+        },
+        {
+          "info": {
+            "name": "PingStackWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/hooks/:hookName/ping",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "hookName",
+                "value": "",
+                "type": "path",
+                "description": "The webhook name"
+              }
+            ]
+          },
+          "docs": "Issues a test ping event to the specified webhook to verify it is properly configured and reachable. Unlike normal webhook deliveries, this bypasses the message queue and sends the request directly to the webhook endpoint. The response includes the delivery result with HTTP status and response details. Returns 404 if the webhook does not exist."
+        },
+        {
+          "info": {
+            "name": "ImportStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/import",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports a deployment state snapshot into the specified stack, replacing the current state. The request body must contain a complete untyped deployment object with the same format returned by the ExportStack endpoint. This is commonly used for state migration between backends, state repair, or restoring from backup. Returns 400 if the deployment contains encrypted secrets from a different stack. Returns 409 if another update is currently in progress on the stack."
+        },
+        {
+          "info": {
+            "name": "GetStackMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/metadata",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns metadata about a stack including the requesting user's permission level and the stack's notification settings (such as whether to notify on update success or failure). This endpoint provides access control and configuration metadata without returning the full stack details."
+        },
+        {
+          "info": {
+            "name": "UpdateStackNotificationSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/notifications/settings",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the notification settings for a stack, controlling whether notifications are sent on update success or failure. The request body specifies the notification preferences. Returns the updated stack metadata including the new notification settings."
+        },
+        {
+          "info": {
+            "name": "ReassignStackOwnership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/ownership",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the ownership of the specified stack to the provided user. Returns the identity of the previous owner."
+        },
+        {
+          "info": {
+            "name": "GetStackPolicyGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/policygroups",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns the list of policy groups that include the specified stack. Policy groups define which policy packs are enforced on a set of stacks. The response includes each group's name, the stacks it applies to, and the policy packs configured within it."
+        },
+        {
+          "info": {
+            "name": "GetStackPolicyPacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/policypacks",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy group enforcement mode ('audit' or 'preventative')"
+              }
+            ]
+          },
+          "docs": "Returns the policy packs currently enforced on the specified stack through its policy group memberships. The optional 'mode' query parameter filters results by enforcement mode: 'audit' (violations are logged but allowed) or 'preventative' (violations block the update). Returns 400 if the mode parameter is invalid."
+        },
+        {
+          "info": {
+            "name": "CreateUpdateForPreview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new preview update for the given stack. A preview shows what changes would be made without actually applying them, similar to a dry run. This only creates the update record; the update must subsequently be started via the StartUpdateForPreview endpoint. Enforces stack update concurrency checks."
+        },
+        {
+          "info": {
+            "name": "GetUpdateStatusForPreview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the current status and results of a preview update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter."
+        },
+        {
+          "info": {
+            "name": "StartUpdateForPreview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a previously created preview update. The update must have been created via CreateUpdateForPreview first. Returns a lease token and version number for tracking the update. Returns 404 if the update does not exist, or 409 if another update is already in progress on the stack."
+        },
+        {
+          "info": {
+            "name": "CancelUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/cancel",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Requests cancellation of a service-managed update that is currently in progress. The update must have been started (returns 409 if it has not). Returns 404 if the specified update does not exist. The cancellation is processed asynchronously and the update will transition to a cancelled state."
+        },
+        {
+          "info": {
+            "name": "CompleteUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks a service-managed update as complete. The request body must include the final status of the update. Returns 400 if the status is unrecognized. Returns 409 if the update has not started, has been cancelled, has already timed out, or has already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "GetEngineEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events matching these engine event type codes"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events for the specified resource URN"
+              }
+            ]
+          },
+          "docs": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a single engine event sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations or diagnostic messages. For better performance, consider using RecordEngineEventBatch to send multiple events in a single request. Returns 400 if no event data is provided, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEventBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/events/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a batch of engine events sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations (create, update, delete, etc.) and diagnostic messages. Batching events reduces the number of API calls during an update. Returns 400 if no events are provided in the batch, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "CreateJournalEntries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/journalentries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new journal entries for the specified update. Journal entries record the progression of resource operations during an update, tracking state transitions for each resource. The include_non_activated query parameter controls whether non-activated events are included. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "AppendUpdateLogEntry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/log",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a log entry to the specified update's log stream. Log entries are used to record diagnostic messages, status information, and other output generated during a stack update operation. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RenewUpdateLease",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/preview/:updateID/renew_lease",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews the lease for a service-managed update that is currently in progress. Leases prevent concurrent operations on the same stack and must be periodically renewed to indicate the update is still active. The renewal duration must be between 0 and 300 seconds. Returns 409 if the update is not currently in progress."
+        },
+        {
+          "info": {
+            "name": "GetStackPreview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/previews/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific preview operation identified by its update ID. The response includes the preview's kind, start and end times, result status, resource changes summary, configuration, and environment details. Returns 404 if the specified update does not exist."
+        },
+        {
+          "info": {
+            "name": "GetStackPreviewSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/previews/:updateID/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Returns a concise summary of a specific preview operation, including the update kind, result status, start and end times, and resource change counts. This is a lighter-weight alternative to GetStackPreview when full update details are not needed. Returns 404 if the specified update does not exist."
+        },
+        {
+          "info": {
+            "name": "CreateUpdateForRefresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new refresh update for the given stack. A refresh synchronizes the stack's state with the actual state of the cloud resources, detecting any drift. This only creates the update record; the update must subsequently be started via the StartUpdateForRefresh endpoint. Enforces stack update concurrency checks."
+        },
+        {
+          "info": {
+            "name": "GetUpdateStatusForRefresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the current status and results of a refresh update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter."
+        },
+        {
+          "info": {
+            "name": "StartUpdateForRefresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a previously created refresh update. The update must have been created via CreateUpdateForRefresh first. Returns a lease token and version number for tracking the update. Returns 404 if the update does not exist, or 409 if another update is already in progress on the stack."
+        },
+        {
+          "info": {
+            "name": "CancelUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/cancel",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Requests cancellation of a service-managed update that is currently in progress. The update must have been started (returns 409 if it has not). Returns 404 if the specified update does not exist. The cancellation is processed asynchronously and the update will transition to a cancelled state."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/checkpoint",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new checkpoint (deployment state snapshot) for a service-managed update that is currently in progress. The checkpoint contains the complete current state of all resources. The request must contain a valid checkpoint object. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed out, or already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpointDelta",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/checkpointdelta",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint delta for a service-managed update that is currently in progress. Rather than uploading the complete checkpoint state, this endpoint accepts an incremental delta that is applied to the existing checkpoint, reducing the payload size. The delta is persisted in the format as provided. Supports checksum validation for data integrity. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed "
+        },
+        {
+          "info": {
+            "name": "PatchUpdateVerbatimCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/checkpointverbatim",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint for a service-managed update as a verbatim byte array, bypassing JSON marshalling. Unlike PatchUpdateCheckpoint which accepts a structured deployment object and re-serializes it (which may compact data), this endpoint preserves the exact bytes provided by the client and uploads them directly to blob storage. This maintains byte-level fidelity of the checkpoint data. Returns 403 for preview operations. Returns 409 if the update has not started, has been cancelled, timed out, "
+        },
+        {
+          "info": {
+            "name": "CompleteUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks a service-managed update as complete. The request body must include the final status of the update. Returns 400 if the status is unrecognized. Returns 409 if the update has not started, has been cancelled, has already timed out, or has already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "GetEngineEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events matching these engine event type codes"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events for the specified resource URN"
+              }
+            ]
+          },
+          "docs": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a single engine event sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations or diagnostic messages. For better performance, consider using RecordEngineEventBatch to send multiple events in a single request. Returns 400 if no event data is provided, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEventBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/events/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a batch of engine events sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations (create, update, delete, etc.) and diagnostic messages. Batching events reduces the number of API calls during an update. Returns 400 if no events are provided in the batch, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "CreateJournalEntries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/journalentries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new journal entries for the specified update. Journal entries record the progression of resource operations during an update, tracking state transitions for each resource. The include_non_activated query parameter controls whether non-activated events are included. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "AppendUpdateLogEntry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/log",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a log entry to the specified update's log stream. Log entries are used to record diagnostic messages, status information, and other output generated during a stack update operation. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RenewUpdateLease",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/refresh/:updateID/renew_lease",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews the lease for a service-managed update that is currently in progress. Leases prevent concurrent operations on the same stack and must be periodically renewed to indicate the update is still active. The renewal duration must be between 0 and 300 seconds. Returns 409 if the update is not currently in progress."
+        },
+        {
+          "info": {
+            "name": "RenameStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/rename",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes an existing stack's name to a new value. The request body must include the desired new name. The rename may also change the project name. Returns 400 if the request body does not specify a rename. Returns 409 if another update is currently in progress on the stack, since renaming requires exclusive access."
+        },
+        {
+          "info": {
+            "name": "GetStackResourceCount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/resources/count",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns the total number of resources currently managed by the stack, based on the most recent update. The response includes the resource count and the stack version number. This is a lightweight endpoint for checking stack size without retrieving full resource details."
+        },
+        {
+          "info": {
+            "name": "GetLatestStackResources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/resources/latest",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Retrieves all resources currently managed by the stack from the most recent update. Each resource in the response includes its type, URN, provider, inputs, outputs, parent, and dependencies. This is equivalent to calling GetStackResources with the latest version number."
+        },
+        {
+          "info": {
+            "name": "GetLatestStackResource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/resources/latest/:urn",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "path",
+                "description": "The resource URN"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific resource identified by its URN from the most recent stack update. The response includes the resource type, provider, inputs, outputs, and dependency information. Returns 404 if no resource with the given URN exists in the latest state."
+        },
+        {
+          "info": {
+            "name": "GetStackResources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/resources/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              }
+            ]
+          },
+          "docs": "Retrieves all resources as they existed at a specific historical stack update version. Each resource includes its type, URN, provider, inputs, outputs, parent, and dependencies. Returns 404 if the specified version does not exist for this stack."
+        },
+        {
+          "info": {
+            "name": "GetStackResource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/resources/:version/:urn",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "path",
+                "description": "The resource URN"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific resource identified by its URN at a specific historical update version. The response includes the resource type, provider, inputs, outputs, and dependency information as they existed at that version. Returns 404 if the resource or version does not exist."
+        },
+        {
+          "info": {
+            "name": "AddStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new tag on the specified stack. Tags are key-value metadata pairs that can be used for organization, filtering, and storing additional information about stacks. The request body must include both a tag name and value. Returns 400 if the tag name is invalid or the tag already exists. Built-in tags (such as those automatically set by the Pulumi CLI) follow specific naming conventions."
+        },
+        {
+          "info": {
+            "name": "UpdateStackTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all tags on the specified stack with the tags provided in the request body. This is a wholesale replacement operation: any existing tags not included in the request will be removed. The request body is a JSON map of tag name-value pairs. Returns 400 if the operation would change the project name tag or if any tags are invalid."
+        },
+        {
+          "info": {
+            "name": "UpdateStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags/:tagName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path",
+                "description": "The tag name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the value of an existing tag on the specified stack. The tag is identified by its name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI, such as project name tags) cannot be updated and will return a 400 error. Returns 404 if the specified tag does not exist on the stack."
+        },
+        {
+          "info": {
+            "name": "DeleteStackTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/tags/:tagName",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path",
+                "description": "The tag name"
+              }
+            ]
+          },
+          "docs": "Removes a specific tag from the stack, identified by the tag name in the URL path. Built-in tags (those automatically managed by the Pulumi CLI) cannot be deleted and will return a 400 error. Returns 404 if the specified tag does not exist on the stack. Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "ListStackTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/teams",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Lists all teams within the organization that have been granted access to the specified stack. The response includes each team's name and the permission level granted to it for this stack."
+        },
+        {
+          "info": {
+            "name": "TransferStack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/transfer",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfers a stack from one organization to another. The request body must specify the destination organization name via the 'toOrg' field. The requesting user must be a member of both the source and destination organizations to prevent accidental disclosure of organization existence. The stack must not have any active updates in progress (returns 409 if an update is running). Returns 204 with no content on success."
+        },
+        {
+          "info": {
+            "name": "CreateUpdateForUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new standard update (pulumi up) for the given stack. A standard update deploys changes to the stack's infrastructure by creating, updating, or deleting resources as needed. This only creates the update record; the update must subsequently be started via the StartUpdateForUpdate endpoint. Enforces stack update concurrency checks to prevent conflicting simultaneous operations."
+        },
+        {
+          "info": {
+            "name": "GetUpdateStatusForUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              }
+            ]
+          },
+          "docs": "Returns the current status and results of a standard (pulumi up) update, including whether it is still in progress, succeeded, or failed. Supports pagination of results via the continuationToken query parameter."
+        },
+        {
+          "info": {
+            "name": "StartUpdateForUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a previously created standard (pulumi up) update. The update must have been created via CreateUpdateForUpdate first. Returns a lease token and version number for tracking the update. Returns 404 if the update does not exist, or 409 if another update is already in progress on the stack."
+        },
+        {
+          "info": {
+            "name": "CancelUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/cancel",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ]
+          },
+          "docs": "Requests cancellation of a service-managed update that is currently in progress. The update must have been started (returns 409 if it has not). Returns 404 if the specified update does not exist. The cancellation is processed asynchronously and the update will transition to a cancelled state."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/checkpoint",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new checkpoint (deployment state snapshot) for a service-managed update that is currently in progress. The checkpoint contains the complete current state of all resources. The request must contain a valid checkpoint object. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed out, or already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "PatchUpdateCheckpointDelta",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/checkpointdelta",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint delta for a service-managed update that is currently in progress. Rather than uploading the complete checkpoint state, this endpoint accepts an incremental delta that is applied to the existing checkpoint, reducing the payload size. The delta is persisted in the format as provided. Supports checksum validation for data integrity. Returns 403 for preview operations since previews do not modify actual state. Returns 409 if the update has not started, has been cancelled, timed "
+        },
+        {
+          "info": {
+            "name": "PatchUpdateVerbatimCheckpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/checkpointverbatim",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a checkpoint for a service-managed update as a verbatim byte array, bypassing JSON marshalling. Unlike PatchUpdateCheckpoint which accepts a structured deployment object and re-serializes it (which may compact data), this endpoint preserves the exact bytes provided by the client and uploads them directly to blob storage. This maintains byte-level fidelity of the checkpoint data. Returns 403 for preview operations. Returns 409 if the update has not started, has been cancelled, timed out, "
+        },
+        {
+          "info": {
+            "name": "CompleteUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/complete",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks a service-managed update as complete. The request body must include the final status of the update. Returns 400 if the status is unrecognized. Returns 409 if the update has not started, has been cancelled, has already timed out, or has already completed. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "GetEngineEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Continuation token for paginated results"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events matching these engine event type codes"
+              },
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to only include events for the specified resource URN"
+              }
+            ]
+          },
+          "docs": "Returns the engine events for the specified update. Engine events represent individual resource operations and diagnostic messages produced during the update. Supports pagination via continuation tokens and filtering by engine event type codes or resource URN. The include_non_activated parameter controls whether events not yet marked as activated are included."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEvent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/events",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a single engine event sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations or diagnostic messages. For better performance, consider using RecordEngineEventBatch to send multiple events in a single request. Returns 400 if no event data is provided, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RecordEngineEventBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/events/batch",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a batch of engine events sent from the Pulumi CLI during a stack update. Engine events represent individual resource operations (create, update, delete, etc.) and diagnostic messages. Batching events reduces the number of API calls during an update. Returns 400 if no events are provided in the batch, or 404 if the update does not exist. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "CreateJournalEntries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/journalentries",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              },
+              {
+                "name": "include_non_activated",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes events that have not yet been activated; when false or omitted, only activated events are returned"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new journal entries for the specified update. Journal entries record the progression of resource operations during an update, tracking state transitions for each resource. The include_non_activated query parameter controls whether non-activated events are included. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "AppendUpdateLogEntry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/log",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a log entry to the specified update's log stream. Log entries are used to record diagnostic messages, status information, and other output generated during a stack update operation. Requires update token authentication."
+        },
+        {
+          "info": {
+            "name": "RenewUpdateLease",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/update/:updateID/renew_lease",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "updateID",
+                "value": "",
+                "type": "path",
+                "description": "The update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews the lease for a service-managed update that is currently in progress. Leases prevent concurrent operations on the same stack and must be periodically renewed to indicate the update is still active. The renewal duration must be between 0 and 300 seconds. Returns 409 if the update is not currently in progress."
+        },
+        {
+          "info": {
+            "name": "GetStackUpdates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "output-type",
+                "value": "",
+                "type": "query",
+                "description": "Controls the response format; when unset returns the legacy format, otherwise returns the paginated format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns the update history for a stack. Each update includes its kind (update, preview, refresh, destroy, import), start and end times, result status, resource changes summary, and resource count. Supports pagination via 'page' and 'pageSize' query parameters (page 0 returns all results, pageSize=1 with page=1 returns only the most recent update). The 'output-type' parameter controls the response format: when unset, returns a legacy format; when set, returns a paginated response."
+        },
+        {
+          "info": {
+            "name": "GetLatestStackUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/latest",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns information about the most recent update to the stack, including the update kind (update, preview, refresh, destroy, import), start and end times, result status, resource changes summary, configuration, and environment details. Returns 404 if the stack has never been updated."
+        },
+        {
+          "info": {
+            "name": "GetLatestStackPreviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/latest/previews",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "When true, sorts results in ascending chronological order; when false or omitted, sorts in descending order"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns all preview operations associated with the latest stack update version. Previews are dry-run operations that show what changes would be made. Supports pagination via page and pageSize parameters (page 0 returns all results). The asc parameter controls sort order (ascending or descending by chronological order)."
+        },
+        {
+          "info": {
+            "name": "GetLatestUpdateTimeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/latest/timeline",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns the timeline of all relevant events culminating with the most recent stack update. The timeline includes workflow events such as deployment triggers, previews, and the final update operation, providing a complete view of the sequence of actions that led to the current stack state. Returns 404 if no update exists."
+        },
+        {
+          "info": {
+            "name": "GetStackUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/:version",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific stack update identified by its version number. The response includes the update kind (update, preview, refresh, destroy, import), start and end times, result status (succeeded, failed, etc.), resource changes summary (creates, updates, deletes, same), configuration, and environment details. Returns 404 if the specified version does not exist."
+        },
+        {
+          "info": {
+            "name": "GetStackPreviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/:version/previews",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "When true, sorts results in ascending chronological order; when false or omitted, sorts in descending order"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (0-indexed, where 0 returns all results)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (must be >= 1 when page > 0)"
+              }
+            ]
+          },
+          "docs": "Returns all preview operations associated with a specific stack update version. Multiple previews may be associated with a single update version when a stack is previewed multiple times before an update is applied. Supports pagination via page and pageSize parameters and chronological sorting via the asc parameter."
+        },
+        {
+          "info": {
+            "name": "GetStackUpdateSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/:version/summary",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              }
+            ]
+          },
+          "docs": "Returns a concise summary of a specific stack update by version number, including the update kind, result status, start and end times, and resource change counts. This is a lighter-weight alternative to GetStackUpdate when full update details are not needed. Returns 404 if the specified version does not exist."
+        },
+        {
+          "info": {
+            "name": "GetUpdateTimeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/updates/:version/timeline",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The stack update version number"
+              }
+            ]
+          },
+          "docs": "Returns the timeline of all relevant events culminating with a specific stack update version. The timeline includes workflow events such as deployment triggers, previews, and the update operation itself, providing a complete view of the sequence of actions. Returns 404 if the specified update version does not exist."
+        },
+        {
+          "info": {
+            "name": "ListUpstreamStackReferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/upstreamreferences",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ]
+          },
+          "docs": "Returns all stacks that the specified stack references as dependencies in its Pulumi program (via StackReference). This is useful for understanding what external stacks a given stack depends on and consumes outputs from. The response includes each referenced stack's organization, project, name, and version."
+        },
+        {
+          "info": {
+            "name": "GetStackStarterWorkflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/stacks/:orgName/:projectName/:stackName/workflow",
+            "params": [
+              {
+                "name": "orgName",
+                "value": "",
+                "type": "path",
+                "description": "The organization name"
+              },
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "path",
+                "description": "The project name"
+              },
+              {
+                "name": "stackName",
+                "value": "",
+                "type": "path",
+                "description": "The stack name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a customized CI/CD workflow template for the specified stack. The request body must specify the target CI system (e.g. GitHub Actions, GitLab CI). The generated template is tailored to the stack's runtime and configuration. Returns 400 if the CI system is not specified or the stack does not have a runtime tag. Returns 404 if no matching workflow template is found."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
