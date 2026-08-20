@@ -27,6 +27,15 @@ tags:
   - Infrastructure as Code
   - Multi-Cloud
   - Stacks
+  - Deployment
+  - Policy
+tags_raw:
+  - Automation
+  - Cloud
+  - DevOps
+  - Infrastructure as Code
+  - Multi-Cloud
+  - Stacks
   - Deployments
   - Policy
 created: '2025-01-08'
@@ -55,6 +64,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Access Tokens
+  tags_raw:
   - AccessTokens
   properties:
   - type: OpenAPI
@@ -83,6 +94,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Artificial Intelligence
+  tags_raw:
   - AI
   properties:
   - type: OpenAPI
@@ -97,6 +110,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Audit Logs
+  tags_raw:
   - AuditLogs
   properties:
   - type: OpenAPI
@@ -125,6 +140,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Data Export
+  tags_raw:
   - DataExport
   properties:
   - type: OpenAPI
@@ -153,6 +170,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -208,7 +227,8 @@ apis:
   description: The Miscellaneous API from Pulumi — 4 operation(s) for miscellaneous.
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
-  tags:
+  tags: []
+  tags_raw:
   - Miscellaneous
   properties:
   - type: OpenAPI
@@ -223,6 +243,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - NEO
+  tags_raw:
   - Neo
   properties:
   - type: OpenAPI
@@ -265,6 +287,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -279,6 +303,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Policy Groups
+  tags_raw:
   - PolicyGroups
   properties:
   - type: OpenAPI
@@ -476,6 +502,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -504,6 +532,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
