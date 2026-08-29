@@ -5,6 +5,18 @@ description: >-
   deploy, and manage cloud infrastructure. The Pulumi Cloud REST API enables programmatic access to manage
   organizations, stacks, deployments, environments, policy packs, webhooks, and other Pulumi Cloud resources.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -590,6 +602,9 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: CapabilityMap
+    url: capabilities/pulumi-capability-edges.yml
+    name: Pulumi Business Capability Map
   - type: AgenticAccess
     url: agentic-access/pulumi-agentic-access.yml
   - type: VulnerabilityDisclosure
