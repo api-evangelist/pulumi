@@ -76,7 +76,7 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
-  - Access Tokens
+  - AccessTokens
   tags_raw:
   - AccessTokens
   properties:
@@ -255,7 +255,7 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
-  - NEO
+  - Neo
   tags_raw:
   - Neo
   properties:
@@ -315,7 +315,7 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
-  - Policy Groups
+  - PolicyGroups
   tags_raw:
   - PolicyGroups
   properties:
