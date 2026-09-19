@@ -150,6 +150,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Environment
+  tags_raw:
   - Environments
   properties:
   - type: OpenAPI
@@ -354,6 +356,8 @@ apis:
   humanURL: https://www.pulumi.com/docs/pulumi-cloud/cloud-rest-api/
   baseURL: https://api.pulumi.com
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
