@@ -8,9 +8,14 @@ note: ESTIMATES, not quotes. Computed by API Evangelist from the prices this pro
   replace it — publish that and the estimate is retired.
 audience_of_source_pricing: business-product
 pricing_basis: tiered-subscription
-delivery: managed+licensed
-delivery_method: page
+delivery: open-core
+delivery_method: github
 delivery_evidence: Self-hosting available
+open_source_repository:
+  repo: pulumi/pulumi
+  license: Apache-2.0
+  stars: 25710
+delivery_on_pricing_page: managed+licensed
 estimate_count: 2
 estimates:
 - kind: entry_cost
