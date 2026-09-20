@@ -39,7 +39,8 @@ edges:
     developer/API ecosystem. It is an externally exposed event-subscription surface of the SaaS product,
     not internal plumbing of the caller.
 - tag: AccessTokens
-  spec_file: pulumi-accesstokens-api-openapi.yml
+  spec_file: pulumi-access-tokens-api-openapi.yml
+  reanchored_from: pulumi-accesstokens-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
