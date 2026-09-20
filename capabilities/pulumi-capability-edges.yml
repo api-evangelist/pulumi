@@ -1,0 +1,103 @@
+slug: pulumi
+provider: Pulumi
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: Deployments
+  spec_file: pulumi-deployments-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.85
+  evidence: POST /api/stacks/{orgName}/{projectName}/{stackName}/deployments  CreateAPIDeploymentHandlerV2;
+    POST /api/orgs/{orgName}/deployments/pause  PauseOrgDeployments; schemas DeploymentSettingsRequest,
+    ScheduledAction
+  reason: Creating, listing, pausing/resuming and scheduling deployments of infrastructure stacks, with
+    source/git and executor settings — deployment orchestration. Some operations touch usage reporting,
+    but the dominant surface is deployment execution.
+- tag: Webhooks
+  spec_file: pulumi-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: 'CreateOrganizationWebhook; GetOrganizationWebhookDeliveries; RedeliverOrganizationWebhookEvent;
+    schemas: WebhookDelivery, Webhook'
+  reason: The operations manage the full lifecycle of outbound webhook subscriptions on Pulumi Cloud (create/update/delete
+    hooks at org and stack scope) plus delivery inspection, redelivery and ping — precisely the 'lifecycle
+    of outbound webhook subscriptions, event schemas, and delivery reliability' sub-capability of the
+    developer/API ecosystem. It is an externally exposed event-subscription surface of the SaaS product,
+    not internal plumbing of the caller.
+- tag: AccessTokens
+  spec_file: pulumi-accesstokens-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/orgs/{orgName}/tokens  CreateOrgToken; POST /api/user/tokens  CreatePersonalToken;
+    schemas AccessToken, AccessTokenRole
+  reason: Issuance, listing and revocation of organisation and personal API access tokens with roles —
+    credential/access management. Maps to Identity & Access Management; arguably Developer Identity &
+    Credential Management, hence 0.8 rather than higher.
+- tag: Schedules
+  spec_file: pulumi-schedules-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.75
+  evidence: POST /api/stacks/{orgName}/{projectName}/{stackName}/deployments/schedules  CreateScheduledDeployment;
+    CreateScheduledTTLDeploymentRequest
+  reason: Creates, pauses, resumes and audits scheduled deployments (including drift and TTL deployments)
+    of infrastructure — orchestration of delivering changes to the running environment.
+- tag: CloudSetup
+  spec_file: pulumi-cloudsetup-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /api/esc/cloudsetup/{orgName}/aws/setup  AWSSetup; GET /api/esc/cloudsetup/{orgName}/oauth/gcp/accounts  GCPListAccounts;
+    schemas CloudAccount, CloudSetupProvider
+  reason: Connects and configures AWS, Azure and GCP cloud accounts/providers for the organisation — cloud
+    infrastructure setup and connection management. IT Infrastructure Management is the honest cross-industry
+    fit; some overlap with credential federation lowers confidence.
+- tag: DeploymentRunners
+  spec_file: pulumi-deploymentrunners-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.7
+  evidence: POST /api/orgs/{orgName}/agent-pools  CreateOrgAgentPool; schemas AgentPool, DeploymentAgentMetadata
+  reason: Manages pools of self-hosted deployment agents that execute Pulumi deployments — infrastructure
+    for delivering changes to environments. Deployment Orchestration is the closest fit, though it is
+    compute-runner administration rather than deployment strategy, hence 0.7.
+- tag: Environments
+  spec_file: pulumi-environments-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.7
+  evidence: POST /api/esc/environments/{orgName} CreateEnvironment; schemas 'EncryptEnvironmentSecretsResponse',
+    'OpenEnvironmentResponse' — Pulumi ESC environments hold configuration values and secrets
+  reason: 'Pulumi ESC ''environments'' are named collections of runtime configuration and encrypted secrets
+    that services open at run time, not non-production test environments. The create/read/update/delete
+    plus secret-encryption and ''open'' operations are configuration and secrets management. Note the
+    homograph risk: BC-4210.20 Environment Management (dev/test estates) would be the wrong reading here.'
+- tag: StackConfig
+  spec_file: pulumi-stackconfig-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.7
+  evidence: GET /api/stacks/{orgName}/{projectName}/{stackName}/config  GetStackConfig; schema AppStackConfig
+  reason: Get/update/delete of a stack's configuration values (Pulumi stack config carries runtime settings
+    and encrypted secrets) — configuration and secrets management for deployed services.
