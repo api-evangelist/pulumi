@@ -600,6 +600,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: Pricing
+    url: https://www.pulumi.com/pricing/
+  - type: Plans
+    url: plans/pulumi-plans-pricing.yml
   - type: CapabilityMap
     url: capabilities/pulumi-capability-edges.yml
     name: Pulumi Business Capability Map
