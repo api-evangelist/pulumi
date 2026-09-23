@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens AI Agents API
+  title: Pulumi AI Agents API
   version: 1.0.0
 tags:
 - name: AI Agents
@@ -337,6 +337,31 @@ paths:
         Visibility: Preview
 components:
   schemas:
+    AgentEntity:
+      description: Represents agent entity.
+      discriminator:
+        mapping:
+          policy_issue: '#/components/schemas/AgentEntityPolicyIssue'
+          pull_request: '#/components/schemas/AgentEntityPR'
+          repository: '#/components/schemas/AgentEntityRepository'
+          stack: '#/components/schemas/AgentEntityStack'
+        propertyName: type
+      properties:
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    CancelAgentTaskRequest:
+      description: Request body for cancelling an agent task. When force is true, the runtime session is terminated immediately and the task is reset to idle, even if it is currently running. This is the escalation path when a graceful cancel is insufficient or the task is stuck.
+      properties:
+        force:
+          description: If true, immediately terminate the runtime session and reset the task to idle without attempting a graceful cancel. Required to be true in the current implementation.
+          type: boolean
+          x-order: 1
+      required:
+      - force
+      type: object
     AgentEntityDiff:
       description: Represents agent entity diff.
       properties:
@@ -354,24 +379,6 @@ components:
             $ref: '#/components/schemas/AgentEntity'
           type: array
           x-order: 2
-      type: object
-    ListAgentTasksResponse:
-      description: Response containing a paginated list of agent tasks.
-      properties:
-        continuationToken:
-          description: 'ContinuationToken can be used to fetch the next page of results.
-
-            If null, there are no more results available.'
-          type: string
-          x-order: 2
-        tasks:
-          description: Tasks contains the list of tasks for this page.
-          items:
-            $ref: '#/components/schemas/AgentTask'
-          type: array
-          x-order: 1
-      required:
-      - tasks
       type: object
     AgentUserEvent:
       description: Represents an agent user event.
@@ -434,8 +441,8 @@ components:
             - Default
             - ReadOnly
       type: object
-    ListAgentTaskEventsResponse:
-      description: 'TODO: add polling support (via lastSeen)'
+    ListAgentTasksResponse:
+      description: Response containing a paginated list of agent tasks.
       properties:
         continuationToken:
           description: 'ContinuationToken can be used to fetch the next page of results.
@@ -443,24 +450,14 @@ components:
             If null, there are no more results available.'
           type: string
           x-order: 2
-        events:
-          description: Events contains the list of events for this page.
+        tasks:
+          description: Tasks contains the list of tasks for this page.
           items:
-            $ref: '#/components/schemas/AgentConsoleEvent'
+            $ref: '#/components/schemas/AgentTask'
           type: array
           x-order: 1
       required:
-      - events
-      type: object
-    CancelAgentTaskRequest:
-      description: Request body for cancelling an agent task. When force is true, the runtime session is terminated immediately and the task is reset to idle, even if it is currently running. This is the escalation path when a graceful cancel is insufficient or the task is stuck.
-      properties:
-        force:
-          description: If true, immediately terminate the runtime session and reset the task to idle without attempting a graceful cancel. Required to be true in the current implementation.
-          type: boolean
-          x-order: 1
-      required:
-      - force
+      - tasks
       type: object
     AgentConsoleEvent:
       description: A console event in an agent task conversation, either a user input or an agent response.
@@ -485,24 +482,6 @@ components:
       - isSynthetic
       - type
       type: object
-    AgentUserEventMessage:
-      allOf:
-      - $ref: '#/components/schemas/AgentUserEvent'
-      - description: Represents an agent user event.
-        properties:
-          commands:
-            additionalProperties:
-              $ref: '#/components/schemas/AgentSlashCommand'
-            description: Slash Commands the user selected when creating their message.
-            type: object
-            x-order: 2
-          content:
-            description: The exact natural language instruction from the user.
-            type: string
-            x-order: 1
-        required:
-        - content
-        type: object
     AgentSlashCommand:
       description: An agent slash command.
       properties:
@@ -539,29 +518,24 @@ components:
       - prompt
       - tag
       type: object
-    AgentEntity:
-      description: Represents agent entity.
-      discriminator:
-        mapping:
-          policy_issue: '#/components/schemas/AgentEntityPolicyIssue'
-          pull_request: '#/components/schemas/AgentEntityPR'
-          repository: '#/components/schemas/AgentEntityRepository'
-          stack: '#/components/schemas/AgentEntityStack'
-        propertyName: type
-      properties:
-        type:
-          type: string
-      required:
-      - type
-      type: object
-    AgentRespondToTaskRequest:
-      description: The API payload for users responding to an existing agent task.
-      properties:
-        event:
-          $ref: '#/components/schemas/AgentUserEvent'
-          description: The event
-          x-order: 1
-      type: object
+    AgentUserEventMessage:
+      allOf:
+      - $ref: '#/components/schemas/AgentUserEvent'
+      - description: Represents an agent user event.
+        properties:
+          commands:
+            additionalProperties:
+              $ref: '#/components/schemas/AgentSlashCommand'
+            description: Slash Commands the user selected when creating their message.
+            type: object
+            x-order: 2
+          content:
+            description: The exact natural language instruction from the user.
+            type: string
+            x-order: 1
+        required:
+        - content
+        type: object
     CreateAgentTaskResponse:
       description: Response body for creating an agent task.
       properties:
@@ -572,35 +546,23 @@ components:
       required:
       - taskId
       type: object
-    UserInfo:
-      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
-
-        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+    AgentTaskIntegrationRef:
+      description: A reference to an integration enabled for an agent task. Structured as an object (rather than a bare string) so additional fields like instance name or scope can be added later without breaking the wire format.
       properties:
-        avatarUrl:
-          description: The URL of the user's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The user's login name.
-          type: string
-          x-order: 2
-        name:
-          description: The user's display name.
+        id:
+          description: The catalog integration ID (e.g. 'honeycomb', 'datadog').
           type: string
           x-order: 1
       required:
-      - avatarUrl
-      - githubLogin
-      - name
+      - id
+      type: object
+    AgentRespondToTaskRequest:
+      description: The API payload for users responding to an existing agent task.
+      properties:
+        event:
+          $ref: '#/components/schemas/AgentUserEvent'
+          description: The event
+          x-order: 1
       type: object
     AgentTask:
       description: A Pulumi Copilot agent task representing a conversation and its associated context.
@@ -777,16 +739,6 @@ components:
       - status
       - taskType
       type: object
-    AgentTaskIntegrationRef:
-      description: A reference to an integration enabled for an agent task. Structured as an object (rather than a bare string) so additional fields like instance name or scope can be added later without breaking the wire format.
-      properties:
-        id:
-          description: The catalog integration ID (e.g. 'honeycomb', 'datadog').
-          type: string
-          x-order: 1
-      required:
-      - id
-      type: object
     CreateAgentTaskRequest:
       description: Create a new task by sending the first event in the conversation.
       properties:
@@ -859,4 +811,52 @@ components:
           x-pulumi-model-property:
             enumTypeName: ToolExecutionMode
             enumComments: Where tools are executed for an agent task.
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    ListAgentTaskEventsResponse:
+      description: 'TODO: add polling support (via lastSeen)'
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If null, there are no more results available.'
+          type: string
+          x-order: 2
+        events:
+          description: Events contains the list of events for this page.
+          items:
+            $ref: '#/components/schemas/AgentConsoleEvent'
+          type: array
+          x-order: 1
+      required:
+      - events
       type: object

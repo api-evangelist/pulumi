@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens Environments API
+  title: Pulumi Environments API
   version: 1.0.0
 tags:
 - name: Environments
@@ -5066,19 +5066,153 @@ paths:
         Visibility: Preview
 components:
   schemas:
-    EscTrace:
-      description: Trace holds information about the expression and base of a value.
+    EnvironmentFunctionSummary:
+      description: EnvironmentFunctionSummary summarizes the functions used in an environment, including counts and rotation paths.
       properties:
-        base:
-          $ref: '#/components/schemas/EscValue'
-          description: Base is the base value with which a value was merged.
+        funcCounts:
+          additionalProperties:
+            format: int64
+            type: integer
+          description: A map of function names to the number of times they are used.
+          type: object
+          x-order: 1
+        rotationPaths:
+          description: The list of paths that have rotation configured.
+          items:
+            type: string
+          type: array
           x-order: 2
-        def:
-          $ref: '#/components/schemas/EscRange'
-          description: Def is the range of the expression that computed a value.
+      required:
+      - funcCounts
+      - rotationPaths
+      type: object
+    DecryptEnvironmentSecretsResponse:
+      description: DecryptEnvironmentSecretsResponse defines the response body for multiple decrypted values.
+      properties:
+        plaintexts:
+          description: The list of decrypted plaintext values.
+          items:
+            type: string
+          type: array
           x-order: 1
       required:
-      - def
+      - plaintexts
+      type: object
+    CreateEnvironmentTagRequest:
+      description: Request body for create environment tag.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        value:
+          description: The value
+          type: string
+          x-order: 2
+      required:
+      - name
+      - value
+      type: object
+    EnvironmentRevisionRetracted:
+      description: EnvironmentRevisionRetracted contains information about a retracted environment revision.
+      properties:
+        at:
+          description: The timestamp when the revision was retracted.
+          format: date-time
+          type: string
+          x-order: 2
+        byLogin:
+          description: The login name of the user who retracted the revision.
+          type: string
+          x-order: 3
+        byName:
+          description: The display name of the user who retracted the revision.
+          type: string
+          x-order: 4
+        reason:
+          description: The reason the revision was retracted.
+          type: string
+          x-order: 5
+        replacement:
+          description: The revision number that replaced this retracted revision.
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - at
+      - replacement
+      type: object
+    ListScheduledActionsResponse:
+      description: ListScheduledActionsResponse is the API response when scheduled deployments are listed.
+      properties:
+        schedules:
+          description: The list of scheduled actions
+          items:
+            $ref: '#/components/schemas/ScheduledAction'
+          type: array
+          x-order: 1
+      required:
+      - schedules
+      type: object
+    ListEnvironmentTagsResponse:
+      description: Response containing a map of environment tags.
+      properties:
+        nextToken:
+          description: Token for fetching the next page of results
+          type: string
+          x-order: 2
+        tags:
+          additionalProperties:
+            $ref: '#/components/schemas/EnvironmentTag'
+          description: Map of tag names to their tag details
+          type: object
+          x-order: 1
+      required:
+      - nextToken
+      - tags
+      type: object
+    RestoreEnvironmentRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateEnvironmentRequest'
+      - description: Request to restore a previously deleted environment.
+        properties:
+          deletionTimestamp:
+            description: The ISO 8601 timestamp of the environment's deletion, used to identify which deleted version to restore.
+            type: string
+            x-order: 1
+        required:
+        - deletionTimestamp
+        type: object
+    EscInterpolation:
+      description: An Interpolation holds information about a part of an interpolated string expression.
+      properties:
+        text:
+          description: The text of the expression. Precedes the stringified Value in the output.
+          type: string
+          x-order: 1
+        value:
+          description: The value to interpolate.
+          items:
+            $ref: '#/components/schemas/EscPropertyAccessor'
+          type: array
+          x-order: 2
+      type: object
+    ListEnvironmentRevisionTagsResponse:
+      description: Response containing a list of environment revision tags.
+      properties:
+        nextToken:
+          description: Token for fetching the next page of results
+          type: string
+          x-order: 2
+        tags:
+          description: The list of revision tags
+          items:
+            $ref: '#/components/schemas/EnvironmentRevisionTag'
+          type: array
+          x-order: 1
+      required:
+      - nextToken
+      - tags
       type: object
     EscSchemaSchema:
       description: EscSchemaSchema represents a JSON Schema used to describe the shape of environment values.
@@ -5240,423 +5374,65 @@ components:
       required:
       - type
       type: object
-    CreateEnvironmentSecretRotationScheduleRequest:
-      description: 'CreateEnvironmentSecretRotationScheduleRequest defines the request payload that is expected when
+    WebhookDelivery:
+      description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
 
-        creating a new environment secret rotation schedule.'
+        for the end-users webhook. It merges both model.WebhookEvent and model.WebhookDelivery.'
       properties:
-        environmentPath:
-          description: 'Environment Path specifies a path to a rotated secret to be updated
-
-            Leave the field blank to rotate ALL rotated secrets in an environment'
-          type: string
-          x-order: 1
-      required:
-      - environmentPath
-      type: object
-    WebhookResponse:
-      allOf:
-      - $ref: '#/components/schemas/Webhook'
-      - description: WebhookResponse extends Webhook with additional response-only fields.
-        properties:
-          hasSecret:
-            description: 'HasSecret is true if the webhook has a secret. This is used to determine whether
-
-              to show that there is a secret in the UI.'
-            type: boolean
-            x-order: 1
-          secretCiphertext:
-            description: 'SecretCiphertext is the ciphertext value of the webhook''s secret.
-
-              It''s used to check whether the secret was changed by the PSP'
-            type: string
-            x-order: 2
-        required:
-        - hasSecret
-        - secretCiphertext
-        type: object
-    EnvironmentRevision:
-      description: EnvironmentRevision represents a specific revision of an environment definition.
-      properties:
-        created:
-          description: The timestamp when the revision was created.
-          format: date-time
-          type: string
-          x-order: 2
-        creatorLogin:
-          description: The login name of the user who created the revision.
-          type: string
-          x-order: 3
-        creatorName:
-          description: The display name of the user who created the revision.
-          type: string
-          x-order: 4
-        number:
-          description: A monotonically increasing integer identifying this revision.
+        duration:
+          description: The duration of the delivery request in milliseconds.
           format: int64
           type: integer
+          x-order: 5
+        id:
+          description: The unique identifier of the delivery.
+          type: string
           x-order: 1
-        retracted:
-          $ref: '#/components/schemas/EnvironmentRevisionRetracted'
-          description: Information about the retraction, if this revision has been retracted.
-          x-order: 6
-        sourceChangeRequest:
-          $ref: '#/components/schemas/EnvironmentRevisionChangeRequest'
-          description: The change request that produced this revision, if any.
+        kind:
+          description: The kind of webhook event.
+          type: string
+          x-order: 2
+        payload:
+          description: The JSON payload that was sent.
+          type: string
+          x-order: 3
+        requestHeaders:
+          description: The HTTP headers sent with the request.
+          type: string
           x-order: 7
-        tags:
-          description: The tags associated with this revision.
-          items:
-            type: string
-          type: array
-          x-order: 5
-      required:
-      - created
-      - number
-      type: object
-    CreateEnvironmentOpenRequest:
-      description: CreateEnvironmentOpenRequest is used to create an environment open request
-      properties:
-        accessDurationSeconds:
-          description: Total duration that the resulting grant can be used to access the environment open endpoint (after first open)
-          format: int64
-          type: integer
-          x-order: 2
-        grantExpirationSeconds:
-          description: Time from application of the request until the resulting grant expires
-          format: int64
-          type: integer
-          x-order: 1
-      required:
-      - accessDurationSeconds
-      - grantExpirationSeconds
-      type: object
-    EscEvaluatedExecutionContext:
-      description: An EvaluatedExecutionContext contains the result of evaluating an execution context passed to the root environment.
-      properties:
-        properties:
-          additionalProperties:
-            $ref: '#/components/schemas/EscValue'
-          description: Properties contains the detailed values produced by the execution context.
-          type: object
-          x-order: 1
-        schema:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: Schema contains the schema for Properties.
-          x-order: 2
-      type: object
-    CheckEnvironmentResponse:
-      allOf:
-      - $ref: '#/components/schemas/EscEnvironment'
-      - description: Response body for check environment.
-        properties:
-          diagnostics:
-            description: List of diagnostics
-            items:
-              $ref: '#/components/schemas/EnvironmentDiagnostic'
-            type: array
-            x-order: 1
-          environmentFunctionSummary:
-            $ref: '#/components/schemas/EnvironmentFunctionSummary'
-            description: The environment function summary
-            x-order: 2
-        required:
-        - environmentFunctionSummary
-        type: object
-    ListRotatorsResponse:
-      description: Response containing a list of available secret rotators.
-      properties:
-        rotators:
-          description: The list of rotator names
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - rotators
-      type: object
-    EnvironmentSettings:
-      description: EnvironmentSettings contains settings that control the behavior of an environment.
-      properties:
-        deletionProtected:
-          description: Whether the environment is protected from deletion.
-          type: boolean
-          x-order: 1
-      required:
-      - deletionProtected
-      type: object
-    ListEnvironmentRevisionTagsResponse:
-      description: Response containing a list of environment revision tags.
-      properties:
-        nextToken:
-          description: Token for fetching the next page of results
-          type: string
-          x-order: 2
-        tags:
-          description: The list of revision tags
-          items:
-            $ref: '#/components/schemas/EnvironmentRevisionTag'
-          type: array
-          x-order: 1
-      required:
-      - nextToken
-      - tags
-      type: object
-    EnvironmentRevisionRetracted:
-      description: EnvironmentRevisionRetracted contains information about a retracted environment revision.
-      properties:
-        at:
-          description: The timestamp when the revision was retracted.
-          format: date-time
-          type: string
-          x-order: 2
-        byLogin:
-          description: The login name of the user who retracted the revision.
-          type: string
-          x-order: 3
-        byName:
-          description: The display name of the user who retracted the revision.
-          type: string
-          x-order: 4
-        reason:
-          description: The reason the revision was retracted.
-          type: string
-          x-order: 5
-        replacement:
-          description: The revision number that replaced this retracted revision.
-          format: int64
-          type: integer
-          x-order: 1
-      required:
-      - at
-      - replacement
-      type: object
-    EscPropertyAccessor:
-      allOf:
-      - $ref: '#/components/schemas/EscAccessor'
-      - description: A PropertyAccessor is a single accessor that is associated with a resolved value.
-        properties:
-          value:
-            $ref: '#/components/schemas/EscRange'
-            description: The range of the expression that defines the resolved value.
-            x-order: 1
-        required:
-        - value
-        type: object
-    ListEnvironmentTagsResponse:
-      description: Response containing a map of environment tags.
-      properties:
-        nextToken:
-          description: Token for fetching the next page of results
-          type: string
-          x-order: 2
-        tags:
-          additionalProperties:
-            $ref: '#/components/schemas/EnvironmentTag'
-          description: Map of tag names to their tag details
-          type: object
-          x-order: 1
-      required:
-      - nextToken
-      - tags
-      type: object
-    ListScheduledActionsResponse:
-      description: ListScheduledActionsResponse is the API response when scheduled deployments are listed.
-      properties:
-        schedules:
-          description: The list of scheduled actions
-          items:
-            $ref: '#/components/schemas/ScheduledAction'
-          type: array
-          x-order: 1
-      required:
-      - schedules
-      type: object
-    UpdateEnvironmentRevisionTagRequest:
-      description: Request to update an environment revision tag.
-      properties:
-        revision:
-          description: The revision number to associate with the tag.
-          format: int64
-          type: integer
-          x-order: 1
-      type: object
-    UserInfo:
-      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
-
-        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
-      properties:
-        avatarUrl:
-          description: The URL of the user's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The user's login name.
-          type: string
-          x-order: 2
-        name:
-          description: The user's display name.
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - githubLogin
-      - name
-      type: object
-    DecryptEnvironmentSecretsResponse:
-      description: DecryptEnvironmentSecretsResponse defines the response body for multiple decrypted values.
-      properties:
-        plaintexts:
-          description: The list of decrypted plaintext values.
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - plaintexts
-      type: object
-    EnvironmentImportReferrer:
-      description: An EnvironmentImportReferrer represents an `import` reference from another environment.
-      properties:
-        name:
-          description: The name of the referring environment.
-          type: string
-          x-order: 2
-        project:
-          description: The project name of the referring environment.
-          type: string
-          x-order: 1
-        revision:
-          description: The revision number of the referring environment.
-          format: int64
-          type: integer
-          x-order: 3
-      required:
-      - name
-      - project
-      - revision
-      type: object
-    CreateEnvironmentTagRequest:
-      description: Request body for create environment tag.
-      properties:
-        name:
-          description: The name
-          type: string
-          x-order: 1
-        value:
-          description: The value
-          type: string
-          x-order: 2
-      required:
-      - name
-      - value
-      type: object
-    PatchEnvironmentSettingsRequest:
-      description: Request body for partially updating environment settings.
-      properties:
-        deletionProtected:
-          description: DeletionProtected indicates whether deletion protection should be enabled for this environment. Null means no change.
-          type: boolean
-          x-order: 1
-      type: object
-    Webhook:
-      description: 'Webhook describes a webhook registered with the Pulumi Service. It may
-
-        be registered to either an Organization, Stack or Environment.'
-      properties:
-        active:
-          description: Whether the webhook is active and will receive deliveries.
-          type: boolean
-          x-order: 9
-        displayName:
-          description: The human-readable display name shown in the UI.
+        requestUrl:
+          description: The URL the webhook was delivered to.
           type: string
           x-order: 6
-        envName:
-          description: The environment name. Set when the webhook is scoped to a specific environment.
-          type: string
-          x-order: 4
-        filters:
-          description: Specific event types this webhook subscribes to. If empty, all events are delivered.
-          items:
-            type: string
-          type: array
-          x-order: 11
-        format:
-          description: The format of the webhook payload (e.g., 'raw', 'slack', 'ms_teams').
+        responseBody:
+          description: The HTTP response body.
           type: string
           x-order: 10
-        groups:
-          description: Event groups this webhook subscribes to (e.g., 'stacks', 'deployments').
-          items:
-            type: string
-          type: array
-          x-order: 12
-        name:
-          description: The unique identifier name for the webhook within its scope.
-          type: string
-          x-order: 5
-        organizationName:
-          description: The organization that owns this webhook.
-          type: string
-          x-order: 1
-        payloadUrl:
-          description: The URL to which webhook payloads are delivered.
-          type: string
-          x-order: 7
-        projectName:
-          description: The project name. Set when the webhook is scoped to a specific stack.
-          type: string
-          x-order: 2
-        secret:
-          description: Secret will be omitted when returned from the service.
-          type: string
+        responseCode:
+          description: The HTTP response status code.
+          format: int64
+          type: integer
           x-order: 8
-        stackName:
-          description: The stack name. Set when the webhook is scoped to a specific stack.
+        responseHeaders:
+          description: The HTTP response headers.
           type: string
-          x-order: 3
+          x-order: 9
+        timestamp:
+          description: The time the delivery was sent, as a Unix epoch timestamp.
+          format: int64
+          type: integer
+          x-order: 4
       required:
-      - active
-      - displayName
-      - name
-      - organizationName
-      - payloadUrl
-      type: object
-    EncryptEnvironmentSecretsResponse:
-      description: EncryptEnvironmentSecretsResponse defines the response body for multiple encrypted values.
-      properties:
-        ciphertexts:
-          description: The encrypted values, in order of the plaintexts from the request.
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - ciphertexts
-      type: object
-    CreateEnvironmentRequest:
-      description: Request body for create environment.
-      properties:
-        name:
-          description: The name of the environment.
-          type: string
-          x-order: 2
-        project:
-          description: The project name for the environment.
-          type: string
-          x-order: 1
-      required:
-      - name
-      - project
+      - duration
+      - id
+      - kind
+      - payload
+      - requestHeaders
+      - requestUrl
+      - responseBody
+      - responseCode
+      - responseHeaders
+      - timestamp
       type: object
     EnvironmentRevisionChangeRequest:
       description: EnvironmentRevisionChangeRequest represents a change request associated with an environment revision.
@@ -5672,6 +5448,180 @@ components:
       required:
       - description
       - id
+      type: object
+    RotateEnvironmentResponse:
+      description: Response from a secret rotation operation on an environment.
+      properties:
+        diagnostics:
+          description: Diagnostics generated during the rotation operation.
+          items:
+            $ref: '#/components/schemas/EnvironmentDiagnostic'
+          type: array
+          x-order: 2
+        id:
+          description: The unique identifier for this rotation operation.
+          type: string
+          x-order: 1
+        secretRotationEvent:
+          $ref: '#/components/schemas/SecretRotationEvent'
+          description: Details of the secret rotation event.
+          x-order: 3
+      required:
+      - id
+      - secretRotationEvent
+      type: object
+    EscAccessExpr:
+      description: An AccessExpr represents a property access with a receiving value.
+      properties:
+        accessors:
+          description: The accessors to evaluate.
+          items:
+            $ref: '#/components/schemas/EscAccessor'
+          type: array
+          x-order: 2
+        receiver:
+          $ref: '#/components/schemas/EscRange'
+          description: The receiver to access.
+          x-order: 1
+      required:
+      - accessors
+      - receiver
+      type: object
+    ListEnvironmentsResponse:
+      description: Response containing a list of environments for an organization.
+      properties:
+        environments:
+          description: The list of environments
+          items:
+            $ref: '#/components/schemas/OrgEnvironment'
+          type: array
+          x-order: 1
+        nextToken:
+          description: Token for fetching the next page of results
+          type: string
+          x-order: 2
+      required:
+      - environments
+      type: object
+    EnvironmentMetadata:
+      description: EnvironmentMetadata contains read-only metadata about a Pulumi environment.
+      properties:
+        activeChangeRequest:
+          $ref: '#/components/schemas/ChangeRequestRef'
+          description: 'ActiveChangeRequest contains information about any active change request for this environment.
+
+            Will be nil if there is no active change request.'
+          x-order: 3
+        gatedActions:
+          description: GatedActions indicates which actions on this environment require change request approval.
+          items:
+            type: string
+          type: array
+          x-order: 4
+        id:
+          description: Environment metadata follows other Pulumi Cloud "Metadata" fields and contains read-only information about the environment
+          type: string
+          x-order: 1
+        openRequestNeeded:
+          description: OpenRequestNeeded indicates whether an open request is currently needed in order to open the environment.
+          type: boolean
+          x-order: 5
+        ownedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user with ownership of this environment
+          x-order: 2
+      required:
+      - id
+      - ownedBy
+      type: object
+    UpdateEnvironmentTagRequestNewTag:
+      description: The new tag name and value to set when updating an environment tag.
+      properties:
+        name:
+          description: The new tag name.
+          type: string
+          x-order: 1
+        value:
+          description: The new tag value.
+          type: string
+          x-order: 2
+      type: object
+    EnvironmentDiagnostic:
+      description: EnvironmentDiagnostic represents a diagnostic message associated with an environment definition.
+      properties:
+        path:
+          description: The path within the environment definition where the diagnostic occurred.
+          type: string
+          x-order: 3
+        range:
+          $ref: '#/components/schemas/EscRange'
+          description: The source range where the diagnostic occurred.
+          x-order: 1
+        severity:
+          description: 'The severity of the diagnostic: "error" or "warning".'
+          type: string
+          x-order: 4
+        summary:
+          description: A summary of the diagnostic message.
+          type: string
+          x-order: 2
+      type: object
+    EscRange:
+      description: A Range defines a range within an environment definition.
+      properties:
+        begin:
+          $ref: '#/components/schemas/EscPos'
+          description: The beginning of the range.
+          x-order: 2
+        end:
+          $ref: '#/components/schemas/EscPos'
+          description: The end of the range.
+          x-order: 3
+        environment:
+          description: The name of the environment.
+          type: string
+          x-order: 1
+      required:
+      - begin
+      - end
+      type: object
+    UpdateEnvironmentTagRequestCurrentTag:
+      description: The current tag value to match when updating an environment tag.
+      properties:
+        value:
+          description: The current tag value.
+          type: string
+          x-order: 1
+      required:
+      - value
+      type: object
+    OpenEnvironmentResponse:
+      description: Response body after opening an environment session.
+      properties:
+        diagnostics:
+          description: Any diagnostics generated when opening the environment.
+          items:
+            $ref: '#/components/schemas/EnvironmentDiagnostic'
+          type: array
+          x-order: 2
+        id:
+          description: The unique identifier of the opened environment session.
+          type: string
+          x-order: 1
+      required:
+      - id
+      type: object
+    ListRotatorsResponse:
+      description: Response containing a list of available secret rotators.
+      properties:
+        rotators:
+          description: The list of rotator names
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - rotators
       type: object
     ScheduledAction:
       description: ScheduledAction describes the state of a scheduled action.
@@ -5751,690 +5701,44 @@ components:
       - orgID
       - paused
       type: object
-    ListEnvironmentsResponse:
-      description: Response containing a list of environments for an organization.
-      properties:
-        environments:
-          description: The list of environments
-          items:
-            $ref: '#/components/schemas/OrgEnvironment'
-          type: array
-          x-order: 1
-        nextToken:
-          description: Token for fetching the next page of results
-          type: string
-          x-order: 2
-      required:
-      - environments
-      type: object
-    EscExpr:
-      description: An Expr holds information about an expression in an environment definition.
-      properties:
-        access:
-          $ref: '#/components/schemas/EscAccessExpr'
-          description: The access, if this is an access expression.
-          x-order: 8
-        base:
-          $ref: '#/components/schemas/EscExpr'
-          description: The expression that defined this expression's base value, if any.
-          x-order: 3
-        builtin:
-          $ref: '#/components/schemas/EscBuiltinExpr'
-          description: The builtin, if this is a call to a builtin function.
-          x-order: 11
-        interpolate:
-          description: The interpolations, if this is a string interpolation expression.
-          items:
-            $ref: '#/components/schemas/EscInterpolation'
-          type: array
-          x-order: 6
-        keyRanges:
-          additionalProperties:
-            $ref: '#/components/schemas/EscRange'
-          description: Ranges for the object's keys, if this is an object expression.
-          type: object
-          x-order: 4
-        list:
-          description: The list elements, if this is a list expression.
-          items:
-            $ref: '#/components/schemas/EscExpr'
-          type: array
-          x-order: 9
-        literal:
-          description: The literal value, if this is a literal expression (nil, bool, json.Number, or string)
-          type: object
-          x-order: 5
-        object:
-          additionalProperties:
-            $ref: '#/components/schemas/EscExpr'
-          description: The object properties, if this is an object expression.
-          type: object
-          x-order: 10
-        range:
-          $ref: '#/components/schemas/EscRange'
-          description: The range of the expression.
-          x-order: 1
-        schema:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: The schema of the expression's result.
-          x-order: 2
-        symbol:
-          description: The property accessors, if this is a symbol expression.
-          items:
-            $ref: '#/components/schemas/EscPropertyAccessor'
-          type: array
-          x-order: 7
-      required:
-      - range
-      type: object
-    CloneEnvironmentRequest:
-      description: Request body for cloning an ESC environment to a new environment.
-      properties:
-        name:
-          description: Name for the newly cloned environment.
-          type: string
-          x-order: 2
-        preserveAccess:
-          description: Whether to copy access control settings from the source environment.
-          type: boolean
-          x-order: 5
-        preserveEnvironmentTags:
-          description: Whether to copy environment-level tags from the source environment.
-          type: boolean
-          x-order: 6
-        preserveHistory:
-          description: Whether to copy the revision history from the source environment.
-          type: boolean
-          x-order: 4
-        preserveRevisionTags:
-          description: Whether to copy revision-level tags from the source environment.
-          type: boolean
-          x-order: 7
-        project:
-          description: Target project for the cloned environment. If omitted, uses the source project.
-          type: string
-          x-order: 1
-        version:
-          description: Specific version of the source environment to clone. If omitted, clones the latest version.
-          format: int64
-          type: integer
-          x-order: 3
-      required:
-      - name
-      type: object
-    RotateEnvironmentResponse:
-      description: Response from a secret rotation operation on an environment.
-      properties:
-        diagnostics:
-          description: Diagnostics generated during the rotation operation.
-          items:
-            $ref: '#/components/schemas/EnvironmentDiagnostic'
-          type: array
-          x-order: 2
-        id:
-          description: The unique identifier for this rotation operation.
-          type: string
-          x-order: 1
-        secretRotationEvent:
-          $ref: '#/components/schemas/SecretRotationEvent'
-          description: Details of the secret rotation event.
-          x-order: 3
-      required:
-      - id
-      - secretRotationEvent
-      type: object
-    ChangeRequestRef:
-      description: Represents change request ref.
-      properties:
-        changeRequestId:
-          description: The change request identifier
-          type: string
-          x-order: 1
-        latestRevisionNumber:
-          description: The latest revision number
-          format: int64
-          type: integer
-          x-order: 2
-      type: object
-    RestoreEnvironmentRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateEnvironmentRequest'
-      - description: Request to restore a previously deleted environment.
-        properties:
-          deletionTimestamp:
-            description: The ISO 8601 timestamp of the environment's deletion, used to identify which deleted version to restore.
-            type: string
-            x-order: 1
-        required:
-        - deletionTimestamp
-        type: object
-    SecretRotation:
-      description: Represents the state of a single secret rotation within an environment.
-      properties:
-        environmentPath:
-          description: The path of the secret being rotated in the environment.
-          type: string
-          x-order: 2
-        errorMessage:
-          description: An error message if the rotation failed.
-          type: string
-          x-order: 4
-        id:
-          description: The unique identifier for this secret rotation.
-          type: string
-          x-order: 1
-        status:
-          description: The current status of the rotation.
-          type: string
-          x-order: 3
-      required:
-      - environmentPath
-      - id
-      - status
-      type: object
-    EscAccessor:
-      description: An Accessor is an element index or property name.
-      properties:
-        index:
-          description: The integer index of the element to access. Mutually exclusive with Key.
-          format: int64
-          type: integer
-          x-order: 1
-        key:
-          description: The key of the property to access. Mutually exclusive with Index.
-          type: string
-          x-order: 2
-        range:
-          $ref: '#/components/schemas/EscRange'
-          description: The range of the accessor.
-          x-order: 3
-      type: object
-    CreateEnvironmentRevisionTagRequest:
-      description: Request body for create environment revision tag.
-      properties:
-        name:
-          description: The name
-          type: string
-          x-order: 1
-        revision:
-          description: The revision
-          format: int64
-          type: integer
-          x-order: 2
-      required:
-      - name
-      type: object
-    EnvironmentLinks:
-      description: EnvironmentLinks contains hypermedia links related to an environment resource.
-      properties:
-        self:
-          description: The URL for this environment resource.
-          type: string
-          x-order: 1
-      type: object
-    UpdateEnvironmentResponse:
-      allOf:
-      - $ref: '#/components/schemas/EnvironmentDiagnosticsResponse'
-      - description: Response returned after updating an environment.
-        type: object
-    EnvironmentResponse:
-      allOf:
-      - $ref: '#/components/schemas/EscEnvironment'
-      - description: EnvironmentResponse is the response returned when retrieving or evaluating an environment.
-        properties:
-          diagnostics:
-            description: The list of diagnostics produced during environment evaluation.
-            items:
-              $ref: '#/components/schemas/EnvironmentDiagnostic'
-            type: array
-            x-order: 1
-          environmentFunctionSummary:
-            $ref: '#/components/schemas/EnvironmentFunctionSummary'
-            description: A summary of the functions used in the environment.
-            x-order: 2
-        required:
-        - environmentFunctionSummary
-        type: object
-    EnvironmentFunctionSummary:
-      description: EnvironmentFunctionSummary summarizes the functions used in an environment, including counts and rotation paths.
-      properties:
-        funcCounts:
-          additionalProperties:
-            format: int64
-            type: integer
-          description: A map of function names to the number of times they are used.
-          type: object
-          x-order: 1
-        rotationPaths:
-          description: The list of paths that have rotation configured.
-          items:
-            type: string
-          type: array
-          x-order: 2
-      required:
-      - funcCounts
-      - rotationPaths
-      type: object
-    CreateEnvironmentOpenRequestResponse:
-      description: Response body for create environment open request.
-      properties:
-        changeRequests:
-          description: List of change requests
-          items:
-            $ref: '#/components/schemas/CreateEnvironmentOpenRequestResult'
-          type: array
-          x-order: 1
-      required:
-      - changeRequests
-      type: object
-    EscEnvironment:
-      description: An Environment contains the result of evaluating an environment definition.
-      properties:
-        executionContext:
-          $ref: '#/components/schemas/EscEvaluatedExecutionContext'
-          description: ExecutionContext contains the values + schema for the execution context passed to the root environment.
-          x-order: 4
-        exprs:
-          additionalProperties:
-            $ref: '#/components/schemas/EscExpr'
-          description: Exprs contains the AST for each expression in the environment definition.
-          type: object
-          x-order: 1
-        properties:
-          additionalProperties:
-            $ref: '#/components/schemas/EscValue'
-          description: Properties contains the detailed values produced by the environment.
-          type: object
-          x-order: 2
-        schema:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: Schema contains the schema for Properties.
-          x-order: 3
-      type: object
-    EscRange:
-      description: A Range defines a range within an environment definition.
-      properties:
-        begin:
-          $ref: '#/components/schemas/EscPos'
-          description: The beginning of the range.
-          x-order: 2
-        end:
-          $ref: '#/components/schemas/EscPos'
-          description: The end of the range.
-          x-order: 3
-        environment:
-          description: The name of the environment.
-          type: string
-          x-order: 1
-      required:
-      - begin
-      - end
-      type: object
-    ScheduledActionHistoryEvent:
-      description: ScheduledActionHistoryEvent describes the state of a scheduled deployment history event.
-      properties:
-        executed:
-          description: The timestamp when the action was executed.
-          type: string
-          x-order: 3
-        id:
-          description: The unique identifier for this history event.
-          type: string
-          x-order: 1
-        result:
-          description: The result of the execution.
-          type: string
-          x-order: 5
-        scheduledActionID:
-          description: The ID of the scheduled action this event belongs to.
-          type: string
-          x-order: 2
-        version:
-          description: The version of the scheduled action at the time of execution.
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - executed
-      - id
-      - result
-      - scheduledActionID
-      - version
-      type: object
-    ListEnvironmentReferrersResponse:
-      description: Response containing a list of entities that reference an environment.
-      properties:
-        continuationToken:
-          description: Continuation token for pagination
-          type: string
-          x-order: 2
-        referrers:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/EnvironmentReferrer'
-            type: array
-          description: Map of referrer types to their referrer details
-          type: object
-          x-order: 1
-      required:
-      - referrers
-      type: object
-    ListProvidersResponse:
-      description: Response containing a list of available providers.
-      properties:
-        providers:
-          description: The list of provider names
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - providers
-      type: object
-    RetractEnvironmentRevisionRequest:
-      description: Request to retract a specific revision of an environment.
-      properties:
-        reason:
-          description: The reason for retracting the revision.
-          type: string
-          x-order: 2
-        replacement:
-          description: The revision number to use as a replacement, if any.
-          format: int64
-          type: integer
-          x-order: 1
-      type: object
-    RotateEnvironmentRequest:
-      description: Request to rotate secrets in an environment.
-      properties:
-        paths:
-          description: The paths of the secrets to rotate.
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - paths
-      type: object
-    EncryptEnvironmentSecretsRequest:
-      description: EncryptEnvironmentSecretsRequest defines the request body for encrypting secret values.
-      properties:
-        plaintexts:
-          description: The list of plaintext values to encrypt.
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - plaintexts
-      type: object
-    ListEnvironmentSecretRotationHistoryResponse:
-      description: Response containing a list of secret rotation history events for an environment.
-      properties:
-        events:
-          description: The list of secret rotation events
-          items:
-            $ref: '#/components/schemas/SecretRotationEvent'
-          type: array
-          x-order: 1
-      required:
-      - events
-      type: object
-    EnvironmentRevisionTag:
-      description: EnvironmentRevisionTag represents a named tag pointing to a specific environment revision.
+    EnvironmentRevision:
+      description: EnvironmentRevision represents a specific revision of an environment definition.
       properties:
         created:
-          description: The timestamp when the tag was created.
+          description: The timestamp when the revision was created.
           format: date-time
+          type: string
+          x-order: 2
+        creatorLogin:
+          description: The login name of the user who created the revision.
           type: string
           x-order: 3
-        editorLogin:
-          description: The login name of the user who last edited the tag.
-          type: string
-          x-order: 5
-        editorName:
-          description: The display name of the user who last edited the tag.
-          type: string
-          x-order: 6
-        modified:
-          description: The timestamp when the tag was last modified.
-          format: date-time
+        creatorName:
+          description: The display name of the user who created the revision.
           type: string
           x-order: 4
-        name:
-          description: The name of the tag.
-          type: string
-          x-order: 1
-        revision:
-          description: The revision number this tag points to.
+        number:
+          description: A monotonically increasing integer identifying this revision.
           format: int64
           type: integer
-          x-order: 2
+          x-order: 1
+        retracted:
+          $ref: '#/components/schemas/EnvironmentRevisionRetracted'
+          description: Information about the retraction, if this revision has been retracted.
+          x-order: 6
+        sourceChangeRequest:
+          $ref: '#/components/schemas/EnvironmentRevisionChangeRequest'
+          description: The change request that produced this revision, if any.
+          x-order: 7
+        tags:
+          description: The tags associated with this revision.
+          items:
+            type: string
+          type: array
+          x-order: 5
       required:
       - created
-      - modified
-      - name
-      - revision
-      type: object
-    EscValue:
-      description: A Value is the result of evaluating an expression within an environment definition.
-      properties:
-        secret:
-          description: Secret is true if this value is secret.
-          type: boolean
-          x-order: 2
-        trace:
-          $ref: '#/components/schemas/EscTrace'
-          description: 'Trace holds information about the expression that computed this value and the value (if any) with which it was
-
-            merged.'
-          x-order: 4
-        unknown:
-          description: Unknown is true if this value is unknown.
-          type: boolean
-          x-order: 3
-        value:
-          description: 'Value holds the concrete representation of the value. May be nil, bool, json.Number, string, []Value, or
-
-            map[string]Value.'
-          type: object
-          x-order: 1
-      required:
-      - trace
-      type: object
-    ListScheduledActionHistoryResponse:
-      description: ListScheduledActionHistoryResponse is the API response when a scheduled action history is listed.
-      properties:
-        scheduleHistoryEvents:
-          description: The list of scheduled action history events
-          items:
-            $ref: '#/components/schemas/ScheduledActionHistoryEvent'
-          type: array
-          x-order: 1
-      required:
-      - scheduleHistoryEvents
-      type: object
-    EnvironmentDiagnosticsResponse:
-      description: EnvironmentDiagnosticsResponse contains a list of diagnostics from an environment operation.
-      properties:
-        diagnostics:
-          description: The list of diagnostics produced by the environment operation.
-          items:
-            $ref: '#/components/schemas/EnvironmentDiagnostic'
-          type: array
-          x-order: 1
-      type: object
-    EnvironmentReferrerMetadata:
-      description: EnvironmentReferrerMetadata contains counts of different types of entities that reference an environment.
-      properties:
-        environmentReferrerCount:
-          description: The number of environments that reference this environment.
-          format: int64
-          type: integer
-          x-order: 1
-        insightsAccountReferrerCount:
-          description: The number of Insights accounts that reference this environment.
-          format: int64
-          type: integer
-          x-order: 3
-        stackReferrerCount:
-          description: The number of stacks that reference this environment.
-          format: int64
-          type: integer
-          x-order: 2
-      required:
-      - environmentReferrerCount
-      - insightsAccountReferrerCount
-      - stackReferrerCount
-      type: object
-    UpdateEnvironmentTagRequestNewTag:
-      description: The new tag name and value to set when updating an environment tag.
-      properties:
-        name:
-          description: The new tag name.
-          type: string
-          x-order: 1
-        value:
-          description: The new tag value.
-          type: string
-          x-order: 2
-      type: object
-    DecryptEnvironmentSecretsRequest:
-      description: DecryptEnvironmentSecretsRequest defines the request body for decrypting secret values.
-      properties:
-        ciphertexts:
-          description: The list of encrypted ciphertext values to decrypt.
-          items:
-            type: string
-          type: array
-          x-order: 1
-      required:
-      - ciphertexts
-      type: object
-    EnvironmentMetadata:
-      description: EnvironmentMetadata contains read-only metadata about a Pulumi environment.
-      properties:
-        activeChangeRequest:
-          $ref: '#/components/schemas/ChangeRequestRef'
-          description: 'ActiveChangeRequest contains information about any active change request for this environment.
-
-            Will be nil if there is no active change request.'
-          x-order: 3
-        gatedActions:
-          description: GatedActions indicates which actions on this environment require change request approval.
-          items:
-            type: string
-          type: array
-          x-order: 4
-        id:
-          description: Environment metadata follows other Pulumi Cloud "Metadata" fields and contains read-only information about the environment
-          type: string
-          x-order: 1
-        openRequestNeeded:
-          description: OpenRequestNeeded indicates whether an open request is currently needed in order to open the environment.
-          type: boolean
-          x-order: 5
-        ownedBy:
-          $ref: '#/components/schemas/UserInfo'
-          description: The user with ownership of this environment
-          x-order: 2
-      required:
-      - id
-      - ownedBy
-      type: object
-    CreateEnvironmentOpenRequestResult:
-      description: Result of create environment open request.
-      properties:
-        changeRequestId:
-          description: The change request identifier
-          type: string
-          x-order: 3
-        environmentName:
-          description: The environment name
-          type: string
-          x-order: 2
-        etag:
-          description: The entity tag for concurrency control
-          type: string
-          x-order: 5
-        latestRevisionNumber:
-          description: The latest revision number
-          format: int64
-          type: integer
-          x-order: 4
-        projectName:
-          description: The project name
-          type: string
-          x-order: 1
-      required:
-      - changeRequestId
-      - environmentName
-      - etag
-      - latestRevisionNumber
-      - projectName
-      type: object
-    EscPos:
-      description: A Pos defines a position within an environment definition.
-      properties:
-        byte:
-          description: Byte is the byte offset into the file where the indicated position begins.
-          format: int64
-          type: integer
-          x-order: 3
-        column:
-          description: 'Column is the source code column where this position points. Columns are counted in visual cells starting at 1,
-
-            and are incremented roughly per grapheme cluster encountered.'
-          format: int64
-          type: integer
-          x-order: 2
-        line:
-          description: 'Line is the source code line where this position points. Lines are counted starting at 1 and incremented for each
-
-            newline character encountered.'
-          format: int64
-          type: integer
-          x-order: 1
-      required:
-      - byte
-      - column
-      - line
-      type: object
-    EnvironmentDiagnostic:
-      description: EnvironmentDiagnostic represents a diagnostic message associated with an environment definition.
-      properties:
-        path:
-          description: The path within the environment definition where the diagnostic occurred.
-          type: string
-          x-order: 3
-        range:
-          $ref: '#/components/schemas/EscRange'
-          description: The source range where the diagnostic occurred.
-          x-order: 1
-        severity:
-          description: 'The severity of the diagnostic: "error" or "warning".'
-          type: string
-          x-order: 4
-        summary:
-          description: A summary of the diagnostic message.
-          type: string
-          x-order: 2
-      type: object
-    EnvironmentReferrer:
-      description: An EnvironmentReferrer represents an entity that refers to an environment.
-      properties:
-        environment:
-          $ref: '#/components/schemas/EnvironmentImportReferrer'
-          description: The environment import referrer, if this referrer is an environment.
-          x-order: 1
-        insightsAccount:
-          $ref: '#/components/schemas/EnvironmentInsightsAccountReferrer'
-          description: The Insights account referrer, if this referrer is an Insights account.
-          x-order: 3
-        stack:
-          $ref: '#/components/schemas/EnvironmentStackReferrer'
-          description: The stack referrer, if this referrer is a stack.
-          x-order: 2
+      - number
       type: object
     EnvironmentStackReferrer:
       description: An EnvironmentStackReferrer represents a reference from an IaC stack.
@@ -6456,78 +5760,6 @@ components:
       - project
       - stack
       - version
-      type: object
-    UpdateEnvironmentTagRequestCurrentTag:
-      description: The current tag value to match when updating an environment tag.
-      properties:
-        value:
-          description: The current tag value.
-          type: string
-          x-order: 1
-      required:
-      - value
-      type: object
-    EnvironmentTag:
-      description: EnvironmentTag represents a key-value tag associated with an environment.
-      properties:
-        created:
-          description: The timestamp when the tag was created.
-          format: date-time
-          type: string
-          x-order: 3
-        editorLogin:
-          description: The login name of the user who last edited the tag.
-          type: string
-          x-order: 5
-        editorName:
-          description: The display name of the user who last edited the tag.
-          type: string
-          x-order: 6
-        modified:
-          description: The timestamp when the tag was last modified.
-          format: date-time
-          type: string
-          x-order: 4
-        name:
-          description: The name of the tag.
-          type: string
-          x-order: 1
-        value:
-          description: The value of the tag.
-          type: string
-          x-order: 2
-      required:
-      - created
-      - editorLogin
-      - editorName
-      - modified
-      - name
-      - value
-      type: object
-    EscBuiltinExpr:
-      description: A BuiltinExpr is a call to a builtin function.
-      properties:
-        arg:
-          $ref: '#/components/schemas/EscExpr'
-          description: The argument expression passed to the builtin function.
-          x-order: 4
-        argSchema:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: The schema for the function argument.
-          x-order: 3
-        name:
-          description: The name of the builtin function.
-          type: string
-          x-order: 1
-        nameRange:
-          $ref: '#/components/schemas/EscRange'
-          description: The source range of the function name.
-          x-order: 2
-      required:
-      - arg
-      - argSchema
-      - name
-      - nameRange
       type: object
     SecretRotationEvent:
       description: An event representing a secret rotation operation on an environment.
@@ -6591,22 +5823,283 @@ components:
       - status
       - userID
       type: object
-    EscAccessExpr:
-      description: An AccessExpr represents a property access with a receiving value.
+    EnvironmentReferrerMetadata:
+      description: EnvironmentReferrerMetadata contains counts of different types of entities that reference an environment.
       properties:
-        accessors:
-          description: The accessors to evaluate.
-          items:
-            $ref: '#/components/schemas/EscAccessor'
-          type: array
+        environmentReferrerCount:
+          description: The number of environments that reference this environment.
+          format: int64
+          type: integer
+          x-order: 1
+        insightsAccountReferrerCount:
+          description: The number of Insights accounts that reference this environment.
+          format: int64
+          type: integer
+          x-order: 3
+        stackReferrerCount:
+          description: The number of stacks that reference this environment.
+          format: int64
+          type: integer
           x-order: 2
-        receiver:
+      required:
+      - environmentReferrerCount
+      - insightsAccountReferrerCount
+      - stackReferrerCount
+      type: object
+    EscTrace:
+      description: Trace holds information about the expression and base of a value.
+      properties:
+        base:
+          $ref: '#/components/schemas/EscValue'
+          description: Base is the base value with which a value was merged.
+          x-order: 2
+        def:
           $ref: '#/components/schemas/EscRange'
-          description: The receiver to access.
+          description: Def is the range of the expression that computed a value.
           x-order: 1
       required:
-      - accessors
-      - receiver
+      - def
+      type: object
+    CloneEnvironmentRequest:
+      description: Request body for cloning an ESC environment to a new environment.
+      properties:
+        name:
+          description: Name for the newly cloned environment.
+          type: string
+          x-order: 2
+        preserveAccess:
+          description: Whether to copy access control settings from the source environment.
+          type: boolean
+          x-order: 5
+        preserveEnvironmentTags:
+          description: Whether to copy environment-level tags from the source environment.
+          type: boolean
+          x-order: 6
+        preserveHistory:
+          description: Whether to copy the revision history from the source environment.
+          type: boolean
+          x-order: 4
+        preserveRevisionTags:
+          description: Whether to copy revision-level tags from the source environment.
+          type: boolean
+          x-order: 7
+        project:
+          description: Target project for the cloned environment. If omitted, uses the source project.
+          type: string
+          x-order: 1
+        version:
+          description: Specific version of the source environment to clone. If omitted, clones the latest version.
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - name
+      type: object
+    ListScheduledActionHistoryResponse:
+      description: ListScheduledActionHistoryResponse is the API response when a scheduled action history is listed.
+      properties:
+        scheduleHistoryEvents:
+          description: The list of scheduled action history events
+          items:
+            $ref: '#/components/schemas/ScheduledActionHistoryEvent'
+          type: array
+          x-order: 1
+      required:
+      - scheduleHistoryEvents
+      type: object
+    RotateEnvironmentRequest:
+      description: Request to rotate secrets in an environment.
+      properties:
+        paths:
+          description: The paths of the secrets to rotate.
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - paths
+      type: object
+    EnvironmentReferrer:
+      description: An EnvironmentReferrer represents an entity that refers to an environment.
+      properties:
+        environment:
+          $ref: '#/components/schemas/EnvironmentImportReferrer'
+          description: The environment import referrer, if this referrer is an environment.
+          x-order: 1
+        insightsAccount:
+          $ref: '#/components/schemas/EnvironmentInsightsAccountReferrer'
+          description: The Insights account referrer, if this referrer is an Insights account.
+          x-order: 3
+        stack:
+          $ref: '#/components/schemas/EnvironmentStackReferrer'
+          description: The stack referrer, if this referrer is a stack.
+          x-order: 2
+      type: object
+    CreateEnvironmentOpenRequest:
+      description: CreateEnvironmentOpenRequest is used to create an environment open request
+      properties:
+        accessDurationSeconds:
+          description: Total duration that the resulting grant can be used to access the environment open endpoint (after first open)
+          format: int64
+          type: integer
+          x-order: 2
+        grantExpirationSeconds:
+          description: Time from application of the request until the resulting grant expires
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - accessDurationSeconds
+      - grantExpirationSeconds
+      type: object
+    RetractEnvironmentRevisionRequest:
+      description: Request to retract a specific revision of an environment.
+      properties:
+        reason:
+          description: The reason for retracting the revision.
+          type: string
+          x-order: 2
+        replacement:
+          description: The revision number to use as a replacement, if any.
+          format: int64
+          type: integer
+          x-order: 1
+      type: object
+    CheckEnvironmentResponse:
+      allOf:
+      - $ref: '#/components/schemas/EscEnvironment'
+      - description: Response body for check environment.
+        properties:
+          diagnostics:
+            description: List of diagnostics
+            items:
+              $ref: '#/components/schemas/EnvironmentDiagnostic'
+            type: array
+            x-order: 1
+          environmentFunctionSummary:
+            $ref: '#/components/schemas/EnvironmentFunctionSummary'
+            description: The environment function summary
+            x-order: 2
+        required:
+        - environmentFunctionSummary
+        type: object
+    EscExpr:
+      description: An Expr holds information about an expression in an environment definition.
+      properties:
+        access:
+          $ref: '#/components/schemas/EscAccessExpr'
+          description: The access, if this is an access expression.
+          x-order: 8
+        base:
+          $ref: '#/components/schemas/EscExpr'
+          description: The expression that defined this expression's base value, if any.
+          x-order: 3
+        builtin:
+          $ref: '#/components/schemas/EscBuiltinExpr'
+          description: The builtin, if this is a call to a builtin function.
+          x-order: 11
+        interpolate:
+          description: The interpolations, if this is a string interpolation expression.
+          items:
+            $ref: '#/components/schemas/EscInterpolation'
+          type: array
+          x-order: 6
+        keyRanges:
+          additionalProperties:
+            $ref: '#/components/schemas/EscRange'
+          description: Ranges for the object's keys, if this is an object expression.
+          type: object
+          x-order: 4
+        list:
+          description: The list elements, if this is a list expression.
+          items:
+            $ref: '#/components/schemas/EscExpr'
+          type: array
+          x-order: 9
+        literal:
+          description: The literal value, if this is a literal expression (nil, bool, json.Number, or string)
+          type: object
+          x-order: 5
+        object:
+          additionalProperties:
+            $ref: '#/components/schemas/EscExpr'
+          description: The object properties, if this is an object expression.
+          type: object
+          x-order: 10
+        range:
+          $ref: '#/components/schemas/EscRange'
+          description: The range of the expression.
+          x-order: 1
+        schema:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: The schema of the expression's result.
+          x-order: 2
+        symbol:
+          description: The property accessors, if this is a symbol expression.
+          items:
+            $ref: '#/components/schemas/EscPropertyAccessor'
+          type: array
+          x-order: 7
+      required:
+      - range
+      type: object
+    EscPropertyAccessor:
+      allOf:
+      - $ref: '#/components/schemas/EscAccessor'
+      - description: A PropertyAccessor is a single accessor that is associated with a resolved value.
+        properties:
+          value:
+            $ref: '#/components/schemas/EscRange'
+            description: The range of the expression that defines the resolved value.
+            x-order: 1
+        required:
+        - value
+        type: object
+    ScheduledActionHistoryEvent:
+      description: ScheduledActionHistoryEvent describes the state of a scheduled deployment history event.
+      properties:
+        executed:
+          description: The timestamp when the action was executed.
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier for this history event.
+          type: string
+          x-order: 1
+        result:
+          description: The result of the execution.
+          type: string
+          x-order: 5
+        scheduledActionID:
+          description: The ID of the scheduled action this event belongs to.
+          type: string
+          x-order: 2
+        version:
+          description: The version of the scheduled action at the time of execution.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - executed
+      - id
+      - result
+      - scheduledActionID
+      - version
+      type: object
+    CreateEnvironmentRequest:
+      description: Request body for create environment.
+      properties:
+        name:
+          description: The name of the environment.
+          type: string
+          x-order: 2
+        project:
+          description: The project name for the environment.
+          type: string
+          x-order: 1
+      required:
+      - name
+      - project
       type: object
     OrgEnvironment:
       description: OrgEnvironment represents an environment within an organization.
@@ -6672,131 +6165,6 @@ components:
       - settings
       - tags
       type: object
-    EnvironmentInsightsAccountReferrer:
-      description: An EnvironmentInsightsAccountReferrer represents a reference from an Insights account.
-      properties:
-        accountName:
-          description: The name of the Insights account that references the environment.
-          type: string
-          x-order: 1
-      required:
-      - accountName
-      type: object
-    OpenEnvironmentResponse:
-      description: Response body after opening an environment session.
-      properties:
-        diagnostics:
-          description: Any diagnostics generated when opening the environment.
-          items:
-            $ref: '#/components/schemas/EnvironmentDiagnostic'
-          type: array
-          x-order: 2
-        id:
-          description: The unique identifier of the opened environment session.
-          type: string
-          x-order: 1
-      required:
-      - id
-      type: object
-    ProviderSchema:
-      description: ProviderSchema describes the input and output schemas for a provider.
-      properties:
-        description:
-          description: A description of the provider.
-          type: string
-          x-order: 2
-        inputs:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: The input schema for the provider.
-          x-order: 3
-        name:
-          description: The name of the provider.
-          type: string
-          x-order: 1
-        outputs:
-          $ref: '#/components/schemas/EscSchemaSchema'
-          description: The output schema for the provider.
-          x-order: 4
-      required:
-      - description
-      - inputs
-      - name
-      - outputs
-      type: object
-    WebhookDelivery:
-      description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
-
-        for the end-users webhook. It merges both model.WebhookEvent and model.WebhookDelivery.'
-      properties:
-        duration:
-          description: The duration of the delivery request in milliseconds.
-          format: int64
-          type: integer
-          x-order: 5
-        id:
-          description: The unique identifier of the delivery.
-          type: string
-          x-order: 1
-        kind:
-          description: The kind of webhook event.
-          type: string
-          x-order: 2
-        payload:
-          description: The JSON payload that was sent.
-          type: string
-          x-order: 3
-        requestHeaders:
-          description: The HTTP headers sent with the request.
-          type: string
-          x-order: 7
-        requestUrl:
-          description: The URL the webhook was delivered to.
-          type: string
-          x-order: 6
-        responseBody:
-          description: The HTTP response body.
-          type: string
-          x-order: 10
-        responseCode:
-          description: The HTTP response status code.
-          format: int64
-          type: integer
-          x-order: 8
-        responseHeaders:
-          description: The HTTP response headers.
-          type: string
-          x-order: 9
-        timestamp:
-          description: The time the delivery was sent, as a Unix epoch timestamp.
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - duration
-      - id
-      - kind
-      - payload
-      - requestHeaders
-      - requestUrl
-      - responseBody
-      - responseCode
-      - responseHeaders
-      - timestamp
-      type: object
-    EscInterpolation:
-      description: An Interpolation holds information about a part of an interpolated string expression.
-      properties:
-        text:
-          description: The text of the expression. Precedes the stringified Value in the output.
-          type: string
-          x-order: 1
-        value:
-          description: The value to interpolate.
-          items:
-            $ref: '#/components/schemas/EscPropertyAccessor'
-          type: array
-          x-order: 2
-      type: object
     UpdateEnvironmentTagRequest:
       description: Request to update an environment tag.
       properties:
@@ -6828,4 +6196,636 @@ components:
           $ref: '#/components/schemas/CreateEnvironmentSecretRotationScheduleRequest'
           description: The secret rotation request
           x-order: 3
+      type: object
+    WebhookResponse:
+      allOf:
+      - $ref: '#/components/schemas/Webhook'
+      - description: WebhookResponse extends Webhook with additional response-only fields.
+        properties:
+          hasSecret:
+            description: 'HasSecret is true if the webhook has a secret. This is used to determine whether
+
+              to show that there is a secret in the UI.'
+            type: boolean
+            x-order: 1
+          secretCiphertext:
+            description: 'SecretCiphertext is the ciphertext value of the webhook''s secret.
+
+              It''s used to check whether the secret was changed by the PSP'
+            type: string
+            x-order: 2
+        required:
+        - hasSecret
+        - secretCiphertext
+        type: object
+    EnvironmentTag:
+      description: EnvironmentTag represents a key-value tag associated with an environment.
+      properties:
+        created:
+          description: The timestamp when the tag was created.
+          format: date-time
+          type: string
+          x-order: 3
+        editorLogin:
+          description: The login name of the user who last edited the tag.
+          type: string
+          x-order: 5
+        editorName:
+          description: The display name of the user who last edited the tag.
+          type: string
+          x-order: 6
+        modified:
+          description: The timestamp when the tag was last modified.
+          format: date-time
+          type: string
+          x-order: 4
+        name:
+          description: The name of the tag.
+          type: string
+          x-order: 1
+        value:
+          description: The value of the tag.
+          type: string
+          x-order: 2
+      required:
+      - created
+      - editorLogin
+      - editorName
+      - modified
+      - name
+      - value
+      type: object
+    EscPos:
+      description: A Pos defines a position within an environment definition.
+      properties:
+        byte:
+          description: Byte is the byte offset into the file where the indicated position begins.
+          format: int64
+          type: integer
+          x-order: 3
+        column:
+          description: 'Column is the source code column where this position points. Columns are counted in visual cells starting at 1,
+
+            and are incremented roughly per grapheme cluster encountered.'
+          format: int64
+          type: integer
+          x-order: 2
+        line:
+          description: 'Line is the source code line where this position points. Lines are counted starting at 1 and incremented for each
+
+            newline character encountered.'
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - byte
+      - column
+      - line
+      type: object
+    PatchEnvironmentSettingsRequest:
+      description: Request body for partially updating environment settings.
+      properties:
+        deletionProtected:
+          description: DeletionProtected indicates whether deletion protection should be enabled for this environment. Null means no change.
+          type: boolean
+          x-order: 1
+      type: object
+    CreateEnvironmentOpenRequestResult:
+      description: Result of create environment open request.
+      properties:
+        changeRequestId:
+          description: The change request identifier
+          type: string
+          x-order: 3
+        environmentName:
+          description: The environment name
+          type: string
+          x-order: 2
+        etag:
+          description: The entity tag for concurrency control
+          type: string
+          x-order: 5
+        latestRevisionNumber:
+          description: The latest revision number
+          format: int64
+          type: integer
+          x-order: 4
+        projectName:
+          description: The project name
+          type: string
+          x-order: 1
+      required:
+      - changeRequestId
+      - environmentName
+      - etag
+      - latestRevisionNumber
+      - projectName
+      type: object
+    EnvironmentResponse:
+      allOf:
+      - $ref: '#/components/schemas/EscEnvironment'
+      - description: EnvironmentResponse is the response returned when retrieving or evaluating an environment.
+        properties:
+          diagnostics:
+            description: The list of diagnostics produced during environment evaluation.
+            items:
+              $ref: '#/components/schemas/EnvironmentDiagnostic'
+            type: array
+            x-order: 1
+          environmentFunctionSummary:
+            $ref: '#/components/schemas/EnvironmentFunctionSummary'
+            description: A summary of the functions used in the environment.
+            x-order: 2
+        required:
+        - environmentFunctionSummary
+        type: object
+    EnvironmentImportReferrer:
+      description: An EnvironmentImportReferrer represents an `import` reference from another environment.
+      properties:
+        name:
+          description: The name of the referring environment.
+          type: string
+          x-order: 2
+        project:
+          description: The project name of the referring environment.
+          type: string
+          x-order: 1
+        revision:
+          description: The revision number of the referring environment.
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - name
+      - project
+      - revision
+      type: object
+    ListEnvironmentSecretRotationHistoryResponse:
+      description: Response containing a list of secret rotation history events for an environment.
+      properties:
+        events:
+          description: The list of secret rotation events
+          items:
+            $ref: '#/components/schemas/SecretRotationEvent'
+          type: array
+          x-order: 1
+      required:
+      - events
+      type: object
+    SecretRotation:
+      description: Represents the state of a single secret rotation within an environment.
+      properties:
+        environmentPath:
+          description: The path of the secret being rotated in the environment.
+          type: string
+          x-order: 2
+        errorMessage:
+          description: An error message if the rotation failed.
+          type: string
+          x-order: 4
+        id:
+          description: The unique identifier for this secret rotation.
+          type: string
+          x-order: 1
+        status:
+          description: The current status of the rotation.
+          type: string
+          x-order: 3
+      required:
+      - environmentPath
+      - id
+      - status
+      type: object
+    EnvironmentLinks:
+      description: EnvironmentLinks contains hypermedia links related to an environment resource.
+      properties:
+        self:
+          description: The URL for this environment resource.
+          type: string
+          x-order: 1
+      type: object
+    ListProvidersResponse:
+      description: Response containing a list of available providers.
+      properties:
+        providers:
+          description: The list of provider names
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - providers
+      type: object
+    EncryptEnvironmentSecretsRequest:
+      description: EncryptEnvironmentSecretsRequest defines the request body for encrypting secret values.
+      properties:
+        plaintexts:
+          description: The list of plaintext values to encrypt.
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - plaintexts
+      type: object
+    UpdateEnvironmentResponse:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentDiagnosticsResponse'
+      - description: Response returned after updating an environment.
+        type: object
+    EnvironmentRevisionTag:
+      description: EnvironmentRevisionTag represents a named tag pointing to a specific environment revision.
+      properties:
+        created:
+          description: The timestamp when the tag was created.
+          format: date-time
+          type: string
+          x-order: 3
+        editorLogin:
+          description: The login name of the user who last edited the tag.
+          type: string
+          x-order: 5
+        editorName:
+          description: The display name of the user who last edited the tag.
+          type: string
+          x-order: 6
+        modified:
+          description: The timestamp when the tag was last modified.
+          format: date-time
+          type: string
+          x-order: 4
+        name:
+          description: The name of the tag.
+          type: string
+          x-order: 1
+        revision:
+          description: The revision number this tag points to.
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - created
+      - modified
+      - name
+      - revision
+      type: object
+    CreateEnvironmentRevisionTagRequest:
+      description: Request body for create environment revision tag.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        revision:
+          description: The revision
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - name
+      type: object
+    EnvironmentInsightsAccountReferrer:
+      description: An EnvironmentInsightsAccountReferrer represents a reference from an Insights account.
+      properties:
+        accountName:
+          description: The name of the Insights account that references the environment.
+          type: string
+          x-order: 1
+      required:
+      - accountName
+      type: object
+    EscBuiltinExpr:
+      description: A BuiltinExpr is a call to a builtin function.
+      properties:
+        arg:
+          $ref: '#/components/schemas/EscExpr'
+          description: The argument expression passed to the builtin function.
+          x-order: 4
+        argSchema:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: The schema for the function argument.
+          x-order: 3
+        name:
+          description: The name of the builtin function.
+          type: string
+          x-order: 1
+        nameRange:
+          $ref: '#/components/schemas/EscRange'
+          description: The source range of the function name.
+          x-order: 2
+      required:
+      - arg
+      - argSchema
+      - name
+      - nameRange
+      type: object
+    DecryptEnvironmentSecretsRequest:
+      description: DecryptEnvironmentSecretsRequest defines the request body for decrypting secret values.
+      properties:
+        ciphertexts:
+          description: The list of encrypted ciphertext values to decrypt.
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - ciphertexts
+      type: object
+    UpdateEnvironmentRevisionTagRequest:
+      description: Request to update an environment revision tag.
+      properties:
+        revision:
+          description: The revision number to associate with the tag.
+          format: int64
+          type: integer
+          x-order: 1
+      type: object
+    Webhook:
+      description: 'Webhook describes a webhook registered with the Pulumi Service. It may
+
+        be registered to either an Organization, Stack or Environment.'
+      properties:
+        active:
+          description: Whether the webhook is active and will receive deliveries.
+          type: boolean
+          x-order: 9
+        displayName:
+          description: The human-readable display name shown in the UI.
+          type: string
+          x-order: 6
+        envName:
+          description: The environment name. Set when the webhook is scoped to a specific environment.
+          type: string
+          x-order: 4
+        filters:
+          description: Specific event types this webhook subscribes to. If empty, all events are delivered.
+          items:
+            type: string
+          type: array
+          x-order: 11
+        format:
+          description: The format of the webhook payload (e.g., 'raw', 'slack', 'ms_teams').
+          type: string
+          x-order: 10
+        groups:
+          description: Event groups this webhook subscribes to (e.g., 'stacks', 'deployments').
+          items:
+            type: string
+          type: array
+          x-order: 12
+        name:
+          description: The unique identifier name for the webhook within its scope.
+          type: string
+          x-order: 5
+        organizationName:
+          description: The organization that owns this webhook.
+          type: string
+          x-order: 1
+        payloadUrl:
+          description: The URL to which webhook payloads are delivered.
+          type: string
+          x-order: 7
+        projectName:
+          description: The project name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 2
+        secret:
+          description: Secret will be omitted when returned from the service.
+          type: string
+          x-order: 8
+        stackName:
+          description: The stack name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 3
+      required:
+      - active
+      - displayName
+      - name
+      - organizationName
+      - payloadUrl
+      type: object
+    EncryptEnvironmentSecretsResponse:
+      description: EncryptEnvironmentSecretsResponse defines the response body for multiple encrypted values.
+      properties:
+        ciphertexts:
+          description: The encrypted values, in order of the plaintexts from the request.
+          items:
+            type: string
+          type: array
+          x-order: 1
+      required:
+      - ciphertexts
+      type: object
+    EnvironmentDiagnosticsResponse:
+      description: EnvironmentDiagnosticsResponse contains a list of diagnostics from an environment operation.
+      properties:
+        diagnostics:
+          description: The list of diagnostics produced by the environment operation.
+          items:
+            $ref: '#/components/schemas/EnvironmentDiagnostic'
+          type: array
+          x-order: 1
+      type: object
+    ProviderSchema:
+      description: ProviderSchema describes the input and output schemas for a provider.
+      properties:
+        description:
+          description: A description of the provider.
+          type: string
+          x-order: 2
+        inputs:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: The input schema for the provider.
+          x-order: 3
+        name:
+          description: The name of the provider.
+          type: string
+          x-order: 1
+        outputs:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: The output schema for the provider.
+          x-order: 4
+      required:
+      - description
+      - inputs
+      - name
+      - outputs
+      type: object
+    ListEnvironmentReferrersResponse:
+      description: Response containing a list of entities that reference an environment.
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        referrers:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/EnvironmentReferrer'
+            type: array
+          description: Map of referrer types to their referrer details
+          type: object
+          x-order: 1
+      required:
+      - referrers
+      type: object
+    CreateEnvironmentSecretRotationScheduleRequest:
+      description: 'CreateEnvironmentSecretRotationScheduleRequest defines the request payload that is expected when
+
+        creating a new environment secret rotation schedule.'
+      properties:
+        environmentPath:
+          description: 'Environment Path specifies a path to a rotated secret to be updated
+
+            Leave the field blank to rotate ALL rotated secrets in an environment'
+          type: string
+          x-order: 1
+      required:
+      - environmentPath
+      type: object
+    EscEnvironment:
+      description: An Environment contains the result of evaluating an environment definition.
+      properties:
+        executionContext:
+          $ref: '#/components/schemas/EscEvaluatedExecutionContext'
+          description: ExecutionContext contains the values + schema for the execution context passed to the root environment.
+          x-order: 4
+        exprs:
+          additionalProperties:
+            $ref: '#/components/schemas/EscExpr'
+          description: Exprs contains the AST for each expression in the environment definition.
+          type: object
+          x-order: 1
+        properties:
+          additionalProperties:
+            $ref: '#/components/schemas/EscValue'
+          description: Properties contains the detailed values produced by the environment.
+          type: object
+          x-order: 2
+        schema:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: Schema contains the schema for Properties.
+          x-order: 3
+      type: object
+    EnvironmentSettings:
+      description: EnvironmentSettings contains settings that control the behavior of an environment.
+      properties:
+        deletionProtected:
+          description: Whether the environment is protected from deletion.
+          type: boolean
+          x-order: 1
+      required:
+      - deletionProtected
+      type: object
+    EscEvaluatedExecutionContext:
+      description: An EvaluatedExecutionContext contains the result of evaluating an execution context passed to the root environment.
+      properties:
+        properties:
+          additionalProperties:
+            $ref: '#/components/schemas/EscValue'
+          description: Properties contains the detailed values produced by the execution context.
+          type: object
+          x-order: 1
+        schema:
+          $ref: '#/components/schemas/EscSchemaSchema'
+          description: Schema contains the schema for Properties.
+          x-order: 2
+      type: object
+    EscValue:
+      description: A Value is the result of evaluating an expression within an environment definition.
+      properties:
+        secret:
+          description: Secret is true if this value is secret.
+          type: boolean
+          x-order: 2
+        trace:
+          $ref: '#/components/schemas/EscTrace'
+          description: 'Trace holds information about the expression that computed this value and the value (if any) with which it was
+
+            merged.'
+          x-order: 4
+        unknown:
+          description: Unknown is true if this value is unknown.
+          type: boolean
+          x-order: 3
+        value:
+          description: 'Value holds the concrete representation of the value. May be nil, bool, json.Number, string, []Value, or
+
+            map[string]Value.'
+          type: object
+          x-order: 1
+      required:
+      - trace
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    CreateEnvironmentOpenRequestResponse:
+      description: Response body for create environment open request.
+      properties:
+        changeRequests:
+          description: List of change requests
+          items:
+            $ref: '#/components/schemas/CreateEnvironmentOpenRequestResult'
+          type: array
+          x-order: 1
+      required:
+      - changeRequests
+      type: object
+    EscAccessor:
+      description: An Accessor is an element index or property name.
+      properties:
+        index:
+          description: The integer index of the element to access. Mutually exclusive with Key.
+          format: int64
+          type: integer
+          x-order: 1
+        key:
+          description: The key of the property to access. Mutually exclusive with Index.
+          type: string
+          x-order: 2
+        range:
+          $ref: '#/components/schemas/EscRange'
+          description: The range of the accessor.
+          x-order: 3
+      type: object
+    ChangeRequestRef:
+      description: Represents change request ref.
+      properties:
+        changeRequestId:
+          description: The change request identifier
+          type: string
+          x-order: 1
+        latestRevisionNumber:
+          description: The latest revision number
+          format: int64
+          type: integer
+          x-order: 2
       type: object

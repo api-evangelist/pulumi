@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens DeploymentRunners API
+  title: Pulumi Deployment Runners API
   version: 1.0.0
 tags:
 - name: DeploymentRunners
@@ -161,22 +161,6 @@ paths:
       - DeploymentRunners
 components:
   schemas:
-    ListAgentPoolsResponse:
-      description: Response containing a list of agent pools.
-      properties:
-        agentPools:
-          description: The list of agent pools
-          items:
-            $ref: '#/components/schemas/AgentPool'
-          type: array
-          x-order: 1
-        defaultAgentPoolID:
-          description: The ID of the organization's default agent pool. Omitted if the organization uses the Pulumi Hosted Pool.
-          type: string
-          x-order: 2
-      required:
-      - agentPools
-      type: object
     PatchOrgAgentPoolResponse:
       description: Response body after partially updating an organization's agent pool.
       properties:
@@ -190,56 +174,6 @@ components:
           x-order: 1
       required:
       - description
-      - name
-      type: object
-    CreateAccessTokenResponse:
-      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
-
-        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
-      properties:
-        id:
-          description: The unique identifier
-          type: string
-          x-order: 1
-        tokenValue:
-          description: The token value
-          type: string
-          x-order: 2
-      required:
-      - id
-      - tokenValue
-      type: object
-    AgentPoolDetail:
-      description: Detailed information about an agent pool.
-      properties:
-        agents:
-          description: The agents
-          items:
-            $ref: '#/components/schemas/DeploymentAgentMetadata'
-          type: array
-          x-order: 5
-        created:
-          description: The creation timestamp
-          format: int64
-          type: integer
-          x-order: 1
-        description:
-          description: The description
-          type: string
-          x-order: 4
-        id:
-          description: The unique identifier
-          type: string
-          x-order: 2
-        name:
-          description: The name
-          type: string
-          x-order: 3
-      required:
-      - agents
-      - created
-      - description
-      - id
       - name
       type: object
     AgentPool:
@@ -295,20 +229,55 @@ components:
       - name
       - status
       type: object
-    CreateOrgAgentPoolRequest:
-      description: Request body for create org agent pool.
+    AgentPoolDetail:
+      description: Detailed information about an agent pool.
       properties:
+        agents:
+          description: The agents
+          items:
+            $ref: '#/components/schemas/DeploymentAgentMetadata'
+          type: array
+          x-order: 5
+        created:
+          description: The creation timestamp
+          format: int64
+          type: integer
+          x-order: 1
         description:
           description: The description
+          type: string
+          x-order: 4
+        id:
+          description: The unique identifier
           type: string
           x-order: 2
         name:
           description: The name
           type: string
-          x-order: 1
+          x-order: 3
       required:
+      - agents
+      - created
       - description
+      - id
       - name
+      type: object
+    CreateAccessTokenResponse:
+      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
+
+        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
+      properties:
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+        tokenValue:
+          description: The token value
+          type: string
+          x-order: 2
+      required:
+      - id
+      - tokenValue
       type: object
     DeploymentAgentMetadata:
       description: DeploymentAgentMetadata contains metadata about a deployment agent, including version, platform, and connectivity information.
@@ -356,4 +325,35 @@ components:
       - platform
       - status
       - version
+      type: object
+    CreateOrgAgentPoolRequest:
+      description: Request body for create org agent pool.
+      properties:
+        description:
+          description: The description
+          type: string
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 1
+      required:
+      - description
+      - name
+      type: object
+    ListAgentPoolsResponse:
+      description: Response containing a list of agent pools.
+      properties:
+        agentPools:
+          description: The list of agent pools
+          items:
+            $ref: '#/components/schemas/AgentPool'
+          type: array
+          x-order: 1
+        defaultAgentPoolID:
+          description: The ID of the organization's default agent pool. Omitted if the organization uses the Pulumi Hosted Pool.
+          type: string
+          x-order: 2
+      required:
+      - agentPools
       type: object

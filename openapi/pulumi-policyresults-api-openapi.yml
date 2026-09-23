@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens PolicyResults API
+  title: Pulumi Policy Results API
   version: 1.0.0
 tags:
 - name: PolicyResults
@@ -288,398 +288,6 @@ paths:
         Visibility: Public
 components:
   schemas:
-    PolicyComplianceResult:
-      description: Policy compliance result row for an entity
-      properties:
-        entityName:
-          description: Entity name (stack name or account name)
-          type: string
-          x-order: 1
-        scores:
-          description: Array of compliance scores correlating to columns array. -1 indicates N/A
-          items:
-            format: int64
-            type: integer
-          type: array
-          x-order: 2
-      required:
-      - entityName
-      - scores
-      type: object
-    AngularGridFilterModel:
-      description: Represents angular grid filter model.
-      properties:
-        colId:
-          description: The col identifier
-          type: string
-          x-order: 2
-        conditions:
-          description: List of conditions
-          items:
-            $ref: '#/components/schemas/AngularGridFilterModel'
-          type: array
-          x-order: 5
-        filter:
-          description: The filter expression
-          type: string
-          x-order: 1
-        filterType:
-          description: The filter type
-          type: string
-          x-order: 3
-        type:
-          description: The type
-          type: string
-          x-order: 4
-      required:
-      - colId
-      - filter
-      - filterType
-      - type
-      type: object
-    AppPolicyComplianceFramework:
-      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
-      properties:
-        name:
-          description: The compliance framework name.
-          type: string
-          x-order: 1
-        reference:
-          description: The compliance framework reference.
-          type: string
-          x-order: 3
-        specification:
-          description: The compliance framework specification.
-          type: string
-          x-order: 4
-        version:
-          description: The compliance framework version.
-          type: string
-          x-order: 2
-      type: object
-    AppPolicy:
-      description: Policy defines the metadata for an individual Policy within a Policy Pack.
-      properties:
-        configSchema:
-          $ref: '#/components/schemas/AppPolicyConfigSchema'
-          description: The JSON schema for the Policy's configuration.
-          x-order: 6
-        description:
-          description: Description is used to provide more context about the purpose of the policy.
-          type: string
-          x-order: 3
-        displayName:
-          description: The display name
-          type: string
-          x-order: 2
-        enforcementLevel:
-          description: The enforcement level
-          enum:
-          - advisory
-          - mandatory
-          - remediate
-          - disabled
-          type: string
-          x-order: 4
-          x-pulumi-model-property:
-            enumTypeName: AppEnforcementLevel
-            enumComments: EnforcementLevel indicates how a policy should be enforced
-            enumFieldComments:
-            - 'Advisory is an enforcement level where the resource is still created, but a
-
-              message is displayed to the user for informational / warning purposes.'
-            - Mandatory is an enforcement level that prevents a resource from being created.
-            - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
-            - Disabled is an enforcement level that disables the policy from being enforced.
-        framework:
-          $ref: '#/components/schemas/AppPolicyComplianceFramework'
-          description: The compliance framework that this policy belongs to.
-          x-order: 8
-        message:
-          description: Message is the message that will be displayed to end users when they violate this policy.
-          type: string
-          x-order: 5
-        name:
-          description: Unique URL-safe name for the policy.  This is unique to a specific version of a Policy Pack.
-          type: string
-          x-order: 1
-        remediationSteps:
-          description: A description of the steps to take to remediate a policy violation.
-          type: string
-          x-order: 10
-        severity:
-          description: The severity of the policy.
-          enum:
-          - ''
-          - low
-          - medium
-          - high
-          - critical
-          type: string
-          x-order: 7
-          x-pulumi-model-property:
-            enumTypeName: AppPolicySeverity
-            enumComments: Indicates the severity of a policy.
-            enumFieldNames:
-            - Unspecified
-            - Low
-            - Medium
-            - High
-            - Critical
-        tags:
-          description: Tags associated with the policy.
-          items:
-            type: string
-          type: array
-          x-order: 9
-        url:
-          description: A URL to more information about the policy.
-          type: string
-          x-order: 11
-      required:
-      - description
-      - displayName
-      - enforcementLevel
-      - message
-      - name
-      type: object
-    ListPolicyViolationsV2Response:
-      description: Response containing a paginated list of policy violations (v2).
-      properties:
-        continuationToken:
-          description: Continuation token for pagination
-          type: string
-          x-order: 2
-        policyViolations:
-          description: The list of policy violations
-          items:
-            $ref: '#/components/schemas/PolicyViolationV2'
-          type: array
-          x-order: 1
-      required:
-      - policyViolations
-      type: object
-    PolicyIssueFilterValue:
-      description: PolicyIssueFilterValue represents a filter option with its count of matching policy issues.
-      properties:
-        count:
-          description: The count of policy issues matching this filter value.
-          format: int64
-          type: integer
-          x-order: 2
-        name:
-          description: The name of the filter value.
-          type: string
-          x-order: 1
-      required:
-      - count
-      - name
-      type: object
-    PolicyIssueFiltersResponse:
-      description: PolicyIssueFiltersResponse contains the available filter values for a given field in policy issues.
-      properties:
-        field:
-          description: The field name for which filter values are provided.
-          type: string
-          x-order: 1
-        values:
-          description: The available filter values for the field.
-          items:
-            $ref: '#/components/schemas/PolicyIssueFilterValue'
-          type: array
-          x-order: 2
-      required:
-      - field
-      - values
-      type: object
-    UserInfo:
-      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
-
-        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
-      properties:
-        avatarUrl:
-          description: The URL of the user's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The user's login name.
-          type: string
-          x-order: 2
-        name:
-          description: The user's display name.
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - githubLogin
-      - name
-      type: object
-    AppPolicyConfigSchema:
-      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
-      properties:
-        properties:
-          additionalProperties:
-            type: object
-          description: Config property name to JSON Schema map.
-          type: object
-          x-order: 1
-        required:
-          description: Required config properties.
-          items:
-            type: string
-          type: array
-          x-order: 2
-        type:
-          description: Type defines the data type allowed for the schema.
-          enum:
-          - object
-          type: string
-          x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: AppJSONSchemaType
-            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
-            enumFieldComments:
-            - Object is a dictionary.
-      required:
-      - type
-      type: object
-    ListPoliciesComplianceResponse:
-      description: Response containing a list of policy compliance results.
-      properties:
-        continuationToken:
-          description: Continuation token for pagination
-          type: string
-          x-order: 3
-        policies:
-          description: The list of policy compliance rows
-          items:
-            $ref: '#/components/schemas/PolicyComplianceRow'
-          type: array
-          x-order: 1
-        totalCount:
-          description: The total number of policies
-          format: int64
-          type: integer
-          x-order: 2
-      required:
-      - policies
-      type: object
-    GetPolicyComplianceResultsResponse:
-      description: Response for policy compliance results
-      properties:
-        columns:
-          description: Column names (policy pack names) in order
-          items:
-            type: string
-          type: array
-          x-order: 1
-        continuationToken:
-          description: Continuation token for next page
-          type: string
-          x-order: 3
-        rows:
-          description: List of policy compliance result rows
-          items:
-            $ref: '#/components/schemas/PolicyComplianceResult'
-          type: array
-          x-order: 2
-      required:
-      - columns
-      - rows
-      type: object
-    AngularGridSortModelItem:
-      description: Represents angular grid sort model item.
-      properties:
-        colId:
-          description: Column Id to apply the sort to.
-          type: string
-          x-order: 1
-        sort:
-          description: Sort direction
-          type: string
-          x-order: 2
-      required:
-      - colId
-      - sort
-      type: object
-    AngularGridColumn:
-      description: Represents angular grid column.
-      properties:
-        aggFunc:
-          description: The agg func
-          type: string
-          x-order: 4
-        displayName:
-          description: The display name
-          type: string
-          x-order: 2
-        field:
-          description: The field
-          type: string
-          x-order: 3
-        id:
-          description: The unique identifier
-          type: string
-          x-order: 1
-      required:
-      - displayName
-      - id
-      type: object
-    GetPolicyComplianceResultsRequest:
-      description: Request for policy compliance results
-      properties:
-        continuationToken:
-          description: Continuation token for pagination
-          type: string
-          x-order: 2
-        entity:
-          description: Entity type to filter by
-          enum:
-          - stack
-          - account
-          - severity
-          type: string
-          x-order: 1
-          x-pulumi-model-property:
-            enumTypeName: PolicyComplianceEntityType
-            enumComments: PolicyComplianceEntityType defines the types of entities for policy compliance results.
-            enumFieldComments:
-            - Stack entity type for policy compliance results
-            - Account entity type for policy compliance results
-            - Severity heat map for policy compliance results
-        size:
-          description: Number of results to return
-          format: int64
-          type: integer
-          x-order: 3
-      required:
-      - entity
-      type: object
-    AngularGridAdvancedFilterModel:
-      description: Represents angular grid advanced filter model.
-      properties:
-        conditions:
-          description: List of conditions
-          items:
-            $ref: '#/components/schemas/AngularGridFilterModel'
-          type: array
-          x-order: 2
-        type:
-          description: The type
-          type: string
-          x-order: 1
-      required:
-      - conditions
-      - type
-      type: object
     PolicyIssue:
       description: PolicyIssue represents a policy violation or issue detected during policy evaluation.
       properties:
@@ -862,6 +470,543 @@ components:
       - severity
       - status
       type: object
+    AngularGridSortModelItem:
+      description: Represents angular grid sort model item.
+      properties:
+        colId:
+          description: Column Id to apply the sort to.
+          type: string
+          x-order: 1
+        sort:
+          description: Sort direction
+          type: string
+          x-order: 2
+      required:
+      - colId
+      - sort
+      type: object
+    AngularGridColumn:
+      description: Represents angular grid column.
+      properties:
+        aggFunc:
+          description: The agg func
+          type: string
+          x-order: 4
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        field:
+          description: The field
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
+      required:
+      - displayName
+      - id
+      type: object
+    UpdatePolicyIssueRequest:
+      description: Request to update a policy issue.
+      properties:
+        assignedTo:
+          description: The user to assign the policy issue to.
+          type: string
+          x-order: 1
+        priority:
+          description: The new priority for the policy issue.
+          enum:
+          - p0
+          - p1
+          - p2
+          - p3
+          - p4
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: PolicyIssuePriority
+            enumComments: Priority level of a policy issue, from P0 (most critical) to P4 (least critical).
+        status:
+          description: 'The new status for the policy issue. Valid values: open, in_progress, by_design, ignored. Note: fixed cannot be set manually.'
+          enum:
+          - open
+          - in_progress
+          - by_design
+          - fixed
+          - ignored
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: PolicyIssueStatus
+            enumComments: 'Lifecycle status of a policy issue. Valid values: open, in_progress, by_design, fixed, ignored. Note: fixed is a read-only status set automatically when an issue is resolved; it cannot be manually set via the API.'
+            enumFieldNames:
+            - Open
+            - InProgress
+            - ByDesign
+            - Fixed
+            - Ignored
+      type: object
+    GetPolicyComplianceResultsRequest:
+      description: Request for policy compliance results
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        entity:
+          description: Entity type to filter by
+          enum:
+          - stack
+          - account
+          - severity
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: PolicyComplianceEntityType
+            enumComments: PolicyComplianceEntityType defines the types of entities for policy compliance results.
+            enumFieldComments:
+            - Stack entity type for policy compliance results
+            - Account entity type for policy compliance results
+            - Severity heat map for policy compliance results
+        size:
+          description: Number of results to return
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - entity
+      type: object
+    ListPoliciesComplianceResponse:
+      description: Response containing a list of policy compliance results.
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 3
+        policies:
+          description: The list of policy compliance rows
+          items:
+            $ref: '#/components/schemas/PolicyComplianceRow'
+          type: array
+          x-order: 1
+        totalCount:
+          description: The total number of policies
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - policies
+      type: object
+    AppPolicy:
+      description: Policy defines the metadata for an individual Policy within a Policy Pack.
+      properties:
+        configSchema:
+          $ref: '#/components/schemas/AppPolicyConfigSchema'
+          description: The JSON schema for the Policy's configuration.
+          x-order: 6
+        description:
+          description: Description is used to provide more context about the purpose of the policy.
+          type: string
+          x-order: 3
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        enforcementLevel:
+          description: The enforcement level
+          enum:
+          - advisory
+          - mandatory
+          - remediate
+          - disabled
+          type: string
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: AppEnforcementLevel
+            enumComments: EnforcementLevel indicates how a policy should be enforced
+            enumFieldComments:
+            - 'Advisory is an enforcement level where the resource is still created, but a
+
+              message is displayed to the user for informational / warning purposes.'
+            - Mandatory is an enforcement level that prevents a resource from being created.
+            - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+            - Disabled is an enforcement level that disables the policy from being enforced.
+        framework:
+          $ref: '#/components/schemas/AppPolicyComplianceFramework'
+          description: The compliance framework that this policy belongs to.
+          x-order: 8
+        message:
+          description: Message is the message that will be displayed to end users when they violate this policy.
+          type: string
+          x-order: 5
+        name:
+          description: Unique URL-safe name for the policy.  This is unique to a specific version of a Policy Pack.
+          type: string
+          x-order: 1
+        remediationSteps:
+          description: A description of the steps to take to remediate a policy violation.
+          type: string
+          x-order: 10
+        severity:
+          description: The severity of the policy.
+          enum:
+          - ''
+          - low
+          - medium
+          - high
+          - critical
+          type: string
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: AppPolicySeverity
+            enumComments: Indicates the severity of a policy.
+            enumFieldNames:
+            - Unspecified
+            - Low
+            - Medium
+            - High
+            - Critical
+        tags:
+          description: Tags associated with the policy.
+          items:
+            type: string
+          type: array
+          x-order: 9
+        url:
+          description: A URL to more information about the policy.
+          type: string
+          x-order: 11
+      required:
+      - description
+      - displayName
+      - enforcementLevel
+      - message
+      - name
+      type: object
+    ListPolicyViolationsV2Response:
+      description: Response containing a paginated list of policy violations (v2).
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        policyViolations:
+          description: The list of policy violations
+          items:
+            $ref: '#/components/schemas/PolicyViolationV2'
+          type: array
+          x-order: 1
+      required:
+      - policyViolations
+      type: object
+    GetPolicyIssueResponse:
+      description: Response body for retrieving a policy issue and its associated policy details.
+      properties:
+        policy:
+          $ref: '#/components/schemas/AppPolicy'
+          description: The policy definition that caused this issue. May be null if the policy has been deleted or is unavailable.
+          x-order: 2
+        policyIssue:
+          $ref: '#/components/schemas/PolicyIssue'
+          description: The policy issue details
+          x-order: 1
+        policyPack:
+          $ref: '#/components/schemas/RegistryPolicyPack'
+          description: The registry policy pack metadata. May be null if the policy pack is unavailable.
+          x-order: 3
+      required:
+      - policyIssue
+      type: object
+    AngularGridAdvancedFilterModel:
+      description: Represents angular grid advanced filter model.
+      properties:
+        conditions:
+          description: List of conditions
+          items:
+            $ref: '#/components/schemas/AngularGridFilterModel'
+          type: array
+          x-order: 2
+        type:
+          description: The type
+          type: string
+          x-order: 1
+      required:
+      - conditions
+      - type
+      type: object
+    PolicyIssueFiltersRequest:
+      description: PolicyIssueFiltersRequest is a request to retrieve available filter values for policy issues.
+      properties:
+        field:
+          description: Field name
+          type: string
+          x-order: 2
+        filterModel:
+          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
+          description: Optional filter model to apply when getting available filter values. Same format as used in policy issues list.
+          x-order: 1
+      required:
+      - field
+      type: object
+    PolicyResultsMetadata:
+      description: PolicyResultsMetadata returns high level policy compliance statistics for an organization.
+      properties:
+        policyTotalCount:
+          description: Total number of policies
+          format: int64
+          type: integer
+          x-order: 1
+        policyWithIssuesCount:
+          description: Number of policies with issues
+          format: int64
+          type: integer
+          x-order: 2
+        resourcesTotalCount:
+          description: Total number of resources covered by policies
+          format: int64
+          type: integer
+          x-order: 3
+        resourcesWithIssuesCount:
+          description: Number of resources with issues
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - policyTotalCount
+      - policyWithIssuesCount
+      - resourcesTotalCount
+      - resourcesWithIssuesCount
+      type: object
+    PolicyComplianceResult:
+      description: Policy compliance result row for an entity
+      properties:
+        entityName:
+          description: Entity name (stack name or account name)
+          type: string
+          x-order: 1
+        scores:
+          description: Array of compliance scores correlating to columns array. -1 indicates N/A
+          items:
+            format: int64
+            type: integer
+          type: array
+          x-order: 2
+      required:
+      - entityName
+      - scores
+      type: object
+    PolicyIssueFiltersResponse:
+      description: PolicyIssueFiltersResponse contains the available filter values for a given field in policy issues.
+      properties:
+        field:
+          description: The field name for which filter values are provided.
+          type: string
+          x-order: 1
+        values:
+          description: The available filter values for the field.
+          items:
+            $ref: '#/components/schemas/PolicyIssueFilterValue'
+          type: array
+          x-order: 2
+      required:
+      - field
+      - values
+      type: object
+    AngularGridFilterModel:
+      description: Represents angular grid filter model.
+      properties:
+        colId:
+          description: The col identifier
+          type: string
+          x-order: 2
+        conditions:
+          description: List of conditions
+          items:
+            $ref: '#/components/schemas/AngularGridFilterModel'
+          type: array
+          x-order: 5
+        filter:
+          description: The filter expression
+          type: string
+          x-order: 1
+        filterType:
+          description: The filter type
+          type: string
+          x-order: 3
+        type:
+          description: The type
+          type: string
+          x-order: 4
+      required:
+      - colId
+      - filter
+      - filterType
+      - type
+      type: object
+    AppPolicyComplianceFramework:
+      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
+      properties:
+        name:
+          description: The compliance framework name.
+          type: string
+          x-order: 1
+        reference:
+          description: The compliance framework reference.
+          type: string
+          x-order: 3
+        specification:
+          description: The compliance framework specification.
+          type: string
+          x-order: 4
+        version:
+          description: The compliance framework version.
+          type: string
+          x-order: 2
+      type: object
+    GetPolicyComplianceResultsResponse:
+      description: Response for policy compliance results
+      properties:
+        columns:
+          description: Column names (policy pack names) in order
+          items:
+            type: string
+          type: array
+          x-order: 1
+        continuationToken:
+          description: Continuation token for next page
+          type: string
+          x-order: 3
+        rows:
+          description: List of policy compliance result rows
+          items:
+            $ref: '#/components/schemas/PolicyComplianceResult'
+          type: array
+          x-order: 2
+      required:
+      - columns
+      - rows
+      type: object
+    PolicyViolationV2:
+      description: PolicyViolationV2 represents a policy violation detected during an update or resource scan.
+      properties:
+        accountName:
+          description: The Insights account name associated with the violation, for resource-scoped violations.
+          type: string
+          x-order: 5
+        id:
+          description: The unique identifier of the policy violation.
+          type: string
+          x-order: 1
+        kind:
+          description: The kind of policy violation (audit or preventative).
+          enum:
+          - audit
+          - preventative
+          type: string
+          x-order: 16
+          x-pulumi-model-property:
+            enumTypeName: PolicyIssueKind
+            enumComments: Whether a policy issue is audit-only or preventative. Audit issues are informational; preventative issues block operations.
+        level:
+          description: The enforcement level of the violated policy (e.g. advisory, mandatory, disabled).
+          type: string
+          x-order: 15
+        message:
+          description: A human-readable message describing the policy violation.
+          type: string
+          x-order: 13
+        observedAt:
+          description: The timestamp when the violation was observed.
+          format: date-time
+          type: string
+          x-order: 14
+        policyName:
+          description: The name of the policy that was violated.
+          type: string
+          x-order: 9
+        policyPack:
+          description: The name of the policy pack that produced this violation.
+          type: string
+          x-order: 7
+        policyPackTag:
+          description: The tag of the policy pack version that produced this violation.
+          type: string
+          x-order: 8
+        projectName:
+          description: The name of the project containing the violating resource.
+          type: string
+          x-order: 2
+        resourceName:
+          description: The name of the resource that violated the policy.
+          type: string
+          x-order: 12
+        resourceType:
+          description: The type of the resource that violated the policy.
+          type: string
+          x-order: 11
+        resourceURN:
+          description: The URN of the resource that violated the policy.
+          type: string
+          x-order: 10
+        resourceVersion:
+          description: The resource version where the violation was detected.
+          format: int64
+          type: integer
+          x-order: 6
+        stackName:
+          description: The name of the stack containing the violating resource.
+          type: string
+          x-order: 3
+        stackVersion:
+          description: The stack version where the violation was detected.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - id
+      - kind
+      - level
+      - message
+      - observedAt
+      - policyName
+      - policyPack
+      - policyPackTag
+      - projectName
+      - resourceName
+      - resourceType
+      - resourceURN
+      type: object
+    AppPolicyConfigSchema:
+      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
+      properties:
+        properties:
+          additionalProperties:
+            type: object
+          description: Config property name to JSON Schema map.
+          type: object
+          x-order: 1
+        required:
+          description: Required config properties.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        type:
+          description: Type defines the data type allowed for the schema.
+          enum:
+          - object
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: AppJSONSchemaType
+            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
+            enumFieldComments:
+            - Object is a dictionary.
+      required:
+      - type
+      type: object
     PolicyComplianceRow:
       description: PolicyComplianceRow represents a single row in a policy compliance report.
       properties:
@@ -930,6 +1075,110 @@ components:
       - policyName
       - policyPack
       - severity
+      type: object
+    ListPolicyIssuesResponse:
+      description: Response containing a list of policy issues.
+      properties:
+        groupData:
+          description: Grouped data for policy issue aggregation
+          items:
+            additionalProperties:
+              type: object
+            type: object
+          type: array
+          x-order: 2
+        policyIssues:
+          description: The list of policy issues
+          items:
+            $ref: '#/components/schemas/PolicyIssue'
+          type: array
+          x-order: 1
+        rowCount:
+          description: The total number of policy issue rows
+          format: int64
+          type: integer
+          x-order: 3
+      required:
+      - groupData
+      - policyIssues
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AngularGridGetRowsRequest:
+      description: https://www.ag-grid.com/javascript-data-grid/server-side-model-datasource/
+      properties:
+        endRow:
+          description: The end row
+          format: int64
+          type: integer
+          x-order: 2
+        filterModel:
+          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
+          description: The filter model
+          x-order: 6
+        groupKeys:
+          description: List of group keys
+          items:
+            type: string
+          type: array
+          x-order: 5
+        rowGroupCols:
+          description: List of row group cols
+          items:
+            $ref: '#/components/schemas/AngularGridColumn'
+          type: array
+          x-order: 3
+        sortModel:
+          description: List of sort model
+          items:
+            $ref: '#/components/schemas/AngularGridSortModelItem'
+          type: array
+          x-order: 7
+        startRow:
+          description: The start row
+          format: int64
+          type: integer
+          x-order: 1
+        valueCols:
+          description: List of value cols
+          items:
+            $ref: '#/components/schemas/AngularGridColumn'
+          type: array
+          x-order: 4
+      required:
+      - filterModel
+      - groupKeys
+      - rowGroupCols
+      - sortModel
+      - valueCols
       type: object
     RegistryPolicyPack:
       description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
@@ -1022,268 +1271,19 @@ components:
       - source
       - version
       type: object
-    PolicyResultsMetadata:
-      description: PolicyResultsMetadata returns high level policy compliance statistics for an organization.
+    PolicyIssueFilterValue:
+      description: PolicyIssueFilterValue represents a filter option with its count of matching policy issues.
       properties:
-        policyTotalCount:
-          description: Total number of policies
-          format: int64
-          type: integer
-          x-order: 1
-        policyWithIssuesCount:
-          description: Number of policies with issues
+        count:
+          description: The count of policy issues matching this filter value.
           format: int64
           type: integer
           x-order: 2
-        resourcesTotalCount:
-          description: Total number of resources covered by policies
-          format: int64
-          type: integer
-          x-order: 3
-        resourcesWithIssuesCount:
-          description: Number of resources with issues
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - policyTotalCount
-      - policyWithIssuesCount
-      - resourcesTotalCount
-      - resourcesWithIssuesCount
-      type: object
-    AngularGridGetRowsRequest:
-      description: https://www.ag-grid.com/javascript-data-grid/server-side-model-datasource/
-      properties:
-        endRow:
-          description: The end row
-          format: int64
-          type: integer
-          x-order: 2
-        filterModel:
-          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
-          description: The filter model
-          x-order: 6
-        groupKeys:
-          description: List of group keys
-          items:
-            type: string
-          type: array
-          x-order: 5
-        rowGroupCols:
-          description: List of row group cols
-          items:
-            $ref: '#/components/schemas/AngularGridColumn'
-          type: array
-          x-order: 3
-        sortModel:
-          description: List of sort model
-          items:
-            $ref: '#/components/schemas/AngularGridSortModelItem'
-          type: array
-          x-order: 7
-        startRow:
-          description: The start row
-          format: int64
-          type: integer
-          x-order: 1
-        valueCols:
-          description: List of value cols
-          items:
-            $ref: '#/components/schemas/AngularGridColumn'
-          type: array
-          x-order: 4
-      required:
-      - filterModel
-      - groupKeys
-      - rowGroupCols
-      - sortModel
-      - valueCols
-      type: object
-    GetPolicyIssueResponse:
-      description: Response body for retrieving a policy issue and its associated policy details.
-      properties:
-        policy:
-          $ref: '#/components/schemas/AppPolicy'
-          description: The policy definition that caused this issue. May be null if the policy has been deleted or is unavailable.
-          x-order: 2
-        policyIssue:
-          $ref: '#/components/schemas/PolicyIssue'
-          description: The policy issue details
-          x-order: 1
-        policyPack:
-          $ref: '#/components/schemas/RegistryPolicyPack'
-          description: The registry policy pack metadata. May be null if the policy pack is unavailable.
-          x-order: 3
-      required:
-      - policyIssue
-      type: object
-    PolicyIssueFiltersRequest:
-      description: PolicyIssueFiltersRequest is a request to retrieve available filter values for policy issues.
-      properties:
-        field:
-          description: Field name
+        name:
+          description: The name of the filter value.
           type: string
-          x-order: 2
-        filterModel:
-          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
-          description: Optional filter model to apply when getting available filter values. Same format as used in policy issues list.
           x-order: 1
       required:
-      - field
-      type: object
-    ListPolicyIssuesResponse:
-      description: Response containing a list of policy issues.
-      properties:
-        groupData:
-          description: Grouped data for policy issue aggregation
-          items:
-            additionalProperties:
-              type: object
-            type: object
-          type: array
-          x-order: 2
-        policyIssues:
-          description: The list of policy issues
-          items:
-            $ref: '#/components/schemas/PolicyIssue'
-          type: array
-          x-order: 1
-        rowCount:
-          description: The total number of policy issue rows
-          format: int64
-          type: integer
-          x-order: 3
-      required:
-      - groupData
-      - policyIssues
-      type: object
-    UpdatePolicyIssueRequest:
-      description: Request to update a policy issue.
-      properties:
-        assignedTo:
-          description: The user to assign the policy issue to.
-          type: string
-          x-order: 1
-        priority:
-          description: The new priority for the policy issue.
-          enum:
-          - p0
-          - p1
-          - p2
-          - p3
-          - p4
-          type: string
-          x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: PolicyIssuePriority
-            enumComments: Priority level of a policy issue, from P0 (most critical) to P4 (least critical).
-        status:
-          description: 'The new status for the policy issue. Valid values: open, in_progress, by_design, ignored. Note: fixed cannot be set manually.'
-          enum:
-          - open
-          - in_progress
-          - by_design
-          - fixed
-          - ignored
-          type: string
-          x-order: 2
-          x-pulumi-model-property:
-            enumTypeName: PolicyIssueStatus
-            enumComments: 'Lifecycle status of a policy issue. Valid values: open, in_progress, by_design, fixed, ignored. Note: fixed is a read-only status set automatically when an issue is resolved; it cannot be manually set via the API.'
-            enumFieldNames:
-            - Open
-            - InProgress
-            - ByDesign
-            - Fixed
-            - Ignored
-      type: object
-    PolicyViolationV2:
-      description: PolicyViolationV2 represents a policy violation detected during an update or resource scan.
-      properties:
-        accountName:
-          description: The Insights account name associated with the violation, for resource-scoped violations.
-          type: string
-          x-order: 5
-        id:
-          description: The unique identifier of the policy violation.
-          type: string
-          x-order: 1
-        kind:
-          description: The kind of policy violation (audit or preventative).
-          enum:
-          - audit
-          - preventative
-          type: string
-          x-order: 16
-          x-pulumi-model-property:
-            enumTypeName: PolicyIssueKind
-            enumComments: Whether a policy issue is audit-only or preventative. Audit issues are informational; preventative issues block operations.
-        level:
-          description: The enforcement level of the violated policy (e.g. advisory, mandatory, disabled).
-          type: string
-          x-order: 15
-        message:
-          description: A human-readable message describing the policy violation.
-          type: string
-          x-order: 13
-        observedAt:
-          description: The timestamp when the violation was observed.
-          format: date-time
-          type: string
-          x-order: 14
-        policyName:
-          description: The name of the policy that was violated.
-          type: string
-          x-order: 9
-        policyPack:
-          description: The name of the policy pack that produced this violation.
-          type: string
-          x-order: 7
-        policyPackTag:
-          description: The tag of the policy pack version that produced this violation.
-          type: string
-          x-order: 8
-        projectName:
-          description: The name of the project containing the violating resource.
-          type: string
-          x-order: 2
-        resourceName:
-          description: The name of the resource that violated the policy.
-          type: string
-          x-order: 12
-        resourceType:
-          description: The type of the resource that violated the policy.
-          type: string
-          x-order: 11
-        resourceURN:
-          description: The URN of the resource that violated the policy.
-          type: string
-          x-order: 10
-        resourceVersion:
-          description: The resource version where the violation was detected.
-          format: int64
-          type: integer
-          x-order: 6
-        stackName:
-          description: The name of the stack containing the violating resource.
-          type: string
-          x-order: 3
-        stackVersion:
-          description: The stack version where the violation was detected.
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - id
-      - kind
-      - level
-      - message
-      - observedAt
-      - policyName
-      - policyPack
-      - policyPackTag
-      - projectName
-      - resourceName
-      - resourceType
-      - resourceURN
+      - count
+      - name
       type: object

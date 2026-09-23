@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens Insights API
+  title: Pulumi Insights API
   version: 1.0.0
 tags:
 - name: Insights
@@ -1651,35 +1651,33 @@ paths:
         Visibility: Preview
 components:
   schemas:
-    ListDiscoveredStackResourcesResponse:
-      description: Response for listing resources in a discovered stack.
+    GetDiscoveredProjectResponse:
+      description: Response for the discovered project detail endpoint, containing a single discovered project and its stacks.
       properties:
         continuationToken:
-          description: Opaque token for fetching the next page of resources.
+          description: Opaque token for fetching the next page of stacks. Null when all stacks have been returned.
           type: string
           x-order: 2
-        resources:
-          description: The list of discovered resources in this page.
-          items:
-            $ref: '#/components/schemas/DiscoveredResourceInfo'
-          type: array
+        project:
+          $ref: '#/components/schemas/DiscoveredProject'
+          description: The discovered project details.
           x-order: 1
       required:
-      - resources
+      - project
       type: object
-    ResourceMigrationAnnotation:
-      description: A user-created migration annotation on a discovered resource.
+    DiscoveredResourceInfo:
+      description: A discovered resource with its indexed search representation.
       properties:
-        linkedResourceUrn:
-          description: URN of the resource this one was migrated as part of.
+        annotation:
+          $ref: '#/components/schemas/ResourceMigrationAnnotation'
+          description: User-created migration annotation, if any.
+          x-order: 8
+        managedBy:
+          description: The orchestrator or tool that manages this resource (e.g. 'CloudFormation', 'ARM', 'Pulumi').
           type: string
-          x-order: 3
-        note:
-          description: Free-text note about this resource's migration status. May be empty when only a status override is set.
-          type: string
-          x-order: 1
-        statusOverride:
-          description: User override of the computed migration status. Only Migrated and NotApplicable are valid overrides.
+          x-order: 4
+        migrationStatus:
+          description: Migration status of the resource relative to the comparison stack.
           enum:
           - Migrated
           - PulumiOnly
@@ -1688,7 +1686,7 @@ components:
           - Unmapped
           - NotApplicable
           type: string
-          x-order: 2
+          x-order: 7
           x-pulumi-model-property:
             enumTypeName: MigrationStatus
             enumComments: Migration status of a discovered resource relative to a comparison Pulumi stack. Migrated and PulumiOnly are only possible when the compareTo parameter is provided.
@@ -1699,171 +1697,181 @@ components:
             - Mapped to a Pulumi type but no virtual state yet.
             - No Pulumi type mapping exists for this resource.
             - Migration status is not applicable (e.g. stack or deployment containers).
-      type: object
-    AngularGridFilterModel:
-      description: Represents angular grid filter model.
-      properties:
-        colId:
-          description: The col identifier
+        name:
+          description: A human-friendly resource name derived from the cloud provider
           type: string
           x-order: 2
-        conditions:
-          description: List of conditions
-          items:
-            $ref: '#/components/schemas/AngularGridFilterModel'
-          type: array
-          x-order: 5
-        filter:
-          description: The filter expression
-          type: string
-          x-order: 1
-        filterType:
-          description: The filter type
+        originType:
+          description: The native cloud resource type (e.g. 'AWS::S3::Bucket', 'Microsoft.Storage/storageAccounts').
           type: string
           x-order: 3
-        type:
-          description: The type
+        providerType:
+          description: The mapped Pulumi provider type token (e.g. 'aws:s3/bucket:Bucket'). Omitted when the resource has not been mapped to a Pulumi type.
           type: string
-          x-order: 4
+          x-order: 5
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The resource, using the same shape as regular stack resources.
+          x-order: 1
+        virtualState:
+          additionalProperties:
+            type: object
+          description: The Pulumi-compatible state, if available.
+          type: object
+          x-order: 6
       required:
-      - colId
-      - filter
-      - filterType
-      - type
+      - resource
       type: object
-    UpsertInsightsResource:
-      description: UpsertInsightsResource represents a resource to be upserted into Pulumi Insights.
+    TrialUsageSummary:
+      description: Summary of trial usage for Pulumi Insights.
       properties:
-        dependencies:
-          description: The chain of dependencies used to list this resource.
-          items:
-            $ref: '#/components/schemas/ResourceDependency'
-          type: array
-          x-order: 5
-        id:
-          description: The unique identifier of the resource.
-          type: string
+        dhrum:
+          $ref: '#/components/schemas/ConsumptionUsage'
+          description: Discovered resources usage during the trial.
+          x-order: 1
+        insightsScans:
+          $ref: '#/components/schemas/ConsumptionUsage'
+          description: Insights scans usage during the trial.
           x-order: 2
-        inputs:
-          description: The resource inputs as raw JSON.
-          type: object
-          x-order: 3
-        state:
-          description: The resource state as raw JSON.
-          type: object
-          x-order: 4
-        type:
-          description: The resource type.
+      type: object
+    InsightsAccount:
+      description: A cloud account configured for Pulumi Insights resource discovery.
+      properties:
+        agentPoolID:
+          description: 'The ID of the agent pool to run account discovery workflows.
+
+            If not specified, discovery will use the default agent pool.'
+          type: string
+          x-order: 8
+        id:
+          description: ID of the account.
           type: string
           x-order: 1
+        name:
+          description: The name of the account.
+          type: string
+          x-order: 2
+        ownedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The user with ownership of this Insights account
+          x-order: 3
+        provider:
+          description: The cloud provider for the account (e.g., aws, gcp, azure-native).
+          type: string
+          x-order: 4
+        providerConfig:
+          description: Provider-specific configuration for the account.
+          type: object
+          x-order: 9
+        providerEnvRef:
+          description: 'Reference to an ESC environment containing provider credentials,
+
+            in the format ''project/environment'' with an optional @version suffix.'
+          type: string
+          x-order: 6
+        providerVersion:
+          description: The version of the Pulumi provider package used for discovery.
+          type: string
+          x-order: 5
+        scanStatus:
+          $ref: '#/components/schemas/ScanStatus'
+          description: Status of the last discovery scan for this account.
+          x-order: 10
+        scheduledScanEnabled:
+          description: If true, the account is scheduled for recurring discovery.
+          type: boolean
+          x-order: 7
       required:
       - id
-      - inputs
-      - state
-      - type
+      - name
+      - ownedBy
+      - provider
+      - scheduledScanEnabled
       type: object
-    ConsumptionUsage:
-      description: ConsumptionUsage captures the unit rate and current consumption for a consumption-based product.
+    AngularGridSortModelItem:
+      description: Represents angular grid sort model item.
       properties:
-        consumed:
-          additionalProperties:
-            format: int64
-            type: integer
-          description: The consumed amount
-          type: object
+        colId:
+          description: Column Id to apply the sort to.
+          type: string
+          x-order: 1
+        sort:
+          description: Sort direction
+          type: string
           x-order: 2
-        statsV0:
-          $ref: '#/components/schemas/ConsumptionUsageStatsV0'
-          description: StatsV0 are the usage statistics, and will be populated for graduated-v0 plans.
-          x-order: 7
-        statsV1:
-          $ref: '#/components/schemas/ConsumptionUsageStatsV1'
-          description: StatsV1 are the usage statistics, and will be populated for graduated-v1 plans.
-          x-order: 8
-        totalConsumed:
-          description: The total consumed
+      required:
+      - colId
+      - sort
+      type: object
+    UnitRateGraduatedTier:
+      description: UnitRateGraduatedTier describes a single tier within a graduated pricing plan.
+      properties:
+        costPerResource:
+          description: CostPerResource is the amount per resource to be charted on top of the flat fee.
+          type: string
+          x-order: 4
+        flatFee:
+          description: FlatFee is the flat amount to be charged at this tier, if any.
+          format: int64
+          type: integer
+          x-order: 2
+        tier:
+          description: Tier is an ordered index of where this tier places amongst other tiers. Tiers are 0-indexed.
           format: int64
           type: integer
           x-order: 1
-        unitRateGraduatedV0:
-          $ref: '#/components/schemas/UnitRateGraduatedV0'
-          description: UnitRateGraduatedV0 will be populated for `UnitRateSchemaGraduatedV0` plans.
-          x-order: 4
-        unitRateGraduatedV1:
-          $ref: '#/components/schemas/UnitRateGraduatedV1'
-          description: UnitRateGraduatedV1 will be populated for `UnitRateSchemaGraduatedV1` plans.
-          x-order: 5
-        unitRateGraduatedV2:
-          $ref: '#/components/schemas/UnitRateGraduatedV2'
-          description: UnitRateGraduatedV2 will be populated for `UnitRateSchemaGraduatedV2` plans.
-          x-order: 6
-        unitRateSchema:
-          description: 'UnitRateSchema captures which pricing plan is associated with the product subscription,
+        upperBound:
+          description: 'UpperBound defines the upper limit, inclusive, that closes out the tier. The lower bound
 
-            and further indicates which pricing rate structure should be read.'
-          enum:
-          - graduated-v0
-          - graduated-v1
-          - graduated-v2
-          type: string
+            should be inferred from the previous tier if it exists; otherwise zero.'
+          format: int64
+          type: integer
           x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: UnitRateSchema
-            enumComments: UnitRateSchema describes the pricing schema used for a subscription's unit rate.
-            enumFieldNames:
-            - GraduatedV0
-            - GraduatedV1
-            - GraduatedV2
-            enumFieldComments:
-            - 'UnitRateSchemaGraduatedV0 is the initial pricing schema that we launched with the advent of our
-
-              Growth plans. Pricing plan rates are pasred into `UnitRateGraduatedV0`.'
-            - 'UnitRateSchemaGraduated plans used graduated pricing plans, with plans parsed into
-
-              `UnitRateGraduatedV1`. These plans are introduced starting 2025.'
-            - 'UnitRateSchemaGraduatedV2 is used for pricing plans where the free tier is handled
-
-              via credit grants (dollar credits) rather than being baked into the pricing tiers. Rates are parsed into
-
-              `UnitRateGraduatedV2` and contain only paid (on-demand) tiers. The tiers field uses `UnitRateGraduatedTier`
-
-              for graduated prices with multiple tiers, and a single-element tiers array for per-unit prices with only
-
-              one rate tier.'
       required:
-      - consumed
-      - totalConsumed
-      - unitRateSchema
+      - costPerResource
+      - flatFee
+      - tier
+      - upperBound
       type: object
-    InsightsImportCodeRequest:
-      description: Request body for generating import code for Insights resources.
+    ListTeamsByInsightsAccountResponse:
+      description: ListTeamsByInsightsAccountResponse lists all teams that have access to an account.
       properties:
-        language:
-          description: The programming language for the generated import code
+        accountName:
+          description: The name of the Insights account
           type: string
           x-order: 1
-        urns:
-          description: The URNs of the resources to generate import code for
+        teams:
+          description: The list of teams with access to the account
           items:
-            type: string
+            $ref: '#/components/schemas/InsightsAccountTeam'
           type: array
           x-order: 2
       required:
-      - language
-      - urns
+      - accountName
+      - teams
       type: object
-    DeploymentLogsBase:
-      description: DeploymentLogsBase is the base type for deployment log responses, discriminated by type.
-      discriminator:
-        mapping:
-          DeploymentLogs: '#/components/schemas/DeploymentLogs'
-          DeploymentLogsStep: '#/components/schemas/DeploymentLogsStep'
-        propertyName: __type
+    AngularGridColumn:
+      description: Represents angular grid column.
       properties:
-        __type:
+        aggFunc:
+          description: The agg func
           type: string
+          x-order: 4
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        field:
+          description: The field
+          type: string
+          x-order: 3
+        id:
+          description: The unique identifier
+          type: string
+          x-order: 1
       required:
-      - __type
+      - displayName
+      - id
       type: object
     InsightsResourceWithReferences:
       description: An Insights resource along with its inbound and outbound references.
@@ -1899,231 +1907,39 @@ components:
       - to
       - urn
       type: object
-    InsightsResourceStackEdge:
-      description: An edge linking an Insights resource to a stack resource.
+    ConsumptionUsageStatsV0:
+      description: ConsumptionUsageStatsV0 are the usage statistics for a billing family's total usage for graduated-v0 plans.
       properties:
-        insightsResourceId:
-          description: The Insights resource identifier
-          type: string
-          x-order: 1
-        stackResourceUrn:
-          description: The stack resource URN
-          type: string
-          x-order: 2
-      required:
-      - insightsResourceId
-      - stackResourceUrn
-      type: object
-    GetDiscoveredStackResponse:
-      description: Response for the discovered stack detail endpoint.
-      properties:
-        id:
-          description: The Discovered Stack ID.
-          type: string
-          x-order: 1
-        lastScanTime:
-          description: Unix epoch timestamp (seconds) of the last scan. Omitted if never scanned.
+        estimatedOnDemandCost:
+          description: EstimatedOnDemandCost is the estimated cost of the on-demand usage (beyond the free units), in USD cents.
+          format: double
+          type: number
+          x-order: 4
+        estimatedTotalCost:
+          description: EstimatedTotalCost is the estimated total cost of billing family's usage for the current billing cycle, in USD cents.
+          format: double
+          type: number
+          x-order: 5
+        includedUnits:
+          description: IncludedUnits is the number of units included in the subscription.
           format: int64
           type: integer
-          x-order: 8
-        orgName:
-          description: The organization name.
-          type: string
-          x-order: 2
-        projectName:
-          description: The project name.
-          type: string
-          x-order: 3
-        provider:
-          description: The cloud provider package (e.g. 'aws-cloudformation', 'azure-arm').
-          type: string
-          x-order: 6
-        resourceCount:
-          description: Number of resources discovered in this stack.
-          format: int32
-          type: integer
-          x-order: 5
-        stackName:
-          description: The stack name.
-          type: string
-          x-order: 4
-        tags:
-          additionalProperties:
-            type: string
-          description: User-defined tags associated with the discovered stack.
-          type: object
-          x-order: 7
-      required:
-      - id
-      - orgName
-      - projectName
-      - provider
-      - resourceCount
-      - stackName
-      type: object
-    StepRun:
-      description: StepRun contains information about a step run.
-      properties:
-        lastUpdated:
-          description: The timestamp when the step was last updated.
-          format: date-time
-          type: string
-          x-order: 4
-        name:
-          description: The name of the step.
-          type: string
           x-order: 1
-        started:
-          description: The timestamp when the step started.
-          format: date-time
-          type: string
-          x-order: 3
-        status:
-          description: The current status of the step.
-          enum:
-          - not-started
-          - running
-          - failed
-          - succeeded
-          type: string
-          x-order: 2
-          x-pulumi-model-property:
-            enumTypeName: StepStatus
-            enumComments: StepStatus describes the status of a step in a workflow job run.
-            enumFieldNames:
-            - NotStarted
-            - Running
-            - Failed
-            - Succeeded
-            enumFieldComments:
-            - StepStatusNotStarted indicates that a step has not yet started.
-            - StepStatusRunning indicates that a step is running.
-            - StepStatusFailed indicates that a step has failed.
-            - StepStatusSucceeded indicates that a step has succeeded.
-      required:
-      - name
-      - status
-      type: object
-    DiscoveredProject:
-      description: A discovered project containing cloud infrastructure stacks
-      properties:
-        name:
-          description: The discovered project name.
-          type: string
-          x-order: 2
-        orgName:
-          description: The organization name.
-          type: string
-          x-order: 1
-        stacks:
-          description: The discovered stacks belonging to this project.
-          items:
-            $ref: '#/components/schemas/DiscoveredStack'
-          type: array
-          x-order: 3
-      required:
-      - name
-      - orgName
-      - stacks
-      type: object
-    ResourceDependency:
-      description: A single dependency in a chain of dependencies used to list a resource.
-      properties:
-        id:
-          description: The resource identifier.
-          type: string
-          x-order: 2
-        type:
-          description: The resource type token.
-          type: string
-          x-order: 1
-      required:
-      - id
-      - type
-      type: object
-    ScanInsightsAccountRequest:
-      allOf:
-      - $ref: '#/components/schemas/ScanOptions'
-      - description: Request to initiate a scan of an Insights account.
-        properties:
-          agentPoolID:
-            description: The ID of the agent pool to use for scanning. If not specified, the default agent pool will be used.
-            type: string
-            x-order: 1
-        type: object
-    SetInsightAccountTagsRequest:
-      description: Request to set tags on an Insights account.
-      properties:
-        tags:
-          additionalProperties:
-            type: string
-          description: The tags to set on the Insights account.
-          type: object
-          x-order: 1
-      required:
-      - tags
-      type: object
-    AppRequiredPolicy:
-      description: RequiredPolicy is the information regarding a particular Policy that is required by an organization.
-      properties:
-        config:
-          additionalProperties:
-            type: object
-          description: 'The configuration that is to be passed to the Policy Pack. This is map a of policies
-
-            mapped to their configuration. Each individual configuration must comply with the
-
-            JSON schema for each Policy within the Policy Pack.'
-          type: object
-          x-order: 6
-        displayName:
-          description: The pretty name of the required Policy Pack.
-          type: string
-          x-order: 4
-        environments:
-          description: References to ESC environments whose resolved values the CLI should inject into the policy pack process.
-          items:
-            type: string
-          type: array
-          x-order: 7
-        name:
-          description: The name (unique and URL-safe) of the required Policy Pack.
-          type: string
-          x-order: 1
-        packLocation:
-          description: Where the Policy Pack can be downloaded from.
-          type: string
-          x-order: 5
-        version:
-          description: The version of the required Policy Pack.
-          format: int64
-          type: integer
-          x-order: 2
-        versionTag:
-          description: The version tag of the required Policy Pack.
-          type: string
-          x-order: 3
-      required:
-      - displayName
-      - name
-      - version
-      - versionTag
-      type: object
-    InsightsPolicyResults:
-      description: Results of policy evaluation for Insights resources.
-      properties:
-        succeeded:
-          description: Whether the policy evaluation succeeded without violations
+        isIncludedUnitsFree:
+          description: IsIncludedUnitsFree indicates whether the included units are free of charge.
           type: boolean
-          x-order: 1
-        violations:
-          description: The list of policy violations found, if any
-          items:
-            $ref: '#/components/schemas/InsightsPolicyViolation'
-          type: array
           x-order: 2
+        onDemandRate:
+          description: OnDemandRate is the on-demand rate for the billing family's total usage, in USD cents per unit.
+          format: double
+          type: number
+          x-order: 3
       required:
-      - succeeded
+      - estimatedOnDemandCost
+      - estimatedTotalCost
+      - includedUnits
+      - isIncludedUnitsFree
+      - onDemandRate
       type: object
     InsightsPolicyViolation:
       description: A policy violation detected during Insights policy evaluation.
@@ -2186,706 +2002,85 @@ components:
       - policyPackVersion
       - resourceURN
       type: object
-    UserInfo:
-      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
-
-        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+    DiscoveredStack:
+      description: A discovered cloud infrastructure stack from an Insights scan, representing a single Discovered Stack with is_discovered=true.
       properties:
-        avatarUrl:
-          description: The URL of the user's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The user's login name.
-          type: string
-          x-order: 2
-        name:
-          description: The user's display name.
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - githubLogin
-      - name
-      type: object
-    BulkCreateInsightsAccountsResponse:
-      description: Response from a bulk Insights account creation operation. Contains both successfully created accounts and details about any failures.
-      properties:
-        accounts:
-          description: The list of accounts that were successfully created.
-          items:
-            $ref: '#/components/schemas/InsightsAccount'
-          type: array
-          x-order: 1
-        failures:
-          description: The list of accounts that failed to be created, with error details.
-          items:
-            $ref: '#/components/schemas/BulkCreateInsightsAccountFailure'
-          type: array
-          x-order: 2
-      required:
-      - accounts
-      - failures
-      type: object
-    WorkflowRun:
-      description: WorkflowRun contains information about a workflow run.
-      properties:
-        finishedAt:
-          description: The time the workflow run finished, if completed.
-          format: date-time
-          type: string
-          x-order: 6
         id:
-          description: The unique identifier of the workflow run.
+          description: The Discovered Stack ID.
           type: string
           x-order: 1
-        jobTimeout:
-          description: The timeout for jobs in the workflow run.
-          format: date-time
-          type: string
-          x-order: 8
-        jobs:
-          description: The list of job runs within the workflow.
-          items:
-            $ref: '#/components/schemas/JobRun'
-          type: array
-          x-order: 9
-        lastUpdatedAt:
-          description: The time the workflow run was last updated.
-          format: date-time
-          type: string
-          x-order: 7
-        orgId:
-          description: The organization ID.
-          type: string
-          x-order: 2
-        startedAt:
-          description: The time the workflow run started.
-          format: date-time
-          type: string
-          x-order: 5
-        status:
-          description: The current status of the workflow run.
-          enum:
-          - running
-          - failed
-          - succeeded
-          type: string
-          x-order: 4
-          x-pulumi-model-property:
-            enumTypeName: WorkflowRunStatus
-            enumComments: WorkflowRunStatus describes the status of a workflow run.
-            enumFieldComments:
-            - WorkflowRunStatusRunning indicates that a workflow run is running.
-            - WorkflowRunStatusFailed indicates that a workflow run has failed.
-            - WorkflowRunStatusSucceeded indicates that a workflow run has succeeded.
-        userId:
-          description: The user ID who initiated the workflow run.
-          type: string
-          x-order: 3
-      required:
-      - finishedAt
-      - id
-      - jobTimeout
-      - lastUpdatedAt
-      - orgId
-      - startedAt
-      - status
-      - userId
-      type: object
-    InsightsAccountTeam:
-      description: InsightsAccountTeam is a team that has access to a particular account.
-      properties:
-        description:
-          description: The team description
-          type: string
-          x-order: 3
-        displayName:
-          description: The display name of the team
-          type: string
-          x-order: 2
-        isMember:
-          description: IsMember is true if the requesting user is a member of the team.
-          type: boolean
-          x-order: 5
-        name:
-          description: The team name
-          type: string
-          x-order: 1
-        permission:
-          description: The team's permission level for this account
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
+        lastScanTime:
+          description: Unix epoch timestamp (seconds) of the last scan. Omitted if never scanned.
           format: int64
           type: integer
-          x-order: 4
-          x-pulumi-model-property:
-            enumTypeName: InsightsAccountPermission
-            enumComments: InsightsAccountPermission is a value describing the permission level a user has for a Pulumi Insights account.
-            enumFieldNames:
-            - None
-            - Read
-            - Write
-            - Admin
-            enumFieldComments:
-            - InsightsAccountPermissionNone provides no access.
-            - InsightsAccountPermissionRead provides read-only access.
-            - InsightsAccountPermissionWrite provides read/write access to an account.
-            - InsightsAccountPermissionAdmin provides admin-level access to the account.
-      required:
-      - description
-      - displayName
-      - isMember
-      - name
-      - permission
-      type: object
-    BulkCreateInsightsAccountsRequest:
-      description: Request body for creating multiple Insights accounts in a single operation. Each account is created independently; failures for individual accounts do not prevent other accounts from being created.
-      properties:
-        accounts:
-          description: The list of accounts to create. Each item defines a single Insights account with its provider, ESC environment reference, and optional configuration. Maximum 100 accounts per request.
-          items:
-            $ref: '#/components/schemas/BulkCreateInsightsAccountItem'
-          type: array
-          x-order: 1
-        skipAutoEnablePolicyPacks:
-          description: When true, skips automatic enablement of policy packs based on subscription tier. By default, SKU-appropriate policy packs are added to the default accounts policy group when accounts are created.
-          type: boolean
-          x-order: 2
-      required:
-      - accounts
-      type: object
-    UpsertResourceMigrationAnnotationRequest:
-      description: Request to create or update a migration annotation on a discovered resource.
-      properties:
-        linkedResourceUrn:
-          description: URN of the resource this one was migrated as part of.
-          type: string
-          x-order: 4
-        note:
-          description: Free-text note about this resource. May be empty when only setting a status override.
+          x-order: 6
+        name:
+          description: The stack name.
           type: string
           x-order: 2
-        resourceUrn:
-          description: URN of the resource to annotate.
+        provider:
+          description: The cloud provider package (e.g. 'aws-cloudformation', 'azure-arm').
           type: string
-          x-order: 1
-        statusOverride:
-          description: Override the computed migration status. Only Migrated and NotApplicable are valid values.
-          enum:
-          - Migrated
-          - PulumiOnly
-          - Ready
-          - Pending
-          - Unmapped
-          - NotApplicable
-          type: string
+          x-order: 4
+        resourceCount:
+          description: Number of cloud resources discovered in this stack.
+          format: int32
+          type: integer
           x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: MigrationStatus
-            enumComments: Migration status of a discovered resource relative to a comparison Pulumi stack. Migrated and PulumiOnly are only possible when the compareTo parameter is provided.
-            enumFieldComments:
-            - Resource identity match found in the comparison stack.
-            - Resource exists only in the comparison Pulumi stack.
-            - Mapped to a Pulumi type with virtual state available.
-            - Mapped to a Pulumi type but no virtual state yet.
-            - No Pulumi type mapping exists for this resource.
-            - Migration status is not applicable (e.g. stack or deployment containers).
+        tags:
+          additionalProperties:
+            type: string
+          description: User-defined tags associated with the discovered stack.
+          type: object
+          x-order: 5
       required:
-      - resourceUrn
+      - id
+      - name
+      - provider
+      - resourceCount
       type: object
-    UnitRateGraduatedV1:
-      description: UnitRateGraduatedV1 captures the structure of a graduated pricing plan.
-      properties:
-        tiers:
-          description: The list of graduated pricing tiers.
-          items:
-            $ref: '#/components/schemas/UnitRateGraduatedTier'
-          type: array
-          x-order: 1
-      required:
-      - tiers
-      type: object
-    JobRun:
-      description: JobRun contains information about a job run.
+    StepRun:
+      description: StepRun contains information about a step run.
       properties:
         lastUpdated:
-          description: When the job was last updated
+          description: The timestamp when the step was last updated.
+          format: date-time
+          type: string
+          x-order: 4
+        name:
+          description: The name of the step.
+          type: string
+          x-order: 1
+        started:
+          description: The timestamp when the step started.
           format: date-time
           type: string
           x-order: 3
-        started:
-          description: When the job started running
-          format: date-time
-          type: string
-          x-order: 2
         status:
-          description: The current status of the job run
+          description: The current status of the step.
           enum:
           - not-started
-          - accepted
           - running
           - failed
           - succeeded
-          - skipped
           type: string
-          x-order: 1
+          x-order: 2
           x-pulumi-model-property:
-            enumTypeName: JobStatus
-            enumComments: JobStatus describes the status of a job run.
+            enumTypeName: StepStatus
+            enumComments: StepStatus describes the status of a step in a workflow job run.
             enumFieldNames:
             - NotStarted
-            - Accepted
             - Running
             - Failed
             - Succeeded
-            - Skipped
             enumFieldComments:
-            - JobStatusNotStarted indicates that a job has not yet started.
-            - JobStatusAccepted indicates that a job has been accepted for execution, but is not yet running.
-            - JobStatusRunning indicates that a job is running.
-            - JobStatusFailed indicates that a job has failed.
-            - JobStatusSucceeded indicates that a job has succeeded.
-            - JobStatusSkipped indicates that a job has skipped as there are fresher deployments to execute in the queue.
-        steps:
-          description: The list of step runs within this job
-          items:
-            $ref: '#/components/schemas/StepRun'
-          type: array
-          x-order: 5
-        timeout:
-          description: The timeout duration for the job in nanoseconds (Go time.Duration).
-          format: int64
-          type: integer
-          x-order: 4
-        worker:
-          description: Information about the worker executing this job
-          type: object
-          x-order: 6
+            - StepStatusNotStarted indicates that a step has not yet started.
+            - StepStatusRunning indicates that a step is running.
+            - StepStatusFailed indicates that a step has failed.
+            - StepStatusSucceeded indicates that a step has succeeded.
       required:
-      - status
-      - steps
-      - timeout
-      type: object
-    ScanOptions:
-      description: Configuration options for controlling scan behavior.
-      properties:
-        batchSize:
-          description: The batch size for processing resources during the scan.
-          format: int64
-          type: integer
-          x-order: 3
-        listConcurrency:
-          description: The concurrency level for list operations during the scan.
-          format: int64
-          type: integer
-          x-order: 1
-        readConcurrency:
-          description: The concurrency level for read operations during the scan.
-          format: int64
-          type: integer
-          x-order: 2
-        readTimeout:
-          description: The timeout duration for read operations, as a Go duration string (e.g., '30s', '5m').
-          type: string
-          x-order: 4
-      type: object
-    AngularGridSortModelItem:
-      description: Represents angular grid sort model item.
-      properties:
-        colId:
-          description: Column Id to apply the sort to.
-          type: string
-          x-order: 1
-        sort:
-          description: Sort direction
-          type: string
-          x-order: 2
-      required:
-      - colId
-      - sort
-      type: object
-    InsightsResourceIdentifier:
-      description: Identifies an Insights resource by account, type, and ID.
-      properties:
-        account:
-          description: The account name containing the resource
-          type: string
-          x-order: 1
-        id:
-          description: The resource identifier
-          type: string
-          x-order: 3
-        type:
-          description: The resource type
-          type: string
-          x-order: 2
-        version:
-          description: If nil, the latest version is used
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - account
-      - id
-      - type
-      type: object
-    ListInsightsResourceStackEdgesResponse:
-      description: Response containing a list of Insights resource-to-stack edges.
-      properties:
-        edges:
-          description: The list of resource-to-stack edges
-          items:
-            $ref: '#/components/schemas/InsightsResourceStackEdge'
-          type: array
-          x-order: 1
-      required:
-      - edges
-      type: object
-    ListTeamsByInsightsAccountResponse:
-      description: ListTeamsByInsightsAccountResponse lists all teams that have access to an account.
-      properties:
-        accountName:
-          description: The name of the Insights account
-          type: string
-          x-order: 1
-        teams:
-          description: The list of teams with access to the account
-          items:
-            $ref: '#/components/schemas/InsightsAccountTeam'
-          type: array
-          x-order: 2
-      required:
-      - accountName
-      - teams
-      type: object
-    ScheduledInsightsScanSettingsResponse:
-      allOf:
-      - $ref: '#/components/schemas/ScanOptions'
-      - description: Response containing the current scheduled Insights scan settings.
-        properties:
-          paused:
-            description: Whether the scheduled scan is paused.
-            type: boolean
-            x-order: 2
-          scheduleCron:
-            description: The cron expression defining the scan schedule.
-            type: string
-            x-order: 1
-        required:
-        - paused
-        - scheduleCron
-        type: object
-    ListResourcesWithReferencesRequest:
-      description: Request body for listing Insights resources with their references.
-      properties:
-        depth:
-          description: The depth of references to traverse
-          format: int64
-          type: integer
-          x-order: 2
-        resourceIdentifiers:
-          description: The resource identifiers to look up
-          items:
-            $ref: '#/components/schemas/InsightsResourceIdentifier'
-          type: array
-          x-order: 1
-      required:
-      - resourceIdentifiers
-      type: object
-    ReadInsightsAccountResponse:
-      allOf:
-      - $ref: '#/components/schemas/InsightsAccount'
-      - description: Response containing the details of an Insights account.
-        type: object
-    ScanStatus:
-      allOf:
-      - $ref: '#/components/schemas/WorkflowRun'
-      - description: The status of an Insights account scan, including resource count.
-        properties:
-          accountName:
-            description: The name of the insights account associated with this scan.
-            type: string
-            x-order: 1
-          resourceCount:
-            description: The number of resources discovered by this scan.
-            format: int64
-            type: integer
-            x-order: 2
-        type: object
-    ListInsightsAccountsResponse:
-      description: Response containing a list of Insights accounts.
-      properties:
-        accounts:
-          description: The list of Insights accounts
-          items:
-            $ref: '#/components/schemas/InsightsAccount'
-          type: array
-          x-order: 1
-        nextToken:
-          description: Token for fetching the next page of results
-          type: string
-          x-order: 2
-      type: object
-    InsightsAccountTag:
-      description: A tag associated with an Insights account.
-      properties:
-        created:
-          description: When the tag was created
-          format: date-time
-          type: string
-          x-order: 3
-        modified:
-          description: When the tag was last modified
-          format: date-time
-          type: string
-          x-order: 4
-        name:
-          description: The tag name
-          type: string
-          x-order: 1
-        value:
-          description: The tag value
-          type: string
-          x-order: 2
-      required:
-      - created
-      - modified
       - name
-      - value
-      type: object
-    AngularGridColumn:
-      description: Represents angular grid column.
-      properties:
-        aggFunc:
-          description: The agg func
-          type: string
-          x-order: 4
-        displayName:
-          description: The display name
-          type: string
-          x-order: 2
-        field:
-          description: The field
-          type: string
-          x-order: 3
-        id:
-          description: The unique identifier
-          type: string
-          x-order: 1
-      required:
-      - displayName
-      - id
-      type: object
-    InsightsResourceVersionEdge:
-      description: An edge between two Insights resource versions.
-      properties:
-        destUrn:
-          description: The destination resource URN
-          type: string
-          x-order: 3
-        edgeType:
-          description: The type of edge relationship
-          type: string
-          x-order: 4
-        sourceUrn:
-          description: The source resource URN
-          type: string
-          x-order: 1
-        sourceVersion:
-          description: The source resource version
-          format: int64
-          type: integer
-          x-order: 2
-      required:
-      - destUrn
-      - edgeType
-      - sourceUrn
-      - sourceVersion
-      type: object
-    ListOrganizationProjectsResponsev3:
-      description: Response containing organization projects data in row format (v3).
-      properties:
-        rowCount:
-          description: The total number of rows
-          format: int64
-          type: integer
-          x-order: 2
-        rowData:
-          description: The project data rows
-          items:
-            additionalProperties:
-              type: object
-            type: object
-          type: array
-          x-order: 1
-      required:
-      - rowData
-      type: object
-    UpdateInsightsAccountRequest:
-      description: Request to update an Insights account configuration.
-      properties:
-        agentPoolID:
-          description: 'The ID of the agent pool to run account discovery workflows.
-
-            If not specified, discovery will use the default agent pool.'
-          type: string
-          x-order: 4
-        environment:
-          description: 'Reference to an ESC environment containing provider credentials,
-
-            in the format ''project/environment'' with an optional @version suffix.'
-          type: string
-          x-order: 1
-        providerConfig:
-          description: Provider-specific configuration for the account.
-          type: object
-          x-order: 3
-        scanSchedule:
-          description: Schedule for automated discovery scans (e.g., 'none', 'daily').
-          enum:
-          - none
-          - 12h
-          - daily
-          type: string
-          x-order: 2
-          x-pulumi-model-property:
-            enumTypeName: ScanSchedule
-            enumComments: ScanSchedule represents the schedule for automated scans.
-            enumFieldNames:
-            - None
-            - TwelveHours
-            - Daily
-            enumFieldComments:
-            - No automated scanning is configured.
-            - Scans run automatically every 12 hours.
-            - Scans run automatically on a daily schedule.
-      required:
-      - environment
-      type: object
-    UpdateTeamInsightsAccountPermissionsRequest:
-      description: Request to update the insights account permissions for a team.
-      properties:
-        permissions:
-          description: 'Permissions the permissions that team membership grants to the account.
-
-            Will overwrite any existing permissions the team grants to the account.
-
-            A nil value will remove the account from the team.'
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          format: int64
-          type: integer
-          x-order: 1
-          x-pulumi-model-property:
-            enumTypeName: InsightsAccountPermission
-            enumComments: InsightsAccountPermission is a value describing the permission level a user has for a Pulumi Insights account.
-            enumFieldNames:
-            - None
-            - Read
-            - Write
-            - Admin
-            enumFieldComments:
-            - InsightsAccountPermissionNone provides no access.
-            - InsightsAccountPermissionRead provides read-only access.
-            - InsightsAccountPermissionWrite provides read/write access to an account.
-            - InsightsAccountPermissionAdmin provides admin-level access to the account.
-      type: object
-    ResourceCountSummary:
-      description: 'ResourceCountSummary represents a single point of summary for resources
-
-        under management for an organization.'
-      properties:
-        day:
-          description: The day of month. Ranges from 1 to 31.
-          format: int64
-          type: integer
-          x-order: 3
-        hour:
-          description: The hour of the day. Ranges from 0 to 23.
-          format: int64
-          type: integer
-          x-order: 5
-        month:
-          description: The month of the year. Ranges from 1 to 12.
-          format: int64
-          type: integer
-          x-order: 2
-        resourceHours:
-          description: 'The RHUM, which is the number of hours the resources under management have
-
-            been running. Calculated by getting the sum of all the resources for the
-
-            given time frame. 1 resource hour = 1 Pulumi credit.'
-          format: int64
-          type: integer
-          x-order: 7
-        resources:
-          description: 'The RUM (total number of resources under management at a given time).
-
-            Calculated by getting the average of the all the resources for the given
-
-            time frame.'
-          format: int64
-          type: integer
-          x-order: 6
-        weekNumber:
-          description: The week number in the year with Sunday marking the start of the week. Ranges from 0-53.
-          format: int64
-          type: integer
-          x-order: 4
-        year:
-          description: The 4-digit year.
-          format: int64
-          type: integer
-          x-order: 1
-      required:
-      - resourceHours
-      - resources
-      - year
-      type: object
-    TrialUsageSummary:
-      description: Summary of trial usage for Pulumi Insights.
-      properties:
-        dhrum:
-          $ref: '#/components/schemas/ConsumptionUsage'
-          description: Discovered resources usage during the trial.
-          x-order: 1
-        insightsScans:
-          $ref: '#/components/schemas/ConsumptionUsage'
-          description: Insights scans usage during the trial.
-          x-order: 2
-      type: object
-    AngularGridAdvancedFilterModel:
-      description: Represents angular grid advanced filter model.
-      properties:
-        conditions:
-          description: List of conditions
-          items:
-            $ref: '#/components/schemas/AngularGridFilterModel'
-          type: array
-          x-order: 2
-        type:
-          description: The type
-          type: string
-          x-order: 1
-      required:
-      - conditions
-      - type
+      - status
       type: object
     CreateInsightsAccountRequest:
       description: Request body for creating an Insights account.
@@ -2959,168 +2154,241 @@ components:
       - environment
       - provider
       type: object
-    UnitRateGraduatedV2:
-      description: UnitRateGraduatedV2 captures the structure of a pricing plan where the free tier is handled via credit grants rather than being baked into the pricing tiers. Contains only paid (on-demand) tiers. For graduated prices, tiers contains multiple entries. For per-unit prices with a single rate, tiers contains a single entry.
+    GetResourceCountSummaryResponse:
+      description: Response body for retrieving a summary of resource counts.
       properties:
-        tiers:
-          description: The list of on-demand pricing tiers. For graduated prices, contains multiple tiers. For per-unit prices, contains a single tier.
+        summary:
+          description: The list of resource count summaries
           items:
-            $ref: '#/components/schemas/UnitRateGraduatedTier'
+            $ref: '#/components/schemas/ResourceCountSummary'
           type: array
           x-order: 1
       required:
-      - tiers
+      - summary
       type: object
-    DiscoveredStack:
-      description: A discovered cloud infrastructure stack from an Insights scan, representing a single Discovered Stack with is_discovered=true.
+    ListOrganizationProjectsResponsev3:
+      description: Response containing organization projects data in row format (v3).
       properties:
-        id:
-          description: The Discovered Stack ID.
-          type: string
-          x-order: 1
-        lastScanTime:
-          description: Unix epoch timestamp (seconds) of the last scan. Omitted if never scanned.
+        rowCount:
+          description: The total number of rows
           format: int64
           type: integer
+          x-order: 2
+        rowData:
+          description: The project data rows
+          items:
+            additionalProperties:
+              type: object
+            type: object
+          type: array
+          x-order: 1
+      required:
+      - rowData
+      type: object
+    ListResourcesWithReferencesRequest:
+      description: Request body for listing Insights resources with their references.
+      properties:
+        depth:
+          description: The depth of references to traverse
+          format: int64
+          type: integer
+          x-order: 2
+        resourceIdentifiers:
+          description: The resource identifiers to look up
+          items:
+            $ref: '#/components/schemas/InsightsResourceIdentifier'
+          type: array
+          x-order: 1
+      required:
+      - resourceIdentifiers
+      type: object
+    WorkflowRun:
+      description: WorkflowRun contains information about a workflow run.
+      properties:
+        finishedAt:
+          description: The time the workflow run finished, if completed.
+          format: date-time
+          type: string
           x-order: 6
-        name:
-          description: The stack name.
+        id:
+          description: The unique identifier of the workflow run.
+          type: string
+          x-order: 1
+        jobTimeout:
+          description: The timeout for jobs in the workflow run.
+          format: date-time
+          type: string
+          x-order: 8
+        jobs:
+          description: The list of job runs within the workflow.
+          items:
+            $ref: '#/components/schemas/JobRun'
+          type: array
+          x-order: 9
+        lastUpdatedAt:
+          description: The time the workflow run was last updated.
+          format: date-time
+          type: string
+          x-order: 7
+        orgId:
+          description: The organization ID.
           type: string
           x-order: 2
-        provider:
-          description: The cloud provider package (e.g. 'aws-cloudformation', 'azure-arm').
+        startedAt:
+          description: The time the workflow run started.
+          format: date-time
+          type: string
+          x-order: 5
+        status:
+          description: The current status of the workflow run.
+          enum:
+          - running
+          - failed
+          - succeeded
           type: string
           x-order: 4
-        resourceCount:
-          description: Number of cloud resources discovered in this stack.
-          format: int32
-          type: integer
+          x-pulumi-model-property:
+            enumTypeName: WorkflowRunStatus
+            enumComments: WorkflowRunStatus describes the status of a workflow run.
+            enumFieldComments:
+            - WorkflowRunStatusRunning indicates that a workflow run is running.
+            - WorkflowRunStatusFailed indicates that a workflow run has failed.
+            - WorkflowRunStatusSucceeded indicates that a workflow run has succeeded.
+        userId:
+          description: The user ID who initiated the workflow run.
+          type: string
           x-order: 3
+      required:
+      - finishedAt
+      - id
+      - jobTimeout
+      - lastUpdatedAt
+      - orgId
+      - startedAt
+      - status
+      - userId
+      type: object
+    UpsertResourceMigrationAnnotationRequest:
+      description: Request to create or update a migration annotation on a discovered resource.
+      properties:
+        linkedResourceUrn:
+          description: URN of the resource this one was migrated as part of.
+          type: string
+          x-order: 4
+        note:
+          description: Free-text note about this resource. May be empty when only setting a status override.
+          type: string
+          x-order: 2
+        resourceUrn:
+          description: URN of the resource to annotate.
+          type: string
+          x-order: 1
+        statusOverride:
+          description: Override the computed migration status. Only Migrated and NotApplicable are valid values.
+          enum:
+          - Migrated
+          - PulumiOnly
+          - Ready
+          - Pending
+          - Unmapped
+          - NotApplicable
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: MigrationStatus
+            enumComments: Migration status of a discovered resource relative to a comparison Pulumi stack. Migrated and PulumiOnly are only possible when the compareTo parameter is provided.
+            enumFieldComments:
+            - Resource identity match found in the comparison stack.
+            - Resource exists only in the comparison Pulumi stack.
+            - Mapped to a Pulumi type with virtual state available.
+            - Mapped to a Pulumi type but no virtual state yet.
+            - No Pulumi type mapping exists for this resource.
+            - Migration status is not applicable (e.g. stack or deployment containers).
+      required:
+      - resourceUrn
+      type: object
+    GetInsightAccountTagsResponse:
+      description: Response body for retrieving tags associated with an Insights account.
+      properties:
         tags:
           additionalProperties:
-            type: string
-          description: User-defined tags associated with the discovered stack.
+            $ref: '#/components/schemas/InsightsAccountTag'
+          description: Map of tag names to their tag details
           type: object
-          x-order: 5
+          x-order: 1
       required:
-      - id
-      - name
-      - provider
-      - resourceCount
+      - tags
       type: object
-    UnitRateGraduatedV0:
-      description: 'UnitRateGraduatedV0 describes the rate for each unit of a Pulumi Subscription. The specific value is intended to
-
-        be opaque, and only obtained via parsing.
-
-        This rate was introduced as our first Growth pricing plans, representing a simplified version of a graduated
-
-        pricing plan that merges together two tiers. It can later be extended to handle other types of straightforward
-
-        pricing plans, e.g. tiered pricing or flat-rate plans. For now only supports our per-Pulumi credit plans
-
-        that have a single overage rate.'
+    InsightsImportCodeRequest:
+      description: Request body for generating import code for Insights resources.
       properties:
-        costPerResource:
-          description: 'PerUnitCost is a user-facing string describing the cost-per unit with the currency symbol.
-
-            e.g. "$0.0005".
-
-            Keep the JSON tag as "costPerResource" to maintain compatibility with the frontend
-
-            until we consolidate product.UnitRateGraduatedV0 and apitype.UnitRateGraduatedV1.'
+        language:
+          description: The programming language for the generated import code
           type: string
-          x-order: 3
-        creditsIncluded:
-          description: 'IncludedCredits is the number of resource-hours included in the subscription, e.g. the
-
-            pre-paid credits or those in the "free tier".
-
-            Keep the JSON tag as "creditsIncluded" to maintain compatibility with the frontend
-
-            until we consolidate product.UnitRateGraduatedV0 and apitype.UnitRateGraduatedV1.'
-          format: int64
-          type: integer
-          x-order: 2
-        upfrontCost:
-          description: 'UpfrontCost is the up-front charge the customer will have paid to have an active subscription.
-
-            For Team Growth this is $0, since there is no credit pre-payment and has free-tier. But for
-
-            Enterprise Growth, it is usually (Rate * CreditsIncluded).
-
-
-            Value is in USD cents.'
-          format: int64
-          type: integer
           x-order: 1
-      required:
-      - costPerResource
-      - creditsIncluded
-      - upfrontCost
-      type: object
-    ConsumptionUsageStatsV0:
-      description: ConsumptionUsageStatsV0 are the usage statistics for a billing family's total usage for graduated-v0 plans.
-      properties:
-        estimatedOnDemandCost:
-          description: EstimatedOnDemandCost is the estimated cost of the on-demand usage (beyond the free units), in USD cents.
-          format: double
-          type: number
-          x-order: 4
-        estimatedTotalCost:
-          description: EstimatedTotalCost is the estimated total cost of billing family's usage for the current billing cycle, in USD cents.
-          format: double
-          type: number
-          x-order: 5
-        includedUnits:
-          description: IncludedUnits is the number of units included in the subscription.
-          format: int64
-          type: integer
-          x-order: 1
-        isIncludedUnitsFree:
-          description: IsIncludedUnitsFree indicates whether the included units are free of charge.
-          type: boolean
-          x-order: 2
-        onDemandRate:
-          description: OnDemandRate is the on-demand rate for the billing family's total usage, in USD cents per unit.
-          format: double
-          type: number
-          x-order: 3
-      required:
-      - estimatedOnDemandCost
-      - estimatedTotalCost
-      - includedUnits
-      - isIncludedUnitsFree
-      - onDemandRate
-      type: object
-    UpsertInsightsResourcesRequest:
-      description: Request to upsert one or more resources into Pulumi Insights.
-      properties:
-        resources:
-          description: The list of resources to upsert.
+        urns:
+          description: The URNs of the resources to generate import code for
           items:
-            $ref: '#/components/schemas/UpsertInsightsResource'
-          type: array
-          x-order: 1
-      required:
-      - resources
-      type: object
-    ScheduledInsightsScanSettingsRequest:
-      allOf:
-      - $ref: '#/components/schemas/ScanOptions'
-      - description: Request to update the scheduled Insights scan settings.
-        properties:
-          paused:
-            description: Whether the scheduled scan is paused.
-            type: boolean
-            x-order: 2
-          scheduleCron:
-            description: The cron expression defining the scan schedule.
             type: string
-            x-order: 1
-        required:
-        - paused
-        type: object
+          type: array
+          x-order: 2
+      required:
+      - language
+      - urns
+      type: object
+    UpdateTeamInsightsAccountPermissionsRequest:
+      description: Request to update the insights account permissions for a team.
+      properties:
+        permissions:
+          description: 'Permissions the permissions that team membership grants to the account.
+
+            Will overwrite any existing permissions the team grants to the account.
+
+            A nil value will remove the account from the team.'
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          format: int64
+          type: integer
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: InsightsAccountPermission
+            enumComments: InsightsAccountPermission is a value describing the permission level a user has for a Pulumi Insights account.
+            enumFieldNames:
+            - None
+            - Read
+            - Write
+            - Admin
+            enumFieldComments:
+            - InsightsAccountPermissionNone provides no access.
+            - InsightsAccountPermissionRead provides read-only access.
+            - InsightsAccountPermissionWrite provides read/write access to an account.
+            - InsightsAccountPermissionAdmin provides admin-level access to the account.
+      type: object
+    DiscoveredProject:
+      description: A discovered project containing cloud infrastructure stacks
+      properties:
+        name:
+          description: The discovered project name.
+          type: string
+          x-order: 2
+        orgName:
+          description: The organization name.
+          type: string
+          x-order: 1
+        stacks:
+          description: The discovered stacks belonging to this project.
+          items:
+            $ref: '#/components/schemas/DiscoveredStack'
+          type: array
+          x-order: 3
+      required:
+      - name
+      - orgName
+      - stacks
+      type: object
     UpdateStackPolicyResultsRequest:
       description: Request to update policy results for a stack.
       properties:
@@ -3136,35 +2404,19 @@ components:
       - claimId
       - results
       type: object
-    ListInsightsResourceVersionsResponse:
-      description: Response containing a list of Insights resource versions.
+    ListInsightsAccountsResponse:
+      description: Response containing a list of Insights accounts.
       properties:
+        accounts:
+          description: The list of Insights accounts
+          items:
+            $ref: '#/components/schemas/InsightsAccount'
+          type: array
+          x-order: 1
         nextToken:
           description: Token for fetching the next page of results
           type: string
           x-order: 2
-        versions:
-          description: The list of resource versions
-          items:
-            $ref: '#/components/schemas/ListInsightsResourceVersion'
-          type: array
-          x-order: 1
-      type: object
-    ListScanStatusResponse:
-      description: Response containing a paginated list of scan statuses.
-      properties:
-        continuationToken:
-          description: ContinuationToken is an opaque value the client can send to fetch additional scans. Will be nil once all scans have been returned.
-          type: string
-          x-order: 2
-        scanStatuses:
-          description: The list of scan statuses
-          items:
-            $ref: '#/components/schemas/ScanStatus'
-          type: array
-          x-order: 1
-      required:
-      - scanStatuses
       type: object
     ConsumptionUsageStatsV1:
       allOf:
@@ -3187,6 +2439,142 @@ components:
         - effectiveRate
         - volumeSavingsPercentage
         type: object
+    AppRequiredPolicy:
+      description: RequiredPolicy is the information regarding a particular Policy that is required by an organization.
+      properties:
+        config:
+          additionalProperties:
+            type: object
+          description: 'The configuration that is to be passed to the Policy Pack. This is map a of policies
+
+            mapped to their configuration. Each individual configuration must comply with the
+
+            JSON schema for each Policy within the Policy Pack.'
+          type: object
+          x-order: 6
+        displayName:
+          description: The pretty name of the required Policy Pack.
+          type: string
+          x-order: 4
+        environments:
+          description: References to ESC environments whose resolved values the CLI should inject into the policy pack process.
+          items:
+            type: string
+          type: array
+          x-order: 7
+        name:
+          description: The name (unique and URL-safe) of the required Policy Pack.
+          type: string
+          x-order: 1
+        packLocation:
+          description: Where the Policy Pack can be downloaded from.
+          type: string
+          x-order: 5
+        version:
+          description: The version of the required Policy Pack.
+          format: int64
+          type: integer
+          x-order: 2
+        versionTag:
+          description: The version tag of the required Policy Pack.
+          type: string
+          x-order: 3
+      required:
+      - displayName
+      - name
+      - version
+      - versionTag
+      type: object
+    ListInsightsResourceVersionsResponse:
+      description: Response containing a list of Insights resource versions.
+      properties:
+        nextToken:
+          description: Token for fetching the next page of results
+          type: string
+          x-order: 2
+        versions:
+          description: The list of resource versions
+          items:
+            $ref: '#/components/schemas/ListInsightsResourceVersion'
+          type: array
+          x-order: 1
+      type: object
+    ResourceMigrationAnnotation:
+      description: A user-created migration annotation on a discovered resource.
+      properties:
+        linkedResourceUrn:
+          description: URN of the resource this one was migrated as part of.
+          type: string
+          x-order: 3
+        note:
+          description: Free-text note about this resource's migration status. May be empty when only a status override is set.
+          type: string
+          x-order: 1
+        statusOverride:
+          description: User override of the computed migration status. Only Migrated and NotApplicable are valid overrides.
+          enum:
+          - Migrated
+          - PulumiOnly
+          - Ready
+          - Pending
+          - Unmapped
+          - NotApplicable
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: MigrationStatus
+            enumComments: Migration status of a discovered resource relative to a comparison Pulumi stack. Migrated and PulumiOnly are only possible when the compareTo parameter is provided.
+            enumFieldComments:
+            - Resource identity match found in the comparison stack.
+            - Resource exists only in the comparison Pulumi stack.
+            - Mapped to a Pulumi type with virtual state available.
+            - Mapped to a Pulumi type but no virtual state yet.
+            - No Pulumi type mapping exists for this resource.
+            - Migration status is not applicable (e.g. stack or deployment containers).
+      type: object
+    AngularGridAdvancedFilterModel:
+      description: Represents angular grid advanced filter model.
+      properties:
+        conditions:
+          description: List of conditions
+          items:
+            $ref: '#/components/schemas/AngularGridFilterModel'
+          type: array
+          x-order: 2
+        type:
+          description: The type
+          type: string
+          x-order: 1
+      required:
+      - conditions
+      - type
+      type: object
+    InsightsResourceVersionEdge:
+      description: An edge between two Insights resource versions.
+      properties:
+        destUrn:
+          description: The destination resource URN
+          type: string
+          x-order: 3
+        edgeType:
+          description: The type of edge relationship
+          type: string
+          x-order: 4
+        sourceUrn:
+          description: The source resource URN
+          type: string
+          x-order: 1
+        sourceVersion:
+          description: The source resource version
+          format: int64
+          type: integer
+          x-order: 2
+      required:
+      - destUrn
+      - edgeType
+      - sourceUrn
+      - sourceVersion
+      type: object
     Resource:
       description: 'Resource is the shape of a Pulumi-managed resource as exposed from the Pulumi Service.
 
@@ -3295,96 +2683,236 @@ components:
       - type
       - urn
       type: object
-    GetResourceCountSummaryResponse:
-      description: Response body for retrieving a summary of resource counts.
+    UpdateInsightsAccountRequest:
+      description: Request to update an Insights account configuration.
       properties:
-        summary:
-          description: The list of resource count summaries
-          items:
-            $ref: '#/components/schemas/ResourceCountSummary'
-          type: array
-          x-order: 1
-      required:
-      - summary
-      type: object
-    UpdateInsightsResourceVersionPolicyResultsRequest:
-      description: Request to update policy results for an insights resource version.
-      properties:
-        claimId:
-          description: The claim ID for the policy evaluation.
+        agentPoolID:
+          description: 'The ID of the agent pool to run account discovery workflows.
+
+            If not specified, discovery will use the default agent pool.'
+          type: string
+          x-order: 4
+        environment:
+          description: 'Reference to an ESC environment containing provider credentials,
+
+            in the format ''project/environment'' with an optional @version suffix.'
           type: string
           x-order: 1
-        results:
-          $ref: '#/components/schemas/InsightsPolicyResults'
-          description: The policy evaluation results.
-          x-order: 2
-      required:
-      - claimId
-      - results
-      type: object
-    ListInsightsResourceVersionEdgesResponse:
-      description: Response containing a list of Insights resource version edges.
-      properties:
-        edges:
-          description: The list of resource version edges
-          items:
-            $ref: '#/components/schemas/InsightsResourceVersionEdge'
-          type: array
-          x-order: 1
-        nextToken:
-          description: Token for fetching the next page of results
+        providerConfig:
+          description: Provider-specific configuration for the account.
+          type: object
+          x-order: 3
+        scanSchedule:
+          description: Schedule for automated discovery scans (e.g., 'none', 'daily').
+          enum:
+          - none
+          - 12h
+          - daily
           type: string
           x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: ScanSchedule
+            enumComments: ScanSchedule represents the schedule for automated scans.
+            enumFieldNames:
+            - None
+            - TwelveHours
+            - Daily
+            enumFieldComments:
+            - No automated scanning is configured.
+            - Scans run automatically every 12 hours.
+            - Scans run automatically on a daily schedule.
       required:
-      - edges
+      - environment
       type: object
-    AngularGridGetRowsRequest:
-      description: https://www.ag-grid.com/javascript-data-grid/server-side-model-datasource/
+    UnitRateGraduatedV0:
+      description: 'UnitRateGraduatedV0 describes the rate for each unit of a Pulumi Subscription. The specific value is intended to
+
+        be opaque, and only obtained via parsing.
+
+        This rate was introduced as our first Growth pricing plans, representing a simplified version of a graduated
+
+        pricing plan that merges together two tiers. It can later be extended to handle other types of straightforward
+
+        pricing plans, e.g. tiered pricing or flat-rate plans. For now only supports our per-Pulumi credit plans
+
+        that have a single overage rate.'
       properties:
-        endRow:
-          description: The end row
+        costPerResource:
+          description: 'PerUnitCost is a user-facing string describing the cost-per unit with the currency symbol.
+
+            e.g. "$0.0005".
+
+            Keep the JSON tag as "costPerResource" to maintain compatibility with the frontend
+
+            until we consolidate product.UnitRateGraduatedV0 and apitype.UnitRateGraduatedV1.'
+          type: string
+          x-order: 3
+        creditsIncluded:
+          description: 'IncludedCredits is the number of resource-hours included in the subscription, e.g. the
+
+            pre-paid credits or those in the "free tier".
+
+            Keep the JSON tag as "creditsIncluded" to maintain compatibility with the frontend
+
+            until we consolidate product.UnitRateGraduatedV0 and apitype.UnitRateGraduatedV1.'
           format: int64
           type: integer
           x-order: 2
-        filterModel:
-          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
-          description: The filter model
-          x-order: 6
-        groupKeys:
-          description: List of group keys
+        upfrontCost:
+          description: 'UpfrontCost is the up-front charge the customer will have paid to have an active subscription.
+
+            For Team Growth this is $0, since there is no credit pre-payment and has free-tier. But for
+
+            Enterprise Growth, it is usually (Rate * CreditsIncluded).
+
+
+            Value is in USD cents.'
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - costPerResource
+      - creditsIncluded
+      - upfrontCost
+      type: object
+    JobRun:
+      description: JobRun contains information about a job run.
+      properties:
+        lastUpdated:
+          description: When the job was last updated
+          format: date-time
+          type: string
+          x-order: 3
+        started:
+          description: When the job started running
+          format: date-time
+          type: string
+          x-order: 2
+        status:
+          description: The current status of the job run
+          enum:
+          - not-started
+          - accepted
+          - running
+          - failed
+          - succeeded
+          - skipped
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: JobStatus
+            enumComments: JobStatus describes the status of a job run.
+            enumFieldNames:
+            - NotStarted
+            - Accepted
+            - Running
+            - Failed
+            - Succeeded
+            - Skipped
+            enumFieldComments:
+            - JobStatusNotStarted indicates that a job has not yet started.
+            - JobStatusAccepted indicates that a job has been accepted for execution, but is not yet running.
+            - JobStatusRunning indicates that a job is running.
+            - JobStatusFailed indicates that a job has failed.
+            - JobStatusSucceeded indicates that a job has succeeded.
+            - JobStatusSkipped indicates that a job has skipped as there are fresher deployments to execute in the queue.
+        steps:
+          description: The list of step runs within this job
           items:
-            type: string
+            $ref: '#/components/schemas/StepRun'
           type: array
           x-order: 5
-        rowGroupCols:
-          description: List of row group cols
+        timeout:
+          description: The timeout duration for the job in nanoseconds (Go time.Duration).
+          format: int64
+          type: integer
+          x-order: 4
+        worker:
+          description: Information about the worker executing this job
+          type: object
+          x-order: 6
+      required:
+      - status
+      - steps
+      - timeout
+      type: object
+    ListScanStatusResponse:
+      description: Response containing a paginated list of scan statuses.
+      properties:
+        continuationToken:
+          description: ContinuationToken is an opaque value the client can send to fetch additional scans. Will be nil once all scans have been returned.
+          type: string
+          x-order: 2
+        scanStatuses:
+          description: The list of scan statuses
           items:
-            $ref: '#/components/schemas/AngularGridColumn'
+            $ref: '#/components/schemas/ScanStatus'
           type: array
+          x-order: 1
+      required:
+      - scanStatuses
+      type: object
+    InsightsAccountTag:
+      description: A tag associated with an Insights account.
+      properties:
+        created:
+          description: When the tag was created
+          format: date-time
+          type: string
           x-order: 3
-        sortModel:
-          description: List of sort model
+        modified:
+          description: When the tag was last modified
+          format: date-time
+          type: string
+          x-order: 4
+        name:
+          description: The tag name
+          type: string
+          x-order: 1
+        value:
+          description: The tag value
+          type: string
+          x-order: 2
+      required:
+      - created
+      - modified
+      - name
+      - value
+      type: object
+    UnitRateGraduatedV2:
+      description: UnitRateGraduatedV2 captures the structure of a pricing plan where the free tier is handled via credit grants rather than being baked into the pricing tiers. Contains only paid (on-demand) tiers. For graduated prices, tiers contains multiple entries. For per-unit prices with a single rate, tiers contains a single entry.
+      properties:
+        tiers:
+          description: The list of on-demand pricing tiers. For graduated prices, contains multiple tiers. For per-unit prices, contains a single tier.
           items:
-            $ref: '#/components/schemas/AngularGridSortModelItem'
+            $ref: '#/components/schemas/UnitRateGraduatedTier'
           type: array
-          x-order: 7
-        startRow:
-          description: The start row
+          x-order: 1
+      required:
+      - tiers
+      type: object
+    ScanOptions:
+      description: Configuration options for controlling scan behavior.
+      properties:
+        batchSize:
+          description: The batch size for processing resources during the scan.
+          format: int64
+          type: integer
+          x-order: 3
+        listConcurrency:
+          description: The concurrency level for list operations during the scan.
           format: int64
           type: integer
           x-order: 1
-        valueCols:
-          description: List of value cols
-          items:
-            $ref: '#/components/schemas/AngularGridColumn'
-          type: array
+        readConcurrency:
+          description: The concurrency level for read operations during the scan.
+          format: int64
+          type: integer
+          x-order: 2
+        readTimeout:
+          description: The timeout duration for read operations, as a Go duration string (e.g., '30s', '5m').
+          type: string
           x-order: 4
-      required:
-      - filterModel
-      - groupKeys
-      - rowGroupCols
-      - sortModel
-      - valueCols
       type: object
     BulkCreateInsightsAccountItem:
       description: Definition of a single Insights account to create as part of a bulk operation.
@@ -3458,29 +2986,56 @@ components:
       - name
       - provider
       type: object
-    InsightsImportCodeResponse:
-      description: Response body containing generated import code for Insights resources.
+    ScheduledInsightsScanSettingsResponse:
+      allOf:
+      - $ref: '#/components/schemas/ScanOptions'
+      - description: Response containing the current scheduled Insights scan settings.
+        properties:
+          paused:
+            description: Whether the scheduled scan is paused.
+            type: boolean
+            x-order: 2
+          scheduleCron:
+            description: The cron expression defining the scan schedule.
+            type: string
+            x-order: 1
+        required:
+        - paused
+        - scheduleCron
+        type: object
+    BulkCreateInsightsAccountsResponse:
+      description: Response from a bulk Insights account creation operation. Contains both successfully created accounts and details about any failures.
       properties:
-        code:
-          description: The generated import code
-          type: string
+        accounts:
+          description: The list of accounts that were successfully created.
+          items:
+            $ref: '#/components/schemas/InsightsAccount'
+          type: array
           x-order: 1
-      required:
-      - code
-      type: object
-    GetDiscoveredProjectResponse:
-      description: Response for the discovered project detail endpoint, containing a single discovered project and its stacks.
-      properties:
-        continuationToken:
-          description: Opaque token for fetching the next page of stacks. Null when all stacks have been returned.
-          type: string
+        failures:
+          description: The list of accounts that failed to be created, with error details.
+          items:
+            $ref: '#/components/schemas/BulkCreateInsightsAccountFailure'
+          type: array
           x-order: 2
-        project:
-          $ref: '#/components/schemas/DiscoveredProject'
-          description: The discovered project details.
-          x-order: 1
       required:
-      - project
+      - accounts
+      - failures
+      type: object
+    UpdateInsightsResourceVersionPolicyResultsRequest:
+      description: Request to update policy results for an insights resource version.
+      properties:
+        claimId:
+          description: The claim ID for the policy evaluation.
+          type: string
+          x-order: 1
+        results:
+          $ref: '#/components/schemas/InsightsPolicyResults'
+          description: The policy evaluation results.
+          x-order: 2
+      required:
+      - claimId
+      - results
       type: object
     BulkCreateInsightsAccountFailure:
       description: Details about a single account that failed to be created during a bulk operation.
@@ -3497,127 +3052,105 @@ components:
       - error
       - name
       type: object
-    ListPolicyPacksForInsightsAccountResponse:
-      description: Response containing a list of policy packs associated with an Insights account.
-      properties:
-        packs:
-          description: The list of required policy packs
-          items:
-            $ref: '#/components/schemas/AppRequiredPolicy'
-          type: array
-          x-order: 1
-      required:
-      - packs
-      type: object
-    UnitRateGraduatedTier:
-      description: UnitRateGraduatedTier describes a single tier within a graduated pricing plan.
-      properties:
-        costPerResource:
-          description: CostPerResource is the amount per resource to be charted on top of the flat fee.
-          type: string
-          x-order: 4
-        flatFee:
-          description: FlatFee is the flat amount to be charged at this tier, if any.
-          format: int64
-          type: integer
-          x-order: 2
-        tier:
-          description: Tier is an ordered index of where this tier places amongst other tiers. Tiers are 0-indexed.
-          format: int64
-          type: integer
-          x-order: 1
-        upperBound:
-          description: 'UpperBound defines the upper limit, inclusive, that closes out the tier. The lower bound
+    ResourceCountSummary:
+      description: 'ResourceCountSummary represents a single point of summary for resources
 
-            should be inferred from the previous tier if it exists; otherwise zero.'
+        under management for an organization.'
+      properties:
+        day:
+          description: The day of month. Ranges from 1 to 31.
           format: int64
           type: integer
           x-order: 3
-      required:
-      - costPerResource
-      - flatFee
-      - tier
-      - upperBound
-      type: object
-    DiscoveredResourceInfo:
-      description: A discovered resource with its indexed search representation.
-      properties:
-        annotation:
-          $ref: '#/components/schemas/ResourceMigrationAnnotation'
-          description: User-created migration annotation, if any.
-          x-order: 8
-        managedBy:
-          description: The orchestrator or tool that manages this resource (e.g. 'CloudFormation', 'ARM', 'Pulumi').
-          type: string
-          x-order: 4
-        migrationStatus:
-          description: Migration status of the resource relative to the comparison stack.
-          enum:
-          - Migrated
-          - PulumiOnly
-          - Ready
-          - Pending
-          - Unmapped
-          - NotApplicable
-          type: string
+        hour:
+          description: The hour of the day. Ranges from 0 to 23.
+          format: int64
+          type: integer
+          x-order: 5
+        month:
+          description: The month of the year. Ranges from 1 to 12.
+          format: int64
+          type: integer
+          x-order: 2
+        resourceHours:
+          description: 'The RHUM, which is the number of hours the resources under management have
+
+            been running. Calculated by getting the sum of all the resources for the
+
+            given time frame. 1 resource hour = 1 Pulumi credit.'
+          format: int64
+          type: integer
           x-order: 7
-          x-pulumi-model-property:
-            enumTypeName: MigrationStatus
-            enumComments: Migration status of a discovered resource relative to a comparison Pulumi stack. Migrated and PulumiOnly are only possible when the compareTo parameter is provided.
-            enumFieldComments:
-            - Resource identity match found in the comparison stack.
-            - Resource exists only in the comparison Pulumi stack.
-            - Mapped to a Pulumi type with virtual state available.
-            - Mapped to a Pulumi type but no virtual state yet.
-            - No Pulumi type mapping exists for this resource.
-            - Migration status is not applicable (e.g. stack or deployment containers).
-        name:
-          description: A human-friendly resource name derived from the cloud provider
+        resources:
+          description: 'The RUM (total number of resources under management at a given time).
+
+            Calculated by getting the average of the all the resources for the given
+
+            time frame.'
+          format: int64
+          type: integer
+          x-order: 6
+        weekNumber:
+          description: The week number in the year with Sunday marking the start of the week. Ranges from 0-53.
+          format: int64
+          type: integer
+          x-order: 4
+        year:
+          description: The 4-digit year.
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - resourceHours
+      - resources
+      - year
+      type: object
+    UpsertInsightsResource:
+      description: UpsertInsightsResource represents a resource to be upserted into Pulumi Insights.
+      properties:
+        dependencies:
+          description: The chain of dependencies used to list this resource.
+          items:
+            $ref: '#/components/schemas/ResourceDependency'
+          type: array
+          x-order: 5
+        id:
+          description: The unique identifier of the resource.
           type: string
           x-order: 2
-        originType:
-          description: The native cloud resource type (e.g. 'AWS::S3::Bucket', 'Microsoft.Storage/storageAccounts').
-          type: string
-          x-order: 3
-        providerType:
-          description: The mapped Pulumi provider type token (e.g. 'aws:s3/bucket:Bucket'). Omitted when the resource has not been mapped to a Pulumi type.
-          type: string
-          x-order: 5
-        resource:
-          $ref: '#/components/schemas/Resource'
-          description: The resource, using the same shape as regular stack resources.
-          x-order: 1
-        virtualState:
-          additionalProperties:
-            type: object
-          description: The Pulumi-compatible state, if available.
+        inputs:
+          description: The resource inputs as raw JSON.
           type: object
-          x-order: 6
+          x-order: 3
+        state:
+          description: The resource state as raw JSON.
+          type: object
+          x-order: 4
+        type:
+          description: The resource type.
+          type: string
+          x-order: 1
       required:
-      - resource
+      - id
+      - inputs
+      - state
+      - type
       type: object
-    ScanStatusResponse:
+    ScanStatus:
       allOf:
       - $ref: '#/components/schemas/WorkflowRun'
-      - description: Response containing the scan status and the next scheduled scan time.
+      - description: The status of an Insights account scan, including resource count.
         properties:
-          nextScan:
-            description: The timestamp of the next scheduled scan, if any.
+          accountName:
+            description: The name of the insights account associated with this scan.
             type: string
             x-order: 1
+          resourceCount:
+            description: The number of resources discovered by this scan.
+            format: int64
+            type: integer
+            x-order: 2
         type: object
-    GetInsightAccountTagsResponse:
-      description: Response body for retrieving tags associated with an Insights account.
-      properties:
-        tags:
-          additionalProperties:
-            $ref: '#/components/schemas/InsightsAccountTag'
-          description: Map of tag names to their tag details
-          type: object
-          x-order: 1
-      required:
-      - tags
-      type: object
     InsightsResourceWithVersion:
       description: An Insights resource with its version and state information.
       properties:
@@ -3657,6 +3190,338 @@ components:
       - modified
       - type
       - version
+      type: object
+    ListInsightsResourceStackEdgesResponse:
+      description: Response containing a list of Insights resource-to-stack edges.
+      properties:
+        edges:
+          description: The list of resource-to-stack edges
+          items:
+            $ref: '#/components/schemas/InsightsResourceStackEdge'
+          type: array
+          x-order: 1
+      required:
+      - edges
+      type: object
+    ListDiscoveredStackResourcesResponse:
+      description: Response for listing resources in a discovered stack.
+      properties:
+        continuationToken:
+          description: Opaque token for fetching the next page of resources.
+          type: string
+          x-order: 2
+        resources:
+          description: The list of discovered resources in this page.
+          items:
+            $ref: '#/components/schemas/DiscoveredResourceInfo'
+          type: array
+          x-order: 1
+      required:
+      - resources
+      type: object
+    InsightsResourceStackEdge:
+      description: An edge linking an Insights resource to a stack resource.
+      properties:
+        insightsResourceId:
+          description: The Insights resource identifier
+          type: string
+          x-order: 1
+        stackResourceUrn:
+          description: The stack resource URN
+          type: string
+          x-order: 2
+      required:
+      - insightsResourceId
+      - stackResourceUrn
+      type: object
+    InsightsImportCodeResponse:
+      description: Response body containing generated import code for Insights resources.
+      properties:
+        code:
+          description: The generated import code
+          type: string
+          x-order: 1
+      required:
+      - code
+      type: object
+    ReadInsightsAccountResponse:
+      allOf:
+      - $ref: '#/components/schemas/InsightsAccount'
+      - description: Response containing the details of an Insights account.
+        type: object
+    ScanStatusResponse:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowRun'
+      - description: Response containing the scan status and the next scheduled scan time.
+        properties:
+          nextScan:
+            description: The timestamp of the next scheduled scan, if any.
+            type: string
+            x-order: 1
+        type: object
+    InsightsAccountTeam:
+      description: InsightsAccountTeam is a team that has access to a particular account.
+      properties:
+        description:
+          description: The team description
+          type: string
+          x-order: 3
+        displayName:
+          description: The display name of the team
+          type: string
+          x-order: 2
+        isMember:
+          description: IsMember is true if the requesting user is a member of the team.
+          type: boolean
+          x-order: 5
+        name:
+          description: The team name
+          type: string
+          x-order: 1
+        permission:
+          description: The team's permission level for this account
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          format: int64
+          type: integer
+          x-order: 4
+          x-pulumi-model-property:
+            enumTypeName: InsightsAccountPermission
+            enumComments: InsightsAccountPermission is a value describing the permission level a user has for a Pulumi Insights account.
+            enumFieldNames:
+            - None
+            - Read
+            - Write
+            - Admin
+            enumFieldComments:
+            - InsightsAccountPermissionNone provides no access.
+            - InsightsAccountPermissionRead provides read-only access.
+            - InsightsAccountPermissionWrite provides read/write access to an account.
+            - InsightsAccountPermissionAdmin provides admin-level access to the account.
+      required:
+      - description
+      - displayName
+      - isMember
+      - name
+      - permission
+      type: object
+    AngularGridFilterModel:
+      description: Represents angular grid filter model.
+      properties:
+        colId:
+          description: The col identifier
+          type: string
+          x-order: 2
+        conditions:
+          description: List of conditions
+          items:
+            $ref: '#/components/schemas/AngularGridFilterModel'
+          type: array
+          x-order: 5
+        filter:
+          description: The filter expression
+          type: string
+          x-order: 1
+        filterType:
+          description: The filter type
+          type: string
+          x-order: 3
+        type:
+          description: The type
+          type: string
+          x-order: 4
+      required:
+      - colId
+      - filter
+      - filterType
+      - type
+      type: object
+    ScheduledInsightsScanSettingsRequest:
+      allOf:
+      - $ref: '#/components/schemas/ScanOptions'
+      - description: Request to update the scheduled Insights scan settings.
+        properties:
+          paused:
+            description: Whether the scheduled scan is paused.
+            type: boolean
+            x-order: 2
+          scheduleCron:
+            description: The cron expression defining the scan schedule.
+            type: string
+            x-order: 1
+        required:
+        - paused
+        type: object
+    DeploymentLogsBase:
+      description: DeploymentLogsBase is the base type for deployment log responses, discriminated by type.
+      discriminator:
+        mapping:
+          DeploymentLogs: '#/components/schemas/DeploymentLogs'
+          DeploymentLogsStep: '#/components/schemas/DeploymentLogsStep'
+        propertyName: __type
+      properties:
+        __type:
+          type: string
+      required:
+      - __type
+      type: object
+    ListInsightsResourceVersion:
+      description: A version entry for an Insights resource.
+      properties:
+        created:
+          description: When the version was created
+          format: date-time
+          type: string
+          x-order: 2
+        version:
+          description: The version number
+          format: int64
+          type: integer
+          x-order: 1
+      required:
+      - created
+      - version
+      type: object
+    ScanInsightsAccountRequest:
+      allOf:
+      - $ref: '#/components/schemas/ScanOptions'
+      - description: Request to initiate a scan of an Insights account.
+        properties:
+          agentPoolID:
+            description: The ID of the agent pool to use for scanning. If not specified, the default agent pool will be used.
+            type: string
+            x-order: 1
+        type: object
+    BulkCreateInsightsAccountsRequest:
+      description: Request body for creating multiple Insights accounts in a single operation. Each account is created independently; failures for individual accounts do not prevent other accounts from being created.
+      properties:
+        accounts:
+          description: The list of accounts to create. Each item defines a single Insights account with its provider, ESC environment reference, and optional configuration. Maximum 100 accounts per request.
+          items:
+            $ref: '#/components/schemas/BulkCreateInsightsAccountItem'
+          type: array
+          x-order: 1
+        skipAutoEnablePolicyPacks:
+          description: When true, skips automatic enablement of policy packs based on subscription tier. By default, SKU-appropriate policy packs are added to the default accounts policy group when accounts are created.
+          type: boolean
+          x-order: 2
+      required:
+      - accounts
+      type: object
+    ListPolicyPacksForInsightsAccountResponse:
+      description: Response containing a list of policy packs associated with an Insights account.
+      properties:
+        packs:
+          description: The list of required policy packs
+          items:
+            $ref: '#/components/schemas/AppRequiredPolicy'
+          type: array
+          x-order: 1
+      required:
+      - packs
+      type: object
+    InsightsPolicyResults:
+      description: Results of policy evaluation for Insights resources.
+      properties:
+        succeeded:
+          description: Whether the policy evaluation succeeded without violations
+          type: boolean
+          x-order: 1
+        violations:
+          description: The list of policy violations found, if any
+          items:
+            $ref: '#/components/schemas/InsightsPolicyViolation'
+          type: array
+          x-order: 2
+      required:
+      - succeeded
+      type: object
+    GetDiscoveredStackResponse:
+      description: Response for the discovered stack detail endpoint.
+      properties:
+        id:
+          description: The Discovered Stack ID.
+          type: string
+          x-order: 1
+        lastScanTime:
+          description: Unix epoch timestamp (seconds) of the last scan. Omitted if never scanned.
+          format: int64
+          type: integer
+          x-order: 8
+        orgName:
+          description: The organization name.
+          type: string
+          x-order: 2
+        projectName:
+          description: The project name.
+          type: string
+          x-order: 3
+        provider:
+          description: The cloud provider package (e.g. 'aws-cloudformation', 'azure-arm').
+          type: string
+          x-order: 6
+        resourceCount:
+          description: Number of resources discovered in this stack.
+          format: int32
+          type: integer
+          x-order: 5
+        stackName:
+          description: The stack name.
+          type: string
+          x-order: 4
+        tags:
+          additionalProperties:
+            type: string
+          description: User-defined tags associated with the discovered stack.
+          type: object
+          x-order: 7
+      required:
+      - id
+      - orgName
+      - projectName
+      - provider
+      - resourceCount
+      - stackName
+      type: object
+    InsightsResourceIdentifier:
+      description: Identifies an Insights resource by account, type, and ID.
+      properties:
+        account:
+          description: The account name containing the resource
+          type: string
+          x-order: 1
+        id:
+          description: The resource identifier
+          type: string
+          x-order: 3
+        type:
+          description: The resource type
+          type: string
+          x-order: 2
+        version:
+          description: If nil, the latest version is used
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - account
+      - id
+      - type
+      type: object
+    SetInsightAccountTagsRequest:
+      description: Request to set tags on an Insights account.
+      properties:
+        tags:
+          additionalProperties:
+            type: string
+          description: The tags to set on the Insights account.
+          type: object
+          x-order: 1
+      required:
+      - tags
       type: object
     ResourceResult:
       description: 'ResourceResult is the user-facing type for our indexed resources.
@@ -3792,74 +3657,209 @@ components:
       - module
       - package
       type: object
-    InsightsAccount:
-      description: A cloud account configured for Pulumi Insights resource discovery.
+    ConsumptionUsage:
+      description: ConsumptionUsage captures the unit rate and current consumption for a consumption-based product.
       properties:
-        agentPoolID:
-          description: 'The ID of the agent pool to run account discovery workflows.
-
-            If not specified, discovery will use the default agent pool.'
-          type: string
-          x-order: 8
-        id:
-          description: ID of the account.
-          type: string
-          x-order: 1
-        name:
-          description: The name of the account.
-          type: string
-          x-order: 2
-        ownedBy:
-          $ref: '#/components/schemas/UserInfo'
-          description: The user with ownership of this Insights account
-          x-order: 3
-        provider:
-          description: The cloud provider for the account (e.g., aws, gcp, azure-native).
-          type: string
-          x-order: 4
-        providerConfig:
-          description: Provider-specific configuration for the account.
+        consumed:
+          additionalProperties:
+            format: int64
+            type: integer
+          description: The consumed amount
           type: object
-          x-order: 9
-        providerEnvRef:
-          description: 'Reference to an ESC environment containing provider credentials,
-
-            in the format ''project/environment'' with an optional @version suffix.'
-          type: string
-          x-order: 6
-        providerVersion:
-          description: The version of the Pulumi provider package used for discovery.
-          type: string
-          x-order: 5
-        scanStatus:
-          $ref: '#/components/schemas/ScanStatus'
-          description: Status of the last discovery scan for this account.
-          x-order: 10
-        scheduledScanEnabled:
-          description: If true, the account is scheduled for recurring discovery.
-          type: boolean
-          x-order: 7
-      required:
-      - id
-      - name
-      - ownedBy
-      - provider
-      - scheduledScanEnabled
-      type: object
-    ListInsightsResourceVersion:
-      description: A version entry for an Insights resource.
-      properties:
-        created:
-          description: When the version was created
-          format: date-time
-          type: string
           x-order: 2
-        version:
-          description: The version number
+        statsV0:
+          $ref: '#/components/schemas/ConsumptionUsageStatsV0'
+          description: StatsV0 are the usage statistics, and will be populated for graduated-v0 plans.
+          x-order: 7
+        statsV1:
+          $ref: '#/components/schemas/ConsumptionUsageStatsV1'
+          description: StatsV1 are the usage statistics, and will be populated for graduated-v1 plans.
+          x-order: 8
+        totalConsumed:
+          description: The total consumed
           format: int64
           type: integer
           x-order: 1
+        unitRateGraduatedV0:
+          $ref: '#/components/schemas/UnitRateGraduatedV0'
+          description: UnitRateGraduatedV0 will be populated for `UnitRateSchemaGraduatedV0` plans.
+          x-order: 4
+        unitRateGraduatedV1:
+          $ref: '#/components/schemas/UnitRateGraduatedV1'
+          description: UnitRateGraduatedV1 will be populated for `UnitRateSchemaGraduatedV1` plans.
+          x-order: 5
+        unitRateGraduatedV2:
+          $ref: '#/components/schemas/UnitRateGraduatedV2'
+          description: UnitRateGraduatedV2 will be populated for `UnitRateSchemaGraduatedV2` plans.
+          x-order: 6
+        unitRateSchema:
+          description: 'UnitRateSchema captures which pricing plan is associated with the product subscription,
+
+            and further indicates which pricing rate structure should be read.'
+          enum:
+          - graduated-v0
+          - graduated-v1
+          - graduated-v2
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: UnitRateSchema
+            enumComments: UnitRateSchema describes the pricing schema used for a subscription's unit rate.
+            enumFieldNames:
+            - GraduatedV0
+            - GraduatedV1
+            - GraduatedV2
+            enumFieldComments:
+            - 'UnitRateSchemaGraduatedV0 is the initial pricing schema that we launched with the advent of our
+
+              Growth plans. Pricing plan rates are pasred into `UnitRateGraduatedV0`.'
+            - 'UnitRateSchemaGraduated plans used graduated pricing plans, with plans parsed into
+
+              `UnitRateGraduatedV1`. These plans are introduced starting 2025.'
+            - 'UnitRateSchemaGraduatedV2 is used for pricing plans where the free tier is handled
+
+              via credit grants (dollar credits) rather than being baked into the pricing tiers. Rates are parsed into
+
+              `UnitRateGraduatedV2` and contain only paid (on-demand) tiers. The tiers field uses `UnitRateGraduatedTier`
+
+              for graduated prices with multiple tiers, and a single-element tiers array for per-unit prices with only
+
+              one rate tier.'
       required:
-      - created
-      - version
+      - consumed
+      - totalConsumed
+      - unitRateSchema
+      type: object
+    UnitRateGraduatedV1:
+      description: UnitRateGraduatedV1 captures the structure of a graduated pricing plan.
+      properties:
+        tiers:
+          description: The list of graduated pricing tiers.
+          items:
+            $ref: '#/components/schemas/UnitRateGraduatedTier'
+          type: array
+          x-order: 1
+      required:
+      - tiers
+      type: object
+    ResourceDependency:
+      description: A single dependency in a chain of dependencies used to list a resource.
+      properties:
+        id:
+          description: The resource identifier.
+          type: string
+          x-order: 2
+        type:
+          description: The resource type token.
+          type: string
+          x-order: 1
+      required:
+      - id
+      - type
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    ListInsightsResourceVersionEdgesResponse:
+      description: Response containing a list of Insights resource version edges.
+      properties:
+        edges:
+          description: The list of resource version edges
+          items:
+            $ref: '#/components/schemas/InsightsResourceVersionEdge'
+          type: array
+          x-order: 1
+        nextToken:
+          description: Token for fetching the next page of results
+          type: string
+          x-order: 2
+      required:
+      - edges
+      type: object
+    AngularGridGetRowsRequest:
+      description: https://www.ag-grid.com/javascript-data-grid/server-side-model-datasource/
+      properties:
+        endRow:
+          description: The end row
+          format: int64
+          type: integer
+          x-order: 2
+        filterModel:
+          $ref: '#/components/schemas/AngularGridAdvancedFilterModel'
+          description: The filter model
+          x-order: 6
+        groupKeys:
+          description: List of group keys
+          items:
+            type: string
+          type: array
+          x-order: 5
+        rowGroupCols:
+          description: List of row group cols
+          items:
+            $ref: '#/components/schemas/AngularGridColumn'
+          type: array
+          x-order: 3
+        sortModel:
+          description: List of sort model
+          items:
+            $ref: '#/components/schemas/AngularGridSortModelItem'
+          type: array
+          x-order: 7
+        startRow:
+          description: The start row
+          format: int64
+          type: integer
+          x-order: 1
+        valueCols:
+          description: List of value cols
+          items:
+            $ref: '#/components/schemas/AngularGridColumn'
+          type: array
+          x-order: 4
+      required:
+      - filterModel
+      - groupKeys
+      - rowGroupCols
+      - sortModel
+      - valueCols
+      type: object
+    UpsertInsightsResourcesRequest:
+      description: Request to upsert one or more resources into Pulumi Insights.
+      properties:
+        resources:
+          description: The list of resources to upsert.
+          items:
+            $ref: '#/components/schemas/UpsertInsightsResource'
+          type: array
+          x-order: 1
+      required:
+      - resources
       type: object

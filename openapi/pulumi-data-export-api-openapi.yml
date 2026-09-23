@@ -1,10 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens DataExport API
+  title: Pulumi Data Export API
   version: 1.0.0
 tags:
-- name: DataExport
+- name: Data Export
 paths:
   /api/orgs/{orgName}/search/resources/export:
     get:
@@ -80,4 +80,4 @@ paths:
           description: search cluster is unreachable
       summary: ExportOrgResourceSearchQuery
       tags:
-      - DataExport
+      - Data Export

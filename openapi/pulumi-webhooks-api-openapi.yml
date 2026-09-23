@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens Webhooks API
+  title: Pulumi Webhooks API
   version: 1.0.0
 tags:
 - name: Webhooks
@@ -36,10 +36,10 @@ paths:
         The `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.
 
 
-        The `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.
+        The `filters` field accepts a list of event types to subscribe to. See the webhook event filtering documentation for available filters.
 
 
-        The optional `secret` field sets the HMAC key for signature verification via the `Pulumi-Webhook-Signature` header. See the [webhook headers documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#headers) for details.'
+        The optional `secret` field sets the HMAC key for signature verification via the `Pulumi-Webhook-Signature` header. See the webhook headers documentation for details.'
       operationId: CreateOrganizationWebhook
       parameters:
       - description: The organization name
@@ -296,10 +296,10 @@ paths:
         The `format` field accepts: `raw` (default), `slack`, `ms_teams`, or `pulumi_deployments`.
 
 
-        The `filters` field accepts a list of event types to subscribe to. See the [webhook event filtering documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#event-filtering) for available filters.
+        The `filters` field accepts a list of event types to subscribe to. See the webhook event filtering documentation for available filters.
 
 
-        The optional `secret` field sets the HMAC key for signature verification. See the [webhook headers documentation](https://www.pulumi.com/docs/pulumi-cloud/webhooks/#headers) for details.
+        The optional `secret` field sets the HMAC key for signature verification. See the webhook headers documentation for details.
 
 
         Returns 409 if a webhook with the same name already exists. Returns 400 if the organization or stack name in the request body does not match the URL path parameters.'

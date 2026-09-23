@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens Miscellaneous API
+  title: Pulumi Miscellaneous API
   version: 1.0.0
 tags:
 - name: Miscellaneous
@@ -98,26 +98,6 @@ paths:
       - Miscellaneous
 components:
   schemas:
-    AppCLIVersionResponse:
-      description: CLIVersionResponse is the response from the server with information about CLI versions.
-      properties:
-        latestDevVersion:
-          description: The latest development/pre-release CLI version.
-          type: string
-          x-order: 3
-        latestVersion:
-          description: The latest stable CLI version (semver string, e.g. '3.100.0').
-          type: string
-          x-order: 1
-        oldestWithoutWarning:
-          description: The oldest CLI version that will not show an upgrade warning.
-          type: string
-          x-order: 2
-      required:
-      - latestDevVersion
-      - latestVersion
-      - oldestWithoutWarning
-      type: object
     TokenExchangeGrantResponse:
       description: https://datatracker.ietf.org/doc/html/rfc8693#section-2.2.1
       properties:
@@ -153,19 +133,25 @@ components:
       - scope
       - token_type
       type: object
-    AppCapabilitiesResponse:
-      description: 'CapabilitiesResponse defines all feature sets that are available in the service
-
-        backend and are therefore available for the CLI to integrate against.'
+    AppCLIVersionResponse:
+      description: CLIVersionResponse is the response from the server with information about CLI versions.
       properties:
-        capabilities:
-          description: List of capabilities
-          items:
-            $ref: '#/components/schemas/AppAPICapabilityConfig'
-          type: array
+        latestDevVersion:
+          description: The latest development/pre-release CLI version.
+          type: string
+          x-order: 3
+        latestVersion:
+          description: The latest stable CLI version (semver string, e.g. '3.100.0').
+          type: string
           x-order: 1
+        oldestWithoutWarning:
+          description: The oldest CLI version that will not show an upgrade warning.
+          type: string
+          x-order: 2
       required:
-      - capabilities
+      - latestDevVersion
+      - latestVersion
+      - oldestWithoutWarning
       type: object
     AppAPICapabilityConfig:
       description: 'APICapabilityConfig captures a service backend capability and any associated
@@ -216,4 +202,18 @@ components:
           x-order: 2
       required:
       - capability
+      type: object
+    AppCapabilitiesResponse:
+      description: 'CapabilitiesResponse defines all feature sets that are available in the service
+
+        backend and are therefore available for the CLI to integrate against.'
+      properties:
+        capabilities:
+          description: List of capabilities
+          items:
+            $ref: '#/components/schemas/AppAPICapabilityConfig'
+          type: array
+          x-order: 1
+      required:
+      - capabilities
       type: object

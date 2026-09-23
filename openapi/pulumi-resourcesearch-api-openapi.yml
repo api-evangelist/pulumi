@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   description: APIs and Definitions for the Pulumi Cloud product.
-  title: Pulumi APIs AccessTokens ResourceSearch API
+  title: Pulumi Resource Search API
   version: 1.0.0
 tags:
 - name: ResourceSearch
@@ -253,21 +253,6 @@ paths:
       - ResourceSearch
 components:
   schemas:
-    Aggregation:
-      description: Aggregation collects the top 5 aggregated values for the requested dimension.
-      properties:
-        others:
-          description: The others
-          format: int64
-          type: integer
-          x-order: 1
-        results:
-          description: List of results
-          items:
-            $ref: '#/components/schemas/AggregationBucket'
-          type: array
-          x-order: 2
-      type: object
     ResourceSearchResult:
       description: ResourceSearchResult is a collected of resource search results.
       properties:
@@ -293,22 +278,6 @@ components:
           type: integer
           x-order: 1
       type: object
-    ResourceSearchPagination:
-      description: ResourceSearchPagination provides links for paging through results.
-      properties:
-        cursor:
-          description: An opaque cursor for resuming pagination.
-          type: string
-          x-order: 3
-        next:
-          description: Link to the next page of results.
-          type: string
-          x-order: 2
-        previous:
-          description: Link to the previous page of results.
-          type: string
-          x-order: 1
-      type: object
     AggregationBucket:
       description: AggregationBucket represents how many resources share that value.
       properties:
@@ -327,6 +296,32 @@ components:
           description: The name
           type: string
           x-order: 1
+      type: object
+    ResourceSearchPagination:
+      description: ResourceSearchPagination provides links for paging through results.
+      properties:
+        cursor:
+          description: An opaque cursor for resuming pagination.
+          type: string
+          x-order: 3
+        next:
+          description: Link to the next page of results.
+          type: string
+          x-order: 2
+        previous:
+          description: Link to the previous page of results.
+          type: string
+          x-order: 1
+      type: object
+    GetNaturalLanguageQueryResponse:
+      description: Response body for a natural language query translation.
+      properties:
+        query:
+          description: The translated query string
+          type: string
+          x-order: 1
+      required:
+      - query
       type: object
     ResourceResult:
       description: 'ResourceResult is the user-facing type for our indexed resources.
@@ -462,13 +457,18 @@ components:
       - module
       - package
       type: object
-    GetNaturalLanguageQueryResponse:
-      description: Response body for a natural language query translation.
+    Aggregation:
+      description: Aggregation collects the top 5 aggregated values for the requested dimension.
       properties:
-        query:
-          description: The translated query string
-          type: string
+        others:
+          description: The others
+          format: int64
+          type: integer
           x-order: 1
-      required:
-      - query
+        results:
+          description: List of results
+          items:
+            $ref: '#/components/schemas/AggregationBucket'
+          type: array
+          x-order: 2
       type: object
