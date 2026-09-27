@@ -327,49 +327,45 @@ paths:
       - Services
 components:
   schemas:
-    ServiceItem:
-      description: An item within a service.
+    ServiceMember:
+      description: 'A service member is either a direct user or a indirect user representation
+
+        that allows them to access and mutate a service.'
       properties:
-        addedByUser:
-          $ref: '#/components/schemas/ServiceMember'
-          description: who added the item reference to the service - this will always be a user
-          x-order: 7
-        cloudCount:
-          description: how many Pulumi cloud measured primitives are within this item
-          format: int64
-          type: integer
-          x-order: 8
-        created:
-          description: timestamp of when the item was  created
-          format: date-time
-          type: string
-          x-order: 5
-        lastUpdate:
-          $ref: '#/components/schemas/ServiceItemUpdate'
-          description: when did the last update occur to this item, if any
-          x-order: 6
-        name:
-          description: the name (including any namespacing) of the item
+        avatarUrl:
+          description: an optional avatar URL for the member
           type: string
           x-order: 3
-        organizationName:
-          description: the name of the organization this item belongs to
-          type: string
-          x-order: 1
-        type:
-          description: the type of the item
+        name:
+          description: the login name of the member within Pulumi
           type: string
           x-order: 2
-        version:
-          description: optional field if the item has versioning
+        type:
+          description: the type of the member (e.g. team / user)
           type: string
-          x-order: 4
+          x-order: 1
       required:
-      - cloudCount
-      - created
+      - avatarUrl
       - name
-      - organizationName
       - type
+      type: object
+    UpdateServiceMetadataRequest:
+      description: Request for updating a services metadata.
+      properties:
+        description:
+          description: an optional description of the service
+          type: string
+          x-order: 2
+        name:
+          description: the name of the service
+          type: string
+          x-order: 1
+        properties:
+          description: an optional list of properties to set on the service
+          items:
+            $ref: '#/components/schemas/ServiceProperty'
+          type: array
+          x-order: 3
       type: object
     CreateServiceRequest:
       description: 'Request for creating a new service with an optional list
@@ -411,54 +407,6 @@ components:
       - ownerName
       - ownerType
       - properties
-      type: object
-    ServiceProperty:
-      description: A property that the service will show in it's metadata.
-      properties:
-        key:
-          description: the name of the property
-          type: string
-          x-order: 1
-        order:
-          description: the position of the property
-          format: int64
-          type: integer
-          x-order: 4
-        type:
-          description: the type of the property
-          type: string
-          x-order: 3
-        value:
-          description: the value of the property
-          type: string
-          x-order: 2
-      required:
-      - key
-      - order
-      - type
-      - value
-      type: object
-    ServiceMember:
-      description: 'A service member is either a direct user or a indirect user representation
-
-        that allows them to access and mutate a service.'
-      properties:
-        avatarUrl:
-          description: an optional avatar URL for the member
-          type: string
-          x-order: 3
-        name:
-          description: the login name of the member within Pulumi
-          type: string
-          x-order: 2
-        type:
-          description: the type of the member (e.g. team / user)
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - name
-      - type
       type: object
     Service:
       description: 'A service is a Pulumi construct that aggregates items and additional metadata
@@ -514,24 +462,6 @@ components:
       - owner
       - properties
       type: object
-    UpdateServiceMetadataRequest:
-      description: Request for updating a services metadata.
-      properties:
-        description:
-          description: an optional description of the service
-          type: string
-          x-order: 2
-        name:
-          description: the name of the service
-          type: string
-          x-order: 1
-        properties:
-          description: an optional list of properties to set on the service
-          items:
-            $ref: '#/components/schemas/ServiceProperty'
-          type: array
-          x-order: 3
-      type: object
     ServiceItemUpdate:
       description: An update that the item may have in it's history.
       properties:
@@ -552,6 +482,18 @@ components:
       - message
       - timestamp
       type: object
+    AddServiceItemsRequest:
+      description: Request for adding items to an existing service.
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/AddServiceItem'
+          type: array
+          x-order: 1
+      required:
+      - items
+      type: object
     AddServiceItem:
       description: A simple struct representing the metadata needed to add an item via user-facing information.
       properties:
@@ -567,17 +509,31 @@ components:
       - name
       - type
       type: object
-    AddServiceItemsRequest:
-      description: Request for adding items to an existing service.
+    ServiceProperty:
+      description: A property that the service will show in it's metadata.
       properties:
-        items:
-          description: List of items
-          items:
-            $ref: '#/components/schemas/AddServiceItem'
-          type: array
+        key:
+          description: the name of the property
+          type: string
           x-order: 1
+        order:
+          description: the position of the property
+          format: int64
+          type: integer
+          x-order: 4
+        type:
+          description: the type of the property
+          type: string
+          x-order: 3
+        value:
+          description: the value of the property
+          type: string
+          x-order: 2
       required:
-      - items
+      - key
+      - order
+      - type
+      - value
       type: object
     GetServiceResponse:
       description: Response when requesting a service.
@@ -601,6 +557,50 @@ components:
       required:
       - items
       - service
+      type: object
+    ServiceItem:
+      description: An item within a service.
+      properties:
+        addedByUser:
+          $ref: '#/components/schemas/ServiceMember'
+          description: who added the item reference to the service - this will always be a user
+          x-order: 7
+        cloudCount:
+          description: how many Pulumi cloud measured primitives are within this item
+          format: int64
+          type: integer
+          x-order: 8
+        created:
+          description: timestamp of when the item was  created
+          format: date-time
+          type: string
+          x-order: 5
+        lastUpdate:
+          $ref: '#/components/schemas/ServiceItemUpdate'
+          description: when did the last update occur to this item, if any
+          x-order: 6
+        name:
+          description: the name (including any namespacing) of the item
+          type: string
+          x-order: 3
+        organizationName:
+          description: the name of the organization this item belongs to
+          type: string
+          x-order: 1
+        type:
+          description: the type of the item
+          type: string
+          x-order: 2
+        version:
+          description: optional field if the item has versioning
+          type: string
+          x-order: 4
+      required:
+      - cloudCount
+      - created
+      - name
+      - organizationName
+      - type
       type: object
     ListServicesResponse:
       description: Response when listing services for a user.

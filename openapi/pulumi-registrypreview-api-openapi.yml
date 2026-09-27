@@ -773,136 +773,6 @@ paths:
         Visibility: Preview
 components:
   schemas:
-    GetRegistryPolicyPackVersionResponse:
-      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
-
-        version of a policy pack, optionally including the actual policy definitions.'
-      properties:
-        policies:
-          description: 'Policies contains the individual policy definitions in this version.
-
-            Each policy includes its configuration schema and enforcement rules.
-
-            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
-          items:
-            $ref: '#/components/schemas/AppPolicy'
-          type: array
-          x-order: 2
-        policyPack:
-          $ref: '#/components/schemas/RegistryPolicyPack'
-          description: PolicyPack contains the metadata for this specific version.
-          x-order: 1
-      required:
-      - policyPack
-      type: object
-    PackageParameterization:
-      description: PackageParameterization describes the parameterization of a provider package.
-      properties:
-        baseProvider:
-          $ref: '#/components/schemas/ArtifactVersionNameSpec'
-          description: The base provider that this package is parameterized from.
-          x-order: 1
-        parameter:
-          description: The opaque parameterization data passed to the base provider, base64-encoded.
-          items:
-            format: byte
-            type: string
-          type: array
-          x-order: 2
-      required:
-      - baseProvider
-      - parameter
-      type: object
-    StartPackagePublishRequest:
-      description: Request to start publishing a package to the registry.
-      properties:
-        publishedAt:
-          description: Optional timestamp for when the package version was originally published. If not provided, defaults to current server time. Useful for backfilling historical versions with their original publish dates.
-          format: date-time
-          type: string
-          x-order: 2
-        version:
-          description: The semantic version of the package to publish.
-          type: string
-          x-order: 1
-      required:
-      - version
-      type: object
-    ListPackagesResponse:
-      description: Response containing a list of packages.
-      properties:
-        continuationToken:
-          description: Continuation token for pagination
-          type: string
-          x-order: 2
-        packages:
-          description: The list of packages
-          items:
-            $ref: '#/components/schemas/PackageMetadata'
-          type: array
-          x-order: 1
-      required:
-      - packages
-      type: object
-    ArtifactVersionNameSpec:
-      description: ArtifactVersionNameSpec represents an arbitrary artifact version name for serialization.
-      properties:
-        name:
-          description: The name
-          type: string
-          x-order: 1
-        publisher:
-          description: The publisher
-          type: string
-          x-order: 2
-        source:
-          description: The source
-          type: string
-          x-order: 3
-        version:
-          description: The version number
-          type: string
-          x-order: 4
-      required:
-      - name
-      - publisher
-      - source
-      - version
-      type: object
-    TemplateUploadURLs:
-      description: TemplateUploadURLs contains pre-signed URLs for uploading template artifacts.
-      properties:
-        archive:
-          description: The pre-signed URL for uploading the template archive.
-          type: string
-          x-order: 1
-      required:
-      - archive
-      type: object
-    TemplateRuntimeInfo:
-      description: TemplateRuntimeInfo describes the runtime used by a template.
-      properties:
-        name:
-          description: The runtime language or platform, e.g. 'nodejs', 'python', 'go', 'dotnet', 'java', 'yaml'.
-          type: string
-          x-order: 1
-        options:
-          additionalProperties:
-            type: object
-          description: Optional configuration options for the runtime.
-          type: object
-          x-order: 2
-      type: object
-    PublishPackageVersionCompleteRequest:
-      description: PublishPackageVersionCompleteRequest is a request to mark a package version publish operation as complete.
-      properties:
-        operationID:
-          description: The identifier of the publish operation to complete.
-          type: string
-          x-order: 1
-      required:
-      - operationID
-      type: object
     AppPolicy:
       description: Policy defines the metadata for an individual Policy within a Policy Pack.
       properties:
@@ -989,25 +859,127 @@ components:
       - message
       - name
       type: object
-    PackageUploadURLs:
-      description: PackageUploadURLs contains pre-signed URLs for uploading package artifacts.
+    RegistryPolicyPack:
+      description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
+
+        This is the primary data structure returned by most registry API endpoints.'
       properties:
-        index:
-          description: The pre-signed URL for uploading the package index.
+        accessLevel:
+          description: AccessLevel is the client's level of access to this policy pack.
+          enum:
+          - full
+          - view-only
+          - deny
           type: string
-          x-order: 2
-        installationConfiguration:
-          description: The pre-signed URL for uploading the package installation configuration.
+          x-order: 7
+          x-pulumi-model-property:
+            enumTypeName: RegistryPolicyPackAccessLevel
+            enumComments: The level of access a client has to a registry policy pack.
+            enumFieldNames:
+            - Full
+            - ViewOnly
+            - Deny
+            enumFieldComments:
+            - Full access to a policy pack (view + use)
+            - Access to view a policy pack
+            - No access to a policy pack
+        displayName:
+          description: 'DisplayName is a human-readable name for this policy pack.
+
+            This is typically more descriptive than the technical name.'
+          type: string
+          x-order: 6
+        enforcementLevels:
+          description: EnforcementLevels are the client's allowed enforcement levels for this policy pack.
+          items:
+            enum:
+            - advisory
+            - mandatory
+            - remediate
+            - disabled
+            type: string
+            x-pulumi-model-property:
+              enumTypeName: AppEnforcementLevel
+              enumComments: EnforcementLevel indicates how a policy should be enforced
+              enumFieldComments:
+              - 'Advisory is an enforcement level where the resource is still created, but a
+
+                message is displayed to the user for informational / warning purposes.'
+              - Mandatory is an enforcement level that prevents a resource from being created.
+              - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
+              - Disabled is an enforcement level that disables the policy from being enforced.
+          type: array
+          x-order: 8
+        id:
+          description: 'ID is the unique identifier for this policy pack in the registry.
+
+            This is a UUID that corresponds to the policy pack''s database ID.'
+          type: string
+          x-order: 1
+        name:
+          description: 'Name is the unique identifier for this policy pack within the publisher''s namespace.
+
+            Policy pack names must be URL-safe and unique per publisher.'
+          type: string
+          x-order: 4
+        publisher:
+          description: 'Publisher is the organization or user that published this policy pack.
+
+            This corresponds to the Pulumi organization name.'
           type: string
           x-order: 3
-        schema:
-          description: The pre-signed URL for uploading the package schema.
+        source:
+          description: 'Source indicates where this policy pack is hosted (e.g., "private", "pulumi").
+
+            Currently, only "private" policy packs are supported.'
+          type: string
+          x-order: 2
+        version:
+          description: 'Version is the semantic version of this policy pack.
+
+            This represents the latest or specific version being referenced.'
+          type: string
+          x-order: 5
+      required:
+      - accessLevel
+      - displayName
+      - enforcementLevels
+      - id
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    StartPackagePublishRequest:
+      description: Request to start publishing a package to the registry.
+      properties:
+        publishedAt:
+          description: Optional timestamp for when the package version was originally published. If not provided, defaults to current server time. Useful for backfilling historical versions with their original publish dates.
+          format: date-time
+          type: string
+          x-order: 2
+        version:
+          description: The semantic version of the package to publish.
           type: string
           x-order: 1
       required:
-      - index
-      - installationConfiguration
-      - schema
+      - version
+      type: object
+    ListPackagesResponse:
+      description: Response containing a list of packages.
+      properties:
+        continuationToken:
+          description: Continuation token for pagination
+          type: string
+          x-order: 2
+        packages:
+          description: The list of packages
+          items:
+            $ref: '#/components/schemas/PackageMetadata'
+          type: array
+          x-order: 1
+      required:
+      - packages
       type: object
     PublishTemplateVersionCompleteRequest:
       description: PublishTemplateVersionCompleteRequest is a request to mark a template version publish operation as complete.
@@ -1018,6 +990,81 @@ components:
           x-order: 1
       required:
       - operationID
+      type: object
+    PublishPackageVersionCompleteRequest:
+      description: PublishPackageVersionCompleteRequest is a request to mark a package version publish operation as complete.
+      properties:
+        operationID:
+          description: The identifier of the publish operation to complete.
+          type: string
+          x-order: 1
+      required:
+      - operationID
+      type: object
+    ListPolicyPacksResponse:
+      description: ListPolicyPacksResponse contains the results of listing policy packs.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If nil, there are no more results available.'
+          type: string
+          x-order: 1
+        policyPacks:
+          description: PolicyPacks contains the policy pack metadata for the current page.
+          items:
+            $ref: '#/components/schemas/RegistryPolicyPack'
+          type: array
+          x-order: 2
+      required:
+      - policyPacks
+      type: object
+    ArtifactVersionNameSpec:
+      description: ArtifactVersionNameSpec represents an arbitrary artifact version name for serialization.
+      properties:
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        publisher:
+          description: The publisher
+          type: string
+          x-order: 2
+        source:
+          description: The source
+          type: string
+          x-order: 3
+        version:
+          description: The version number
+          type: string
+          x-order: 4
+      required:
+      - name
+      - publisher
+      - source
+      - version
+      type: object
+    GetRegistryPolicyPackVersionResponse:
+      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
+
+        version of a policy pack, optionally including the actual policy definitions.'
+      properties:
+        policies:
+          description: 'Policies contains the individual policy definitions in this version.
+
+            Each policy includes its configuration schema and enforcement rules.
+
+            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 2
+        policyPack:
+          $ref: '#/components/schemas/RegistryPolicyPack'
+          description: PolicyPack contains the metadata for this specific version.
+          x-order: 1
+      required:
+      - policyPack
       type: object
     StartPackagePublishResponse:
       description: Response containing the operation ID and upload URLs for a package publish.
@@ -1092,41 +1139,6 @@ components:
           format: int32
           type: integer
           x-order: 4
-      type: object
-    ListTemplatesResponse:
-      description: Response containing a paginated list of templates.
-      properties:
-        continuationToken:
-          description: An opaque token for fetching the next page of results
-          type: string
-          x-order: 2
-        diagnostics:
-          description: Diagnostic messages encountered during template listing
-          items:
-            type: string
-          type: array
-          x-order: 3
-        templates:
-          description: The list of templates
-          items:
-            $ref: '#/components/schemas/Template'
-          type: array
-          x-order: 1
-      required:
-      - templates
-      type: object
-    PublishPackageVersionCompleteResponse:
-      description: PublishPackageVersionCompleteResponse is the response after completing a package version publish operation.
-      type: object
-    StartTemplatePublishRequest:
-      description: Request to start publishing a template to the registry.
-      properties:
-        version:
-          description: The semantic version of the template to publish.
-          type: string
-          x-order: 1
-      required:
-      - version
       type: object
     Template:
       description: Template describes a Pulumi project template.
@@ -1245,6 +1257,65 @@ components:
       - url
       - visibility
       type: object
+    AppProjectTemplateConfigValue:
+      description: ProjectTemplateConfigValue is a config value included in the project template manifest.
+      properties:
+        default:
+          description: Default is an optional default value for the config value.
+          type: string
+          x-order: 2
+        description:
+          description: Description is an optional description for the config value.
+          type: string
+          x-order: 1
+        secret:
+          description: Secret may be set to true to indicate that the config value should be encrypted.
+          type: boolean
+          x-order: 3
+      type: object
+    StartTemplatePublishResponse:
+      description: Response containing the operation ID and upload URLs for a template publish.
+      properties:
+        operationID:
+          description: The unique identifier for the publish operation.
+          type: string
+          x-order: 1
+        uploadURLs:
+          $ref: '#/components/schemas/TemplateUploadURLs'
+          description: The URLs to upload template artifacts to.
+          x-order: 2
+      required:
+      - operationID
+      - uploadURLs
+      type: object
+    TemplateUploadURLs:
+      description: TemplateUploadURLs contains pre-signed URLs for uploading template artifacts.
+      properties:
+        archive:
+          description: The pre-signed URL for uploading the template archive.
+          type: string
+          x-order: 1
+      required:
+      - archive
+      type: object
+    StartTemplatePublishRequest:
+      description: Request to start publishing a template to the registry.
+      properties:
+        version:
+          description: The semantic version of the template to publish.
+          type: string
+          x-order: 1
+      required:
+      - version
+      type: object
+    PublishPackageVersionCompleteResponse:
+      description: PublishPackageVersionCompleteResponse is the response after completing a package version publish operation.
+      type: object
+    GetTemplateResponse:
+      allOf:
+      - $ref: '#/components/schemas/Template'
+      - description: Response body for retrieving a single template.
+        type: object
     PackageMetadata:
       description: PackageMetadata describes a Pulumi package and its associated metadata in the registry.
       properties:
@@ -1369,27 +1440,28 @@ components:
       - version
       - visibility
       type: object
-    AppProjectTemplateConfigValue:
-      description: ProjectTemplateConfigValue is a config value included in the project template manifest.
+    ListTemplatesResponse:
+      description: Response containing a paginated list of templates.
       properties:
-        default:
-          description: Default is an optional default value for the config value.
+        continuationToken:
+          description: An opaque token for fetching the next page of results
           type: string
           x-order: 2
-        description:
-          description: Description is an optional description for the config value.
-          type: string
-          x-order: 1
-        secret:
-          description: Secret may be set to true to indicate that the config value should be encrypted.
-          type: boolean
+        diagnostics:
+          description: Diagnostic messages encountered during template listing
+          items:
+            type: string
+          type: array
           x-order: 3
+        templates:
+          description: The list of templates
+          items:
+            $ref: '#/components/schemas/Template'
+          type: array
+          x-order: 1
+      required:
+      - templates
       type: object
-    GetTemplateResponse:
-      allOf:
-      - $ref: '#/components/schemas/Template'
-      - description: Response body for retrieving a single template.
-        type: object
     AppPolicyComplianceFramework:
       description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
       properties:
@@ -1410,23 +1482,43 @@ components:
           type: string
           x-order: 2
       type: object
-    ListPolicyPacksResponse:
-      description: ListPolicyPacksResponse contains the results of listing policy packs.
+    PackageUploadURLs:
+      description: PackageUploadURLs contains pre-signed URLs for uploading package artifacts.
       properties:
-        continuationToken:
-          description: 'ContinuationToken can be used to fetch the next page of results.
-
-            If nil, there are no more results available.'
+        index:
+          description: The pre-signed URL for uploading the package index.
+          type: string
+          x-order: 2
+        installationConfiguration:
+          description: The pre-signed URL for uploading the package installation configuration.
+          type: string
+          x-order: 3
+        schema:
+          description: The pre-signed URL for uploading the package schema.
           type: string
           x-order: 1
-        policyPacks:
-          description: PolicyPacks contains the policy pack metadata for the current page.
+      required:
+      - index
+      - installationConfiguration
+      - schema
+      type: object
+    PackageParameterization:
+      description: PackageParameterization describes the parameterization of a provider package.
+      properties:
+        baseProvider:
+          $ref: '#/components/schemas/ArtifactVersionNameSpec'
+          description: The base provider that this package is parameterized from.
+          x-order: 1
+        parameter:
+          description: The opaque parameterization data passed to the base provider, base64-encoded.
           items:
-            $ref: '#/components/schemas/RegistryPolicyPack'
+            format: byte
+            type: string
           type: array
           x-order: 2
       required:
-      - policyPacks
+      - baseProvider
+      - parameter
       type: object
     AppPolicyConfigSchema:
       description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
@@ -1457,112 +1549,20 @@ components:
       required:
       - type
       type: object
-    StartTemplatePublishResponse:
-      description: Response containing the operation ID and upload URLs for a template publish.
-      properties:
-        operationID:
-          description: The unique identifier for the publish operation.
-          type: string
-          x-order: 1
-        uploadURLs:
-          $ref: '#/components/schemas/TemplateUploadURLs'
-          description: The URLs to upload template artifacts to.
-          x-order: 2
-      required:
-      - operationID
-      - uploadURLs
-      type: object
     PublishTemplateVersionCompleteResponse:
       description: PublishTemplateVersionCompleteResponse is the response after completing a template version publish operation.
       type: object
-    RegistryPolicyPack:
-      description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
-
-        This is the primary data structure returned by most registry API endpoints.'
+    TemplateRuntimeInfo:
+      description: TemplateRuntimeInfo describes the runtime used by a template.
       properties:
-        accessLevel:
-          description: AccessLevel is the client's level of access to this policy pack.
-          enum:
-          - full
-          - view-only
-          - deny
-          type: string
-          x-order: 7
-          x-pulumi-model-property:
-            enumTypeName: RegistryPolicyPackAccessLevel
-            enumComments: The level of access a client has to a registry policy pack.
-            enumFieldNames:
-            - Full
-            - ViewOnly
-            - Deny
-            enumFieldComments:
-            - Full access to a policy pack (view + use)
-            - Access to view a policy pack
-            - No access to a policy pack
-        displayName:
-          description: 'DisplayName is a human-readable name for this policy pack.
-
-            This is typically more descriptive than the technical name.'
-          type: string
-          x-order: 6
-        enforcementLevels:
-          description: EnforcementLevels are the client's allowed enforcement levels for this policy pack.
-          items:
-            enum:
-            - advisory
-            - mandatory
-            - remediate
-            - disabled
-            type: string
-            x-pulumi-model-property:
-              enumTypeName: AppEnforcementLevel
-              enumComments: EnforcementLevel indicates how a policy should be enforced
-              enumFieldComments:
-              - 'Advisory is an enforcement level where the resource is still created, but a
-
-                message is displayed to the user for informational / warning purposes.'
-              - Mandatory is an enforcement level that prevents a resource from being created.
-              - Remediate is an enforcement level that fixes policy issues instead of issuing diagnostics.
-              - Disabled is an enforcement level that disables the policy from being enforced.
-          type: array
-          x-order: 8
-        id:
-          description: 'ID is the unique identifier for this policy pack in the registry.
-
-            This is a UUID that corresponds to the policy pack''s database ID.'
+        name:
+          description: The runtime language or platform, e.g. 'nodejs', 'python', 'go', 'dotnet', 'java', 'yaml'.
           type: string
           x-order: 1
-        name:
-          description: 'Name is the unique identifier for this policy pack within the publisher''s namespace.
-
-            Policy pack names must be URL-safe and unique per publisher.'
-          type: string
-          x-order: 4
-        publisher:
-          description: 'Publisher is the organization or user that published this policy pack.
-
-            This corresponds to the Pulumi organization name.'
-          type: string
-          x-order: 3
-        source:
-          description: 'Source indicates where this policy pack is hosted (e.g., "private", "pulumi").
-
-            Currently, only "private" policy packs are supported.'
-          type: string
+        options:
+          additionalProperties:
+            type: object
+          description: Optional configuration options for the runtime.
+          type: object
           x-order: 2
-        version:
-          description: 'Version is the semantic version of this policy pack.
-
-            This represents the latest or specific version being referenced.'
-          type: string
-          x-order: 5
-      required:
-      - accessLevel
-      - displayName
-      - enforcementLevels
-      - id
-      - name
-      - publisher
-      - source
-      - version
       type: object

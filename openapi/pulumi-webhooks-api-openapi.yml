@@ -661,6 +661,27 @@ components:
       - organizationName
       - payloadUrl
       type: object
+    WebhookResponse:
+      allOf:
+      - $ref: '#/components/schemas/Webhook'
+      - description: WebhookResponse extends Webhook with additional response-only fields.
+        properties:
+          hasSecret:
+            description: 'HasSecret is true if the webhook has a secret. This is used to determine whether
+
+              to show that there is a secret in the UI.'
+            type: boolean
+            x-order: 1
+          secretCiphertext:
+            description: 'SecretCiphertext is the ciphertext value of the webhook''s secret.
+
+              It''s used to check whether the secret was changed by the PSP'
+            type: string
+            x-order: 2
+        required:
+        - hasSecret
+        - secretCiphertext
+        type: object
     WebhookDelivery:
       description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
 
@@ -721,24 +742,3 @@ components:
       - responseHeaders
       - timestamp
       type: object
-    WebhookResponse:
-      allOf:
-      - $ref: '#/components/schemas/Webhook'
-      - description: WebhookResponse extends Webhook with additional response-only fields.
-        properties:
-          hasSecret:
-            description: 'HasSecret is true if the webhook has a secret. This is used to determine whether
-
-              to show that there is a secret in the UI.'
-            type: boolean
-            x-order: 1
-          secretCiphertext:
-            description: 'SecretCiphertext is the ciphertext value of the webhook''s secret.
-
-              It''s used to check whether the secret was changed by the PSP'
-            type: string
-            x-order: 2
-        required:
-        - hasSecret
-        - secretCiphertext
-        type: object
