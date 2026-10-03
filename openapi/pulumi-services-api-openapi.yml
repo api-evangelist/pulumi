@@ -327,46 +327,6 @@ paths:
       - Services
 components:
   schemas:
-    ServiceMember:
-      description: 'A service member is either a direct user or a indirect user representation
-
-        that allows them to access and mutate a service.'
-      properties:
-        avatarUrl:
-          description: an optional avatar URL for the member
-          type: string
-          x-order: 3
-        name:
-          description: the login name of the member within Pulumi
-          type: string
-          x-order: 2
-        type:
-          description: the type of the member (e.g. team / user)
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - name
-      - type
-      type: object
-    UpdateServiceMetadataRequest:
-      description: Request for updating a services metadata.
-      properties:
-        description:
-          description: an optional description of the service
-          type: string
-          x-order: 2
-        name:
-          description: the name of the service
-          type: string
-          x-order: 1
-        properties:
-          description: an optional list of properties to set on the service
-          items:
-            $ref: '#/components/schemas/ServiceProperty'
-          type: array
-          x-order: 3
-      type: object
     CreateServiceRequest:
       description: 'Request for creating a new service with an optional list
 
@@ -407,6 +367,70 @@ components:
       - ownerName
       - ownerType
       - properties
+      type: object
+    ServiceProperty:
+      description: A property that the service will show in it's metadata.
+      properties:
+        key:
+          description: the name of the property
+          type: string
+          x-order: 1
+        order:
+          description: the position of the property
+          format: int64
+          type: integer
+          x-order: 4
+        type:
+          description: the type of the property
+          type: string
+          x-order: 3
+        value:
+          description: the value of the property
+          type: string
+          x-order: 2
+      required:
+      - key
+      - order
+      - type
+      - value
+      type: object
+    ListServicesResponse:
+      description: Response when listing services for a user.
+      properties:
+        continuationToken:
+          description: 'ContinuationToken is an opaque value the client can send to fetch additional
+
+            services. Will be nil once all services have been returned.'
+          type: string
+          x-order: 2
+        services:
+          description: The list of services
+          items:
+            $ref: '#/components/schemas/Service'
+          type: array
+          x-order: 1
+      required:
+      - services
+      type: object
+    ServiceItemUpdate:
+      description: An update that the item may have in it's history.
+      properties:
+        message:
+          description: the message to show alongside the timestamp
+          type: string
+          x-order: 2
+        success:
+          description: used to toggle a status icon for the update
+          type: boolean
+          x-order: 3
+        timestamp:
+          description: the timestamp of the last update
+          format: date-time
+          type: string
+          x-order: 1
+      required:
+      - message
+      - timestamp
       type: object
     Service:
       description: 'A service is a Pulumi construct that aggregates items and additional metadata
@@ -462,101 +486,23 @@ components:
       - owner
       - properties
       type: object
-    ServiceItemUpdate:
-      description: An update that the item may have in it's history.
+    UpdateServiceMetadataRequest:
+      description: Request for updating a services metadata.
       properties:
-        message:
-          description: the message to show alongside the timestamp
+        description:
+          description: an optional description of the service
           type: string
           x-order: 2
-        success:
-          description: used to toggle a status icon for the update
-          type: boolean
-          x-order: 3
-        timestamp:
-          description: the timestamp of the last update
-          format: date-time
-          type: string
-          x-order: 1
-      required:
-      - message
-      - timestamp
-      type: object
-    AddServiceItemsRequest:
-      description: Request for adding items to an existing service.
-      properties:
-        items:
-          description: List of items
-          items:
-            $ref: '#/components/schemas/AddServiceItem'
-          type: array
-          x-order: 1
-      required:
-      - items
-      type: object
-    AddServiceItem:
-      description: A simple struct representing the metadata needed to add an item via user-facing information.
-      properties:
         name:
-          description: the name (including any namespacing) of the item
-          type: string
-          x-order: 2
-        type:
-          description: the type of the item to add
+          description: the name of the service
           type: string
           x-order: 1
-      required:
-      - name
-      - type
-      type: object
-    ServiceProperty:
-      description: A property that the service will show in it's metadata.
-      properties:
-        key:
-          description: the name of the property
-          type: string
-          x-order: 1
-        order:
-          description: the position of the property
-          format: int64
-          type: integer
-          x-order: 4
-        type:
-          description: the type of the property
-          type: string
-          x-order: 3
-        value:
-          description: the value of the property
-          type: string
-          x-order: 2
-      required:
-      - key
-      - order
-      - type
-      - value
-      type: object
-    GetServiceResponse:
-      description: Response when requesting a service.
-      properties:
-        continuationToken:
-          description: 'ContinuationToken is an opaque value the client can send to fetch additional
-
-            items. Will be nil once all items have been returned.'
-          type: string
-          x-order: 3
-        items:
-          description: The list of service items
+        properties:
+          description: an optional list of properties to set on the service
           items:
-            $ref: '#/components/schemas/ServiceItem'
+            $ref: '#/components/schemas/ServiceProperty'
           type: array
-          x-order: 2
-        service:
-          $ref: '#/components/schemas/Service'
-          description: The service details
-          x-order: 1
-      required:
-      - items
-      - service
+          x-order: 3
       type: object
     ServiceItem:
       description: An item within a service.
@@ -602,21 +548,75 @@ components:
       - organizationName
       - type
       type: object
-    ListServicesResponse:
-      description: Response when listing services for a user.
+    GetServiceResponse:
+      description: Response when requesting a service.
       properties:
         continuationToken:
           description: 'ContinuationToken is an opaque value the client can send to fetch additional
 
-            services. Will be nil once all services have been returned.'
+            items. Will be nil once all items have been returned.'
+          type: string
+          x-order: 3
+        items:
+          description: The list of service items
+          items:
+            $ref: '#/components/schemas/ServiceItem'
+          type: array
+          x-order: 2
+        service:
+          $ref: '#/components/schemas/Service'
+          description: The service details
+          x-order: 1
+      required:
+      - items
+      - service
+      type: object
+    ServiceMember:
+      description: 'A service member is either a direct user or a indirect user representation
+
+        that allows them to access and mutate a service.'
+      properties:
+        avatarUrl:
+          description: an optional avatar URL for the member
+          type: string
+          x-order: 3
+        name:
+          description: the login name of the member within Pulumi
           type: string
           x-order: 2
-        services:
-          description: The list of services
+        type:
+          description: the type of the member (e.g. team / user)
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - name
+      - type
+      type: object
+    AddServiceItem:
+      description: A simple struct representing the metadata needed to add an item via user-facing information.
+      properties:
+        name:
+          description: the name (including any namespacing) of the item
+          type: string
+          x-order: 2
+        type:
+          description: the type of the item to add
+          type: string
+          x-order: 1
+      required:
+      - name
+      - type
+      type: object
+    AddServiceItemsRequest:
+      description: Request for adding items to an existing service.
+      properties:
+        items:
+          description: List of items
           items:
-            $ref: '#/components/schemas/Service'
+            $ref: '#/components/schemas/AddServiceItem'
           type: array
           x-order: 1
       required:
-      - services
+      - items
       type: object

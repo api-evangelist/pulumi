@@ -1295,203 +1295,21 @@ paths:
         Visibility: Preview
 components:
   schemas:
-    GitHubSettingsRequest:
-      description: GitHubSettingsRequest describes settings for a GitHub App installation.
+    BitBucketAccessStatusResponse:
+      description: Information about a user's BitBucket access status, including whether they have a valid OAuth token and which workspaces are available.
       properties:
-        disableCodeAccessForReviews:
-          description: Whether to disable code access for AI reviews
-          type: boolean
-          x-order: 4
-        disableDetailedDiff:
-          description: Whether to disable detailed property-level diffs in PR comments
-          type: boolean
-          x-order: 3
-        disableNeoSummaries:
-          description: Whether to disable Neo AI summaries on PRs
-          type: boolean
-          x-order: 2
-        disablePRComments:
-          description: Whether to disable PR comments from the Pulumi GitHub App
-          type: boolean
-          x-order: 1
-      type: object
-    BitBucketIntegrationDetails:
-      description: Detailed information about a BitBucket VCS integration, including its configuration, authentication method, and validity status.
-      properties:
-        authType:
-          description: 'The authentication type used: ''workspace_token'', ''user_token'', or ''pat''.'
-          type: string
-          x-order: 8
-        authUser:
-          $ref: '#/components/schemas/User'
-          description: The user whose BitBucket OAuth token is being used for authentication, if user-based auth is configured.
-          x-order: 9
-        avatarUrl:
-          description: URL of the BitBucket workspace avatar image.
-          type: string
-          x-order: 5
-        disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments.
-          type: boolean
-          x-order: 12
-        disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this integration.
-          type: boolean
-          x-order: 11
-        disablePRComments:
-          description: Whether PR comments are disabled for this integration.
-          type: boolean
-          x-order: 10
-        id:
-          description: Unique identifier for this BitBucket integration.
-          type: string
-          x-order: 1
-        installed:
-          description: Whether this integration is fully installed and operational.
-          type: boolean
-          x-order: 6
-        valid:
-          description: Whether the integration's credentials are currently valid.
-          type: boolean
-          x-order: 7
-        workspaceName:
-          description: Display name of the BitBucket workspace.
-          type: string
-          x-order: 4
-        workspaceSlug:
-          description: The slug (URL-friendly name) of the linked BitBucket workspace.
-          type: string
-          x-order: 3
-        workspaceUuid:
-          description: The UUID of the linked BitBucket workspace.
-          type: string
-          x-order: 2
-      required:
-      - disableDetailedDiff
-      - disableNeoSummaries
-      - disablePRComments
-      - id
-      - installed
-      - valid
-      - workspaceSlug
-      - workspaceUuid
-      type: object
-    CompleteOAuthResponse:
-      description: Response from OAuth completion
-      type: object
-    GitLabSetupRequest:
-      description: Request body for creating a new GitLab integration. Specifies the GitLab group to integrate and the authentication method.
-      properties:
-        gitLabGroupId:
-          description: The GitLab group ID to integrate with the Pulumi organization.
-          format: int32
-          type: integer
-          x-order: 1
-        useUserGitLabAuth:
-          description: Whether to use the current user's GitLab OAuth token instead of a group access token for authentication.
-          type: boolean
-          x-order: 2
-      required:
-      - gitLabGroupId
-      type: object
-    AzureDevOpsProject:
-      description: Metadata about an Azure DevOps project within an organization.
-      properties:
-        id:
-          description: The unique ID of the project
-          type: string
-          x-order: 1
-        name:
-          description: The name of the project
-          type: string
-          x-order: 2
-      required:
-      - id
-      - name
-      type: object
-    GitHubIntegrationDetails:
-      description: GitHubIntegrationDetails describes a single GitHub App installation.
-      properties:
-        accountID:
-          description: The GitHub account ID (user or org).
-          format: int64
-          type: integer
-          x-order: 4
-        accountName:
-          description: The GitHub account name (login).
-          type: string
-          x-order: 5
-        avatarUrl:
-          description: The avatar URL of the GitHub account.
-          type: string
-          x-order: 1
-        created:
-          description: When the installation was created.
-          format: date-time
-          type: string
-          x-order: 8
-        disableCodeAccessForReviews:
-          description: Whether code access for AI reviews is disabled for this installation.
-          type: boolean
-          x-order: 12
-        disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments.
-          type: boolean
-          x-order: 11
-        disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this installation.
-          type: boolean
-          x-order: 10
-        disablePRComments:
-          description: Whether PR comments are disabled for this installation.
-          type: boolean
-          x-order: 9
-        ghUrls:
-          $ref: '#/components/schemas/GitHubAppURLs'
-          description: URL to configure repository access for this GitHub App installation.
-          x-order: 16
-        hasContentsPermission:
-          description: Whether the installation has the 'contents' permission.
-          type: boolean
-          x-order: 14
-        hasMembersPermission:
-          description: Whether the installation has the 'members' permission (only relevant for organization accounts).
-          type: boolean
-          x-order: 13
-        id:
-          description: The Pulumi ID of the GitHub App installation.
-          type: string
-          x-order: 2
-        installationID:
-          description: The GitHub installation ID.
-          format: int64
-          type: integer
-          x-order: 3
-        isOrganization:
-          description: Whether the GitHub account is an organization (as opposed to a personal account).
-          type: boolean
-          x-order: 6
-        isSelfHosted:
-          description: Whether this is a self-hosted GitHub Enterprise installation.
-          type: boolean
-          x-order: 7
-        neoGitHubAppPermissionRequirements:
-          description: Neo GitHub App permission requirements for this installation.
+        availableWorkspaces:
+          description: List of BitBucket workspaces available to the user for integration.
           items:
-            $ref: '#/components/schemas/GitHubAppPermissionRequirement'
+            $ref: '#/components/schemas/BitBucketWorkspace'
           type: array
-          x-order: 15
+          x-order: 2
+        hasUserToken:
+          description: Whether the current user has a valid BitBucket OAuth token.
+          type: boolean
+          x-order: 1
       required:
-      - disableCodeAccessForReviews
-      - disableDetailedDiff
-      - disableNeoSummaries
-      - disablePRComments
-      - hasContentsPermission
-      - hasMembersPermission
-      - id
-      - installationID
-      - isOrganization
-      - isSelfHosted
+      - hasUserToken
       type: object
     ListCustomVCSIntegrationsResponse:
       description: Response containing a list of all custom VCS integrations configured for an organization.
@@ -1505,157 +1323,36 @@ components:
       required:
       - integrations
       type: object
-    ListGitLabIntegrationsResponse:
-      description: Response containing the list of GitLab integrations for an organization.
+    BitBucketSettingsRequest:
+      description: Request body for updating BitBucket integration settings such as PR comment preferences and AI summary options.
       properties:
-        integrations:
-          description: The list of GitLab integrations.
-          items:
-            $ref: '#/components/schemas/GitLabIntegrationDetails'
-          type: array
-          x-order: 1
-      required:
-      - integrations
-      type: object
-    BitBucketWorkspace:
-      description: Represents a BitBucket workspace with its identifying information.
-      properties:
-        avatarUrl:
-          description: URL of the workspace's avatar image.
-          type: string
-          x-order: 4
-        name:
-          description: The display name of the workspace.
-          type: string
-          x-order: 2
-        slug:
-          description: The URL-friendly slug of the workspace.
-          type: string
-          x-order: 3
-        uuid:
-          description: The unique UUID of the BitBucket workspace.
-          type: string
-          x-order: 1
-      required:
-      - name
-      - slug
-      - uuid
-      type: object
-    AzureDevOpsAppIntegrationResponse:
-      description: Response containing the Azure DevOps app integration status and configuration for a Pulumi organization.
-      properties:
-        authUser:
-          $ref: '#/components/schemas/User'
-          description: The Pulumi user whose Azure DevOps authentication token is being used
-          x-order: 5
         disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments
+          description: If true, disable detailed property-level diffs in PR comments.
           type: boolean
-          x-order: 8
+          x-order: 3
         disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this integration
+          description: If true, disable Neo AI-generated deployment summaries in PR comments.
           type: boolean
-          x-order: 7
+          x-order: 2
         disablePRComments:
-          description: Whether PR comments are disabled for this integration
-          type: boolean
-          x-order: 6
-        installed:
-          description: Does the org have an Azure DevOps app integration configured
+          description: If true, disable automatic PR comments on deployments.
           type: boolean
           x-order: 1
-        organization:
-          $ref: '#/components/schemas/AzureDevOpsOrganization'
-          description: Metadata about the Azure DevOps organization linked to the Pulumi organization
-          x-order: 3
-        project:
-          $ref: '#/components/schemas/AzureDevOpsProject'
-          description: Metadata about the Azure DevOps project linked to the Pulumi organization
-          x-order: 4
-        valid:
-          description: Is the app integration valid
-          type: boolean
-          x-order: 2
-      required:
-      - installed
-      - valid
       type: object
-    ListGitHubIntegrationsResponse:
-      description: ListGitHubIntegrationsResponse contains the list of GitHub App integrations for an organization.
+    InitiateOAuthResponse:
+      description: Response from OAuth initiation containing authorization URL and session details
       properties:
-        installationUrl:
-          description: URL to install the Pulumi GitHub App for this organization.
+        sessionID:
+          description: Session identifier for tracking the OAuth flow
           type: string
           x-order: 2
-        integrations:
-          description: The list of GitHub App integrations.
-          items:
-            $ref: '#/components/schemas/GitHubIntegrationDetails'
-          type: array
-          x-order: 1
-      required:
-      - integrations
-      type: object
-    BitBucketSetupRequest:
-      description: Request body for creating a new BitBucket VCS integration. Specifies the workspace to integrate and the authentication method.
-      properties:
-        useUserAuth:
-          description: If true, use the current user's BitBucket OAuth token for authentication instead of a workspace access token.
-          type: boolean
-          x-order: 3
-        workspaceAccessToken:
-          description: Optional workspace access token or personal access token (PAT) for authenticating with the BitBucket API. Required if useUserAuth is false.
-          type: string
-          x-order: 4
-        workspaceSlug:
-          description: The slug (URL-friendly name) of the BitBucket workspace.
-          type: string
-          x-order: 2
-        workspaceUuid:
-          description: The UUID of the BitBucket workspace to integrate.
+        url:
+          description: Authorization URL to redirect user to
           type: string
           x-order: 1
       required:
-      - workspaceSlug
-      - workspaceUuid
-      type: object
-    RemoveCustomVCSRepositoryRequest:
-      description: Request to remove a repository from a custom VCS integration. The repository is identified by its name.
-      properties:
-        name:
-          description: Repository name to remove (must match a previously added name exactly)
-          type: string
-          x-order: 1
-      required:
-      - name
-      type: object
-    OrganizationSummary:
-      description: OrganizationSummary is just the display information for an organization.
-      properties:
-        avatarUrl:
-          description: The URL of the organization's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The GitHub login associated with the organization.
-          type: string
-          x-order: 2
-        name:
-          description: The name of the organization.
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - githubLogin
-      - name
+      - sessionID
+      - url
       type: object
     CreateCustomVCSIntegrationRequest:
       description: Request to create a new custom VCS integration for an organization. Custom VCS integrations allow connecting self-hosted or third-party version control systems (e.g. Gitea, Forgejo, Bitbucket Server) to Pulumi Deployments via ESC-managed credentials and inbound webhooks.
@@ -1690,81 +1387,6 @@ components:
       - environment
       - name
       type: object
-    BitBucketAccessStatusResponse:
-      description: Information about a user's BitBucket access status, including whether they have a valid OAuth token and which workspaces are available.
-      properties:
-        availableWorkspaces:
-          description: List of BitBucket workspaces available to the user for integration.
-          items:
-            $ref: '#/components/schemas/BitBucketWorkspace'
-          type: array
-          x-order: 2
-        hasUserToken:
-          description: Whether the current user has a valid BitBucket OAuth token.
-          type: boolean
-          x-order: 1
-      required:
-      - hasUserToken
-      type: object
-    GitLabSettingsRequest:
-      description: Request body for updating GitLab integration settings such as PR comment and AI summary preferences.
-      properties:
-        disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments.
-          type: boolean
-          x-order: 3
-        disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this integration.
-          type: boolean
-          x-order: 2
-        disablePRComments:
-          description: Whether PR comments are disabled for this integration.
-          type: boolean
-          x-order: 1
-      type: object
-    VCSBranch:
-      description: VCSBranch describes a VCS branch.
-      properties:
-        isProtected:
-          description: Whether branch is protected
-          type: boolean
-          x-order: 2
-        name:
-          description: Branch name
-          type: string
-          x-order: 1
-      required:
-      - isProtected
-      - name
-      type: object
-    BitBucketSettingsRequest:
-      description: Request body for updating BitBucket integration settings such as PR comment preferences and AI summary options.
-      properties:
-        disableDetailedDiff:
-          description: If true, disable detailed property-level diffs in PR comments.
-          type: boolean
-          x-order: 3
-        disableNeoSummaries:
-          description: If true, disable Neo AI-generated deployment summaries in PR comments.
-          type: boolean
-          x-order: 2
-        disablePRComments:
-          description: If true, disable automatic PR comments on deployments.
-          type: boolean
-          x-order: 1
-      type: object
-    ListVCSBranchesResponse:
-      description: Response containing list of branches.
-      properties:
-        branches:
-          description: List of branches
-          items:
-            $ref: '#/components/schemas/VCSBranch'
-          type: array
-          x-order: 1
-      required:
-      - branches
-      type: object
     UpdateAzureDevOpsAppIntegrationRequest:
       description: Request body for creating or updating an Azure DevOps app integration for a Pulumi organization.
       properties:
@@ -1793,29 +1415,21 @@ components:
           type: string
           x-order: 2
       type: object
-    CustomVCSRepository:
-      description: A repository configured on a custom VCS integration. Each repository is identified by its name, which is joined with the integration's base URL to form the full clone URL.
+    GitLabSettingsRequest:
+      description: Request body for updating GitLab integration settings such as PR comment and AI summary preferences.
       properties:
-        displayName:
-          description: Human-readable display name for the repository. If not provided, the name is used for display purposes.
-          type: string
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration.
+          type: boolean
           x-order: 2
-        name:
-          description: Repository name or path, joined with the integration's base URL to form the clone URL (e.g. 'myrepo' or 'subgroup/myrepo')
-          type: string
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration.
+          type: boolean
           x-order: 1
-      required:
-      - name
-      type: object
-    GitHubSetupResponse:
-      description: Response for GitHub setup initiation containing installation URL.
-      properties:
-        installationUrl:
-          description: URL to install the GitHub App
-          type: string
-          x-order: 1
-      required:
-      - installationUrl
       type: object
     GitLabIntegrationDetails:
       description: Details of a GitLab integration installation, including linked GitLab group metadata and authentication details.
@@ -1883,26 +1497,277 @@ components:
       - installed
       - valid
       type: object
-    AzureDevOpsAccessResponse:
-      description: AzureDevOpsAccessResponse describes the user's Azure DevOps access status for an organization.
+    GitLabSetupRequest:
+      description: Request body for creating a new GitLab integration. Specifies the GitLab group to integrate and the authentication method.
+      properties:
+        gitLabGroupId:
+          description: The GitLab group ID to integrate with the Pulumi organization.
+          format: int32
+          type: integer
+          x-order: 1
+        useUserGitLabAuth:
+          description: Whether to use the current user's GitLab OAuth token instead of a group access token for authentication.
+          type: boolean
+          x-order: 2
+      required:
+      - gitLabGroupId
+      type: object
+    OrganizationSummary:
+      description: OrganizationSummary is just the display information for an organization.
+      properties:
+        avatarUrl:
+          description: The URL of the organization's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The GitHub login associated with the organization.
+          type: string
+          x-order: 2
+        name:
+          description: The name of the organization.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AzureDevOpsOrganization:
+      description: Metadata about an Azure DevOps organization, including its name, URL, and permission status.
+      properties:
+        accountUrl:
+          description: The account URL for the organization (e.g., https://dev.azure.com/myorg)
+          type: string
+          x-order: 3
+        hasRequiredPermissions:
+          description: Whether the current user has the required permissions
+          type: boolean
+          x-order: 4
+        id:
+          description: The unique ID of the organization
+          type: string
+          x-order: 1
+        name:
+          description: The name of the organization
+          type: string
+          x-order: 2
+      required:
+      - name
+      type: object
+    GitHubAppURLs:
+      description: 'GitHubAppURLs contains links that should be used to properly account for
+
+        things like installation IDs, org names, etc. when installing and
+
+        configuring the app.'
+      properties:
+        configurationUrl:
+          description: URL to configure the GitHub App installation
+          type: string
+          x-order: 2
+        installationUrl:
+          description: URL to install the GitHub App
+          type: string
+          x-order: 1
+        permissionsUrl:
+          description: URL to manage the GitHub App permissions
+          type: string
+          x-order: 3
+        stateParam:
+          description: OAuth state parameter for CSRF protection
+          type: string
+          x-order: 4
+      required:
+      - configurationUrl
+      - installationUrl
+      - permissionsUrl
+      - stateParam
+      type: object
+    OrganizationSummaryWithRole:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationSummary'
+      - description: OrganizationSummaryWithRole is the display information for an organization, paired with the role of a given user into that.
+        properties:
+          role:
+            description: The role of the user within this organization.
+            enum:
+            - none
+            - member
+            - admin
+            - potential-member
+            - stack-collaborator
+            - billing-manager
+            type: string
+            x-order: 1
+            x-pulumi-model-property:
+              enumTypeName: OrganizationRole
+              enumComments: OrganizationRole is an enum defining a member's role within an organization.
+              enumFieldNames:
+              - None
+              - Member
+              - Admin
+              - PotentialMember
+              - StackCollaborator
+              - BillingManager
+              enumFieldComments:
+              - OrganizationRoleNone describes the role of non-members.
+              - OrganizationRoleMember is the role for regular members.
+              - OrganizationRoleAdmin is the role for admins.
+              - 'OrganizationRolePotentialMember is the role for users who are explicitly
+
+                not a member of the organization, but are a member of the backing org on
+
+                the 3rd party identity provider. (i.e. they could join the org.)'
+              - 'OrganizationRoleStackCollaborator is the role for users who are not a member
+
+                of an organization, but have been explicitly granted access to some of the
+
+                organization''s stacks. So they have limited permissions to access the org''s
+
+                data.'
+              - OrganizationRoleBillingManager is the role for billing admins.
+        required:
+        - role
+        type: object
+    AzureOptions:
+      description: Azure provider options
+      properties:
+        apiName:
+          description: Azure API name identifying which Azure service to target.
+          enum:
+          - ado
+          - graph
+          - arm
+          type: string
+          x-order: 2
+          x-pulumi-model-property:
+            enumTypeName: AzureApiName
+            enumComments: Azure API name identifying which Azure service API to target.
+            enumFieldComments:
+            - Azure DevOps API
+            - Microsoft Graph API
+            - Azure Resource Manager API
+        tenantId:
+          description: Azure tenant ID
+          type: string
+          x-order: 1
+      type: object
+    RemoveCustomVCSRepositoryRequest:
+      description: Request to remove a repository from a custom VCS integration. The repository is identified by its name.
+      properties:
+        name:
+          description: Repository name to remove (must match a previously added name exactly)
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    VCSGitHubAccessResponse:
+      description: VCSGitHubAccessResponse describes a user's GitHub access status for VCS integrations.
       properties:
         availableOrgs:
-          description: The Azure DevOps organizations the user's token can access.
+          description: The list of GitHub organizations available to the user.
           items:
-            $ref: '#/components/schemas/AzureDevOpsOrganization'
+            type: string
           type: array
           x-order: 3
         hasIntegration:
-          description: Whether the org has an Azure DevOps integration installed.
+          description: Whether the user has a GitHub app installed.
           type: boolean
           x-order: 2
         hasUserToken:
-          description: Whether the user has an Azure DevOps OAuth or PAT token.
+          description: Whether the user has a GitHub user token.
           type: boolean
           x-order: 1
+        integrations:
+          description: Per-integration permissions for the current user
+          items:
+            $ref: '#/components/schemas/GitHubIntegrationPermissions'
+          type: array
+          x-order: 4
       required:
+      - availableOrgs
       - hasIntegration
       - hasUserToken
+      type: object
+    BitBucketIntegrationDetails:
+      description: Detailed information about a BitBucket VCS integration, including its configuration, authentication method, and validity status.
+      properties:
+        authType:
+          description: 'The authentication type used: ''workspace_token'', ''user_token'', or ''pat''.'
+          type: string
+          x-order: 8
+        authUser:
+          $ref: '#/components/schemas/User'
+          description: The user whose BitBucket OAuth token is being used for authentication, if user-based auth is configured.
+          x-order: 9
+        avatarUrl:
+          description: URL of the BitBucket workspace avatar image.
+          type: string
+          x-order: 5
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 12
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration.
+          type: boolean
+          x-order: 11
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration.
+          type: boolean
+          x-order: 10
+        id:
+          description: Unique identifier for this BitBucket integration.
+          type: string
+          x-order: 1
+        installed:
+          description: Whether this integration is fully installed and operational.
+          type: boolean
+          x-order: 6
+        valid:
+          description: Whether the integration's credentials are currently valid.
+          type: boolean
+          x-order: 7
+        workspaceName:
+          description: Display name of the BitBucket workspace.
+          type: string
+          x-order: 4
+        workspaceSlug:
+          description: The slug (URL-friendly name) of the linked BitBucket workspace.
+          type: string
+          x-order: 3
+        workspaceUuid:
+          description: The UUID of the linked BitBucket workspace.
+          type: string
+          x-order: 2
+      required:
+      - disableDetailedDiff
+      - disableNeoSummaries
+      - disablePRComments
+      - id
+      - installed
+      - valid
+      - workspaceSlug
+      - workspaceUuid
+      type: object
+    GitHubSetupResponse:
+      description: Response for GitHub setup initiation containing installation URL.
+      properties:
+        installationUrl:
+          description: URL to install the GitHub App
+          type: string
+          x-order: 1
+      required:
+      - installationUrl
       type: object
     VCSIntegrationSummary:
       description: A lightweight summary of a VCS integration, containing only the fields needed for the overview page.
@@ -1963,6 +1828,93 @@ components:
       - hasIndividualAccess
       - id
       - vcsProvider
+      type: object
+    VCSRepo:
+      description: VCSRepo describes a VCS repository.
+      properties:
+        id:
+          description: Repository ID
+          type: string
+          x-order: 1
+        name:
+          description: Repository name
+          type: string
+          x-order: 3
+        owner:
+          description: Repository owner (organization or user)
+          type: string
+          x-order: 2
+      required:
+      - id
+      - name
+      - owner
+      type: object
+    ListGitLabIntegrationsResponse:
+      description: Response containing the list of GitLab integrations for an organization.
+      properties:
+        integrations:
+          description: The list of GitLab integrations.
+          items:
+            $ref: '#/components/schemas/GitLabIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    AzureDevOpsSettingsRequest:
+      description: AzureDevOpsSettingsRequest describes settings for an Azure DevOps integration.
+      properties:
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 3
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 2
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 1
+      type: object
+    ListVCSReposResponse:
+      description: Response containing list of repositories.
+      properties:
+        nextPageToken:
+          description: Next page token for pagination
+          type: string
+          x-order: 2
+        repos:
+          description: List of repositories
+          items:
+            $ref: '#/components/schemas/VCSRepo'
+          type: array
+          x-order: 1
+      required:
+      - repos
+      type: object
+    BitBucketSetupRequest:
+      description: Request body for creating a new BitBucket VCS integration. Specifies the workspace to integrate and the authentication method.
+      properties:
+        useUserAuth:
+          description: If true, use the current user's BitBucket OAuth token for authentication instead of a workspace access token.
+          type: boolean
+          x-order: 3
+        workspaceAccessToken:
+          description: Optional workspace access token or personal access token (PAT) for authenticating with the BitBucket API. Required if useUserAuth is false.
+          type: string
+          x-order: 4
+        workspaceSlug:
+          description: The slug (URL-friendly name) of the BitBucket workspace.
+          type: string
+          x-order: 2
+        workspaceUuid:
+          description: The UUID of the BitBucket workspace to integrate.
+          type: string
+          x-order: 1
+      required:
+      - workspaceSlug
+      - workspaceUuid
       type: object
     CustomVCSIntegrationResponse:
       description: Response containing the details of a custom VCS integration, including its configuration, webhook endpoint, and configured repositories.
@@ -2027,78 +1979,114 @@ components:
       - name
       - vcsType
       type: object
-    GitLabAppOrganization:
-      description: Metadata about a GitLab organization linked to a Pulumi organization.
+    ListBitBucketIntegrationsResponse:
+      description: Response containing a list of BitBucket integrations for an organization.
       properties:
-        avatarURL:
-          description: The URL of the organization's avatar image
+        integrations:
+          description: The list of BitBucket integrations.
+          items:
+            $ref: '#/components/schemas/BitBucketIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    CloudSetupProvider:
+      description: CloudSetupProvider configuration
+      properties:
+        azure:
+          $ref: '#/components/schemas/AzureOptions'
+          description: Azure-specific configuration options
+          x-order: 2
+        name:
+          description: CloudSetupProvider name (e.g., 'azure', 'gcp')
           type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    AzureDevOpsAccessResponse:
+      description: AzureDevOpsAccessResponse describes the user's Azure DevOps access status for an organization.
+      properties:
+        availableOrgs:
+          description: The Azure DevOps organizations the user's token can access.
+          items:
+            $ref: '#/components/schemas/AzureDevOpsOrganization'
+          type: array
           x-order: 3
-        hasRequiredPermissions:
-          description: Whether the integration has the required permissions
+        hasIntegration:
+          description: Whether the org has an Azure DevOps integration installed.
           type: boolean
-          x-order: 4
+          x-order: 2
+        hasUserToken:
+          description: Whether the user has an Azure DevOps OAuth or PAT token.
+          type: boolean
+          x-order: 1
+      required:
+      - hasIntegration
+      - hasUserToken
+      type: object
+    ListVCSIntegrationSummariesResponse:
+      description: Response containing a lightweight list of all VCS integrations across providers for an organization.
+      properties:
+        integrations:
+          description: The list of VCS integration summaries across all providers.
+          items:
+            $ref: '#/components/schemas/VCSIntegrationSummary'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    CustomVCSRepository:
+      description: A repository configured on a custom VCS integration. Each repository is identified by its name, which is joined with the integration's base URL to form the full clone URL.
+      properties:
+        displayName:
+          description: Human-readable display name for the repository. If not provided, the name is used for display purposes.
+          type: string
+          x-order: 2
+        name:
+          description: Repository name or path, joined with the integration's base URL to form the clone URL (e.g. 'myrepo' or 'subgroup/myrepo')
+          type: string
+          x-order: 1
+      required:
+      - name
+      type: object
+    AzureDevOpsProject:
+      description: Metadata about an Azure DevOps project within an organization.
+      properties:
         id:
-          description: The GitLab group or organization ID
-          format: int64
-          type: integer
+          description: The unique ID of the project
+          type: string
           x-order: 1
         name:
-          description: The name of the GitLab organization
+          description: The name of the project
           type: string
           x-order: 2
       required:
-      - avatarURL
-      - hasRequiredPermissions
       - id
       - name
       type: object
-    OrganizationSummaryWithRole:
-      allOf:
-      - $ref: '#/components/schemas/OrganizationSummary'
-      - description: OrganizationSummaryWithRole is the display information for an organization, paired with the role of a given user into that.
-        properties:
-          role:
-            description: The role of the user within this organization.
-            enum:
-            - none
-            - member
-            - admin
-            - potential-member
-            - stack-collaborator
-            - billing-manager
-            type: string
-            x-order: 1
-            x-pulumi-model-property:
-              enumTypeName: OrganizationRole
-              enumComments: OrganizationRole is an enum defining a member's role within an organization.
-              enumFieldNames:
-              - None
-              - Member
-              - Admin
-              - PotentialMember
-              - StackCollaborator
-              - BillingManager
-              enumFieldComments:
-              - OrganizationRoleNone describes the role of non-members.
-              - OrganizationRoleMember is the role for regular members.
-              - OrganizationRoleAdmin is the role for admins.
-              - 'OrganizationRolePotentialMember is the role for users who are explicitly
-
-                not a member of the organization, but are a member of the backing org on
-
-                the 3rd party identity provider. (i.e. they could join the org.)'
-              - 'OrganizationRoleStackCollaborator is the role for users who are not a member
-
-                of an organization, but have been explicitly granted access to some of the
-
-                organization''s stacks. So they have limited permissions to access the org''s
-
-                data.'
-              - OrganizationRoleBillingManager is the role for billing admins.
-        required:
-        - role
-        type: object
+    CompleteOAuthRequest:
+      description: Request to complete OAuth flow by exchanging authorization code for access token
+      properties:
+        code:
+          description: Authorization code returned from OAuth provider
+          type: string
+          x-order: 3
+        provider:
+          $ref: '#/components/schemas/CloudSetupProvider'
+          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 1
+        sessionID:
+          description: Session identifier from OAuth initiation
+          type: string
+          x-order: 2
+      required:
+      - code
+      - provider
+      - sessionID
+      type: object
     ListAzureDevOpsIntegrationsResponse:
       description: ListAzureDevOpsIntegrationsResponse contains the list of Azure DevOps integrations for an organization.
       properties:
@@ -2115,25 +2103,56 @@ components:
       required:
       - integrations
       type: object
-    UpdateCustomVCSIntegrationRequest:
-      description: Request to update an existing custom VCS integration. All fields are optional; only provided fields are updated. Use regenerateWebhookSecret to rotate the webhook HMAC secret.
+    ListVCSBranchesResponse:
+      description: Response containing list of branches.
       properties:
-        baseUrl:
-          description: Updated URL prefix for repositories covered by this integration
-          type: string
-          x-order: 2
-        environment:
-          description: Updated ESC environment reference in 'project/envName' format
-          type: string
-          x-order: 3
-        name:
-          description: Updated human-readable name for the integration
-          type: string
+        branches:
+          description: List of branches
+          items:
+            $ref: '#/components/schemas/VCSBranch'
+          type: array
           x-order: 1
-        regenerateWebhookSecret:
-          description: When true, generates a new webhook HMAC secret and invalidates the previous one. The new secret is returned in the response.
+      required:
+      - branches
+      type: object
+    AzureDevOpsAppIntegrationResponse:
+      description: Response containing the Azure DevOps app integration status and configuration for a Pulumi organization.
+      properties:
+        authUser:
+          $ref: '#/components/schemas/User'
+          description: The Pulumi user whose Azure DevOps authentication token is being used
+          x-order: 5
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
           type: boolean
+          x-order: 8
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 7
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 6
+        installed:
+          description: Does the org have an Azure DevOps app integration configured
+          type: boolean
+          x-order: 1
+        organization:
+          $ref: '#/components/schemas/AzureDevOpsOrganization'
+          description: Metadata about the Azure DevOps organization linked to the Pulumi organization
+          x-order: 3
+        project:
+          $ref: '#/components/schemas/AzureDevOpsProject'
+          description: Metadata about the Azure DevOps project linked to the Pulumi organization
           x-order: 4
+        valid:
+          description: Is the app integration valid
+          type: boolean
+          x-order: 2
+      required:
+      - installed
+      - valid
       type: object
     User:
       description: 'User represents a Pulumi user.  This structure contains the full, private information that will be used only for
@@ -2239,140 +2258,6 @@ components:
       - name
       - organizations
       type: object
-    VCSGitHubAccessResponse:
-      description: VCSGitHubAccessResponse describes a user's GitHub access status for VCS integrations.
-      properties:
-        availableOrgs:
-          description: The list of GitHub organizations available to the user.
-          items:
-            type: string
-          type: array
-          x-order: 3
-        hasIntegration:
-          description: Whether the user has a GitHub app installed.
-          type: boolean
-          x-order: 2
-        hasUserToken:
-          description: Whether the user has a GitHub user token.
-          type: boolean
-          x-order: 1
-        integrations:
-          description: Per-integration permissions for the current user
-          items:
-            $ref: '#/components/schemas/GitHubIntegrationPermissions'
-          type: array
-          x-order: 4
-      required:
-      - availableOrgs
-      - hasIntegration
-      - hasUserToken
-      type: object
-    AzureDevOpsIntegrationDetails:
-      description: AzureDevOpsIntegrationDetails describes a single Azure DevOps integration installation.
-      properties:
-        disableCodeAccessForReviews:
-          description: Whether code access for AI reviews is disabled for this integration
-          type: boolean
-          x-order: 8
-        disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments
-          type: boolean
-          x-order: 7
-        disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this integration
-          type: boolean
-          x-order: 6
-        disablePRComments:
-          description: Whether PR comments are disabled for this integration
-          type: boolean
-          x-order: 5
-        id:
-          description: The Pulumi ID of the Azure DevOps integration.
-          type: string
-          x-order: 1
-        organization:
-          $ref: '#/components/schemas/AzureDevOpsOrganization'
-          description: Metadata about the Azure DevOps organization.
-          x-order: 2
-        project:
-          $ref: '#/components/schemas/AzureDevOpsProject'
-          description: Metadata about the Azure DevOps project.
-          x-order: 3
-        valid:
-          description: Whether the integration is currently valid (tokens, hooks, etc.).
-          type: boolean
-          x-order: 4
-      required:
-      - id
-      - valid
-      type: object
-    ListVCSReposResponse:
-      description: Response containing list of repositories.
-      properties:
-        nextPageToken:
-          description: Next page token for pagination
-          type: string
-          x-order: 2
-        repos:
-          description: List of repositories
-          items:
-            $ref: '#/components/schemas/VCSRepo'
-          type: array
-          x-order: 1
-      required:
-      - repos
-      type: object
-    AzureDevOpsOrganization:
-      description: Metadata about an Azure DevOps organization, including its name, URL, and permission status.
-      properties:
-        accountUrl:
-          description: The account URL for the organization (e.g., https://dev.azure.com/myorg)
-          type: string
-          x-order: 3
-        hasRequiredPermissions:
-          description: Whether the current user has the required permissions
-          type: boolean
-          x-order: 4
-        id:
-          description: The unique ID of the organization
-          type: string
-          x-order: 1
-        name:
-          description: The name of the organization
-          type: string
-          x-order: 2
-      required:
-      - name
-      type: object
-    GitHubAppURLs:
-      description: 'GitHubAppURLs contains links that should be used to properly account for
-
-        things like installation IDs, org names, etc. when installing and
-
-        configuring the app.'
-      properties:
-        configurationUrl:
-          description: URL to configure the GitHub App installation
-          type: string
-          x-order: 2
-        installationUrl:
-          description: URL to install the GitHub App
-          type: string
-          x-order: 1
-        permissionsUrl:
-          description: URL to manage the GitHub App permissions
-          type: string
-          x-order: 3
-        stateParam:
-          description: OAuth state parameter for CSRF protection
-          type: string
-          x-order: 4
-      required:
-      - configurationUrl
-      - installationUrl
-      - permissionsUrl
-      - stateParam
-      type: object
     GitHubAppPermissionRequirement:
       description: GitHubAppPermissionRequirement represents a single GitHub App permission requirement for Neo agents.
       properties:
@@ -2425,83 +2310,159 @@ components:
       - reason
       - required
       type: object
-    ListBitBucketIntegrationsResponse:
-      description: Response containing a list of BitBucket integrations for an organization.
+    AzureDevOpsIntegrationDetails:
+      description: AzureDevOpsIntegrationDetails describes a single Azure DevOps integration installation.
       properties:
-        integrations:
-          description: The list of BitBucket integrations.
-          items:
-            $ref: '#/components/schemas/BitBucketIntegrationDetails'
-          type: array
-          x-order: 1
-      required:
-      - integrations
-      type: object
-    TokenInfo:
-      description: TokenInfo contains metadata about an access token.
-      properties:
-        name:
-          description: The name of the access token.
+        disableCodeAccessForReviews:
+          description: Whether code access for AI reviews is disabled for this integration
+          type: boolean
+          x-order: 8
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments
+          type: boolean
+          x-order: 7
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this integration
+          type: boolean
+          x-order: 6
+        disablePRComments:
+          description: Whether PR comments are disabled for this integration
+          type: boolean
+          x-order: 5
+        id:
+          description: The Pulumi ID of the Azure DevOps integration.
           type: string
           x-order: 1
         organization:
-          description: The organization the token is scoped to, if any.
-          type: string
+          $ref: '#/components/schemas/AzureDevOpsOrganization'
+          description: Metadata about the Azure DevOps organization.
           x-order: 2
-        team:
-          description: The team the token is scoped to, if any.
-          type: string
+        project:
+          $ref: '#/components/schemas/AzureDevOpsProject'
+          description: Metadata about the Azure DevOps project.
           x-order: 3
+        valid:
+          description: Whether the integration is currently valid (tokens, hooks, etc.).
+          type: boolean
+          x-order: 4
       required:
-      - name
-      - organization
-      - team
+      - id
+      - valid
       type: object
-    CloudSetupProvider:
-      description: CloudSetupProvider configuration
+    VCSBranch:
+      description: VCSBranch describes a VCS branch.
       properties:
-        azure:
-          $ref: '#/components/schemas/AzureOptions'
-          description: Azure-specific configuration options
+        isProtected:
+          description: Whether branch is protected
+          type: boolean
           x-order: 2
         name:
-          description: CloudSetupProvider name (e.g., 'azure', 'gcp')
+          description: Branch name
           type: string
           x-order: 1
       required:
+      - isProtected
       - name
       type: object
-    ListVCSIntegrationSummariesResponse:
-      description: Response containing a lightweight list of all VCS integrations across providers for an organization.
+    GitLabAccessStatusResponse:
+      description: Response describing the user's GitLab access status for an organization, including whether they have a valid token and available GitLab groups.
       properties:
-        integrations:
-          description: The list of VCS integration summaries across all providers.
+        availableGroups:
+          description: GitLab groups available for integration that the user has access to.
           items:
-            $ref: '#/components/schemas/VCSIntegrationSummary'
+            $ref: '#/components/schemas/GitLabAppOrganization'
           type: array
+          x-order: 2
+        hasUserToken:
+          description: Whether the user has a valid GitLab OAuth token.
+          type: boolean
           x-order: 1
       required:
-      - integrations
+      - hasUserToken
       type: object
-    CompleteOAuthRequest:
-      description: Request to complete OAuth flow by exchanging authorization code for access token
+    GitHubIntegrationDetails:
+      description: GitHubIntegrationDetails describes a single GitHub App installation.
       properties:
-        code:
-          description: Authorization code returned from OAuth provider
+        accountID:
+          description: The GitHub account ID (user or org).
+          format: int64
+          type: integer
+          x-order: 4
+        accountName:
+          description: The GitHub account name (login).
           type: string
-          x-order: 3
-        provider:
-          $ref: '#/components/schemas/CloudSetupProvider'
-          description: CloudSetupProvider configuration for OAuth authentication
+          x-order: 5
+        avatarUrl:
+          description: The avatar URL of the GitHub account.
+          type: string
           x-order: 1
-        sessionID:
-          description: Session identifier from OAuth initiation
+        created:
+          description: When the installation was created.
+          format: date-time
+          type: string
+          x-order: 8
+        disableCodeAccessForReviews:
+          description: Whether code access for AI reviews is disabled for this installation.
+          type: boolean
+          x-order: 12
+        disableDetailedDiff:
+          description: Whether detailed property-level diffs are disabled for PR comments.
+          type: boolean
+          x-order: 11
+        disableNeoSummaries:
+          description: Whether Neo AI summaries are disabled for this installation.
+          type: boolean
+          x-order: 10
+        disablePRComments:
+          description: Whether PR comments are disabled for this installation.
+          type: boolean
+          x-order: 9
+        ghUrls:
+          $ref: '#/components/schemas/GitHubAppURLs'
+          description: URL to configure repository access for this GitHub App installation.
+          x-order: 16
+        hasContentsPermission:
+          description: Whether the installation has the 'contents' permission.
+          type: boolean
+          x-order: 14
+        hasMembersPermission:
+          description: Whether the installation has the 'members' permission (only relevant for organization accounts).
+          type: boolean
+          x-order: 13
+        id:
+          description: The Pulumi ID of the GitHub App installation.
           type: string
           x-order: 2
+        installationID:
+          description: The GitHub installation ID.
+          format: int64
+          type: integer
+          x-order: 3
+        isOrganization:
+          description: Whether the GitHub account is an organization (as opposed to a personal account).
+          type: boolean
+          x-order: 6
+        isSelfHosted:
+          description: Whether this is a self-hosted GitHub Enterprise installation.
+          type: boolean
+          x-order: 7
+        neoGitHubAppPermissionRequirements:
+          description: Neo GitHub App permission requirements for this installation.
+          items:
+            $ref: '#/components/schemas/GitHubAppPermissionRequirement'
+          type: array
+          x-order: 15
       required:
-      - code
-      - provider
-      - sessionID
+      - disableCodeAccessForReviews
+      - disableDetailedDiff
+      - disableNeoSummaries
+      - disablePRComments
+      - hasContentsPermission
+      - hasMembersPermission
+      - id
+      - installationID
+      - isOrganization
+      - isSelfHosted
       type: object
     InitiateOAuthRequest:
       description: Request to initiate OAuth flow for cloud provider authentication
@@ -2527,21 +2488,25 @@ components:
       required:
       - name
       type: object
-    GitLabAccessStatusResponse:
-      description: Response describing the user's GitLab access status for an organization, including whether they have a valid token and available GitLab groups.
+    TokenInfo:
+      description: TokenInfo contains metadata about an access token.
       properties:
-        availableGroups:
-          description: GitLab groups available for integration that the user has access to.
-          items:
-            $ref: '#/components/schemas/GitLabAppOrganization'
-          type: array
-          x-order: 2
-        hasUserToken:
-          description: Whether the user has a valid GitLab OAuth token.
-          type: boolean
+        name:
+          description: The name of the access token.
+          type: string
           x-order: 1
+        organization:
+          description: The organization the token is scoped to, if any.
+          type: string
+          x-order: 2
+        team:
+          description: The team the token is scoped to, if any.
+          type: string
+          x-order: 3
       required:
-      - hasUserToken
+      - name
+      - organization
+      - team
       type: object
     GitHubIntegrationPermissions:
       description: GitHubIntegrationPermissions describes per-integration permissions for the current user.
@@ -2558,77 +2523,112 @@ components:
       - canCreateRepo
       - id
       type: object
-    VCSRepo:
-      description: VCSRepo describes a VCS repository.
+    UpdateCustomVCSIntegrationRequest:
+      description: Request to update an existing custom VCS integration. All fields are optional; only provided fields are updated. Use regenerateWebhookSecret to rotate the webhook HMAC secret.
       properties:
-        id:
-          description: Repository ID
+        baseUrl:
+          description: Updated URL prefix for repositories covered by this integration
           type: string
-          x-order: 1
-        name:
-          description: Repository name
+          x-order: 2
+        environment:
+          description: Updated ESC environment reference in 'project/envName' format
           type: string
           x-order: 3
-        owner:
-          description: Repository owner (organization or user)
+        name:
+          description: Updated human-readable name for the integration
+          type: string
+          x-order: 1
+        regenerateWebhookSecret:
+          description: When true, generates a new webhook HMAC secret and invalidates the previous one. The new secret is returned in the response.
+          type: boolean
+          x-order: 4
+      type: object
+    GitLabAppOrganization:
+      description: Metadata about a GitLab organization linked to a Pulumi organization.
+      properties:
+        avatarURL:
+          description: The URL of the organization's avatar image
+          type: string
+          x-order: 3
+        hasRequiredPermissions:
+          description: Whether the integration has the required permissions
+          type: boolean
+          x-order: 4
+        id:
+          description: The GitLab group or organization ID
+          format: int64
+          type: integer
+          x-order: 1
+        name:
+          description: The name of the GitLab organization
           type: string
           x-order: 2
       required:
+      - avatarURL
+      - hasRequiredPermissions
       - id
       - name
-      - owner
       type: object
-    AzureDevOpsSettingsRequest:
-      description: AzureDevOpsSettingsRequest describes settings for an Azure DevOps integration.
+    ListGitHubIntegrationsResponse:
+      description: ListGitHubIntegrationsResponse contains the list of GitHub App integrations for an organization.
       properties:
+        installationUrl:
+          description: URL to install the Pulumi GitHub App for this organization.
+          type: string
+          x-order: 2
+        integrations:
+          description: The list of GitHub App integrations.
+          items:
+            $ref: '#/components/schemas/GitHubIntegrationDetails'
+          type: array
+          x-order: 1
+      required:
+      - integrations
+      type: object
+    GitHubSettingsRequest:
+      description: GitHubSettingsRequest describes settings for a GitHub App installation.
+      properties:
+        disableCodeAccessForReviews:
+          description: Whether to disable code access for AI reviews
+          type: boolean
+          x-order: 4
         disableDetailedDiff:
-          description: Whether detailed property-level diffs are disabled for PR comments
+          description: Whether to disable detailed property-level diffs in PR comments
           type: boolean
           x-order: 3
         disableNeoSummaries:
-          description: Whether Neo AI summaries are disabled for this integration
+          description: Whether to disable Neo AI summaries on PRs
           type: boolean
           x-order: 2
         disablePRComments:
-          description: Whether PR comments are disabled for this integration
+          description: Whether to disable PR comments from the Pulumi GitHub App
           type: boolean
           x-order: 1
       type: object
-    AzureOptions:
-      description: Azure provider options
+    BitBucketWorkspace:
+      description: Represents a BitBucket workspace with its identifying information.
       properties:
-        apiName:
-          description: Azure API name identifying which Azure service to target.
-          enum:
-          - ado
-          - graph
-          - arm
+        avatarUrl:
+          description: URL of the workspace's avatar image.
+          type: string
+          x-order: 4
+        name:
+          description: The display name of the workspace.
           type: string
           x-order: 2
-          x-pulumi-model-property:
-            enumTypeName: AzureApiName
-            enumComments: Azure API name identifying which Azure service API to target.
-            enumFieldComments:
-            - Azure DevOps API
-            - Microsoft Graph API
-            - Azure Resource Manager API
-        tenantId:
-          description: Azure tenant ID
+        slug:
+          description: The URL-friendly slug of the workspace.
           type: string
-          x-order: 1
-      type: object
-    InitiateOAuthResponse:
-      description: Response from OAuth initiation containing authorization URL and session details
-      properties:
-        sessionID:
-          description: Session identifier for tracking the OAuth flow
-          type: string
-          x-order: 2
-        url:
-          description: Authorization URL to redirect user to
+          x-order: 3
+        uuid:
+          description: The unique UUID of the BitBucket workspace.
           type: string
           x-order: 1
       required:
-      - sessionID
-      - url
+      - name
+      - slug
+      - uuid
+      type: object
+    CompleteOAuthResponse:
+      description: Response from OAuth completion
       type: object

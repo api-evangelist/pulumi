@@ -253,72 +253,6 @@ paths:
       - ResourceSearch
 components:
   schemas:
-    ResourceSearchPagination:
-      description: ResourceSearchPagination provides links for paging through results.
-      properties:
-        cursor:
-          description: An opaque cursor for resuming pagination.
-          type: string
-          x-order: 3
-        next:
-          description: Link to the next page of results.
-          type: string
-          x-order: 2
-        previous:
-          description: Link to the previous page of results.
-          type: string
-          x-order: 1
-      type: object
-    GetNaturalLanguageQueryResponse:
-      description: Response body for a natural language query translation.
-      properties:
-        query:
-          description: The translated query string
-          type: string
-          x-order: 1
-      required:
-      - query
-      type: object
-    Aggregation:
-      description: Aggregation collects the top 5 aggregated values for the requested dimension.
-      properties:
-        others:
-          description: The others
-          format: int64
-          type: integer
-          x-order: 1
-        results:
-          description: List of results
-          items:
-            $ref: '#/components/schemas/AggregationBucket'
-          type: array
-          x-order: 2
-      type: object
-    ResourceSearchResult:
-      description: ResourceSearchResult is a collected of resource search results.
-      properties:
-        aggregations:
-          additionalProperties:
-            $ref: '#/components/schemas/Aggregation'
-          description: Aggregation buckets for faceted search.
-          type: object
-          x-order: 3
-        pagination:
-          $ref: '#/components/schemas/ResourceSearchPagination'
-          description: Pagination links for navigating through results.
-          x-order: 4
-        resources:
-          description: The list of matching resource results.
-          items:
-            $ref: '#/components/schemas/ResourceResult'
-          type: array
-          x-order: 2
-        total:
-          description: The total number of matching resources.
-          format: int64
-          type: integer
-          x-order: 1
-      type: object
     ResourceResult:
       description: 'ResourceResult is the user-facing type for our indexed resources.
 
@@ -470,5 +404,71 @@ components:
         name:
           description: The name
           type: string
+          x-order: 1
+      type: object
+    GetNaturalLanguageQueryResponse:
+      description: Response body for a natural language query translation.
+      properties:
+        query:
+          description: The translated query string
+          type: string
+          x-order: 1
+      required:
+      - query
+      type: object
+    Aggregation:
+      description: Aggregation collects the top 5 aggregated values for the requested dimension.
+      properties:
+        others:
+          description: The others
+          format: int64
+          type: integer
+          x-order: 1
+        results:
+          description: List of results
+          items:
+            $ref: '#/components/schemas/AggregationBucket'
+          type: array
+          x-order: 2
+      type: object
+    ResourceSearchPagination:
+      description: ResourceSearchPagination provides links for paging through results.
+      properties:
+        cursor:
+          description: An opaque cursor for resuming pagination.
+          type: string
+          x-order: 3
+        next:
+          description: Link to the next page of results.
+          type: string
+          x-order: 2
+        previous:
+          description: Link to the previous page of results.
+          type: string
+          x-order: 1
+      type: object
+    ResourceSearchResult:
+      description: ResourceSearchResult is a collected of resource search results.
+      properties:
+        aggregations:
+          additionalProperties:
+            $ref: '#/components/schemas/Aggregation'
+          description: Aggregation buckets for faceted search.
+          type: object
+          x-order: 3
+        pagination:
+          $ref: '#/components/schemas/ResourceSearchPagination'
+          description: Pagination links for navigating through results.
+          x-order: 4
+        resources:
+          description: The list of matching resource results.
+          items:
+            $ref: '#/components/schemas/ResourceResult'
+          type: array
+          x-order: 2
+        total:
+          description: The total number of matching resources.
+          format: int64
+          type: integer
           x-order: 1
       type: object

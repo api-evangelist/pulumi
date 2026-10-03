@@ -300,199 +300,6 @@ paths:
         Visibility: Preview
 components:
   schemas:
-    ListAgentTasksResponse:
-      description: Response containing a paginated list of agent tasks.
-      properties:
-        continuationToken:
-          description: 'ContinuationToken can be used to fetch the next page of results.
-
-            If null, there are no more results available.'
-          type: string
-          x-order: 2
-        tasks:
-          description: Tasks contains the list of tasks for this page.
-          items:
-            $ref: '#/components/schemas/AgentTask'
-          type: array
-          x-order: 1
-      required:
-      - tasks
-      type: object
-    AgentEntity:
-      description: Represents agent entity.
-      discriminator:
-        mapping:
-          policy_issue: '#/components/schemas/AgentEntityPolicyIssue'
-          pull_request: '#/components/schemas/AgentEntityPR'
-          repository: '#/components/schemas/AgentEntityRepository'
-          stack: '#/components/schemas/AgentEntityStack'
-        propertyName: type
-      properties:
-        type:
-          type: string
-      required:
-      - type
-      type: object
-    AgentTaskIntegrationRef:
-      description: A reference to an integration enabled for an agent task. Structured as an object (rather than a bare string) so additional fields like instance name or scope can be added later without breaking the wire format.
-      properties:
-        id:
-          description: The catalog integration ID (e.g. 'honeycomb', 'datadog').
-          type: string
-          x-order: 1
-      required:
-      - id
-      type: object
-    CreateAgentTaskResponse:
-      description: Response body for creating an agent task.
-      properties:
-        taskId:
-          description: The task identifier
-          type: string
-          x-order: 1
-      required:
-      - taskId
-      type: object
-    AgentSlashCommand:
-      description: An agent slash command.
-      properties:
-        builtIn:
-          description: Whether this is a built-in system command (true) or user-created (false).
-          type: boolean
-          x-order: 4
-        description:
-          description: Human-readable description shown to users in the command palette.
-          type: string
-          x-order: 3
-        modifiedAt:
-          description: When the command was last modified, in ISO 8601 format.
-          format: date-time
-          type: string
-          x-order: 5
-        name:
-          description: The slash command name (e.g. '/fix', '/explain'). Used to invoke the command.
-          type: string
-          x-order: 1
-        prompt:
-          description: The system prompt text sent to the AI when this command is invoked.
-          type: string
-          x-order: 2
-        tag:
-          description: Version tag for optimistic concurrency control.
-          type: string
-          x-order: 6
-      required:
-      - builtIn
-      - description
-      - modifiedAt
-      - name
-      - prompt
-      - tag
-      type: object
-    AgentConsoleEvent:
-      description: A console event in an agent task conversation, either a user input or an agent response.
-      discriminator:
-        mapping:
-          agentResponse: '#/components/schemas/AgentConsoleEventAgentResponse'
-          userInput: '#/components/schemas/AgentConsoleEventUserInput'
-        propertyName: type
-      properties:
-        id:
-          description: The UUID of the event
-          type: string
-          x-order: 1
-        isSynthetic:
-          description: True when the event was synthesized by the backend rather than submitted directly by the user or agent runtime.
-          type: boolean
-          x-order: 2
-        type:
-          type: string
-      required:
-      - id
-      - isSynthetic
-      - type
-      type: object
-    AgentUserEvent:
-      description: Represents an agent user event.
-      discriminator:
-        mapping:
-          exec_tool_call: '#/components/schemas/AgentUserEventExecToolCall'
-          tool_result: '#/components/schemas/AgentUserEventToolResult'
-          user_cancel: '#/components/schemas/AgentUserEventCancel'
-          user_confirmation: '#/components/schemas/AgentUserEventConfirmation'
-          user_message: '#/components/schemas/AgentUserEventMessage'
-        propertyName: type
-      properties:
-        entity_diff:
-          $ref: '#/components/schemas/AgentEntityDiff'
-          description: Entities to add or remove from the agent.
-          x-order: 1
-        timestamp:
-          description: When the event occurred.
-          format: date-time
-          type: string
-        type:
-          type: string
-      required:
-      - timestamp
-      - type
-      type: object
-    ListAgentTaskEventsResponse:
-      description: 'TODO: add polling support (via lastSeen)'
-      properties:
-        continuationToken:
-          description: 'ContinuationToken can be used to fetch the next page of results.
-
-            If null, there are no more results available.'
-          type: string
-          x-order: 2
-        events:
-          description: Events contains the list of events for this page.
-          items:
-            $ref: '#/components/schemas/AgentConsoleEvent'
-          type: array
-          x-order: 1
-      required:
-      - events
-      type: object
-    UserInfo:
-      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
-
-        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
-      properties:
-        avatarUrl:
-          description: The URL of the user's avatar image.
-          type: string
-          x-order: 3
-        email:
-          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
-
-            For nearly all APIs that return a UserInfo object, this will not be provided.
-
-            considered sensitive information.'
-          type: string
-          x-order: 4
-        githubLogin:
-          description: The user's login name.
-          type: string
-          x-order: 2
-        name:
-          description: The user's display name.
-          type: string
-          x-order: 1
-      required:
-      - avatarUrl
-      - githubLogin
-      - name
-      type: object
-    AgentRespondToTaskRequest:
-      description: The API payload for users responding to an existing agent task.
-      properties:
-        event:
-          $ref: '#/components/schemas/AgentUserEvent'
-          description: The event
-          x-order: 1
-      type: object
     CreateAgentTaskRequest:
       description: Create a new task by sending the first event in the conversation.
       properties:
@@ -566,23 +373,23 @@ components:
             enumTypeName: ToolExecutionMode
             enumComments: Where tools are executed for an agent task.
       type: object
-    AgentEntityDiff:
-      description: Represents agent entity diff.
+    ListAgentTasksResponse:
+      description: Response containing a paginated list of agent tasks.
       properties:
-        add:
-          description: 'Entities to add to the Agent''s context.
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
 
-            Entities must be valid, and will be automatically deleted if they are invalid.'
+            If null, there are no more results available.'
+          type: string
+          x-order: 2
+        tasks:
+          description: Tasks contains the list of tasks for this page.
           items:
-            $ref: '#/components/schemas/AgentEntity'
+            $ref: '#/components/schemas/AgentTask'
           type: array
           x-order: 1
-        remove:
-          description: Entities to remove from the Agent's context.
-          items:
-            $ref: '#/components/schemas/AgentEntity'
-          type: array
-          x-order: 2
+      required:
+      - tasks
       type: object
     UpdateTaskRequest:
       description: Request to update a task.
@@ -619,6 +426,60 @@ components:
             enumFieldNames:
             - Default
             - ReadOnly
+      type: object
+    AgentSlashCommand:
+      description: An agent slash command.
+      properties:
+        builtIn:
+          description: Whether this is a built-in system command (true) or user-created (false).
+          type: boolean
+          x-order: 4
+        description:
+          description: Human-readable description shown to users in the command palette.
+          type: string
+          x-order: 3
+        modifiedAt:
+          description: When the command was last modified, in ISO 8601 format.
+          format: date-time
+          type: string
+          x-order: 5
+        name:
+          description: The slash command name (e.g. '/fix', '/explain'). Used to invoke the command.
+          type: string
+          x-order: 1
+        prompt:
+          description: The system prompt text sent to the AI when this command is invoked.
+          type: string
+          x-order: 2
+        tag:
+          description: Version tag for optimistic concurrency control.
+          type: string
+          x-order: 6
+      required:
+      - builtIn
+      - description
+      - modifiedAt
+      - name
+      - prompt
+      - tag
+      type: object
+    ListAgentTaskEventsResponse:
+      description: 'TODO: add polling support (via lastSeen)'
+      properties:
+        continuationToken:
+          description: 'ContinuationToken can be used to fetch the next page of results.
+
+            If null, there are no more results available.'
+          type: string
+          x-order: 2
+        events:
+          description: Events contains the list of events for this page.
+          items:
+            $ref: '#/components/schemas/AgentConsoleEvent'
+          type: array
+          x-order: 1
+      required:
+      - events
       type: object
     AgentUserEventMessage:
       allOf:
@@ -812,4 +673,143 @@ components:
       - planMode
       - status
       - taskType
+      type: object
+    AgentEntity:
+      description: Represents agent entity.
+      discriminator:
+        mapping:
+          policy_issue: '#/components/schemas/AgentEntityPolicyIssue'
+          pull_request: '#/components/schemas/AgentEntityPR'
+          repository: '#/components/schemas/AgentEntityRepository'
+          stack: '#/components/schemas/AgentEntityStack'
+        propertyName: type
+      properties:
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    AgentRespondToTaskRequest:
+      description: The API payload for users responding to an existing agent task.
+      properties:
+        event:
+          $ref: '#/components/schemas/AgentUserEvent'
+          description: The event
+          x-order: 1
+      type: object
+    AgentEntityDiff:
+      description: Represents agent entity diff.
+      properties:
+        add:
+          description: 'Entities to add to the Agent''s context.
+
+            Entities must be valid, and will be automatically deleted if they are invalid.'
+          items:
+            $ref: '#/components/schemas/AgentEntity'
+          type: array
+          x-order: 1
+        remove:
+          description: Entities to remove from the Agent's context.
+          items:
+            $ref: '#/components/schemas/AgentEntity'
+          type: array
+          x-order: 2
+      type: object
+    AgentUserEvent:
+      description: Represents an agent user event.
+      discriminator:
+        mapping:
+          exec_tool_call: '#/components/schemas/AgentUserEventExecToolCall'
+          tool_result: '#/components/schemas/AgentUserEventToolResult'
+          user_cancel: '#/components/schemas/AgentUserEventCancel'
+          user_confirmation: '#/components/schemas/AgentUserEventConfirmation'
+          user_message: '#/components/schemas/AgentUserEventMessage'
+        propertyName: type
+      properties:
+        entity_diff:
+          $ref: '#/components/schemas/AgentEntityDiff'
+          description: Entities to add or remove from the agent.
+          x-order: 1
+        timestamp:
+          description: When the event occurred.
+          format: date-time
+          type: string
+        type:
+          type: string
+      required:
+      - timestamp
+      - type
+      type: object
+    CreateAgentTaskResponse:
+      description: Response body for creating an agent task.
+      properties:
+        taskId:
+          description: The task identifier
+          type: string
+          x-order: 1
+      required:
+      - taskId
+      type: object
+    UserInfo:
+      description: 'UserInfo contains just the display information for a user.  This information may be returned from public APIs,
+
+        and as such this structure must not contain sensitive information.  Please refer to User for this sort of thing.'
+      properties:
+        avatarUrl:
+          description: The URL of the user's avatar image.
+          type: string
+          x-order: 3
+        email:
+          description: 'IMPORTANT: The email address of the user is only included on a few admin-only APIs.
+
+            For nearly all APIs that return a UserInfo object, this will not be provided.
+
+            considered sensitive information.'
+          type: string
+          x-order: 4
+        githubLogin:
+          description: The user's login name.
+          type: string
+          x-order: 2
+        name:
+          description: The user's display name.
+          type: string
+          x-order: 1
+      required:
+      - avatarUrl
+      - githubLogin
+      - name
+      type: object
+    AgentTaskIntegrationRef:
+      description: A reference to an integration enabled for an agent task. Structured as an object (rather than a bare string) so additional fields like instance name or scope can be added later without breaking the wire format.
+      properties:
+        id:
+          description: The catalog integration ID (e.g. 'honeycomb', 'datadog').
+          type: string
+          x-order: 1
+      required:
+      - id
+      type: object
+    AgentConsoleEvent:
+      description: A console event in an agent task conversation, either a user input or an agent response.
+      discriminator:
+        mapping:
+          agentResponse: '#/components/schemas/AgentConsoleEventAgentResponse'
+          userInput: '#/components/schemas/AgentConsoleEventUserInput'
+        propertyName: type
+      properties:
+        id:
+          description: The UUID of the event
+          type: string
+          x-order: 1
+        isSynthetic:
+          description: True when the event was synthesized by the backend rather than submitted directly by the user or agent runtime.
+          type: boolean
+          x-order: 2
+        type:
+          type: string
+      required:
+      - id
+      - isSynthetic
+      - type
       type: object

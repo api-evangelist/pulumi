@@ -597,70 +597,6 @@ paths:
       - Webhooks
 components:
   schemas:
-    Webhook:
-      description: 'Webhook describes a webhook registered with the Pulumi Service. It may
-
-        be registered to either an Organization, Stack or Environment.'
-      properties:
-        active:
-          description: Whether the webhook is active and will receive deliveries.
-          type: boolean
-          x-order: 9
-        displayName:
-          description: The human-readable display name shown in the UI.
-          type: string
-          x-order: 6
-        envName:
-          description: The environment name. Set when the webhook is scoped to a specific environment.
-          type: string
-          x-order: 4
-        filters:
-          description: Specific event types this webhook subscribes to. If empty, all events are delivered.
-          items:
-            type: string
-          type: array
-          x-order: 11
-        format:
-          description: The format of the webhook payload (e.g., 'raw', 'slack', 'ms_teams').
-          type: string
-          x-order: 10
-        groups:
-          description: Event groups this webhook subscribes to (e.g., 'stacks', 'deployments').
-          items:
-            type: string
-          type: array
-          x-order: 12
-        name:
-          description: The unique identifier name for the webhook within its scope.
-          type: string
-          x-order: 5
-        organizationName:
-          description: The organization that owns this webhook.
-          type: string
-          x-order: 1
-        payloadUrl:
-          description: The URL to which webhook payloads are delivered.
-          type: string
-          x-order: 7
-        projectName:
-          description: The project name. Set when the webhook is scoped to a specific stack.
-          type: string
-          x-order: 2
-        secret:
-          description: Secret will be omitted when returned from the service.
-          type: string
-          x-order: 8
-        stackName:
-          description: The stack name. Set when the webhook is scoped to a specific stack.
-          type: string
-          x-order: 3
-      required:
-      - active
-      - displayName
-      - name
-      - organizationName
-      - payloadUrl
-      type: object
     WebhookResponse:
       allOf:
       - $ref: '#/components/schemas/Webhook'
@@ -741,4 +677,68 @@ components:
       - responseCode
       - responseHeaders
       - timestamp
+      type: object
+    Webhook:
+      description: 'Webhook describes a webhook registered with the Pulumi Service. It may
+
+        be registered to either an Organization, Stack or Environment.'
+      properties:
+        active:
+          description: Whether the webhook is active and will receive deliveries.
+          type: boolean
+          x-order: 9
+        displayName:
+          description: The human-readable display name shown in the UI.
+          type: string
+          x-order: 6
+        envName:
+          description: The environment name. Set when the webhook is scoped to a specific environment.
+          type: string
+          x-order: 4
+        filters:
+          description: Specific event types this webhook subscribes to. If empty, all events are delivered.
+          items:
+            type: string
+          type: array
+          x-order: 11
+        format:
+          description: The format of the webhook payload (e.g., 'raw', 'slack', 'ms_teams').
+          type: string
+          x-order: 10
+        groups:
+          description: Event groups this webhook subscribes to (e.g., 'stacks', 'deployments').
+          items:
+            type: string
+          type: array
+          x-order: 12
+        name:
+          description: The unique identifier name for the webhook within its scope.
+          type: string
+          x-order: 5
+        organizationName:
+          description: The organization that owns this webhook.
+          type: string
+          x-order: 1
+        payloadUrl:
+          description: The URL to which webhook payloads are delivered.
+          type: string
+          x-order: 7
+        projectName:
+          description: The project name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 2
+        secret:
+          description: Secret will be omitted when returned from the service.
+          type: string
+          x-order: 8
+        stackName:
+          description: The stack name. Set when the webhook is scoped to a specific stack.
+          type: string
+          x-order: 3
+      required:
+      - active
+      - displayName
+      - name
+      - organizationName
+      - payloadUrl
       type: object
