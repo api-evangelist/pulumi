@@ -543,6 +543,166 @@ paths:
         Visibility: Preview
 components:
   schemas:
+    AppPolicyComplianceFramework:
+      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
+      properties:
+        name:
+          description: The compliance framework name.
+          type: string
+          x-order: 1
+        reference:
+          description: The compliance framework reference.
+          type: string
+          x-order: 3
+        specification:
+          description: The compliance framework specification.
+          type: string
+          x-order: 4
+        version:
+          description: The compliance framework version.
+          type: string
+          x-order: 2
+      type: object
+    AppGetPolicyPackConfigSchemaResponse:
+      description: 'GetPolicyPackConfigSchemaResponse is the response that includes the JSON
+
+        schemas of Policies within a particular Policy Pack.'
+      properties:
+        configSchema:
+          additionalProperties:
+            $ref: '#/components/schemas/AppPolicyConfigSchema'
+          description: The JSON schema for each Policy's configuration.
+          type: object
+          x-order: 1
+      type: object
+    GetRegistryPolicyPackVersionResponse:
+      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
+
+        version of a policy pack, optionally including the actual policy definitions.'
+      properties:
+        policies:
+          description: 'Policies contains the individual policy definitions in this version.
+
+            Each policy includes its configuration schema and enforcement rules.
+
+            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 2
+        policyPack:
+          $ref: '#/components/schemas/RegistryPolicyPack'
+          description: PolicyPack contains the metadata for this specific version.
+          x-order: 1
+      required:
+      - policyPack
+      type: object
+    ListPolicyPacksRequest:
+      description: ListPolicyPacksRequest is the request to list policy packs.
+      properties:
+        access:
+          description: The access of the policy packs to list. Default is `enabled`.
+          enum:
+          - added
+          - available
+          - enabled
+          - private
+          type: string
+          x-order: 1
+          x-pulumi-model-property:
+            enumTypeName: PolicyPackAccess
+            enumComments: PolicyPackAccess defines the access level of a policy pack relative to an organization.
+            enumFieldComments:
+            - Public, and added through org access
+            - Public, but not approved
+            - Created by the user, and added to the org.
+            - Created by the user
+        ids:
+          description: 'A list of policy pack IDs to list.
+
+            If specified, only the policy packs with the specified IDs will be listed.
+
+            If not specified, all policy packs will be listed.'
+          items:
+            type: string
+          type: array
+          x-order: 2
+        orgLogin:
+          description: The canonical name of the organization to list policy packs for.
+          type: string
+          x-order: 3
+      type: object
+    AppListPolicyPacksResponse:
+      description: ListPolicyPacksResponse is the response to list an organization's Policy Packs.
+      properties:
+        policyPacks:
+          description: List of policy packs
+          items:
+            $ref: '#/components/schemas/AppPolicyPackWithVersions'
+          type: array
+          x-order: 1
+      required:
+      - policyPacks
+      type: object
+    AppPolicyConfigSchema:
+      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
+      properties:
+        properties:
+          additionalProperties:
+            type: object
+          description: Config property name to JSON Schema map.
+          type: object
+          x-order: 1
+        required:
+          description: Required config properties.
+          items:
+            type: string
+          type: array
+          x-order: 2
+        type:
+          description: Type defines the data type allowed for the schema.
+          enum:
+          - object
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: AppJSONSchemaType
+            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
+            enumFieldComments:
+            - Object is a dictionary.
+      required:
+      - type
+      type: object
+    AppPolicyPackWithVersions:
+      description: PolicyPackWithVersions details the specifics of a Policy Pack and all its available versions.
+      properties:
+        displayName:
+          description: The display name
+          type: string
+          x-order: 2
+        name:
+          description: The name
+          type: string
+          x-order: 1
+        versionTags:
+          description: List of version tags
+          items:
+            type: string
+          type: array
+          x-order: 4
+        versions:
+          description: List of versions
+          items:
+            format: int64
+            type: integer
+          type: array
+          x-order: 3
+      required:
+      - displayName
+      - name
+      - versionTags
+      - versions
+      type: object
     RegistryPolicyPack:
       description: 'RegistryPolicyPack represents the core metadata for a policy pack in the registry.
 
@@ -652,18 +812,6 @@ components:
       required:
       - policyPacks
       type: object
-    AppListPolicyPacksResponse:
-      description: ListPolicyPacksResponse is the response to list an organization's Policy Packs.
-      properties:
-        policyPacks:
-          description: List of policy packs
-          items:
-            $ref: '#/components/schemas/AppPolicyPackWithVersions'
-          type: array
-          x-order: 1
-      required:
-      - policyPacks
-      type: object
     AppCreatePolicyPackResponse:
       description: 'CreatePolicyPackResponse is the response from creating a Policy Pack. It returns
 
@@ -687,192 +835,6 @@ components:
       required:
       - uploadURI
       - version
-      type: object
-    AppGetPolicyPackConfigSchemaResponse:
-      description: 'GetPolicyPackConfigSchemaResponse is the response that includes the JSON
-
-        schemas of Policies within a particular Policy Pack.'
-      properties:
-        configSchema:
-          additionalProperties:
-            $ref: '#/components/schemas/AppPolicyConfigSchema'
-          description: The JSON schema for each Policy's configuration.
-          type: object
-          x-order: 1
-      type: object
-    ListPolicyPacksRequest:
-      description: ListPolicyPacksRequest is the request to list policy packs.
-      properties:
-        access:
-          description: The access of the policy packs to list. Default is `enabled`.
-          enum:
-          - added
-          - available
-          - enabled
-          - private
-          type: string
-          x-order: 1
-          x-pulumi-model-property:
-            enumTypeName: PolicyPackAccess
-            enumComments: PolicyPackAccess defines the access level of a policy pack relative to an organization.
-            enumFieldComments:
-            - Public, and added through org access
-            - Public, but not approved
-            - Created by the user, and added to the org.
-            - Created by the user
-        ids:
-          description: 'A list of policy pack IDs to list.
-
-            If specified, only the policy packs with the specified IDs will be listed.
-
-            If not specified, all policy packs will be listed.'
-          items:
-            type: string
-          type: array
-          x-order: 2
-        orgLogin:
-          description: The canonical name of the organization to list policy packs for.
-          type: string
-          x-order: 3
-      type: object
-    GetRegistryPolicyPackVersionResponse:
-      description: 'GetRegistryPolicyPackVersionResponse contains detailed information about a specific
-
-        version of a policy pack, optionally including the actual policy definitions.'
-      properties:
-        policies:
-          description: 'Policies contains the individual policy definitions in this version.
-
-            Each policy includes its configuration schema and enforcement rules.
-
-            This field is optional and may be omitted for lightweight responses that only provide registry metadata.'
-          items:
-            $ref: '#/components/schemas/AppPolicy'
-          type: array
-          x-order: 2
-        policyPack:
-          $ref: '#/components/schemas/RegistryPolicyPack'
-          description: PolicyPack contains the metadata for this specific version.
-          x-order: 1
-      required:
-      - policyPack
-      type: object
-    AppGetPolicyPackResponse:
-      description: GetPolicyPackResponse is the response to get a specific Policy Pack's metadata and policies.
-      properties:
-        applied:
-          description: Whether this policy pack version is currently applied to any policy group.
-          type: boolean
-          x-order: 6
-        displayName:
-          description: Human-readable display name of the policy pack.
-          type: string
-          x-order: 2
-        name:
-          description: The unique name of the policy pack.
-          type: string
-          x-order: 1
-        policies:
-          description: The individual policies contained in this policy pack.
-          items:
-            $ref: '#/components/schemas/AppPolicy'
-          type: array
-          x-order: 5
-        version:
-          description: Numeric version of the policy pack, auto-incremented on each publish.
-          format: int64
-          type: integer
-          x-order: 3
-        versionTag:
-          description: Semantic version tag for this policy pack version (e.g. '1.2.0').
-          type: string
-          x-order: 4
-      required:
-      - applied
-      - displayName
-      - name
-      - policies
-      - version
-      - versionTag
-      type: object
-    AppPolicyConfigSchema:
-      description: PolicyConfigSchema defines the JSON schema of a particular Policy's configuration.
-      properties:
-        properties:
-          additionalProperties:
-            type: object
-          description: Config property name to JSON Schema map.
-          type: object
-          x-order: 1
-        required:
-          description: Required config properties.
-          items:
-            type: string
-          type: array
-          x-order: 2
-        type:
-          description: Type defines the data type allowed for the schema.
-          enum:
-          - object
-          type: string
-          x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: AppJSONSchemaType
-            enumComments: JSONSchemaType in an enum of allowed data types for a schema.
-            enumFieldComments:
-            - Object is a dictionary.
-      required:
-      - type
-      type: object
-    AppPolicyPackWithVersions:
-      description: PolicyPackWithVersions details the specifics of a Policy Pack and all its available versions.
-      properties:
-        displayName:
-          description: The display name
-          type: string
-          x-order: 2
-        name:
-          description: The name
-          type: string
-          x-order: 1
-        versionTags:
-          description: List of version tags
-          items:
-            type: string
-          type: array
-          x-order: 4
-        versions:
-          description: List of versions
-          items:
-            format: int64
-            type: integer
-          type: array
-          x-order: 3
-      required:
-      - displayName
-      - name
-      - versionTags
-      - versions
-      type: object
-    AppPolicyComplianceFramework:
-      description: PolicyComplianceFramework represents a compliance framework that a policy belongs to.
-      properties:
-        name:
-          description: The compliance framework name.
-          type: string
-          x-order: 1
-        reference:
-          description: The compliance framework reference.
-          type: string
-          x-order: 3
-        specification:
-          description: The compliance framework specification.
-          type: string
-          x-order: 4
-        version:
-          description: The compliance framework version.
-          type: string
-          x-order: 2
       type: object
     AppPolicy:
       description: Policy defines the metadata for an individual Policy within a Policy Pack.
@@ -1029,4 +991,42 @@ components:
       - displayName
       - name
       - policies
+      type: object
+    AppGetPolicyPackResponse:
+      description: GetPolicyPackResponse is the response to get a specific Policy Pack's metadata and policies.
+      properties:
+        applied:
+          description: Whether this policy pack version is currently applied to any policy group.
+          type: boolean
+          x-order: 6
+        displayName:
+          description: Human-readable display name of the policy pack.
+          type: string
+          x-order: 2
+        name:
+          description: The unique name of the policy pack.
+          type: string
+          x-order: 1
+        policies:
+          description: The individual policies contained in this policy pack.
+          items:
+            $ref: '#/components/schemas/AppPolicy'
+          type: array
+          x-order: 5
+        version:
+          description: Numeric version of the policy pack, auto-incremented on each publish.
+          format: int64
+          type: integer
+          x-order: 3
+        versionTag:
+          description: Semantic version tag for this policy pack version (e.g. '1.2.0').
+          type: string
+          x-order: 4
+      required:
+      - applied
+      - displayName
+      - name
+      - policies
+      - version
+      - versionTag
       type: object

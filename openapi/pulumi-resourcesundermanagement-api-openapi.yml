@@ -94,18 +94,6 @@ paths:
       - ResourcesUnderManagement
 components:
   schemas:
-    GetResourceCountSummaryResponse:
-      description: Response body for retrieving a summary of resource counts.
-      properties:
-        summary:
-          description: The list of resource count summaries
-          items:
-            $ref: '#/components/schemas/ResourceCountSummary'
-          type: array
-          x-order: 1
-      required:
-      - summary
-      type: object
     ResourceCountSummary:
       description: 'ResourceCountSummary represents a single point of summary for resources
 
@@ -158,4 +146,16 @@ components:
       - resourceHours
       - resources
       - year
+      type: object
+    GetResourceCountSummaryResponse:
+      description: Response body for retrieving a summary of resource counts.
+      properties:
+        summary:
+          description: The list of resource count summaries
+          items:
+            $ref: '#/components/schemas/ResourceCountSummary'
+          type: array
+          x-order: 1
+      required:
+      - summary
       type: object
