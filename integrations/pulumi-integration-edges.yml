@@ -1,9 +1,11 @@
 generated: '2026-10-13'
 method: searched
 checked:
+- datadog/integrations/datadog-integration-edges.yml
 - https://azuremarketplace.microsoft.com/
 - https://github.com/marketplace?type=actions
 - https://marketplace.visualstudio.com/vscode
+- new-relic/integrations/new-relic-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -61,6 +63,40 @@ edges:
   - Verified domain
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: Datadog (own)
+  partner: datadog
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/pulumi
+  mirror_of: datadog/integrations/datadog-integration-edges.yml
+  apps:
+  - Pulumi
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: AWS
+- partner_name: New Relic (own)
+  partner: new-relic
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://newrelic.com/instant-observability/pulumi
+  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
+  apps:
+  - Pulumi
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Community
 source:
 - https://github.com/marketplace?type=actions
 - https://marketplace.visualstudio.com/vscode
