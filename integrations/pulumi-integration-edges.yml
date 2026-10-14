@@ -2,6 +2,8 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -20,3 +22,45 @@ edges:
   seller_name: Pulumi Corporation
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/pulumi-cli-action
+  listing_count: 3
+  apps:
+  - Pulumi CLI Action
+  - Pulumi Auth Action
+  - esc-action
+  publisher_name: Pulumi
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/pulumi
+  listing_count: 3
+  apps:
+  - Pulumi YAML
+  - Pulumi
+  - Pulumi Copilot
+  publisher_name: Pulumi
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+source:
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
