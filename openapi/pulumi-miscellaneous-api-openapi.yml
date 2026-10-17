@@ -98,20 +98,6 @@ paths:
       - Miscellaneous
 components:
   schemas:
-    AppCapabilitiesResponse:
-      description: 'CapabilitiesResponse defines all feature sets that are available in the service
-
-        backend and are therefore available for the CLI to integrate against.'
-      properties:
-        capabilities:
-          description: List of capabilities
-          items:
-            $ref: '#/components/schemas/AppAPICapabilityConfig'
-          type: array
-          x-order: 1
-      required:
-      - capabilities
-      type: object
     TokenExchangeGrantResponse:
       description: https://datatracker.ietf.org/doc/html/rfc8693#section-2.2.1
       properties:
@@ -216,4 +202,18 @@ components:
           x-order: 2
       required:
       - capability
+      type: object
+    AppCapabilitiesResponse:
+      description: 'CapabilitiesResponse defines all feature sets that are available in the service
+
+        backend and are therefore available for the CLI to integrate against.'
+      properties:
+        capabilities:
+          description: List of capabilities
+          items:
+            $ref: '#/components/schemas/AppAPICapabilityConfig'
+          type: array
+          x-order: 1
+      required:
+      - capabilities
       type: object

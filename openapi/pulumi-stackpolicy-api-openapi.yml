@@ -84,18 +84,6 @@ paths:
       - StackPolicy
 components:
   schemas:
-    AppListPolicyGroupsResponse:
-      description: ListPolicyGroupsResponse lists a summary of the organization's Policy Groups.
-      properties:
-        policyGroups:
-          description: List of policy groups
-          items:
-            $ref: '#/components/schemas/AppPolicyGroupSummary'
-          type: array
-          x-order: 1
-      required:
-      - policyGroups
-      type: object
     AppPolicyGroupSummary:
       description: 'PolicyGroupSummary details the name, applicable stacks and the applied Policy
 
@@ -155,20 +143,6 @@ components:
       - numEnabledPolicyPacks
       - numStacks
       type: object
-    AppGetStackPolicyPacksResponse:
-      description: 'GetStackPolicyPacksResponse is the response to getting the applicable Policy Packs
-
-        for a particular stack. This allows the CLI to download the packs prior to
-
-        starting an update.'
-      properties:
-        requiredPolicies:
-          description: RequiredPolicies is a list of required Policy Packs to run during the update.
-          items:
-            $ref: '#/components/schemas/AppRequiredPolicy'
-          type: array
-          x-order: 1
-      type: object
     AppRequiredPolicy:
       description: RequiredPolicy is the information regarding a particular Policy that is required by an organization.
       properties:
@@ -214,4 +188,30 @@ components:
       - name
       - version
       - versionTag
+      type: object
+    AppListPolicyGroupsResponse:
+      description: ListPolicyGroupsResponse lists a summary of the organization's Policy Groups.
+      properties:
+        policyGroups:
+          description: List of policy groups
+          items:
+            $ref: '#/components/schemas/AppPolicyGroupSummary'
+          type: array
+          x-order: 1
+      required:
+      - policyGroups
+      type: object
+    AppGetStackPolicyPacksResponse:
+      description: 'GetStackPolicyPacksResponse is the response to getting the applicable Policy Packs
+
+        for a particular stack. This allows the CLI to download the packs prior to
+
+        starting an update.'
+      properties:
+        requiredPolicies:
+          description: RequiredPolicies is a list of required Policy Packs to run during the update.
+          items:
+            $ref: '#/components/schemas/AppRequiredPolicy'
+          type: array
+          x-order: 1
       type: object

@@ -597,66 +597,6 @@ paths:
       - Webhooks
 components:
   schemas:
-    WebhookDelivery:
-      description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
-
-        for the end-users webhook. It merges both model.WebhookEvent and model.WebhookDelivery.'
-      properties:
-        duration:
-          description: The duration of the delivery request in milliseconds.
-          format: int64
-          type: integer
-          x-order: 5
-        id:
-          description: The unique identifier of the delivery.
-          type: string
-          x-order: 1
-        kind:
-          description: The kind of webhook event.
-          type: string
-          x-order: 2
-        payload:
-          description: The JSON payload that was sent.
-          type: string
-          x-order: 3
-        requestHeaders:
-          description: The HTTP headers sent with the request.
-          type: string
-          x-order: 7
-        requestUrl:
-          description: The URL the webhook was delivered to.
-          type: string
-          x-order: 6
-        responseBody:
-          description: The HTTP response body.
-          type: string
-          x-order: 10
-        responseCode:
-          description: The HTTP response status code.
-          format: int64
-          type: integer
-          x-order: 8
-        responseHeaders:
-          description: The HTTP response headers.
-          type: string
-          x-order: 9
-        timestamp:
-          description: The time the delivery was sent, as a Unix epoch timestamp.
-          format: int64
-          type: integer
-          x-order: 4
-      required:
-      - duration
-      - id
-      - kind
-      - payload
-      - requestHeaders
-      - requestUrl
-      - responseBody
-      - responseCode
-      - responseHeaders
-      - timestamp
-      type: object
     WebhookResponse:
       allOf:
       - $ref: '#/components/schemas/Webhook'
@@ -741,4 +681,64 @@ components:
       - name
       - organizationName
       - payloadUrl
+      type: object
+    WebhookDelivery:
+      description: 'WebhookDelivery is a result of a webhook that was sent. i.e. the Pulumi-side logs
+
+        for the end-users webhook. It merges both model.WebhookEvent and model.WebhookDelivery.'
+      properties:
+        duration:
+          description: The duration of the delivery request in milliseconds.
+          format: int64
+          type: integer
+          x-order: 5
+        id:
+          description: The unique identifier of the delivery.
+          type: string
+          x-order: 1
+        kind:
+          description: The kind of webhook event.
+          type: string
+          x-order: 2
+        payload:
+          description: The JSON payload that was sent.
+          type: string
+          x-order: 3
+        requestHeaders:
+          description: The HTTP headers sent with the request.
+          type: string
+          x-order: 7
+        requestUrl:
+          description: The URL the webhook was delivered to.
+          type: string
+          x-order: 6
+        responseBody:
+          description: The HTTP response body.
+          type: string
+          x-order: 10
+        responseCode:
+          description: The HTTP response status code.
+          format: int64
+          type: integer
+          x-order: 8
+        responseHeaders:
+          description: The HTTP response headers.
+          type: string
+          x-order: 9
+        timestamp:
+          description: The time the delivery was sent, as a Unix epoch timestamp.
+          format: int64
+          type: integer
+          x-order: 4
+      required:
+      - duration
+      - id
+      - kind
+      - payload
+      - requestHeaders
+      - requestUrl
+      - responseBody
+      - responseCode
+      - responseHeaders
+      - timestamp
       type: object

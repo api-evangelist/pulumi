@@ -158,40 +158,6 @@ paths:
       - Access Tokens
 components:
   schemas:
-    ListAccessTokensResponse:
-      description: ListAccessTokensResponse is the shape of the response when listing access tokens for a user.
-      properties:
-        tokens:
-          description: The list of access tokens
-          items:
-            $ref: '#/components/schemas/AccessToken'
-          type: array
-          x-order: 1
-      required:
-      - tokens
-      type: object
-    CreateAccessTokenResponse:
-      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
-
-        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
-      properties:
-        id:
-          description: The unique identifier
-          type: string
-          x-order: 1
-        tokenValue:
-          description: The token value
-          type: string
-          x-order: 2
-      required:
-      - id
-      - tokenValue
-      type: object
-    CreatePersonalAccessTokenRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
-      - description: CreatePersonalAccessTokenRequest is the accepted request body for creating a personal access token.
-        type: object
     CreateOrgAccessTokenRequest:
       allOf:
       - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
@@ -213,21 +179,78 @@ components:
         - admin
         - name
         type: object
-    BaseCreateAccessTokenRequest:
-      description: Request body for base create access token.
+    CreatePersonalAccessTokenRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseCreateAccessTokenRequest'
+      - description: CreatePersonalAccessTokenRequest is the accepted request body for creating a personal access token.
+        type: object
+    CreateAccessTokenResponse:
+      description: 'CreateAccessTokenResponse is the shape of the response after creating a token. The ID is an opaque ID that can be used
+
+        in future CRUD operations and the Token is the actual token value (that is presented in the authorization header).'
       properties:
-        description:
-          description: The description
+        id:
+          description: The unique identifier
           type: string
           x-order: 1
-        expires:
-          description: The expiration time
-          format: int64
-          type: integer
+        tokenValue:
+          description: The token value
+          type: string
           x-order: 2
       required:
-      - description
-      - expires
+      - id
+      - tokenValue
+      type: object
+    AccessTokenRole:
+      description: A role that can be associated with an access token to scope its permissions.
+      properties:
+        defaultIdentifier:
+          description: The default identity to assume when using a token with this role.
+          enum:
+          - member
+          - admin
+          - billing-manager
+          - stack-read
+          - stack-write
+          - stack-admin
+          - environment-read
+          - environment-write
+          - environment-admin
+          - environment-open
+          - insights-account-read
+          - insights-account-write
+          - insights-account-admin
+          type: string
+          x-order: 3
+          x-pulumi-model-property:
+            enumTypeName: DefaultIdentifier
+            enumComments: DefaultIdentifier is an enum describing the permission level for a default role.
+            enumFieldNames:
+            - Member
+            - Admin
+            - BillingManager
+            - StackRead
+            - StackWrite
+            - StackAdmin
+            - EnvironmentRead
+            - EnvironmentWrite
+            - EnvironmentAdmin
+            - EnvironmentOpen
+            - InsightsAccountRead
+            - InsightsAccountWrite
+            - InsightsAccountAdmin
+        id:
+          description: Unique identifier for this role.
+          type: string
+          x-order: 1
+        name:
+          description: Display name of the role.
+          type: string
+          x-order: 2
+      required:
+      - defaultIdentifier
+      - id
+      - name
       type: object
     AccessToken:
       description: AccessToken holds a pulumi access token and some associated metadata
@@ -280,54 +303,31 @@ components:
       - lastUsed
       - name
       type: object
-    AccessTokenRole:
-      description: A role that can be associated with an access token to scope its permissions.
+    BaseCreateAccessTokenRequest:
+      description: Request body for base create access token.
       properties:
-        defaultIdentifier:
-          description: The default identity to assume when using a token with this role.
-          enum:
-          - member
-          - admin
-          - billing-manager
-          - stack-read
-          - stack-write
-          - stack-admin
-          - environment-read
-          - environment-write
-          - environment-admin
-          - environment-open
-          - insights-account-read
-          - insights-account-write
-          - insights-account-admin
-          type: string
-          x-order: 3
-          x-pulumi-model-property:
-            enumTypeName: DefaultIdentifier
-            enumComments: DefaultIdentifier is an enum describing the permission level for a default role.
-            enumFieldNames:
-            - Member
-            - Admin
-            - BillingManager
-            - StackRead
-            - StackWrite
-            - StackAdmin
-            - EnvironmentRead
-            - EnvironmentWrite
-            - EnvironmentAdmin
-            - EnvironmentOpen
-            - InsightsAccountRead
-            - InsightsAccountWrite
-            - InsightsAccountAdmin
-        id:
-          description: Unique identifier for this role.
+        description:
+          description: The description
           type: string
           x-order: 1
-        name:
-          description: Display name of the role.
-          type: string
+        expires:
+          description: The expiration time
+          format: int64
+          type: integer
           x-order: 2
       required:
-      - defaultIdentifier
-      - id
-      - name
+      - description
+      - expires
+      type: object
+    ListAccessTokensResponse:
+      description: ListAccessTokensResponse is the shape of the response when listing access tokens for a user.
+      properties:
+        tokens:
+          description: The list of access tokens
+          items:
+            $ref: '#/components/schemas/AccessToken'
+          type: array
+          x-order: 1
+      required:
+      - tokens
       type: object
