@@ -208,3 +208,2757 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: pulumi-1password
+  label: 1Password
+  partner: 1password
+  partner_name: 1Password
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/onepassword/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: 1Password
+    namespaces:
+    - 1password
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/1Password/pulumi-onepassword
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2024-09-04'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-airbyte
+  label: Airbyte
+  partner: airbyte
+  partner_name: Airbyte
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/airbyte/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: airbytehq
+    namespaces:
+    - airbytehq
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/airbytehq/terraform-provider-airbyte
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-08-11'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-akeyless
+  label: Akeyless
+  partner: akeyless
+  partner_name: Akeyless
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/akeyless/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: akeyless-community
+    namespaces:
+    - akeyless-community
+    matched_domain: akeyless.io
+    matched_by: domain
+    source_repos:
+    - https://github.com/akeyless-community/terraform-provider-akeyless
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-30'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-aptible
+  label: Aptible
+  partner: aptible
+  partner_name: Aptible
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/aptible/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: aptible
+    namespaces:
+    - aptible
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/aptible/terraform-provider-aptible
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-15'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-authentik
+  label: Authentik
+  partner: authentik
+  partner_name: Authentik
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/authentik/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: goauthentik
+    namespaces:
+    - goauthentik
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/goauthentik/terraform-provider-authentik
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-09'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-aviatrix
+  label: Aviatrix
+  partner: aviatrix
+  partner_name: Aviatrix
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/aviatrix/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Aviatrix
+    namespaces:
+    - astipkovits
+    matched_domain: null
+    matched_by: register-name
+    source_repos:
+    - https://github.com/astipkovits/pulumi-aviatrix
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2023-06-17'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-byteplus
+  label: BytePlus
+  partner: byteplus
+  partner_name: BytePlus
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/bytepluscc/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Byteplus
+    namespaces:
+    - byteplus-sdk
+    matched_domain: byteplus.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/byteplus-sdk/pulumi-bytepluscc
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-cast-ai
+  label: CAST AI
+  partner: cast-ai
+  partner_name: CAST AI
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/castai/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: CAST AI
+    namespaces:
+    - castai
+    matched_domain: cast.ai
+    matched_by: domain
+    source_repos:
+    - https://github.com/castai/pulumi-castai
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-08-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-chainguard
+  label: Chainguard
+  partner: chainguard
+  partner_name: Chainguard
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/cosign/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: chainguard-dev
+    namespaces:
+    - chainguard-dev
+    matched_domain: chainguard.dev
+    matched_by: domain
+    source_repos:
+    - https://github.com/chainguard-dev/terraform-provider-cosign
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-08'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-checkly
+  label: Checkly
+  partner: checkly
+  partner_name: Checkly
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/checkly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Checkly
+    namespaces:
+    - checkly
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/checkly/pulumi-checkly
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-09'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-check-point
+  label: Check Point
+  partner: checkpoint
+  partner_name: Check Point
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/checkpoint/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: checkpointsw
+    namespaces:
+    - checkpointsw
+    matched_domain: checkpoint.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/checkpointsw/terraform-provider-checkpoint
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-16'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-chronosphere
+  label: Chronosphere
+  partner: chronosphere
+  partner_name: Chronosphere
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/chronosphere/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Chronosphere
+    namespaces:
+    - chronosphereio
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/chronosphereio/pulumi-chronosphere
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-06-05'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-cisco
+  label: Cisco
+  partner: cisco
+  partner_name: Cisco
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/intersight/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Cisco, ciscodevnet
+    namespaces:
+    - ciscodevnet
+    - netascode
+    matched_domain: cisco.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/ciscodevnet/terraform-provider-intersight
+    - https://github.com/ciscodevnet/terraform-provider-mso
+    - https://github.com/netascode/pulumi-aci
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    - public_preview
+    newest_update: '2026-09-07'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-civo
+  label: Civo
+  partner: civo
+  partner_name: Civo
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/civo/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: civo
+    namespaces:
+    - civo
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/civo/terraform-provider-civo
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-29'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-cloud-foundry
+  label: Cloud Foundry
+  partner: cloud-foundry
+  partner_name: Cloud Foundry
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/cloudfoundry/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: cloudfoundry-community
+    namespaces:
+    - cloudfoundry-community
+    matched_domain: cloudfoundry.org
+    matched_by: domain
+    source_repos:
+    - https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2025-04-14'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-coder
+  label: Coder
+  partner: coder
+  partner_name: Coder
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/coder/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: coder
+    namespaces:
+    - coder
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/coder/terraform-provider-coder
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-07-28'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-coralogix
+  label: Coralogix
+  partner: coralogix
+  partner_name: Coralogix
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/coralogix/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: coralogix
+    namespaces:
+    - coralogix
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/coralogix/terraform-provider-coralogix
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-05-20'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-crowdstrike
+  label: CrowdStrike
+  partner: crowdstrike
+  partner_name: CrowdStrike
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/crowdstrike/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: CrowdStrike
+    namespaces:
+    - crowdstrike
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/crowdstrike/pulumi-crowdstrike
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2025-05-05'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-cyral
+  label: Cyral
+  partner: cyral
+  partner_name: Cyral
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/cyral/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: cyralinc
+    namespaces:
+    - cyralinc
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/cyralinc/terraform-provider-cyral
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-04-14'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-datarobot
+  label: DataRobot
+  partner: datarobot
+  partner_name: DataRobot
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/datarobot/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: DataRobot, Inc.
+    namespaces:
+    - datarobot-community
+    matched_domain: datarobot.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/datarobot-community/pulumi-datarobot
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-dell-technologies
+  label: Dell Technologies
+  partner: dell-technologies
+  partner_name: Dell Technologies
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/powerflex/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: dell
+    namespaces:
+    - dell
+    matched_domain: dell.com
+    matched_by: domain+verified
+    source_repos:
+    - https://github.com/dell/terraform-provider-powerflex
+    - https://github.com/dell/terraform-provider-powerscale
+    - https://github.com/dell/terraform-provider-powerstore
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-29'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-descope
+  label: Descope
+  partner: descope
+  partner_name: Descope
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/descope/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Descope
+    namespaces:
+    - descope
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/descope/pulumi-descope
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-08-03'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-dome9
+  label: Dome9
+  partner: dome9
+  partner_name: Dome9
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/dome9/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: dome9
+    namespaces:
+    - dome9
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/dome9/terraform-provider-dome9
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-10-30'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-doppler
+  label: Doppler
+  partner: doppler
+  partner_name: Doppler
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/doppler/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Pulumiverse
+    namespaces:
+    - dopplerhq
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/DopplerHQ/pulumi-doppler
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2024-08-27'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-elastic
+  label: Elastic
+  partner: elastic
+  partner_name: Elastic
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/elasticstack/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: elastic
+    namespaces:
+    - elastic
+    matched_domain: elastic.co
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/elastic/terraform-provider-elasticstack
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-13'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-equinix
+  label: Equinix
+  partner: equinix
+  partner_name: Equinix
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/equinix/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Equinix
+    namespaces:
+    - equinix
+    matched_domain: equinix.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/equinix/pulumi-equinix
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-01'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-fivetran
+  label: Fivetran
+  partner: fivetran
+  partner_name: Fivetran
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/fivetran/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: fivetran
+    namespaces:
+    - fivetran
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/fivetran/terraform-provider-fivetran
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-08'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-gcore
+  label: Gcore
+  partner: gcore
+  partner_name: Gcore
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/gcore/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: g-core
+    namespaces:
+    - g-core
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/g-core/terraform-provider-gcore
+    - https://github.com/g-core/terraform-provider-gcorelabs
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-01'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-honeycomb
+  label: Honeycomb
+  partner: honeycomb
+  partner_name: Honeycomb
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/honeycombio/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: honeycombio
+    namespaces:
+    - honeycombio
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/honeycombio/terraform-provider-honeycombio
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-28'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-hewlett-packard-enterprise
+  label: Hewlett Packard Enterprise
+  partner: hpe
+  partner_name: Hewlett Packard Enterprise
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/hpegl/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: hpe
+    namespaces:
+    - hpe
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/hpe/terraform-provider-hpegl
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-03-02'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-html-css-to-image
+  label: HTML/CSS to Image
+  partner: htmlcsstoimage
+  partner_name: HTML/CSS to Image
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/html-css-to-image/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: htmlcsstoimage
+    namespaces:
+    - htmlcsstoimage
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/htmlcsstoimage/pulumi-html-css-to-image
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-29'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-ibm-cloud-kubernetes
+  label: IBM Cloud Kubernetes
+  partner: ibm-cloud-kubernetes
+  partner_name: IBM Cloud Kubernetes
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/ibm/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: ibm-cloud
+    namespaces:
+    - ibm-cloud
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/ibm-cloud/terraform-provider-ibm
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-07'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-impart-security
+  label: Impart Security
+  partner: impart-security
+  partner_name: Impart Security
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/impart/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Impart Security
+    namespaces:
+    - impart-security
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/impart-security/pulumi-impart
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-23'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-imperva
+  label: Imperva
+  partner: imperva
+  partner_name: Imperva
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/incapsula/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: imperva
+    namespaces:
+    - imperva
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/imperva/terraform-provider-incapsula
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-08'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-incident-io
+  label: Incident.io
+  partner: incident-io
+  partner_name: Incident.io
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/incident/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: incident-io
+    namespaces:
+    - incident-io
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/incident-io/pulumi-incident
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-17'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-infoblox
+  label: Infoblox
+  partner: infoblox
+  partner_name: Infoblox
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/infoblox/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: infobloxopen
+    namespaces:
+    - infobloxopen
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/infobloxopen/terraform-provider-infoblox
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-04-02'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-jfrog
+  label: JFrog
+  partner: jfrog
+  partner_name: JFrog
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/platform/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: jfrog
+    namespaces:
+    - jfrog
+    matched_domain: jfrog.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/jfrog/terraform-provider-platform
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-08-25'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-kong
+  label: Kong
+  partner: kong
+  partner_name: Kong
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/konnect/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: kong
+    namespaces:
+    - kong
+    matched_domain: konghq.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/kong/terraform-provider-konnect
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-09'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-koyeb
+  label: Koyeb
+  partner: koyeb
+  partner_name: Koyeb
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/koyeb/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Koyeb
+    namespaces:
+    - koyeb
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/koyeb/pulumi-koyeb
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2024-12-09'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-kurrent
+  label: Kurrent
+  partner: kurrent
+  partner_name: Kurrent
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/kurrentcloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Kurrent
+    namespaces:
+    - kurrent-io
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/kurrent-io/pulumi-kurrentcloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-06'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-lacework-forticnapp
+  label: Lacework FortiCNAPP
+  partner: lacework
+  partner_name: Lacework FortiCNAPP
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/lacework/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: lacework
+    namespaces:
+    - lacework
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/lacework/terraform-provider-lacework
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-23'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-logz-io
+  label: Logz.io
+  partner: logz-io
+  partner_name: Logz.io
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/logzio/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: logzio
+    namespaces:
+    - logzio
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/logzio/terraform-provider-logzio
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-05'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-mastercard
+  label: Mastercard
+  partner: mastercard
+  partner_name: Mastercard
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/restapi/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: mastercard
+    namespaces:
+    - mastercard
+    matched_domain: mastercard.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/mastercard/terraform-provider-restapi
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-02-27'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-mezmo
+  label: Mezmo
+  partner: mezmo
+  partner_name: Mezmo
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/logdna/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: logdna
+    namespaces:
+    - logdna
+    matched_domain: mezmo.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/logdna/terraform-provider-logdna
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-10-16'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-nats
+  label: NATS
+  partner: nats
+  partner_name: NATS
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/jetstream/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: nats-io
+    namespaces:
+    - nats-io
+    matched_domain: nats.io
+    matched_by: domain
+    source_repos:
+    - https://github.com/nats-io/terraform-provider-jetstream
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-05-07'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-netapp
+  label: NetApp
+  partner: netapp
+  partner_name: NetApp
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/netapp-cloudmanager/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: netapp
+    namespaces:
+    - netapp
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/netapp/terraform-provider-netapp-cloudmanager
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-07-14'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-netlify
+  label: Netlify
+  partner: netlify
+  partner_name: Netlify
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/netlify/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: netlify
+    namespaces:
+    - netlify
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/netlify/terraform-provider-netlify
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-06-18'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-octopus-deploy
+  label: Octopus Deploy
+  partner: octopus-deploy
+  partner_name: Octopus Deploy
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/octopusdeploy/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: octopusdeploylabs
+    namespaces:
+    - octopusdeploylabs
+    matched_domain: octopus.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/octopusdeploylabs/terraform-provider-octopusdeploy
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-01-08'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-onelogin
+  label: OneLogin
+  partner: onelogin
+  partner_name: OneLogin
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/onelogin/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: onelogin
+    namespaces:
+    - onelogin
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/onelogin/terraform-provider-onelogin
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-02'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-opensearch
+  label: OpenSearch
+  partner: opensearch
+  partner_name: OpenSearch
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/opensearch/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: opensearch-project
+    namespaces:
+    - opensearch-project
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/opensearch-project/terraform-provider-opensearch
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-04-14'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-ovh-cloud
+  label: OVH Cloud
+  partner: ovh-cloud
+  partner_name: OVH Cloud
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/ovh/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: OVHcloud
+    namespaces:
+    - ovh
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/ovh/pulumi-ovh
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-05'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-palo-alto-networks
+  label: Palo Alto Networks
+  partner: palo-alto-networks
+  partner_name: Palo Alto Networks
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/panos/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: paloaltonetworks
+    namespaces:
+    - paloaltonetworks
+    matched_domain: paloaltonetworks.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/paloaltonetworks/terraform-provider-panos
+    - https://github.com/paloaltonetworks/terraform-provider-prismacloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-29'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-philips
+  label: Philips
+  partner: philips
+  partner_name: Philips
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/hsdp/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: philips-software
+    namespaces:
+    - philips-software
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/philips-software/terraform-provider-hsdp
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-10'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-pinecone
+  label: Pinecone
+  partner: pinecone
+  partner_name: Pinecone
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/pinecone/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: pinecone-io
+    namespaces:
+    - pinecone-io
+    matched_domain: pinecone.io
+    matched_by: domain
+    source_repos:
+    - https://github.com/pinecone-io/pulumi-pinecone
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-11-05'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-planetscale
+  label: Planetscale
+  partner: planetscale
+  partner_name: Planetscale
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/planetscale/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: planetscale
+    namespaces:
+    - planetscale
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/planetscale/terraform-provider-planetscale
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-05'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-port
+  label: Port
+  partner: port-io
+  partner_name: Port
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/port/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: port-labs
+    namespaces:
+    - port-labs
+    matched_domain: port.io
+    matched_by: domain
+    source_repos:
+    - https://github.com/port-labs/pulumi-port
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-14'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-prefect
+  label: Prefect
+  partner: prefect
+  partner_name: Prefect
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/prefect/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: prefecthq
+    namespaces:
+    - prefecthq
+    matched_domain: prefect.io
+    matched_by: domain
+    source_repos:
+    - https://github.com/prefecthq/terraform-provider-prefect
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-08-24'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-propelauth
+  label: PropelAuth
+  partner: propelauth
+  partner_name: PropelAuth
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/propelauth/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: propelauth
+    namespaces:
+    - propelauth
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/propelauth/terraform-provider-propelauth
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-07-15'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-pydanticai
+  label: PydanticAI
+  partner: pydantic-ai
+  partner_name: PydanticAI
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/logfire/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Pydantic
+    namespaces:
+    - pydantic
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/pydantic/pulumi-logfire
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-18'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-qdrant
+  label: Qdrant
+  partner: qdrant
+  partner_name: Qdrant
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/qdrant-cloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: qdrant
+    namespaces:
+    - qdrant
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/qdrant/terraform-provider-qdrant-cloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-08'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-rancher
+  label: Rancher
+  partner: rancher
+  partner_name: Rancher
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/rke/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: rancher
+    namespaces:
+    - rancher
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/rancher/terraform-provider-rke
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2025-04-15'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-redpanda
+  label: Redpanda
+  partner: redpanda
+  partner_name: Redpanda
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/redpanda/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: redpanda-data
+    namespaces:
+    - redpanda-data
+    matched_domain: redpanda.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/redpanda-data/terraform-provider-redpanda
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-24'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-rollbar
+  label: Rollbar
+  partner: rollbar
+  partner_name: Rollbar
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/rollbar/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: rollbar
+    namespaces:
+    - rollbar
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/rollbar/terraform-provider-rollbar
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-08-28'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-rootly
+  label: Rootly
+  partner: rootly
+  partner_name: Rootly
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/rootly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: rootlyhq
+    namespaces:
+    - rootlyhq
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/rootlyhq/pulumi-rootly
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-11'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-runpod
+  label: RunPod
+  partner: runpod
+  partner_name: RunPod
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/runpod/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Runpod
+    namespaces:
+    - runpod
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/runpod/pulumi-runpod-native
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2024-07-03'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-spectro-cloud
+  label: Spectro Cloud
+  partner: spectro-cloud
+  partner_name: Spectro Cloud
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/spectrocloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: spectrocloud
+    namespaces:
+    - spectrocloud
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/spectrocloud/terraform-provider-spectrocloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-10'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-stackit
+  label: STACKIT
+  partner: stackit
+  partner_name: STACKIT
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/stackit/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: stackitcloud
+    namespaces:
+    - stackitcloud
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/stackitcloud/pulumi-stackit
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-16'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-statsig
+  label: Statsig
+  partner: statsig
+  partner_name: Statsig
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/statsig/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Statsig
+    namespaces:
+    - statsig-io
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/statsig-io/pulumi-statsig
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2025-06-06'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-sumo-logic
+  label: Sumo Logic
+  partner: sumo-logic
+  partner_name: Sumo Logic
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/sumologic/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: sumologic
+    namespaces:
+    - sumologic
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/sumologic/terraform-provider-sumologic
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-07'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-supabase
+  label: Supabase
+  partner: supabase
+  partner_name: Supabase
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/supabase/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: supabase
+    namespaces:
+    - supabase
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/supabase/terraform-provider-supabase
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-02'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-sysdig
+  label: Sysdig
+  partner: sysdig
+  partner_name: Sysdig
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/sysdig/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: sysdiglabs
+    namespaces:
+    - sysdiglabs
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/sysdiglabs/terraform-provider-sysdig
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-29'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-temporal
+  label: Temporal
+  partner: temporal-io
+  partner_name: Temporal
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/temporalcloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: temporalio
+    namespaces:
+    - temporalio
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/temporalio/terraform-provider-temporalcloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-04'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-timescale
+  label: Timescale
+  partner: timescale
+  partner_name: Timescale
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/timescale/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: timescale
+    namespaces:
+    - timescale
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/timescale/terraform-provider-timescale
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-04'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-twingate
+  label: Twingate
+  partner: twingate
+  partner_name: Twingate
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/twingate/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Twingate
+    namespaces:
+    - twingate
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/twingate/pulumi-twingate
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-19'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-ucloud
+  label: UCloud
+  partner: ucloud
+  partner_name: UCloud
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/ucloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: ucloud
+    namespaces:
+    - ucloud
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/ucloud/terraform-provider-ucloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-09-24'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-upcloud
+  label: UpCloud
+  partner: upcloud
+  partner_name: UpCloud
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/upcloud/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: UpCloudLtd
+    namespaces:
+    - upcloudltd
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/UpCloudLtd/pulumi-upcloud
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-12'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-upstash
+  label: Upstash
+  partner: upstash
+  partner_name: Upstash
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/upstash/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Upstash
+    namespaces:
+    - upstash
+    matched_domain: upstash.com
+    matched_by: domain+name-among-holders
+    source_repos:
+    - https://github.com/upstash/pulumi-upstash
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2025-08-27'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-vantage
+  label: Vantage
+  partner: vantage-sh
+  partner_name: Vantage
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/vantage/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: vantage-sh
+    namespaces:
+    - vantage-sh
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/vantage-sh/terraform-provider-vantage
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-10-07'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-vk
+  label: vk
+  partner: vk
+  partner_name: vk
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/vkcs/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: vk-cs
+    namespaces:
+    - vk-cs
+    matched_domain: vk.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/vk-cs/terraform-provider-vkcs
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - public_preview
+    newest_update: '2026-09-25'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-vmware
+  label: VMware
+  partner: vmware
+  partner_name: VMware
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/avi/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: vmware
+    namespaces:
+    - vmware
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/vmware/terraform-provider-avi
+    - https://github.com/vmware/terraform-provider-nsxt
+    - https://github.com/vmware/terraform-provider-vcd
+    - https://github.com/vmware/terraform-provider-vmc
+    - https://github.com/vmware/terraform-provider-vra
+    - https://github.com/vmware/terraform-provider-wavefront
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    - public_preview
+    newest_update: '2026-09-11'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-zenduty
+  label: Zenduty
+  partner: zenduty
+  partner_name: Zenduty
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/zenduty/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: zenduty
+    namespaces:
+    - zenduty
+    matched_domain: zenduty.com
+    matched_by: domain
+    source_repos:
+    - https://github.com/zenduty/terraform-provider-zenduty
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-10-05'
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-zscaler
+  label: Zscaler
+  partner: zscaler
+  partner_name: Zscaler
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: pulumi-registry
+  channel: partner-built
+  evidence: https://www.pulumi.com/registry/packages/zia/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Pulumi Registry
+    spec_file: null
+    role: pulumi-registry-publisher
+    registered_name: Zscaler
+    namespaces:
+    - zscaler
+    matched_domain: null
+    matched_by: github-org-pointer
+    source_repos:
+    - https://github.com/zscaler/pulumi-zia
+    - https://github.com/zscaler/pulumi-zpa
+    detected_by: sweep-iac-provider-registries.py
+    detected: '2026-10-21'
+    signal_note: one edge per (provider, registry); listing alone = participation. Provider / package / download
+      counts are context, never counted. Terraform tier is partner_tier; publisher vetting (official / partner tier,
+      GitHub-verified org) -> badges, read only as publisher_verified (weight 0)
+    package_status:
+    - ga
+    newest_update: '2026-06-30'
+    identity_note: the source-repo org is a GitHubOrganization pointer in this provider's apis.yml (no other live
+      repo claims it) and the org / publisher name names the provider
+  status: not-a-workflow
+  arazzo: null
