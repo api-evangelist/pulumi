@@ -26,6 +26,7 @@ checked:
 - https://github.com/marketplace?type=apps
 - https://github.com/partners/technology-partners
 - https://partner.github.com/
+- backstage/integrations/backstage-integration-edges.yml
 marketplace_apps:
 - marketplace: pulumi-registry
   channel: partner-built
@@ -154,59 +155,6 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
-- partner_name: Datadog (own)
-  partner: datadog
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://github.com/DataDog/integrations-extras/tree/master/pulumi
-  mirror_of: datadog/integrations/datadog-integration-edges.yml
-  apps:
-  - Pulumi
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: AWS
-- partner_name: Microsoft Sentinel (own)
-  partner: microsoft-sentinel
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/PulumiCloudAuditLogs
-  mirror_of: microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
-  apps:
-  - PulumiCloudAuditLogs
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: Security - Others
-  badges:
-  - support-tier:partner
-- partner_name: New Relic (own)
-  partner: new-relic
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://newrelic.com/instant-observability/pulumi
-  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
-  apps:
-  - Pulumi
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Community
 - partner_name: Agent Skills (own GitHub org)
   partner: null
   partner_match: register
@@ -3468,6 +3416,76 @@ edges:
       P856 not contradicting (Kin 2026-10-20 decision 2)
   detected_by: sweep-github-marketplace.py
   first_seen: '2026-10-21'
+- partner_name: Datadog (own)
+  partner: datadog
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/pulumi
+  mirror_of: datadog/integrations/datadog-integration-edges.yml
+  apps:
+  - Pulumi
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: AWS
+- partner_name: Microsoft Sentinel (own)
+  partner: microsoft-sentinel
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/PulumiCloudAuditLogs
+  mirror_of: microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
+  apps:
+  - PulumiCloudAuditLogs
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Security - Others
+  badges:
+  - support-tier:partner
+- partner_name: New Relic (own)
+  partner: new-relic
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://newrelic.com/instant-observability/pulumi
+  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
+  apps:
+  - Pulumi
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Community
+- partner_name: Backstage (own)
+  partner: backstage
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/backstage/backstage/tree/d72327203d5d0812bee2eace8688fa5ab22867be/microsite/data/plugins/pulumi.yaml
+  mirror_of: backstage/integrations/backstage-integration-edges.yml
+  apps:
+  - Pulumi
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Infrastructure
 source:
 - https://github.com/marketplace?type=actions
 - https://marketplace.visualstudio.com/vscode

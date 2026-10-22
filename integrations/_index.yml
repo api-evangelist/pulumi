@@ -102,45 +102,6 @@
     detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
-- slug: pulumi-datadog-own
-  label: Datadog (own)
-  partner: datadog
-  partner_name: Datadog (own)
-  category: AWS
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://github.com/DataDog/integrations-extras/tree/master/pulumi
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: pulumi-microsoft-sentinel-own
-  label: Microsoft Sentinel (own)
-  partner: microsoft-sentinel
-  partner_name: Microsoft Sentinel (own)
-  category: Security - Others
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/PulumiCloudAuditLogs
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: pulumi-new-relic-own
-  label: New Relic (own)
-  partner: new-relic
-  partner_name: New Relic (own)
-  category: Community
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://newrelic.com/instant-observability/pulumi
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: pulumi-agent-skills-own-github-org
   label: Agent Skills (own GitHub org)
   partner_name: Agent Skills (own GitHub org)
@@ -2995,5 +2956,57 @@
     identity_source: register-name
     identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
       P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-datadog-own
+  label: Datadog (own)
+  partner: datadog
+  partner_name: Datadog (own)
+  category: AWS
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/pulumi
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-microsoft-sentinel-own
+  label: Microsoft Sentinel (own)
+  partner: microsoft-sentinel
+  partner_name: Microsoft Sentinel (own)
+  category: Security - Others
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/PulumiCloudAuditLogs
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-new-relic-own
+  label: New Relic (own)
+  partner: new-relic
+  partner_name: New Relic (own)
+  category: Community
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://newrelic.com/instant-observability/pulumi
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: pulumi-backstage-own
+  label: Backstage (own)
+  partner: backstage
+  partner_name: Backstage (own)
+  category: Infrastructure
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/backstage/backstage/tree/d72327203d5d0812bee2eace8688fa5ab22867be/microsite/data/plugins/pulumi.yaml
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
