@@ -27,6 +27,9 @@ checked:
 - https://github.com/partners/technology-partners
 - https://partner.github.com/
 - backstage/integrations/backstage-integration-edges.yml
+- https://landscape.cd.foundation/data/full.json
+- https://plugins.jenkins.io/api/plugin/
+- https://plugins.jenkins.io/api/plugins
 marketplace_apps:
 - marketplace: pulumi-registry
   channel: partner-built
@@ -3486,6 +3489,36 @@ edges:
   detected: '2026-10-22'
   detected_by: mirror-platform-listings.py
   category: Infrastructure
+- partner_name: CD Foundation (Continuous Delivery Foundation landscape)
+  partner: continuous-delivery-foundation
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  category: Continuous delivery foundation membership / landscape
+  evidence: https://landscape.cd.foundation/
+  contract_reference:
+    register: CD Foundation landscape (landscape.cd.foundation/data/full.json)
+    spec_file: null
+    standard: Continuous Delivery Foundation
+    role: cdf-landscape-listed
+    registered_name: Pulumi
+    registered_names:
+    - Pulumi
+    website: https://www.pulumi.com/
+    matched_domain: pulumi.com
+    matched_by: domain
+    member_tier: null
+    landscape_categories:
+    - Infrastructure Deployments / Automated Provisioning
+    cdf_projects: []
+    signal_note: 'participation only: CDF membership or a landscape listing is standard-participant evidence, never
+      depth; tier, categories and entries are context, never counted'
+    detected_by: sweep-jenkins-cd-foundation-plugins.py
+    detected: '2026-10-22'
+  detected_by: sweep-jenkins-cd-foundation-plugins.py
+  first_seen: '2026-10-22'
 source:
 - https://github.com/marketplace?type=actions
 - https://marketplace.visualstudio.com/vscode
